@@ -2,43 +2,37 @@
 
 ## Previous work
 
-ChatGPT 채팅 중심 개발 방식과 GitHub Single Source of Truth 운영체계를 확정했고, 현재까지 확정된 상위 기획 3문서를 저장소의 canonical 문서로 등록했다.
+상위 기획 01~03을 GitHub canonical 문서로 등록한 뒤, 기존 `04 사냥 실제 플레이 흐름 v1`을 새 상위 원칙에 맞춰 리비전했다.
 
-추가된 canonical 문서:
+현재 canonical 문서:
 
 - `docs/01_PROJECT_CORE.md`
 - `docs/02_EXPERIENCE_STRUCTURE.md`
 - `docs/03_HUNT_STORY.md`
+- `docs/04_HUNT_PLAYFLOW.md`
 
-## Current status
+## 04 리비전에서 확정한 핵심
 
-현재 상위 기획 기준은 GitHub 저장소에서 바로 읽을 수 있다.
-
-- 01 기본 아이디어·학습 방향 v3 → `docs/01_PROJECT_CORE.md`
-- 02 전체 체험 구조 v2 → `docs/02_EXPERIENCE_STRUCTURE.md`
-- 03 사냥 메인 서사 v2 → `docs/03_HUNT_STORY.md`
-
-다음 핵심 작업은 기존 `04 사냥 실제 플레이 흐름 v1`을 새 01~03 원칙에 맞춰 리비전하는 것이다.
+- 사냥은 전체 게임의 중심이 아니라 세 관점 중 먼저 구체화된 Vertical Slice다.
+- 공통 아침 / 사냥 고유 플레이 / 공통 저녁을 구분한다.
+- 공통 시스템과 사냥 전용 시스템의 경계를 명확히 한다.
+- `탐색 → 선택 → 액션 → 추적 → 위험` 리듬을 채집·머무는 역할에 복제하지 않는다.
+- 성공/실패 모두 정상적인 하루이며 공통 저녁으로 이어진다.
+- 사냥 끝에서는 이동 생활의 결론을 완성하지 않고 `더 멀리 감`이라는 변화 신호만 남긴다.
+- 다음 관점으로 `그동안 다른 사람들은 무엇을 하고 있었을까?`라는 질문을 열어 둔다.
+- 개발 세션에서 이미지를 생성하지 않고 필요한 자산 맥락만 기록한다.
 
 ## Next task
 
-다음 새 ChatGPT 세션에서는 다음 순서로 진행한다.
+다음 새 ChatGPT 세션의 핵심 작업은 **세 역할 핵심 경험 균형 설계**다.
 
-1. `AGENTS.md`, `PROJECT_STATUS.md`, `docs/00_DEVELOPMENT_WORKFLOW.md`, 이 파일을 먼저 읽는다.
-2. `docs/01_PROJECT_CORE.md`, `docs/02_EXPERIENCE_STRUCTURE.md`, `docs/03_HUNT_STORY.md`를 상위 기준으로 읽는다.
-3. 기존 `04 사냥 실제 플레이 흐름 v1`을 확보한다.
-4. 기존 04의 장점을 유지하면서 공통 아침 / 사냥 고유 플레이 / 공통 저녁의 경계를 명확히 하고, 사냥 플레이 문법이 다른 역할의 표준이 되지 않도록 리비전한다.
-5. 최종 결과를 `docs/04_HUNT_PLAYFLOW.md`로 확정한다.
+결과물:
 
-## Important decisions
+- `docs/05_ROLE_EXPERIENCE_MAP.md`
 
-- 개발의 주 작업 환경은 ChatGPT 채팅이다.
-- 새 채팅은 작업 책임 단위마다 만든다.
-- 프로젝트의 장기 기억은 GitHub 문서와 코드에 둔다.
-- 일반 개발 세션에서는 이미지 생성·외부 이미지 임의 다운로드를 하지 않는다.
-- 이미지는 기능 검증 후 별도 이미지 제작 파이프라인으로 만든다.
-- 이미지의 맥락은 개발 초기부터 `VISUAL_CONTEXT_BIBLE` 등에 축적한다.
-- 사냥은 전체 게임의 중심이 아니라 세 관점 중 먼저 구체화된 하나의 관점이다.
+이번 단계에서는 사냥을 더 확장하지 않고, 사냥·채집·머무는 역할 각각의 핵심 질문 / 핵심 행동 / 감정선 / 반드시 경험할 변화 / 역사적 의미 / 다른 역할과의 경계 / 공통 아침·저녁 연결점 / 며칠 변화에 제공하는 신호를 확정한다.
+
+채집과 머무는 역할의 상세 장면·대사·미니게임은 아직 만들지 않는다.
 
 ## Read first in the next session
 
@@ -49,3 +43,4 @@ ChatGPT 채팅 중심 개발 방식과 GitHub Single Source of Truth 운영체�
 5. `docs/01_PROJECT_CORE.md`
 6. `docs/02_EXPERIENCE_STRUCTURE.md`
 7. `docs/03_HUNT_STORY.md`
+8. `docs/04_HUNT_PLAYFLOW.md`
