@@ -175,9 +175,10 @@ morning → late-morning → midday
 
 ## Verification
 
-Stage 08-A 구현 코드 CI 성공 기록:
+Stage 08-A 최종 CI 성공 기록:
 
-- GitHub Actions run: `32671525020`
+- GitHub Actions run: `32671722477`
+- Workflow: `Project CI`
 - Node.js: 24.19.0
 - npm: 11.17.0
 - install: PASS
@@ -185,7 +186,7 @@ Stage 08-A 구현 코드 CI 성공 기록:
 - tests: PASS — 5 files / 17 tests
 - production build: PASS — Vite 8.2.2, 37 modules transformed
 
-최종 운영 문서/메타데이터까지 반영한 커밋은 다시 CI 검증한다.
+운영 문서, package Stage 08-A version, CI 표시명까지 반영한 커밋 기준으로 모두 검증했다.
 
 상세: `handoff/TEST_REPORT.md`
 

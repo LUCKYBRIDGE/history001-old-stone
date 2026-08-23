@@ -25,8 +25,8 @@ GitHub Actions Ubuntu runner:
 - npm: 11.17.0
 - Vite: 8.2.2
 - Vitest: 4.1.10
-- Workflow: `.github/workflows/ci.yml`
-- Stage 08-A implementation successful run: `32671525020`
+- Workflow: `.github/workflows/ci.yml` (`Project CI`)
+- Final successful run: `32671722477`
 - `.nvmrc`: Node 24
 - `package.json` engines: Node >= 24 / npm >= 11
 
@@ -184,10 +184,15 @@ Stage 07 첫 CI에서 Node 22 / npm 10.9.8의 npm Arborist `edgesOut` 내부 오
 
 ---
 
-## Current verdict
+## Final verdict
 
-**Stage 08-A implementation: PASS**
+**Stage 08-A: PASS**
 
-코드 구현 커밋은 GitHub Actions run `32671525020`에서 install → typecheck → 17 tests → production build를 모두 통과했다.
+운영 문서와 package version(`0.0.0-stage08a`), CI 표시명(`Project CI`)까지 반영된 커밋을 GitHub Actions run `32671722477`에서 검증했다.
 
-운영 문서 / package stage metadata / CI display name 갱신 뒤 동일 검증을 다시 수행해 최종 상태를 기록한다.
+- install: PASS
+- typecheck: PASS
+- 5 test files / 17 tests: PASS
+- production build: PASS
+
+Stage 08-A의 구현 및 자동 검증 대상은 충족했다. 실제 Hunt 후반부와 최종 RoleCompletion은 의도적으로 Stage 08-B에 남겨 두었다.

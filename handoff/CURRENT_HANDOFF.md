@@ -207,9 +207,10 @@ Hunt의 DayMoment가 Gather/Camp 시작 시간을 결정해서는 안 된다.
 
 ## Verification
 
-첫 Stage 08-A 코드 검증 성공:
+Stage 08-A 최종 검증 성공:
 
-- GitHub Actions run: `32671525020`
+- GitHub Actions run: `32671722477`
+- Workflow: `Project CI`
 - Node.js: 24.19.0
 - npm: 11.17.0
 - install: PASS
@@ -217,7 +218,7 @@ Hunt의 DayMoment가 Gather/Camp 시작 시간을 결정해서는 안 된다.
 - Vitest: PASS — 5 files / 17 tests
 - production build: PASS — Vite 8.2.2 / 37 modules transformed
 
-운영 문서와 메타데이터를 반영한 최종 커밋은 동일 CI로 다시 검증한다.
+운영 문서와 package Stage 08-A metadata, CI 표시명까지 반영한 상태를 검증했다.
 
 상세: `handoff/TEST_REPORT.md`
 
