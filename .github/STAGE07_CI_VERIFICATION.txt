@@ -1,1 +1,2 @@
 Temporary pull-request trigger for Stage 07 CI verification. Do not merge.
+Retry after CI runtime update to Node 24.
