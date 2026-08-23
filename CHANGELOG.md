@@ -16,6 +16,16 @@
 - `docs/05_ROLE_EXPERIENCE_MAP.md` — 세 역할 핵심 경험 맵 canonical 문서
 - `docs/05A_STAGE01-05_DESIGN_VALIDATION.md` — Stage 01~05 설계 검증 리포트
 - `docs/06_TECH_BLUEPRINT.md` — ChatGPT 채팅 중심 기술 설계 v1
+- Stage 07 React + TypeScript + Vite 실행 앱 골격
+- `src/app/` App / AppShell
+- `src/experience/` ExperienceOrchestrator / reducer / ExperiencePlan / 계약 / Common Experience / Integration
+- `src/roles/hunt`, `src/roles/gather`, `src/roles/camp` 독립 Role Feature placeholder
+- `src/roles/registry.ts` Role Registry
+- `src/persistence/experienceStorage.ts` schema-versioned localStorage adapter
+- `src/ui/` 최소 Shared UI primitive
+- `tests/unit/`, `tests/integration/` Stage 07 Guardrail 테스트
+- `.github/workflows/ci.yml` install → typecheck → test → build 자동 검증
+- `handoff/TEST_REPORT.md` Stage 07 실행 검증 기록
 
 ### Changed
 
@@ -53,4 +63,9 @@
 - Hunt에 맞춘 범용 `Scene Engine`을 먼저 만들지 않는 과설계 방지 원칙 확정
 - 최소 localStorage checkpoint 저장 구조와 개인정보 비저장 원칙 확정
 - Stage 07 Acceptance Criteria와 테스트 Guardrail 확정
-- 다음 핵심 작업을 **Stage 07 최초 앱 골격 구축**으로 갱신
+- Stage 07에서 `ExperiencePlan` 기반 역할 진행과 `RoleCompletion → Integration` 경로를 실제 코드로 고정
+- CommonMorning을 역할별 반복이 아닌 단일 공통 경험으로 구현하고 역할별 RoleEntry와 분리
+- PerspectiveBridge를 Role Feature와 Common Evening 사이의 실제 경계 컴포넌트로 구현
+- Common Evening을 세 역할 결과를 전달받는 Integration placeholder로 구현하고 점수표 구조를 배제
+- CI 검증 런타임을 Node 24로 설정하여 현재 npm CLI에서 install/typecheck/test/build 검증 완료
+- 다음 핵심 작업을 **Stage 08-A 사냥 Vertical Slice 전반 구현**으로 갱신
