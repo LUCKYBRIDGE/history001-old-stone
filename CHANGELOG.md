@@ -12,6 +12,7 @@
 - `docs/01_PROJECT_CORE.md` — 기본 아이디어·학습 방향 v3 canonical 문서
 - `docs/02_EXPERIENCE_STRUCTURE.md` — 구석기 전체 체험 구조 v2 canonical 문서
 - `docs/03_HUNT_STORY.md` — 사냥 역할 메인 서사 v2 canonical 문서
+- `docs/04_HUNT_PLAYFLOW.md` — 사냥 역할 실제 플레이 흐름 v2 canonical 문서
 
 ### Changed
 
@@ -19,4 +20,8 @@
 - 세션 전환 기준을 ‘대화 길이’가 아니라 ‘작업 책임 완료’로 변경
 - 세션 간 `LATEST_BUILD.zip` 전달 대신 GitHub 최신 소스를 기준으로 사용
 - 이미지 생성은 일반 개발 세션에서 분리하고, 시각 맥락을 초기부터 축적한 뒤 Functional Complete 이후 본격 제작하는 구조로 변경
-- 다음 핵심 작업을 `04_HUNT_PLAYFLOW` 리비전으로 갱신
+- 사냥 PLAYFLOW를 01 v3·02 v2·03 v2에 맞춰 리비전
+- 공통 아침 / 사냥 고유 플레이 / 공통 저녁의 경계를 명확히 분리
+- 사냥 플레이 문법을 채집·머무는 역할의 표준 템플릿으로 사용하지 않는 개발 경계 추가
+- 사냥 끝에서 이동 생활 결론을 완성하지 않고 `더 멀리 감`이라는 변화 신호만 남기도록 조정
+- 다음 핵심 작업을 `05_ROLE_EXPERIENCE_MAP` 작성으로 갱신
