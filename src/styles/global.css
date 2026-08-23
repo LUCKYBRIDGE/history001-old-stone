@@ -1,0 +1,155 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+  background: var(--color-bg);
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  color: var(--color-text);
+  background:
+    radial-gradient(circle at top, rgba(255, 255, 255, 0.7), transparent 40%),
+    var(--color-bg);
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button:focus-visible {
+  outline: 3px solid currentColor;
+  outline-offset: 3px;
+}
+
+.app-shell {
+  width: min(100% - 2rem, var(--content-width));
+  margin: 0 auto;
+  padding: var(--space-5) 0;
+}
+
+.app-shell__header,
+.app-shell__footer,
+.screen-region,
+.experience-toolbar {
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  border-radius: var(--radius);
+}
+
+.app-shell__header {
+  padding: var(--space-4);
+}
+
+.app-shell__header h1,
+.screen-region h2 {
+  margin-top: 0;
+}
+
+.app-shell__header p,
+.screen-region p {
+  line-height: 1.65;
+}
+
+.app-shell__main {
+  padding: var(--space-4) 0;
+}
+
+.app-shell__footer {
+  padding: var(--space-3);
+  color: var(--color-muted);
+  font-size: 0.9rem;
+}
+
+.eyebrow {
+  margin-bottom: var(--space-1);
+  color: var(--color-muted);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.experience-orchestrator {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.experience-toolbar {
+  display: flex;
+  min-height: 3.25rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  color: var(--color-muted);
+  font-size: 0.9rem;
+}
+
+.screen-region {
+  display: grid;
+  gap: var(--space-3);
+  padding: clamp(1.25rem, 3vw, 2rem);
+}
+
+.screen-region__description {
+  color: var(--color-muted);
+}
+
+.button-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.action-button {
+  min-height: 44px;
+  min-width: 44px;
+  border: 1px solid var(--color-action);
+  border-radius: 0.6rem;
+  padding: 0.75rem 1rem;
+  color: var(--color-action-text);
+  background: var(--color-action);
+  cursor: pointer;
+}
+
+.action-button:hover {
+  filter: brightness(1.08);
+}
+
+.action-button--secondary {
+  color: var(--color-action);
+  background: transparent;
+}
+
+@media (max-width: 560px) {
+  .app-shell {
+    width: min(100% - 1rem, var(--content-width));
+    padding: var(--space-3) 0;
+  }
+
+  .experience-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .action-button {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
