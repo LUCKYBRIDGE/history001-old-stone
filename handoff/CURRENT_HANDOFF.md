@@ -2,29 +2,44 @@
 
 ## Previous work
 
-**Stage 07 — 최초 실행 가능한 웹앱 골격 구축을 완료했다.**
+**Stage 08-A — 사냥 Vertical Slice 전반 구현을 완료했다.**
 
-Stage 06의 `docs/06_TECH_BLUEPRINT.md`를 기술 계약으로 사용해 React + TypeScript + Vite 앱, Experience Orchestrator, 세 Role Feature 슬롯, 공통 경험 연결, localStorage, 테스트 환경을 실제 코드로 만들었다.
+Stage 07의 실행 가능한 공통 골격 위에서 Hunt Feature 내부에 실제 전반부 플레이를 추가했다.
 
-실제 Hunt / Gather / Camp 콘텐츠는 아직 구현하지 않았다.
+현재 구현 범위:
+
+```text
+공통 아침
+→ Hunt RoleEntry
+→ 출발
+→ 흔적 탐색
+→ 단서 판단
+→ 발견
+→ 접근 판단
+→ 사냥 시도
+→ Stage 08-A 개발 체크포인트
+```
+
+Stage 08-B의 추적·위험·최종 결과·귀환은 아직 구현하지 않았다.
+
+---
 
 ## Current runnable state
 
-권장 개발 런타임:
+권장 환경:
 
 - Node.js 24
 - npm 11 이상
 - `.nvmrc` 제공
-- `package.json`에 engine / package manager 기대 버전 명시
 
-저장소 루트에서:
+실행:
 
 ```bash
 npm install
 npm run dev
 ```
 
-검증 명령:
+검증:
 
 ```bash
 npm run typecheck
@@ -32,227 +47,219 @@ npm test
 npm run build
 ```
 
-GitHub Actions에서도 동일한 install → typecheck → test → build 경로를 검증했다.
+---
 
-## Verification status
+## Stage 08-A Hunt implementation
 
-Stage 07 최종 CI 성공:
+핵심 파일:
 
-- Node.js 24.19.0
-- npm 11.17.0
-- dependency install: 성공
-- typecheck: 성공
-- Vitest: 성공 — 4 test files / 12 tests
-- production build: 성공 — Vite 8.2.2
-- GitHub Actions run: `32667661692`
+- `src/roles/hunt/HuntFeature.tsx`
+- `src/roles/hunt/huntTypes.ts`
+- `src/roles/hunt/huntContent.ts`
+- `src/roles/hunt/huntReducer.ts`
+- `src/roles/hunt/hunt.css`
 
-상세: `handoff/TEST_REPORT.md`
+테스트:
 
-검증용 임시 PR #1, #2는 CI 확인에만 사용했으며 **merge하지 않고 closed** 처리했다. 검증 브랜치는 최종적으로 main과 같은 기준으로 되돌린다.
+- `tests/unit/huntReducer.test.ts`
+- `tests/unit/HuntFeature.test.tsx`
 
-## Stage 07 implemented
-
-### App / Shell
-
-- `src/main.tsx`
-- `src/app/App.tsx`
-- `src/app/AppShell.tsx`
-
-최종 디자인이 아닌 CSS / 텍스트 placeholder 화면이다.
-
-### Experience
-
-- `src/experience/ExperienceOrchestrator.tsx`
-- `src/experience/experienceReducer.ts`
-- `src/experience/experienceTypes.ts`
-- `src/experience/experiencePlans.ts`
-
-Stage 07 phase:
+### Internal Hunt stages
 
 ```text
-start
-→ common-morning
-→ role-entry
-→ role-playing
-→ perspective-bridge
-→ 다음 role 또는 common-evening
+departure
+→ clue-search
+→ clue-choice
+→ discovery
+→ approach-choice
+→ hunt-attempt
+→ stage-08a-checkpoint
 ```
 
-### Contracts
+이 stage들은 **Hunt Feature 내부 구현 세부사항**이다.
 
-- `src/experience/contracts/role.ts`
-- `src/experience/contracts/time.ts`
+Common reducer / ExperienceState / Gather / Camp 계약으로 승격하지 않는다.
 
-공통 Role 계약은 최소한으로 유지한다.
+### Direct interaction 1 — clue search
 
-`RoleCompletion`은:
+주변 prototype 지점을 직접 관찰한다.
 
-- role id
-- completed
-- qualitative shared signals
-- role-owned detail
+- 흔적 가능성이 있는 지점
+- 흔적이 분명하지 않은 지점
 
-만 전달한다.
+모두 관찰 자체는 정상 행동이다.
 
-score / HP / EXP / rank / stars를 공통 계약에 넣지 않았다.
+하지 않는 것:
 
-### Role Registry / Features
+- 제한시간
+- 오답 카운트
+- 점수
+- GAME OVER
+- 반복 정답 맞히기
 
-- `src/roles/registry.ts`
-- `src/roles/hunt/HuntFeature.tsx`
-- `src/roles/gather/GatherFeature.tsx`
-- `src/roles/camp/CampFeature.tsx`
+### Judgment 1 — trail clue
 
-세 Feature는 서로 직접 import하지 않는다.
+직접 발견한 단서 중 하나를 더 살피기로 결정한다.
 
-현재 세 파일은 서로 독립된 **개발용 placeholder**다.
+정답/오답이 아니다.
 
-특히 Gather / Camp는 Hunt reducer나 Scene 모델을 상속하지 않는다.
+### Discovery
 
-### Common Experience
+탐색 뒤 사냥감을 발견하지만 아직 성공하지 않은 상태를 만든다.
 
-- `src/experience/common/CommonMorning/CommonMorning.tsx`
-- `src/experience/common/RoleEntry/RoleEntry.tsx`
-- `src/experience/common/PerspectiveBridge/PerspectiveBridge.tsx`
-- `src/experience/common/CommonEvening/CommonEvening.tsx`
-- `src/experience/integration/buildCommonEveningModel.ts`
+### Judgment 2 — approach
 
-`CommonMorning`은 한 번만 실행한다.
+prototype 선택:
 
-`PerspectiveBridge`는 역할 하나가 끝난 뒤 같은 하루의 다른 관점으로 넘어가는 경계다.
+- 기다리며 살피기
+- 조심스럽게 가까이 가기
+- 현재 조건에서 시도 준비
 
-`CommonEvening`은 점수표가 아니라 모든 required RoleCompletion을 공동체 하루로 합칠 Integration 지점이다.
+각 선택에는 이유와 대가가 있으며 `좋은 선택/나쁜 선택`으로 평가하지 않는다.
 
-### Persistence
+### Direct interaction 2 — hunt attempt
 
-- `src/persistence/experienceStorage.ts`
+학생이 실제 시도 버튼을 실행한다.
 
-`localStorage` schema version 1.
+조작 실력만으로 성공을 보장하지 않는다.
 
-저장하는 진행:
+현재 결과는 최종 성공/실패가 아니라 Stage 08-B의 추적·후속 판단으로 이어질 질적 상태다.
 
-- Experience phase
-- common morning 완료
-- completed roles
-- role completion results
+---
 
-checkpoint 중심으로 저장한다.
+## Important completion rule
 
-역할 내부 Scene / animation / 임시 UI 상태는 저장하지 않는다.
+**현재 HuntFeature는 Stage 08-A 끝에서 `onComplete`를 호출하지 않는다.**
 
-### Shared UI / styles
+이것은 버그가 아니라 의도된 경계다.
 
-- `src/ui/ActionButton/ActionButton.tsx`
-- `src/ui/ScreenRegion/ScreenRegion.tsx`
-- `src/styles/tokens.css`
-- `src/styles/global.css`
+Hunt의 핵심 의미에는 다음이 아직 남아 있다.
 
-기본 44px 터치 영역, keyboard focus, reduced-motion 대응만 포함한다.
+- 조금 더 추적할지 / 돌아갈지 판단
+- 자연 위험
+- 성공 또는 실패 결과 수용
+- 귀환 시작
+- 돌아가는 방향 판단
+- `“해가 지기 전에 돌아와.”`의 의미 변화
+- 불빛과 공동체로 복귀
 
-최종 아트는 없다.
+Stage 08-B에서 이것들을 완료한 뒤에만 `RoleCompletion`을 반환한다.
 
-## ExperiencePlan rule
+따라서 현재 production app이 Hunt Stage 08-A 체크포인트에서 더 진행되지 않는 것은 정상이다.
 
-Production Plan:
+---
 
-```ts
-requiredRoles: ['hunt', 'gather', 'camp']
-```
-
-현재 기본 configured order는 Hunt → Gather → Camp지만 **순서는 reducer에 하드코딩되어 있지 않다.**
-
-`ExperiencePlan.roleOrderPolicy`를 바꾸면 역할 Feature나 Common reducer를 수정하지 않고 순서를 변경할 수 있다.
-
-테스트에서 Gather → Camp → Hunt 순서를 검증했다.
-
-학생의 실제 플레이 순서가 역할 안의 `DayMoment` 또는 역사 속 시간의 다음 시점을 결정해서는 안 된다.
-
-## Architecture boundaries — do not break
+## Common architecture boundaries — preserve
 
 1. Common Shell / reducer에 Hunt-specific action을 추가하지 않는다.
 2. Hunt / Gather / Camp끼리 직접 import하지 않는다.
 3. Role Feature → ExperienceOrchestrator 역방향 import를 만들지 않는다.
-4. Shared UI가 특정 Role을 알게 하지 않는다.
-5. 역할 내부 Scene / minigame 상태를 `ExperienceState`로 올리지 않는다.
-6. Hunt의 플레이 리듬을 범용 Scene Engine으로 만들지 않는다.
-7. Gather / Camp를 Hunt 구조 복사본으로 시작하지 않는다.
+4. Shared UI가 Hunt를 알게 하지 않는다.
+5. Hunt stage / clue / approach 상태를 `ExperienceState`로 올리지 않는다.
+6. Hunt reducer를 범용 Scene Engine으로 일반화하지 않는다.
+7. Gather / Camp를 Hunt reducer 복사본으로 시작하지 않는다.
 8. RoleCompletion 기본 계약에 score / HP / EXP / ranking을 넣지 않는다.
-9. Common Evening을 역할 수치를 나란히 보여주는 결과표로 만들지 않는다.
-10. 플레이 순서와 같은 하루의 역사적 시간을 연결하지 않는다.
+9. Common Evening을 Hunt 결과표로 만들지 않는다.
+10. 학생의 플레이 순서와 같은 하루의 역사적 시간을 연결하지 않는다.
+
+---
+
+## Time model
+
+Hunt 내부에서 `DayMoment`를 다음 정도로만 사용한다.
+
+```text
+morning → late-morning → midday
+```
+
+이것은 Hunt 내부의 같은 하루 분위기 표현이다.
+
+Hunt의 DayMoment가 Gather/Camp 시작 시간을 결정해서는 안 된다.
+
+---
 
 ## Tests to preserve
 
-### `tests/unit/experienceReducer.test.ts`
+현재 전체 테스트는 5 files / 17 tests다.
 
-- start → common morning → role entry
-- qualitative role completion 저장
-- duplicate role completion 방지
-- 세 required role 완료 판정
-- configured role order 변경
-- reset
+### `tests/unit/huntReducer.test.ts`
 
-### `tests/unit/experienceStorage.test.ts`
-
-- 같은 plan의 checkpoint round-trip
-- 잘못된 저장 데이터 안전 무시
+- 중립적 관찰
+- 단서 관찰 gate
+- 실제 찾은 단서만 선택
+- 사냥 시도 후 Stage 08-A checkpoint
 
 ### `tests/unit/HuntFeature.test.tsx`
 
-- Hunt placeholder가 공통 RoleCompletion 반환
-- score / hp / xp가 기본 결과에 없음
+- 출발부터 첫 사냥 시도까지 실제 사용자 interaction
+- Stage 08-A에서 Hunt RoleCompletion 조기 호출 금지
+- 오답/점수/HP/EXP/랭킹/GAME OVER UI 없음
 
-### `tests/integration/ExperienceOrchestrator.test.tsx`
+### 기존 Stage 07 guardrails
 
-- App 렌더
-- CommonMorning 한 번
-- 세 역할 진입 및 completion 반환
-- PerspectiveBridge
-- 세 역할 결과 → CommonEvening
-- 역할 순서 변경
+- `tests/unit/experienceReducer.test.ts`
+- `tests/unit/experienceStorage.test.ts`
+- `tests/integration/ExperienceOrchestrator.test.tsx`
 
-## Current placeholders
+공통 아침, 역할 순서, Perspective Bridge, Common Evening Integration, persistence 경계를 계속 보호한다.
 
-다음은 의도적으로 미구현 상태다.
+---
 
-- Hunt 출발 / 흔적 탐색 / 발견 / 사냥 시도 / 추적 / 위험 / 귀환
-- Gather 실제 STORY / PLAYFLOW
-- Camp 실제 STORY / PLAYFLOW
-- Perspective Bridge 최종 텍스트 / 연출
-- Common Evening 실제 내러티브 Integration
-- 며칠 변화
-- 이동 / 새 거처
-- 최종 이미지 / 사운드
+## Verification
 
-## Known issues
+첫 Stage 08-A 코드 검증 성공:
 
-현재 Stage 07 완료를 막는 알려진 코드 문제는 없다.
+- GitHub Actions run: `32671525020`
+- Node.js: 24.19.0
+- npm: 11.17.0
+- install: PASS
+- typecheck: PASS
+- Vitest: PASS — 5 files / 17 tests
+- production build: PASS — Vite 8.2.2 / 37 modules transformed
 
-첫 CI에서 Node 22에 포함된 npm 10.9.8의 Arborist `edgesOut` 내부 오류로 dependency install이 실패했지만, Node 24 / npm 11로 변경한 뒤 동일 프로젝트 install/typecheck/test/build가 모두 성공했다.
+운영 문서와 메타데이터를 반영한 최종 커밋은 동일 CI로 다시 검증한다.
 
-재발 방지를 위해 `.nvmrc`, `package.json.engines`, `package.json.packageManager`로 개발 런타임을 명시했다.
+상세: `handoff/TEST_REPORT.md`
+
+---
+
+## Assets
+
+최종 이미지 / 사운드는 아직 없다.
+
+Stage 08-A는 CSS / 텍스트 prototype으로 직접 조작과 진행 의미를 검증할 수 있으므로 새 `handoff/ASSET_REQUESTS.md`는 만들지 않았다.
+
+동물 종, 구체적 자연 환경, 최종 흔적 이미지, 인물 외형은 이후 역사·시각 맥락 검토 뒤 확정해야 한다.
+
+---
 
 ## Next task
 
-**Stage 08-A — 사냥 Vertical Slice 전반 구현.**
+**Stage 08-B — 사냥 Vertical Slice 후반 구현.**
 
-범위:
+`docs/04_HUNT_PLAYFLOW.md` 기준 핵심 범위:
 
 ```text
-공통 아침
-→ Hunt RoleEntry
-→ 출발
-→ 흔적 탐색
-→ 발견
-→ 사냥 시도
+장면 7  아직 끝나지 않았다 / 추적 상황
+장면 8  더 추적할까, 돌아갈까
+장면 9  자연의 위험
+장면 10 통제된 변주
+장면 11 오늘의 사냥 결과
+장면 12 귀환 시작
+장면 13 돌아가는 길 판단
+장면 14 아침의 말 회상
+장면 15 불빛 / 거처 복귀
+→ Hunt RoleCompletion
+→ Perspective Bridge
 ```
 
-Common Morning은 Stage 07 공통 컴포넌트를 유지하고, Hunt 고유 상태와 상호작용은 `src/roles/hunt/` 내부에서 구현한다.
+장면 16 Common Evening은 Hunt 전용 엔딩으로 만들지 않고 기존 공통 Integration 경계를 사용한다.
 
-Stage 08-B 범위인 추적 판단 / 자연 위험 / 성공·실패 / 귀환 / 최종 Common Evening까지 임의로 확장하지 않는다.
+---
 
 ## Read first in the next session
 
-다음 새 Stage 08-A 세션은 순서대로 읽는다.
+Stage 08-B 새 개발 세션은 다음 순서로 읽는다.
 
 1. `AGENTS.md`
 2. `PROJECT_STATUS.md`
@@ -265,13 +272,21 @@ Stage 08-B 범위인 추적 판단 / 자연 위험 / 성공·실패 / 귀환 / �
 9. `docs/05_ROLE_EXPERIENCE_MAP.md`
 10. `docs/06_TECH_BLUEPRINT.md`
 11. `src/experience/contracts/role.ts`
-12. `src/experience/experiencePlans.ts`
+12. `src/experience/contracts/time.ts`
 13. `src/experience/experienceReducer.ts`
 14. `src/experience/ExperienceOrchestrator.tsx`
-15. `src/roles/registry.ts`
-16. `src/roles/hunt/HuntFeature.tsx`
-17. Stage 07 tests
+15. `src/roles/hunt/huntTypes.ts`
+16. `src/roles/hunt/huntContent.ts`
+17. `src/roles/hunt/huntReducer.ts`
+18. `src/roles/hunt/HuntFeature.tsx`
+19. `tests/unit/huntReducer.test.ts`
+20. `tests/unit/HuntFeature.test.tsx`
+21. 기존 Stage 07 guardrail tests
 
-## Stage 08-A first implementation rule
+## Stage 08-B first implementation rule
 
-Hunt를 구현하기 전에 `docs/04_HUNT_PLAYFLOW.md`의 Stage 08-A 범위를 Hunt Feature 내부 상태/화면/상호작용 단위로 매핑하되, 그 매핑을 Common reducer나 Gather / Camp 계약으로 승격하지 않는다.
+Stage 08-A의 `stage-08a-checkpoint`를 시작점으로 이어가되, **추적/위험/귀환 로직은 Hunt reducer 내부에만 추가한다.**
+
+Hunt 결과는 숫자 점수가 아니라 공통 저녁에 의미 있게 전달할 수 있는 질적 `RoleCompletion.detail`과 `SharedSignal`로 설계한다.
+
+성공과 실패 모두 정상적으로 귀환하고 같은 Perspective Bridge로 연결되어야 한다.

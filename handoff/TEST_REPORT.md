@@ -2,19 +2,23 @@
 
 ## Scope
 
-Stage 07 — 최초 실행 가능한 React + TypeScript 웹앱 골격 검증.
+Stage 08-A — 사냥 Vertical Slice 전반 구현 검증.
 
 검증 대상:
 
 - dependency install
 - TypeScript typecheck
-- Vitest unit / integration tests
+- 기존 Stage 07 architecture guardrails
+- Hunt 내부 reducer 진행
+- Hunt 실제 UI interaction
+- Hunt 조기 RoleCompletion 방지
 - Vite production build
-- Stage 07 architecture guardrails
+
+---
 
 ## Environment
 
-최종 성공 검증은 GitHub Actions Ubuntu runner에서 수행했다.
+GitHub Actions Ubuntu runner:
 
 - OS: Ubuntu 24.04.4 LTS
 - Node.js: 24.19.0
@@ -22,11 +26,13 @@ Stage 07 — 최초 실행 가능한 React + TypeScript 웹앱 골격 검증.
 - Vite: 8.2.2
 - Vitest: 4.1.10
 - Workflow: `.github/workflows/ci.yml`
-- Successful run ID: `32667661692`
-- Repository runtime hint: `.nvmrc` = Node 24
+- Stage 08-A implementation successful run: `32671525020`
+- `.nvmrc`: Node 24
 - `package.json` engines: Node >= 24 / npm >= 11
 
-## Commands executed
+---
+
+## Commands
 
 ```bash
 npm install --no-audit --no-fund
@@ -35,145 +41,153 @@ npm test
 npm run build
 ```
 
+---
+
 ## Results
 
 ### dependency install
 
 **PASS**
 
+- 106 packages installed
+
 ### typecheck
 
 **PASS**
-
-Command:
-
-```bash
-npm run typecheck
-```
-
-Implementation:
 
 ```bash
 tsc --noEmit
 ```
 
-### unit / integration test
+### tests
 
 **PASS**
 
-- Test files: 4 passed / 4
-- Tests: 12 passed / 12
+- Test files: 5 passed / 5
+- Tests: 17 passed / 17
 
-Files:
+Breakdown:
 
-- `tests/unit/experienceReducer.test.ts` — 6 tests
-- `tests/unit/experienceStorage.test.ts` — 2 tests
-- `tests/unit/HuntFeature.test.tsx` — 1 test
-- `tests/integration/ExperienceOrchestrator.test.tsx` — 3 tests
-
-검증 내용:
-
-1. 앱 렌더링
-2. start → Common Morning
-3. Common Morning 완료 → Role Entry
-4. Role Feature completion 반환
-5. completion 상위 ExperienceState 반영
-6. Perspective Bridge 진행
-7. 역할 순서 변경 가능
-8. 세 required role 완료 구분 및 판정
-9. 세 RoleCompletion이 Common Evening Integration으로 전달
-10. duplicate role completion 방지
-11. localStorage checkpoint round-trip / invalid data 안전 무시
-12. reset
-13. Hunt placeholder result에 score / hp / xp 기본 필드 없음
-14. Common Evening이 총점 / 랭킹 결과표로 렌더링되지 않음
+- `tests/unit/experienceReducer.test.ts` — 6
+- `tests/unit/experienceStorage.test.ts` — 2
+- `tests/unit/huntReducer.test.ts` — 4
+- `tests/unit/HuntFeature.test.tsx` — 2
+- `tests/integration/ExperienceOrchestrator.test.tsx` — 3
 
 ### production build
 
 **PASS**
 
-Command:
-
-```bash
-npm run build
-```
-
-실행 내용:
-
 ```bash
 tsc --noEmit && vite build
 ```
 
-최종 성공 검증에서 Vite production build까지 정상 완료했다.
+Vite result:
 
-## Initial CI failure and correction
+- Vite 8.2.2
+- 37 modules transformed
+- `dist/index.html` generated
+- CSS/JS bundles generated
 
-첫 CI는 Node 22.23.2 / npm 10.9.8 환경에서 dependency install 도중 npm Arborist 내부 오류로 실패했다.
+---
 
-```text
-Cannot read properties of null (reading 'edgesOut')
-```
+## Stage 08-A behavior verification
 
-이 시점에는 typecheck / test / build가 실행되지 않았다.
+### PASS — Hunt state remains role-internal
 
-CI 런타임을 Node 24 / npm 11로 변경한 뒤 install → typecheck → test → build가 모두 성공했다.
+- `huntReducer` exists under `src/roles/hunt/`
+- Common `experienceReducer` unchanged in gameplay responsibility
+- Common reducer has no Hunt clue/approach/attempt events
 
-같은 문제가 다음 세션에서 반복되지 않도록 최종 저장소에는 다음을 명시했다.
+### PASS — departure
 
-- `.nvmrc`: Node 24
-- `package.json.packageManager`: npm 11.17.0
-- `package.json.engines.node`: >= 24
-- `package.json.engines.npm`: >= 11
+- 공동체의 여러 일 중 사냥 역할로 출발
+- `“해가 지기 전에 돌아와.”` 모티프 존재
 
-최종 판정은 성공 런 `32667661692`을 기준으로 한다.
+### PASS — clue search direct interaction
 
-## Architecture verification
+- 학생이 주변 지점을 직접 관찰
+- 단서가 없는 지점도 neutral observation으로 처리
+- 오답 counter 없음
+- 제한시간 없음
+- GAME OVER 없음
+
+### PASS — clue judgment
+
+- 최소 관찰 전에는 다음 단계로 이동하지 않음
+- 실제 찾은 단서만 선택 가능
+- 정답/오답 UI 없음
+
+### PASS — discovery / approach judgment
+
+- 발견과 성공을 분리
+- 기다림 / 접근 / 현재 조건 시도 준비의 세 판단 제공
+- 각 선택을 점수나 평가 문구로 채점하지 않음
+
+### PASS — hunt attempt direct interaction
+
+- 학생이 실제 사냥 시도를 실행
+- 조작 성공을 곧바로 최종 사냥 성공으로 만들지 않음
+- 접근 판단에 따라 서로 다른 질적 상황으로 이어짐
+
+### PASS — Stage 08-A boundary
+
+- 첫 사냥 시도 후 `stage-08a-checkpoint`
+- `HuntFeature`가 `onComplete`를 호출하지 않음
+- Stage 08-B의 추적·위험·귀환을 건너뛰지 않음
+
+### PASS — prohibited systems absent
+
+자동 UI 테스트에서 다음이 나타나지 않음을 확인:
+
+- 점수
+- HP
+- EXP
+- 랭킹
+- GAME OVER
+
+범용 Scene Engine도 추가하지 않았다.
+
+---
+
+## Existing architecture verification
 
 ### PASS — Common Shell / Role Feature separation
 
-- `src/experience/`와 `src/roles/*` 물리적 분리
-- Common reducer에 Hunt-specific event 없음
-- Role Feature가 ExperienceOrchestrator를 import하지 않음
+- Hunt / Gather / Camp 독립
+- 역할 간 직접 import 없음
+- Role Feature → ExperienceOrchestrator 역방향 import 없음
 
-### PASS — Role order is configurable
+### PASS — Role order remains configurable
 
-- `ExperiencePlan.roleOrderPolicy`
-- 테스트에서 Gather → Camp → Hunt 순서 적용 확인
+- `ExperiencePlan.roleOrderPolicy` 유지
+- 기존 reorder test 통과
 
-### PASS — all required roles
+### PASS — Common Morning / Perspective Bridge / Common Evening guardrails
 
-- production plan은 Hunt / Gather / Camp 모두 required
-- `areAllRequiredRolesCompleted`로 완료 판정
+- 기존 integration tests 전부 통과
+- Common Morning 단일 실행 구조 유지
+- Common Evening score table 없음
 
-### PASS — same-day time separation
+### PASS — localStorage guardrail
 
-- Experience progress와 `DayMoment` 계약 분리
-- 역할 완료 순서가 다음 Role의 역사적 시작 시간을 갱신하는 전역 로직 없음
+- 기존 checkpoint round-trip / malformed data tests 통과
+- Hunt 중간 scene state를 공통 persistence에 억지로 올리지 않음
 
-### PASS — Common Evening Integration boundary
+---
 
-- `RoleCompletion → buildCommonEveningModel → CommonEvening`
-- 역할 detail을 Common Shell에서 해석하지 않음
-- score table 없음
+## Prior environment issue retained for reference
 
-### PASS — Hunt does not become the engine
+Stage 07 첫 CI에서 Node 22 / npm 10.9.8의 npm Arborist `edgesOut` 내부 오류가 있었고, Node 24 / npm 11로 변경한 뒤 해결됐다.
 
-- Hunt / Gather / Camp는 각각 별도 Feature component
-- Gather / Camp가 Hunt reducer / type / Scene 구조를 import하지 않음
-- 범용 Scene Engine 없음
+현재 `.nvmrc`, `package.json.engines`, `packageManager` 설정은 그대로 유지한다.
 
-### PASS — UI baseline
+---
 
-- CSS / text placeholder only
-- 최종 이미지 / 사운드 없음
-- 핵심 버튼 44px 이상
-- keyboard focus 표시
-- reduced-motion 처리
+## Current verdict
 
-## Final Stage 07 test verdict
+**Stage 08-A implementation: PASS**
 
-**PASS**
+코드 구현 커밋은 GitHub Actions run `32671525020`에서 install → typecheck → 17 tests → production build를 모두 통과했다.
 
-Stage 07 Acceptance Criteria 중 구현 및 자동 검증 대상은 현재 코드/CI에서 충족했다.
-
-실제 Hunt 교육 경험·UX의 품질 검증은 Stage 08/09 범위다.
+운영 문서 / package stage metadata / CI display name 갱신 뒤 동일 검증을 다시 수행해 최종 상태를 기록한다.

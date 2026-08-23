@@ -1,6 +1,41 @@
 # CHANGELOG.md
 
-## Unreleased
+## Stage 08-A — Hunt front-half Vertical Slice
+
+### Added
+
+- `src/roles/hunt/huntTypes.ts` — Hunt 전반부 내부 stage / clue / approach / attempt outcome 타입
+- `src/roles/hunt/huntContent.ts` — Hunt 전반부 prototype 관찰 지점·단서·접근 선택·질적 결과 문구
+- `src/roles/hunt/huntReducer.ts` — Hunt 전용 내부 reducer
+- `src/roles/hunt/hunt.css` — Hunt 역할 전용 prototype 스타일
+- `tests/unit/huntReducer.test.ts` — Hunt 내부 상태 Guardrail 4 tests
+- 실제 Hunt 전반부 상호작용: 출발 → 흔적 탐색 → 단서 판단 → 발견 → 접근 판단 → 사냥 시도
+- Stage 08-A 개발 체크포인트
+
+### Changed
+
+- `HuntFeature` placeholder를 실제 Stage 08-A interaction으로 교체
+- `HuntFeature` 테스트를 실제 user-event 경로 2 tests로 확장
+- Hunt 내부에서 `DayMoment`를 morning → late-morning → midday로 사용
+- 첫 사냥 시도 뒤 Hunt를 조기 완료하지 않고 Stage 08-B를 기다리도록 변경
+- AppShell의 단계 표기를 Stage 08-A로 갱신
+- 앱 시작 설명을 현재 Hunt 전반부 prototype 상태에 맞게 갱신
+- `package.json` version을 `0.0.0-stage08a`로 갱신
+- GitHub Actions workflow 표시명을 단계 종속적인 `Stage 07 CI`에서 `Project CI`로 변경
+- 다음 핵심 작업을 **Stage 08-B 사냥 Vertical Slice 후반 구현**으로 갱신
+
+### Verified
+
+- Node.js 24.19.0 / npm 11.17.0
+- install PASS
+- typecheck PASS
+- Vitest 5 files / 17 tests PASS
+- Vite production build PASS
+- Stage 08-A implementation run: `32671525020`
+
+---
+
+## Unreleased / Stage 07 and earlier
 
 ### Added
 
@@ -25,7 +60,7 @@
 - `src/ui/` 최소 Shared UI primitive
 - `tests/unit/`, `tests/integration/` Stage 07 Guardrail 테스트
 - `.github/workflows/ci.yml` install → typecheck → test → build 자동 검증
-- `handoff/TEST_REPORT.md` Stage 07 실행 검증 기록
+- `handoff/TEST_REPORT.md` 실행 검증 기록
 
 ### Changed
 
@@ -68,4 +103,3 @@
 - PerspectiveBridge를 Role Feature와 Common Evening 사이의 실제 경계 컴포넌트로 구현
 - Common Evening을 세 역할 결과를 전달받는 Integration placeholder로 구현하고 점수표 구조를 배제
 - CI 검증 런타임을 Node 24로 설정하여 현재 npm CLI에서 install/typecheck/test/build 검증 완료
-- 다음 핵심 작업을 **Stage 08-A 사냥 Vertical Slice 전반 구현**으로 갱신

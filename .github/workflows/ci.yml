@@ -1,4 +1,4 @@
-name: Stage 07 CI
+name: Project CI
 
 on:
   push:
