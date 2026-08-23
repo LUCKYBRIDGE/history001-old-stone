@@ -93,8 +93,8 @@ export function ExperienceOrchestrator({
           title="앱 시작"
           description={
             <p>
-              Stage 07에서는 실제 게임 콘텐츠가 아니라 세 역할을 안전하게 연결하는
-              실행 구조를 검증합니다.
+              현재 빌드는 공통 경험 구조를 유지하면서 사냥 관점의 전반부 상호작용을
+              검증합니다.
             </p>
           }
         >
