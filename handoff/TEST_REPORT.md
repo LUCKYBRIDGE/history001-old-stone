@@ -22,7 +22,9 @@ Stage 07 — 최초 실행 가능한 React + TypeScript 웹앱 골격 검증.
 - Vite: 8.2.2
 - Vitest: 4.1.10
 - Workflow: `.github/workflows/ci.yml`
-- Successful run ID: `32667498541`
+- Successful run ID: `32667661692`
+- Repository runtime hint: `.nvmrc` = Node 24
+- `package.json` engines: Node >= 24 / npm >= 11
 
 ## Commands executed
 
@@ -38,8 +40,6 @@ npm run build
 ### dependency install
 
 **PASS**
-
-- 106 packages installed
 
 ### typecheck
 
@@ -104,13 +104,7 @@ npm run build
 tsc --noEmit && vite build
 ```
 
-결과:
-
-- 34 modules transformed
-- `dist/index.html` 생성
-- CSS bundle 생성
-- JS bundle 생성
-- Vite build 완료
+최종 성공 검증에서 Vite production build까지 정상 완료했다.
 
 ## Initial CI failure and correction
 
@@ -122,14 +116,16 @@ Cannot read properties of null (reading 'edgesOut')
 
 이 시점에는 typecheck / test / build가 실행되지 않았다.
 
-CI 런타임을 Node 24로 변경한 뒤:
+CI 런타임을 Node 24 / npm 11로 변경한 뒤 install → typecheck → test → build가 모두 성공했다.
 
-- Node 24.19.0
-- npm 11.17.0
+같은 문제가 다음 세션에서 반복되지 않도록 최종 저장소에는 다음을 명시했다.
 
-환경에서 dependency install부터 production build까지 모두 통과했다.
+- `.nvmrc`: Node 24
+- `package.json.packageManager`: npm 11.17.0
+- `package.json.engines.node`: >= 24
+- `package.json.engines.npm`: >= 11
 
-따라서 최종 판정은 성공 런 `32667498541`을 기준으로 한다.
+최종 판정은 성공 런 `32667661692`을 기준으로 한다.
 
 ## Architecture verification
 
