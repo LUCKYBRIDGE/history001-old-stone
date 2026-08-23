@@ -15,6 +15,7 @@
 - `docs/04_HUNT_PLAYFLOW.md` — 사냥 역할 실제 플레이 흐름 v2 canonical 문서
 - `docs/05_ROLE_EXPERIENCE_MAP.md` — 세 역할 핵심 경험 맵 canonical 문서
 - `docs/05A_STAGE01-05_DESIGN_VALIDATION.md` — Stage 01~05 설계 검증 리포트
+- `docs/06_TECH_BLUEPRINT.md` — ChatGPT 채팅 중심 기술 설계 v1
 
 ### Changed
 
@@ -37,4 +38,19 @@
 - 머무는 역할의 `기다림 증가`를 독립적 이동 원인이 아니라 **사냥·채집의 생활 반경 확대가 공동체 생활에 주는 시간·불확실성의 부담**으로 재정의
 - 공통 저녁을 단순 결과 화면이 아니라 역할 경험이 공동체 이해로 합쳐지는 핵심 통합 장면으로 기술 설계 Guardrail에 추가
 - 사냥의 자연 위험 표현을 포식자 직접 등장에만 의존하지 않도록 구현 여지를 명확화
-- 다음 핵심 작업을 `06_TECH_BLUEPRINT` 작성으로 유지
+- Stage 06 기술 설계에서 React + TypeScript + Vite 기반의 서버리스 브라우저 앱 구조 확정
+- 초기 전역 상태는 React `useReducer` 중심으로 최소화하고 외부 상태 관리 프레임워크를 필수로 두지 않음
+- 아키텍처를 `App → Experience Orchestrator → Common Experience / Role Features → Shared UI`로 확정
+- Common Shell과 Hunt / Gather / Camp Feature의 의존성 경계를 확정하고 역할 간 직접 import를 금지
+- **학생의 실제 플레이 순서와 같은 하루의 역사적 시간 진행을 분리**하는 시간 모델 확정
+- 역할 순서를 코드에 하드코딩하지 않고 `ExperiencePlan`으로 required roles / 순서 정책을 분리
+- Production Plan은 세 역할 모두를 요구하고 Dev/Test Plan은 Vertical Slice를 위한 부분 역할 실행을 허용하도록 분리
+- 공통 아침은 한 번 실행하고 역할별 `RoleEntry`로 관점을 전환하는 구조 확정
+- 역할 종료와 최종 공통 저녁 사이에 `PerspectiveBridge` 경계를 두어 같은 하루의 다른 관점으로 연결하도록 설계
+- Common Evening을 결과 모달이 아닌 `Integration Feature`로 명시
+- Role Result를 점수가 아닌 의미 있는 qualitative signal 중심으로 전달하도록 계약 설계
+- Common reducer에서 역할별 Scene / interaction 상태를 제거하고 Feature 내부 상태로 한정
+- Hunt에 맞춘 범용 `Scene Engine`을 먼저 만들지 않는 과설계 방지 원칙 확정
+- 최소 localStorage checkpoint 저장 구조와 개인정보 비저장 원칙 확정
+- Stage 07 Acceptance Criteria와 테스트 Guardrail 확정
+- 다음 핵심 작업을 **Stage 07 최초 앱 골격 구축**으로 갱신
