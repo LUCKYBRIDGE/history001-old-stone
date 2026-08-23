@@ -1,0 +1,1 @@
+Temporary pull-request trigger for Stage 07 CI verification. Do not merge.
