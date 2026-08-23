@@ -2,11 +2,11 @@
 
 ## Current phase
 
-상위 기획 문서 01~05를 GitHub canonical 문서로 정리했고, **Stage 01~05 전체 설계 검증 리비전까지 완료한 상태**다.
+상위 기획 문서 01~05와 설계 검증 리비전을 완료했고, **Stage 06 기술 설계까지 완료한 상태**다.
 
-Stage 06 기술 설계에 진입할 수 있는 것으로 판정했다.
+다음 단계는 Stage 07 — 실제 실행 가능한 최소 웹앱 골격 구축이다.
 
-## Completed planning documents
+## Completed planning / architecture documents
 
 - `docs/01_PROJECT_CORE.md` — 기본 아이디어·학습 방향 v3
 - `docs/02_EXPERIENCE_STRUCTURE.md` — 전체 체험 구조 v2
@@ -14,19 +14,53 @@ Stage 06 기술 설계에 진입할 수 있는 것으로 판정했다.
 - `docs/04_HUNT_PLAYFLOW.md` — 사냥 역할 실제 플레이 흐름 v2
 - `docs/05_ROLE_EXPERIENCE_MAP.md` — 세 역할 핵심 경험 맵 v2
 - `docs/05A_STAGE01-05_DESIGN_VALIDATION.md` — Stage 01~05 설계 검증 리포트
+- `docs/06_TECH_BLUEPRINT.md` — ChatGPT 채팅 중심 기술 설계 v1
 
-## Stage 01~05 검증 결과
+## Stage 06에서 확정한 핵심
 
-전체 앱 방향은 유지한다.
+### 기술 스택
 
-- 프로젝트의 핵심 단위는 **하나의 공동체가 보내는 하루**다.
-- 사냥·채집·머무는 역할은 동등하지만 같은 플레이 문법을 사용하지 않는다.
-- 최종 체험의 기본값은 **한 학생이 세 역할을 모두 경험하는 것**이다.
-- 역할 순서와 화면 전환 UX는 이후 프로토타입에서 검증하며 특정 역할 순서를 기술 구조에 하드코딩하지 않는다.
-- 채집은 `주변 자원을 완전히 고갈시킨다`는 단순 인과가 아니라 **가까운 곳에서 먹을 것을 계속 똑같이 쉽게 얻을 수 없어 탐색 범위가 넓어지는 경험**으로 보정했다.
-- 머무는 역할은 독립적인 이동 원인을 하나 더 만드는 역할이 아니라 **넓어진 바깥 생활 반경이 거처와 공동체 생활에 주는 시간·기다림의 부담**을 체험시키는 관점으로 보정했다.
-- 공통 저녁은 결과표가 아니라 세 역할의 경험이 **공동체 이해로 합쳐지는 핵심 통합 장면**이다.
-- 사냥의 자연 위험은 포식자 직접 등장에만 의존하지 않고 거리·시간·소리·지형 등 다양한 조건으로 표현할 수 있게 열어 둔다.
+- React + TypeScript + Vite
+- 초기 상태 관리: React `useReducer` + 필요한 범위의 Context
+- 초기 서버 / 로그인 / DB / API 없음
+- Vitest + React Testing Library 기반 테스트
+- Hunt Vertical Slice 이후 Playwright E2E 확장 권장
+
+### 핵심 아키텍처
+
+- `App → Experience Orchestrator → Common Experience / Role Features → Shared UI`
+- Common Shell은 전체 진행만 관리하고 역할별 게임 루프를 알지 않는다.
+- Hunt / Gather / Camp는 독립 Feature다.
+- Role Feature는 내부 플레이를 스스로 관리하고 완료 시 의미 있는 `RoleCompletion`만 공통 흐름에 전달한다.
+- 역할 간 직접 import를 금지하고 결과 연결은 `RoleCompletion → Integration` 경로를 사용한다.
+
+### 같은 하루를 보호하는 시간 모델
+
+- **학생의 실제 플레이 순서와 게임 속 하루의 시간은 별개다.**
+- 사냥·채집·머무름은 순차적으로 플레이하더라도 역사 세계에서는 같은 날 병렬적으로 진행된 관점이다.
+- 역할 A가 오후에 끝났다는 이유로 역할 B가 오후부터 시작하지 않는다.
+- 역할 내부 시간은 공통 `DayMoment` 의미 체계를 사용할 수 있지만 각 Feature의 관점 시간으로 관리한다.
+
+### 세 역할 진행
+
+- production 경험은 Hunt / Gather / Camp 세 역할 모두 완료해야 한다.
+- 역할 순서는 코드에 하드코딩하지 않는다.
+- `ExperiencePlan`으로 required roles와 순서 정책을 분리한다.
+- 개발·테스트용 Plan은 Hunt-only 같은 부분 Vertical Slice를 허용할 수 있으나 production plan과 분리한다.
+
+### Common Morning / Evening
+
+- 공통 아침은 기본적으로 한 번만 실행한다.
+- 역할마다 짧은 `RoleEntry`로 관점을 전환한다.
+- 역할 완료 후 `PerspectiveBridge`를 통해 같은 하루의 다른 관점으로 연결한다.
+- 완전한 `CommonEvening`은 세 역할의 경험을 공동체 이해로 합치는 Integration Feature이며 결과표가 아니다.
+
+### 과설계 방지
+
+- 범용 Scene Engine을 먼저 만들지 않는다.
+- Hunt의 Scene 구조를 Gather / Camp에 강제하지 않는다.
+- 점수 / 별 / 랭킹 / EXP를 공통 Role Result 계약에 넣지 않는다.
+- Gather / Camp의 상세 PLAYFLOW가 나오기 전에 공통 자원·위험·성공률 필드를 미리 만들지 않는다.
 
 ## Development approach
 
@@ -39,9 +73,20 @@ Stage 06 기술 설계에 진입할 수 있는 것으로 판정했다.
 
 ## Next planned work
 
-1. `docs/06_TECH_BLUEPRINT.md` 작성 — ChatGPT 채팅 중심 실제 개발을 위한 최소 기술 설계
-2. 웹앱 골격 구축
-3. 사냥 Vertical Slice 개발·검증
+1. **Stage 07 — 최초 앱 골격 구축**
+   - Vite + React + TypeScript 프로젝트
+   - App Shell
+   - ExperienceOrchestrator
+   - ExperienceState / reducer
+   - ExperiencePlan
+   - Role 계약 / Role Registry
+   - CommonMorning / PerspectiveBridge / CommonEvening placeholder
+   - 세 Role Feature 슬롯
+   - 최소 localStorage adapter
+   - unit / integration tests
+   - CSS / 텍스트 placeholder
+2. Stage 08 — 사냥 Vertical Slice 개발
+3. Stage 09 — 사냥 UX 검증·수정
 4. 채집 STORY / PLAYFLOW 설계·구현
 5. 머무는 역할 STORY / PLAYFLOW 설계·구현
 6. 같은 하루 + 며칠 변화 통합
@@ -49,19 +94,21 @@ Stage 06 기술 설계에 진입할 수 있는 것으로 판정했다.
 8. 최종 이미지·사운드 제작 및 적용
 9. 학생 테스트 후 v1.0
 
-## Stage 06 필수 Guardrail
+## Stage 07 필수 Guardrail
 
-- Common Shell과 Hunt / Gather / Camp Feature를 분리한다.
-- Common Shell이 역할별 게임 루프를 규정하지 않는다.
-- 세 역할 모두를 경험할 수 있는 진행 상태를 지원한다.
+- Hunt-specific 로직을 Common reducer에 넣지 않는다.
 - 특정 역할 순서를 하드코딩하지 않는다.
-- 공통 저녁을 단순 `RoleResult` 화면으로 축소하지 않는다.
-- 역할 결과는 점수보다 이후 공통 경험에 필요한 의미 있는 상태만 전달한다.
-- Hunt 구현 편의를 위해 Gather / Camp 구조를 Hunt에 맞추지 않는다.
+- production plan은 세 역할 모두를 required role로 인식한다.
+- CommonMorning은 한 번만 실행 가능한 상태 구조를 만든다.
+- CommonEvening은 RoleResult 점수표가 아니라 Integration 지점으로 둔다.
+- 역할 내부 Scene / interaction 상태는 전역 상태에 넣지 않는다.
+- Gather / Camp를 Hunt 구조에 맞춰 placeholder부터 만들지 않는다.
+- 외부 이미지 다운로드·최종 이미지 생성 없이 CSS / 텍스트 placeholder만 사용한다.
 
 ## Do not start yet
 
-- 채집·머무는 역할의 상세 장면을 기술 설계보다 먼저 구현하기
+- Hunt 실제 PLAYFLOW 전체 구현(Stage 07 구조 검증 전)
+- 채집·머무는 역할 상세 구현
 - 최종 이미지 대량 제작
 - 최종 사운드 제작
 - 이동·새 거처 상세 구현
@@ -71,4 +118,4 @@ Stage 06 기술 설계에 진입할 수 있는 것으로 판정했다.
 
 전체 개발 단계와 산출물은 `docs/00_DEVELOPMENT_WORKFLOW.md`를 기준으로 한다.
 
-Stage 01~05의 최신 검증 결과는 `docs/05A_STAGE01-05_DESIGN_VALIDATION.md`를 함께 참고한다.
+Stage 07 구현 기준은 `docs/06_TECH_BLUEPRINT.md`를 최우선 기술 문서로 사용한다.
