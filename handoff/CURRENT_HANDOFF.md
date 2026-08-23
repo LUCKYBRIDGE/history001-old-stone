@@ -10,6 +10,13 @@ Stage 06의 `docs/06_TECH_BLUEPRINT.md`를 기술 계약으로 사용해 React +
 
 ## Current runnable state
 
+권장 개발 런타임:
+
+- Node.js 24
+- npm 11 이상
+- `.nvmrc` 제공
+- `package.json`에 engine / package manager 기대 버전 명시
+
 저장소 루트에서:
 
 ```bash
@@ -33,15 +40,15 @@ Stage 07 최종 CI 성공:
 
 - Node.js 24.19.0
 - npm 11.17.0
-- dependency install: 성공 — 106 packages
+- dependency install: 성공
 - typecheck: 성공
 - Vitest: 성공 — 4 test files / 12 tests
-- production build: 성공 — Vite 8.2.2, 34 modules transformed
-- GitHub Actions run: `32667498541`
+- production build: 성공 — Vite 8.2.2
+- GitHub Actions run: `32667661692`
 
 상세: `handoff/TEST_REPORT.md`
 
-검증용 임시 PR #1은 CI 확인 후 **merge하지 않고 closed** 처리했다.
+검증용 임시 PR #1, #2는 CI 확인에만 사용했으며 **merge하지 않고 closed** 처리했다. 검증 브랜치는 최종적으로 main과 같은 기준으로 되돌린다.
 
 ## Stage 07 implemented
 
@@ -220,9 +227,9 @@ requiredRoles: ['hunt', 'gather', 'camp']
 
 현재 Stage 07 완료를 막는 알려진 코드 문제는 없다.
 
-첫 CI에서 Node 22에 포함된 npm 10.9.8의 Arborist `edgesOut` 내부 오류로 dependency install이 실패했지만, CI 런타임을 Node 24 / npm 11로 변경한 뒤 동일 프로젝트 install/typecheck/test/build가 모두 성공했다.
+첫 CI에서 Node 22에 포함된 npm 10.9.8의 Arborist `edgesOut` 내부 오류로 dependency install이 실패했지만, Node 24 / npm 11로 변경한 뒤 동일 프로젝트 install/typecheck/test/build가 모두 성공했다.
 
-이 오류는 Stage 07 코드 오류로 남아 있지 않다.
+재발 방지를 위해 `.nvmrc`, `package.json.engines`, `package.json.packageManager`로 개발 런타임을 명시했다.
 
 ## Next task
 
