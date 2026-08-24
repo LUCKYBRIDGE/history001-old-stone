@@ -31,6 +31,8 @@ Stage 08-A 전반부에 추적·자연 위험·결과·귀환을 이어 붙여 *
 → Perspective Bridge
 ```
 
+다음 공식 단계는 **Stage 09-A — 교사 직접 플레이**다.
+
 ---
 
 ## Current runnable state
@@ -40,6 +42,7 @@ Stage 08-A 전반부에 추적·자연 위험·결과·귀환을 이어 붙여 *
 - Node.js 24
 - npm 11 이상
 - `.nvmrc` 제공
+- `package.json` version: `0.0.0-stage08b`
 
 실행:
 
@@ -56,7 +59,23 @@ npm test
 npm run build
 ```
 
-`package.json` version: `0.0.0-stage08b`
+---
+
+## Final verification
+
+Stage 08-B 코드, package metadata, 운영 문서를 포함한 최종 검증 성공:
+
+- GitHub Actions run: `32677268699`
+- Workflow: `Project CI`
+- OS: Ubuntu 24.04.4 LTS
+- Node.js: 24.19.0
+- npm: 11.17.0
+- install: PASS
+- typecheck: PASS
+- Vitest: PASS — **7 files / 25 tests**
+- production build: PASS — Vite 8.2.2 / 38 modules transformed
+
+상세: `handoff/TEST_REPORT.md`
 
 ---
 
@@ -71,9 +90,7 @@ npm run build
 - `src/roles/hunt/buildHuntCompletion.ts`
 - `src/roles/hunt/hunt.css`
 
-Hunt의 stage / clue / approach / tracking / danger / result / return 상태는 모두 Hunt 내부 구현이다.
-
-Common reducer는 Hunt 내부 진행을 모른다.
+Hunt의 stage / clue / approach / tracking / danger / result / return 상태는 모두 Hunt 내부 구현이다. Common reducer는 Hunt 내부 진행을 모른다.
 
 ### Stage 08-B internal stages
 
@@ -98,13 +115,11 @@ tracking-situation
 - 여기서 돌아가는 쪽을 생각한다.
 - 주변과 해의 위치를 한 번 더 확인한다.
 
-더 추적하는 경우 Hunt 내부의 `distanceBurden`과 `DayMoment`가 더 부담스러운 상태로 이동하지만, 이 값이 Gather/Camp 시작 시간에 영향을 주지 않는다.
+더 추적하는 경우 Hunt 내부의 `distanceBurden`과 `DayMoment`가 더 부담스러운 상태로 이동한다. 이 값은 Gather/Camp 시작 시간에 영향을 주지 않는다.
 
 ### Natural danger
 
-위험은 모든 후반 경로에서 경험한다.
-
-위험의 목적은 전투가 아니라 **자연 속 인간의 취약함 + 주변 판단 + 협력**이다.
+위험은 모든 후반 경로에서 경험한다. 목적은 전투가 아니라 **자연 속 인간의 취약함 + 주변 판단 + 협력**이다.
 
 허용된 대응:
 
@@ -128,23 +143,19 @@ tracking-situation
 - `food-secured`
 - `empty-handed`
 
-성공/빈손은 서로 다른 게임 엔딩이 아니다. 둘 다 귀환한다.
+성공/빈손은 서로 다른 게임 엔딩이 아니다. 둘 다 같은 귀환 흐름을 거친다.
 
-### Return
+### Return / motif / firelight
 
 결과 뒤 목표가 `획득`에서 `귀환`으로 바뀐다.
 
 학생은 큰 바위 / 물 흐름 / 능선 같은 자연 단서 중 하나를 기준으로 돌아갈 방향을 짧게 확인한다. 길찾기 실패 GAME OVER는 없다.
 
-### Motif / firelight
-
 귀환 중 다시:
 
 > **“해가 지기 전에 돌아와.”**
 
-가 등장한다.
-
-불빛 장면의 핵심은 사냥 성공보다 `돌아왔다.`는 안도와 공동체 감각이다.
+가 등장한다. 불빛 장면의 핵심은 사냥 성공보다 `돌아왔다.`는 안도와 공동체 감각이다.
 
 ---
 
@@ -186,7 +197,7 @@ Common Shell은 이 detail을 해석하지 않는다.
 8. RoleCompletion 기본 계약에 score / HP / EXP / ranking을 넣지 않는다.
 9. 자연 위험을 전투/적 HP/보스 구조로 확장하지 않는다.
 10. Common Evening을 Hunt 전용 엔딩이나 결과표로 만들지 않는다.
-11. 플레이 순서와 같은 하루의 역사적 시간을 연결하지 않는다.
+11. 학생의 플레이 순서와 같은 하루의 역사적 시간을 연결하지 않는다.
 
 ---
 
@@ -222,40 +233,21 @@ Common Shell은 이 detail을 해석하지 않는다.
 
 ---
 
-## Verification
-
-Stage 08-B 기능 구현 CI 성공:
-
-- Run: `32677132365`
-- Workflow: `Project CI`
-- Node.js: 24.19.0
-- npm: 11.17.0
-- install: PASS
-- typecheck: PASS
-- Vitest: PASS — 7 files / 25 tests
-- production build: PASS — Vite 8.2.2 / 38 modules transformed
-
-운영 문서 갱신 커밋도 동일 경로로 최종 검증한 뒤 `handoff/TEST_REPORT.md`에 최종 run을 고정한다.
-
----
-
 ## Assets
 
 최종 이미지 / 사운드는 아직 없다.
 
-Hunt v0.1 기능·UX는 CSS / 텍스트 prototype으로 직접 플레이할 수 있다. 따라서 이번 개발 세션에서는 새 `handoff/ASSET_REQUESTS.md`를 만들지 않는다.
+Hunt v0.1 기능·UX는 CSS / 텍스트 prototype으로 직접 플레이할 수 있다. 따라서 Stage 08-B에서는 새 `handoff/ASSET_REQUESTS.md`를 만들지 않았다.
 
 구체 동물 종, 환경, 흔적 외형, 인물 외형은 역사·시각 맥락 검토 후 별도 공정에서 확정한다.
 
 ---
 
-## Next task
+## Next task — Stage 09-A
 
-**Stage 09-A — 교사 직접 플레이.**
+**교사가 브라우저에서 Hunt v0.1을 직접 플레이하고 관찰 메모를 남긴다. 이 단계에서는 새 기능을 먼저 추가하지 않는다.**
 
-이 단계에서는 새 기능을 먼저 추가하지 않는다.
-
-브라우저에서 Hunt v0.1을 직접 플레이하며 다음을 기록한다.
+관찰할 것:
 
 - 지루한 구간
 - 설명이 너무 긴 곳
@@ -268,17 +260,13 @@ Hunt v0.1 기능·UX는 CSS / 텍스트 prototype으로 직접 플레이할 수 
 - 동행자와 공동체의 존재가 느껴지는지
 - `“해가 지기 전에 돌아와.”`의 의미 변화가 느껴지는지
 
-교사 관찰 메모를 만든 후 Stage 09-B 새 QA 세션에서 분석한다.
+교사 관찰 메모를 만든 후 **Stage 09-B — Hunt UX 분석** 새 QA 세션에서 문제를 `유지 / 축소 / 수정 / 삭제`로 분류하고 `docs/07_HUNT_UX_REVIEW.md`를 작성한다.
 
-### Stage 09-B planned output
-
-- 관찰 문제를 `유지 / 축소 / 수정 / 삭제`로 분류
-- `docs/07_HUNT_UX_REVIEW.md` 작성
-- 승인된 수정만 Stage 09-C 개발 세션에서 반영
+승인된 수정만 Stage 09-C 개발 세션에서 반영한다.
 
 ---
 
-## Read first in the next development/QA session
+## Read first in the next QA session
 
 1. `AGENTS.md`
 2. `PROJECT_STATUS.md`
