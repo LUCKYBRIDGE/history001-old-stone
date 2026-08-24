@@ -1,6 +1,35 @@
 # TEST_REPORT.md
 
-## Scope
+## Latest verification — Stage 09-A playtest preparation
+
+Stage 09-A 준비 변경은 **문서/운영 상태 변경만 포함**하며 Hunt 런타임 코드는 수정하지 않았다.
+
+검증 대상:
+
+- `handoff/HUNT_PLAYTEST_NOTES.md` 추가 상태
+- `PROJECT_STATUS.md` Stage 09-A 진행 상태 전환
+- `handoff/CURRENT_HANDOFF.md` 플레이테스트 절차 갱신
+- `CHANGELOG.md` 기록
+- 기존 Stage 08-B 앱 기준선이 그대로 typecheck / test / build 되는지 확인
+
+### GitHub Actions
+
+- Run: **`32704510759`**
+- Workflow: `Project CI`
+- Node.js: 24.19.0
+- npm: 11.17.0
+- dependency install: **PASS**
+- typecheck: **PASS**
+- tests: **PASS — 7 files / 25 tests**
+- production build: **PASS**
+
+Stage 09-A 준비에서는 런타임 코드를 변경하지 않았으므로 테스트 개수와 기능 기준선은 Stage 08-B와 동일하다.
+
+---
+
+## Stage 08-B baseline — Hunt Vertical Slice v0.1
+
+### Scope
 
 Stage 08-B — Hunt Vertical Slice v0.1 최종 기능 검증.
 
@@ -21,7 +50,7 @@ Stage 08-B — Hunt Vertical Slice v0.1 최종 기능 검증.
 
 ## Environment
 
-최종 GitHub Actions Ubuntu runner:
+GitHub Actions Ubuntu runner:
 
 - OS: Ubuntu 24.04.4 LTS
 - Node.js: 24.19.0
@@ -29,13 +58,12 @@ Stage 08-B — Hunt Vertical Slice v0.1 최종 기능 검증.
 - Vite: 8.2.2
 - Vitest: 4.1.10
 - Workflow: `.github/workflows/ci.yml` (`Project CI`)
-- **Final successful run: `32677268699`**
+- Stage 08-B documented final run: `32677268699`
+- Stage 08-B final HEAD additional success run: `32677370024`
 - implementation run: `32677132365`
 - `.nvmrc`: Node 24
 - `package.json`: `0.0.0-stage08b`
 - engines: Node >= 24 / npm >= 11
-
-최종 run `32677268699`은 Stage 08-B 코드, package metadata 및 세션 종료 운영 문서가 반영된 브랜치 HEAD를 대상으로 실행했다.
 
 ---
 
@@ -50,7 +78,7 @@ npm run build
 
 ---
 
-## Final results — run 32677268699
+## Stage 08-B results
 
 ### dependency install
 
@@ -192,10 +220,10 @@ Stage 07 첫 CI의 Node 22 / npm 10.9.8 Arborist `edgesOut` 문제 때문에 프
 
 ---
 
-## Final verdict
+## Current verdict
 
-**Stage 08-B / Hunt Vertical Slice v0.1: PASS**
+**Stage 08-B / Hunt Vertical Slice v0.1 기능 기준선: PASS**
 
-최종 기준 run `32677268699`에서 install → typecheck → 25 tests → production build가 모두 성공했다.
+**Stage 09-A 플레이테스트 준비 상태: PASS**
 
-다음 공식 단계는 자동 기능 확장이 아니라 **Stage 09-A 교사 직접 플레이와 UX 관찰**이다.
+단, Stage 09-A 자체의 완료 판정은 자동 테스트가 아니라 **실제 교사 플레이와 `handoff/HUNT_PLAYTEST_NOTES.md`의 관찰 기록 작성**이 끝난 뒤에만 한다.
