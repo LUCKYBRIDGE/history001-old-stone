@@ -2,13 +2,13 @@
 
 ## Scope
 
-Stage 08-B — Hunt Vertical Slice v0.1 기능 검증.
+Stage 08-B — Hunt Vertical Slice v0.1 최종 기능 검증.
 
 검증 대상:
 
 - dependency install
 - TypeScript typecheck
-- Stage 07/08-A architecture guardrails
+- 기존 Stage 07/08-A architecture guardrails
 - Hunt 추적 판단
 - 비전투 자연 위험
 - 성공/빈손 질적 결과
@@ -21,7 +21,7 @@ Stage 08-B — Hunt Vertical Slice v0.1 기능 검증.
 
 ## Environment
 
-GitHub Actions Ubuntu runner:
+최종 GitHub Actions Ubuntu runner:
 
 - OS: Ubuntu 24.04.4 LTS
 - Node.js: 24.19.0
@@ -29,10 +29,13 @@ GitHub Actions Ubuntu runner:
 - Vite: 8.2.2
 - Vitest: 4.1.10
 - Workflow: `.github/workflows/ci.yml` (`Project CI`)
-- Stage 08-B implementation successful run: `32677132365`
+- **Final successful run: `32677268699`**
+- implementation run: `32677132365`
 - `.nvmrc`: Node 24
 - `package.json`: `0.0.0-stage08b`
 - engines: Node >= 24 / npm >= 11
+
+최종 run `32677268699`은 Stage 08-B 코드, package metadata 및 세션 종료 운영 문서가 반영된 브랜치 HEAD를 대상으로 실행했다.
 
 ---
 
@@ -47,13 +50,11 @@ npm run build
 
 ---
 
-## Results — implementation run 32677132365
+## Final results — run 32677268699
 
 ### dependency install
 
 **PASS**
-
-- 106 packages installed
 
 ### typecheck
 
@@ -67,8 +68,8 @@ tsc --noEmit
 
 **PASS**
 
-- Test files: 7 passed / 7
-- Tests: 25 passed / 25
+- Test files: **7 passed / 7**
+- Tests: **25 passed / 25**
 
 Breakdown:
 
@@ -91,7 +92,7 @@ tsc --noEmit && vite build
 Vite result:
 
 - Vite 8.2.2
-- 38 modules transformed
+- **38 modules transformed**
 - `dist/index.html` generated
 - CSS / JS bundles generated
 
@@ -117,7 +118,7 @@ Vite result:
 
 - `food-secured` 경로 존재
 - `empty-handed` 경로 존재
-- 두 경로 모두 `hunt-result` 이후 동일한 귀환 구조 사용
+- 두 경로 모두 동일한 귀환 구조 사용
 - 빈손도 실패 화면이나 GAME OVER가 아님
 
 ### PASS — return is part of Hunt completion
@@ -191,10 +192,10 @@ Stage 07 첫 CI의 Node 22 / npm 10.9.8 Arborist `edgesOut` 문제 때문에 프
 
 ---
 
-## Current verdict
+## Final verdict
 
-**Stage 08-B implementation: PASS**
+**Stage 08-B / Hunt Vertical Slice v0.1: PASS**
 
-기능 구현 커밋은 GitHub Actions run `32677132365`에서 install → typecheck → 25 tests → production build를 모두 통과했다.
+최종 기준 run `32677268699`에서 install → typecheck → 25 tests → production build가 모두 성공했다.
 
-운영 문서 갱신 커밋을 동일 CI로 다시 검증한 뒤 최종 successful run ID를 이 문서에 기록한다.
+다음 공식 단계는 자동 기능 확장이 아니라 **Stage 09-A 교사 직접 플레이와 UX 관찰**이다.
