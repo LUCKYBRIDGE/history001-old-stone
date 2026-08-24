@@ -1,5 +1,31 @@
 # CHANGELOG.md
 
+## Stage 09-A — Hunt teacher playtest preparation
+
+### Added
+
+- `handoff/HUNT_PLAYTEST_NOTES.md` — Hunt v0.1 교사 직접 플레이용 실행 절차·장면별 관찰표·UX 질문·문제 로그·완료 조건
+- 자연스러운 첫 플레이와 성공/빈손 비교를 분리한 2-round 플레이테스트 절차
+- `HUX-001` 형식의 문제 기록 규칙과 심각도 기준
+- 사냥 핵심 역사 경험 10개를 1~5점과 근거로 기록하는 전체 판정표
+
+### Changed
+
+- `PROJECT_STATUS.md`를 **Stage 09-A 진행 단계**로 전환
+- `handoff/CURRENT_HANDOFF.md`를 실제 교사 플레이 절차 중심으로 갱신
+- Stage 09-A 준비와 실제 관찰을 구분해, 기록지 작성 전에는 Stage 09-A를 완료로 판정하지 않도록 명시
+- Stage 09-A에서는 즉시 코드를 고치지 않고 관찰 사실을 먼저 수집하도록 규칙화
+- Stage 09-B는 실제 Stage 09-A 관찰을 입력으로만 시작하도록 경계 강화
+
+### Not changed
+
+- Hunt v0.1 런타임 코드
+- Common architecture
+- 자동 테스트
+- 최종 이미지 / 사운드
+
+---
+
 ## Stage 08-B — Hunt Vertical Slice v0.1
 
 ### Added
