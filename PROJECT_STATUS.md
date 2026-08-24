@@ -2,11 +2,11 @@
 
 ## Current phase
 
-**Stage 08-B — 사냥 Vertical Slice 후반 구현 완료. Hunt Vertical Slice v0.1 기능 구현 완료.**
+**Stage 08-B — 사냥 Vertical Slice 후반 구현 완료. Hunt Vertical Slice v0.1 기능 구현·검증 완료.**
 
-현재 실제 Hunt 역할은 공통 아침과 RoleEntry 이후 출발부터 귀환까지 플레이할 수 있고, **불빛을 보고 공동체로 실제 복귀한 뒤에만** `RoleCompletion`을 반환한다.
+현재 실제 Hunt 역할은 공통 아침과 RoleEntry 이후 출발부터 귀환까지 플레이할 수 있고, **불빛을 보고 공동체로 복귀한 뒤에만** `RoleCompletion`을 반환한다.
 
-구현된 전체 흐름:
+전체 흐름:
 
 ```text
 공통 아침
@@ -55,13 +55,13 @@ Common `ExperienceState`나 Common reducer에는 Hunt 내부 stage/event를 추�
 
 ### 추적 판단
 
-학생은 세 방향 가운데 판단한다.
+학생은 다음 가운데 판단한다.
 
 - 조금 더 흔적을 따라간다.
 - 여기서 돌아가는 쪽을 생각한다.
 - 주변과 해의 위치를 한 번 더 확인한다.
 
-어느 선택도 용기/겁, 정답/오답으로 채점하지 않는다. 더 추적하면 거리·시간 부담이 커지고, 돌아가는 판단은 추가 가능성을 놓는 대신 귀환을 우선하는 판단으로 다룬다.
+어느 선택도 용기/겁, 정답/오답으로 채점하지 않는다. 더 추적하면 Hunt 내부의 거리·시간 부담이 커진다.
 
 ### 자연의 위험
 
@@ -73,51 +73,34 @@ Common `ExperienceState`나 Common reducer에는 Hunt 내부 stage/event를 추�
 - 가까운 수풀의 큰 움직임
 - 지금까지와 다른 큰 흔적
 
-학생 대응 prototype:
+대응 prototype:
 
 - 사람들과 가까이 붙어 움직이기
 - 소리를 줄이고 조용히 거리 두기
 - 더 안전해 보이는 방향 살피기
 
-의도적으로 없는 것:
-
-- 싸운다 / 공격한다 / 처치한다
-- 적 HP
-- 전투 승패
-- 위험 대응 점수
-
-위험 대응 선택은 사냥 성공/실패를 채점하는 입력으로 사용하지 않는다.
+공격 / 처치 / 적 HP / 전투 승패 / 위험 대응 점수는 없다. 위험 대응 선택은 사냥 성공/실패를 채점하는 입력으로 사용하지 않는다.
 
 ### 사냥 결과
 
-결과는 점수나 엔딩 등급이 아니라 같은 하루의 두 질적 상태다.
+결과는 같은 하루의 두 질적 상태다.
 
 - `food-secured` — 공동체에 가져갈 먹을 것이 생김
 - `empty-handed` — 오늘 가져갈 사냥감 없이 돌아감
 
 두 결과 모두 정상적으로 귀환한다.
 
-### 귀환
+### 귀환 / 모티프 / 불빛
 
-사냥 결과가 정해진 뒤 목표를 `먹을 것을 구한다`에서 `사람들이 있는 곳으로 돌아간다`로 전환한다.
+사냥 결과 뒤 목표를 `먹을 것을 구한다`에서 `사람들이 있는 곳으로 돌아간다`로 전환한다.
 
-귀환은 별도 대형 길찾기 게임이 아니다. 지나오며 본 자연 단서 가운데 하나를 기준으로 방향을 확인하는 짧은 판단으로 구현했다.
+귀환은 대형 길찾기 게임이 아니다. 큰 바위 / 물 흐름 / 능선 같은 자연 단서 중 하나를 기준으로 방향을 확인한다. GAME OVER는 없다.
 
-- 큰 바위
-- 물의 흐름
-- 기억에 남은 능선
-
-어느 판단도 길을 잃어 GAME OVER로 이어지지 않는다.
-
-### 모티프 / 불빛
-
-해 질 무렵 아침의 말이 다시 등장한다.
+해 질 무렵 다시:
 
 > **“해가 지기 전에 돌아와.”**
 
-아침의 평범한 당부가 귀환 시점에는 `우리를 기다리는 사람들이 있다`는 의미로 바뀌도록 구성했다.
-
-마지막에는 불빛을 보고 `돌아왔다.`는 안도를 확인한다. 성공/빈손 어느 경로도 동일한 공동체 귀환 지점으로 온다.
+가 나타나고, 마지막 불빛 장면에서는 성공/빈손 어느 경로도 `돌아왔다.`는 안도와 공동체 복귀를 확인한다.
 
 ---
 
@@ -127,9 +110,9 @@ Common `ExperienceState`나 Common reducer에는 Hunt 내부 stage/event를 추�
 
 - `src/roles/hunt/buildHuntCompletion.ts`
 
-Hunt는 `firelight` 상태에 도달하기 전에는 완료 결과를 만들지 않는다.
+Hunt는 `firelight` 전에는 완료 결과를 만들지 않는다.
 
-공통으로 전달하는 신호는 수치가 아니라 질적 의미다.
+공통으로 전달하는 질적 신호:
 
 - 사냥 결과: 먹을 것 확보 또는 빈손
 - 자연 위험 경험
@@ -172,48 +155,37 @@ Shared UI
 
 ## Tests
 
-Stage 08-B에서 추가/확장:
+현재 전체 자동 테스트:
 
-- `tests/unit/huntReducer.test.ts` — 8 tests
-- `tests/unit/buildHuntCompletion.test.ts` — 2 tests
-- `tests/unit/HuntFeature.test.tsx` — 3 tests
-- `tests/integration/HuntVerticalSlice.test.tsx` — 1 real Hunt integration test
+- Test files: **7**
+- Tests: **25**
 
-기존 공통 Guardrail 테스트도 모두 유지한다.
+Hunt 관련:
 
-현재 전체:
+- `tests/unit/huntReducer.test.ts` — 8
+- `tests/unit/buildHuntCompletion.test.ts` — 2
+- `tests/unit/HuntFeature.test.tsx` — 3
+- `tests/integration/HuntVerticalSlice.test.tsx` — 1
 
-- Test files: 7
-- Tests: 25
-
-주요 검증:
-
-- 더 추적하면 Hunt 내부 거리·시간 부담 증가
-- 위험 대응이 사냥 성공/실패를 채점하지 않음
-- 먹을 것 확보 / 빈손 두 경로 모두 정상
-- 귀환 단서 판단 및 모티프 회상
-- 불빛 전에는 RoleCompletion 생성 금지
-- 실제 Hunt → Perspective Bridge → Common Evening 연결
-- score / HP / EXP / ranking / GAME OVER / 전투 선택 부재
-- 기존 역할 순서 / persistence / Common Evening Guardrail 유지
+기존 공통 reducer / persistence / Orchestrator tests도 모두 통과한다.
 
 ---
 
-## Verification
+## Final verification
 
-Stage 08-B 기능 구현 커밋 GitHub Actions 성공:
+최종 GitHub Actions 성공:
 
-- Run: `32677132365`
+- Run: **`32677268699`**
 - Workflow: `Project CI`
 - OS: Ubuntu 24.04.4 LTS
 - Node.js: 24.19.0
 - npm: 11.17.0
-- install: PASS — 106 packages
+- install: PASS
 - typecheck: PASS
-- tests: PASS — 7 files / 25 tests
-- production build: PASS — Vite 8.2.2, 38 modules transformed
+- tests: PASS — **7 files / 25 tests**
+- production build: PASS — Vite 8.2.2, **38 modules transformed**
 
-운영 문서 갱신 커밋도 동일 CI로 다시 검증한 뒤 최종 handoff에 기록한다.
+Stage 08-B 코드, `package.json` Stage 08-B metadata, 운영 문서가 반영된 상태를 검증했다.
 
 상세: `handoff/TEST_REPORT.md`
 
@@ -221,7 +193,7 @@ Stage 08-B 기능 구현 커밋 GitHub Actions 성공:
 
 ## Current unfinished work
 
-Hunt Vertical Slice v0.1의 기능 구현은 완료됐지만 다음은 아직 아니다.
+Hunt Vertical Slice v0.1 기능 구현은 완료됐지만 다음은 아직 아니다.
 
 - Stage 09 교사/학생 UX 검증과 수정
 - 최종 Hunt 대사·텍스트 다듬기
@@ -234,7 +206,7 @@ Hunt Vertical Slice v0.1의 기능 구현은 완료됐지만 다음은 아직 �
 - 이동 / 새 거처
 - 최종 시각 자산 체계
 
-현재 기능 검증은 CSS / 텍스트 prototype으로 가능하므로 새 최종 자산 요청은 아직 만들지 않았다.
+현재는 CSS / 텍스트 prototype으로 기능·UX 검증이 가능하므로 새 최종 자산 요청은 만들지 않았다.
 
 ---
 
@@ -242,16 +214,17 @@ Hunt Vertical Slice v0.1의 기능 구현은 완료됐지만 다음은 아직 �
 
 ### Stage 09-A — 교사 직접 플레이
 
-실제 브라우저에서 Hunt v0.1을 처음부터 끝까지 플레이하며 다음을 관찰한다.
+브라우저에서 Hunt v0.1을 처음부터 끝까지 플레이하며 다음을 관찰한다.
 
 - 지루한 구간
 - 너무 긴 설명
 - 이해하기 어려운 조작
 - 의미 없는 선택
 - 사냥 성공 편중
+- 빈손도 정상적인 하루로 느껴지는지
 - 귀환 의미가 충분한지
+- 자연 위험이 전투보다 취약함/판단으로 느껴지는지
 - 다른 사람들의 존재가 느껴지는지
+- `“해가 지기 전에 돌아와.”`의 의미 변화가 느껴지는지
 
-교사 관찰 메모를 만든 뒤 새 QA 세션에서 **Stage 09-B — Hunt UX 분석**으로 이어간다.
-
-Stage 09-B에서는 문제를 `유지 / 축소 / 수정 / 삭제`로 분류하고 `docs/07_HUNT_UX_REVIEW.md`를 만든다.
+교사 관찰 메모 이후 **Stage 09-B — Hunt UX 분석**에서 문제를 `유지 / 축소 / 수정 / 삭제`로 분류하고 `docs/07_HUNT_UX_REVIEW.md`를 만든다.
