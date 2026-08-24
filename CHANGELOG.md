@@ -1,28 +1,86 @@
 # CHANGELOG.md
 
-## Stage 09-A — Hunt teacher playtest preparation
+## Stage 09-B — Immersion & Narrative Foundation Revision
 
 ### Added
 
-- `handoff/HUNT_PLAYTEST_NOTES.md` — Hunt v0.1 교사 직접 플레이용 실행 절차·장면별 관찰표·UX 질문·문제 로그·완료 조건
-- 자연스러운 첫 플레이와 성공/빈손 비교를 분리한 2-round 플레이테스트 절차
-- `HUX-001` 형식의 문제 기록 규칙과 심각도 기준
-- 사냥 핵심 역사 경험 10개를 1~5점과 근거로 기록하는 전체 판정표
+- `docs/07_IMMERSION_NARRATIVE_BIBLE.md`
+  - 즉시 상황 진입
+  - 몸/감각
+  - 관계
+  - 생활 필요
+  - 행동으로 드러나는 정보
+  - 선택 결과감
+  - 시간·공간 연속성
+  - 감정/모티프 회수
+  - Opening / Embodiment / Relationship / Continuity / Learning Gate
+- `docs/08_HUNT_IMMERSION_REDESIGN.md`
+  - Hunt v0.2의 강화된 플롯
+  - Cold Open
+  - `같이 가자`
+  - 기다리는 사람
+  - 거처가 멀어지는 공간 연속성
+  - 발견 전 정적
+  - 랜드마크 회수
+  - 같은 불의 아침/저녁 의미 변화
+  - Stage 09-C 구현 우선순위
 
-### Changed
+### Revised
 
-- `PROJECT_STATUS.md`를 **Stage 09-A 진행 단계**로 전환
-- `handoff/CURRENT_HANDOFF.md`를 실제 교사 플레이 절차 중심으로 갱신
-- Stage 09-A 준비와 실제 관찰을 구분해, 기록지 작성 전에는 Stage 09-A를 완료로 판정하지 않도록 명시
-- Stage 09-A에서는 즉시 코드를 고치지 않고 관찰 사실을 먼저 수집하도록 규칙화
-- Stage 09-B는 실제 Stage 09-A 관찰을 입력으로만 시작하도록 경계 강화
+- `AGENTS.md` — 역할 빙의와 몰입을 최상위 Guardrail로 승격
+- `README.md` — 프로젝트를 역할 몰입형 역사 체험으로 명확화
+- `docs/00_DEVELOPMENT_WORKFLOW.md` — v2, 전체 미래 개발 계획 개편
+- `docs/01_PROJECT_CORE.md` — v4, `상황 → 행동 → 결과/감각 → 개념화` 학습 흐름 강화
+- `docs/02_EXPERIENCE_STRUCTURE.md` — v3, Common Morning을 Cold Open으로 재정의
+- `docs/03_HUNT_STORY.md` — v3, 관계·플롯·감정 회수 강화
+- `docs/04_HUNT_PLAYFLOW.md` — v3, 설명 카드형 진행에서 행동/세계 반응 중심으로 개편
+- `docs/05_ROLE_EXPERIENCE_MAP.md` — v3, Hunt/Gather/Camp 각각의 고유 몰입 문법 추가
+- `docs/05A_STAGE01-05_DESIGN_VALIDATION.md` — v2, HUX-001 이후 초기 설계 재검증
+- `docs/06_TECH_BLUEPRINT.md` — v2, Player-facing / Debug 분리와 몰입 테스트 전략 추가
+- `handoff/HUNT_PLAYTEST_NOTES.md` — v2, 첫 30초·관계·연속성·모티프 중심 QA로 확장
+- `handoff/HUNT_PLAYTEST_OBSERVATIONS.md` — HUX-001을 프로젝트 수준 핵심 문제로 승격
 
-### Not changed
+### Key decision
 
-- Hunt v0.1 런타임 코드
-- Common architecture
-- 자동 테스트
-- 최종 이미지 / 사운드
+- Hunt v0.1은 **Functional Complete**이지만 **Immersion Complete가 아님**.
+- 앞으로 역할 완료 정의를 Functional / Immersion / Production으로 분리.
+- 역할 개발 파이프라인을 다음으로 변경:
+
+```text
+Historical Core
+→ Role Identity
+→ STORY
+→ Immersion Script
+→ PLAYFLOW
+→ Functional Prototype
+→ Teacher Immersion Test
+→ Student Test
+→ Final Art/Sound
+→ Final QA
+```
+
+### Next
+
+- Stage 09-C — Hunt v0.2 immersive functional prototype 구현
+
+---
+
+## Stage 09-A — Teacher Playtest Preparation & First Critical Finding
+
+### Added
+
+- `handoff/HUNT_PLAYTEST_NOTES.md` 초기 플레이테스트 기록지
+- `handoff/HUNT_PLAYTEST_OBSERVATIONS.md`
+
+### Finding
+
+`HUX-001 — 시작 직후 역할 몰입 부족`
+
+교사 피드백:
+
+> “시작부터 몰입을 하게 할 무언가가 부족하다. 내가 정말 해당 상황, 해당 인물이 된 것 같은 느낌이 들게 해야 한다.”
+
+이 관찰이 Stage 09-B 전체 리비전의 직접 원인이 됨.
 
 ---
 
@@ -30,137 +88,70 @@
 
 ### Added
 
-- Hunt 후반부 실제 플레이: 추적 상황 → 추적 판단 → 자연 위험 → 결과 → 귀환 → 모티프 회상 → 불빛
-- `src/roles/hunt/buildHuntCompletion.ts` — 귀환 완료 후 질적 `RoleCompletion` 생성
-- Hunt 질적 상태: tracking choice / danger cue / danger response / final outcome / return landmark / distance burden
-- `tests/unit/buildHuntCompletion.test.ts` — 귀환 완료 전 completion 차단 및 질적 결과 계약 검증
-- `tests/integration/HuntVerticalSlice.test.tsx` — 실제 Hunt Feature가 불빛 이후 Perspective Bridge와 Common Evening 경계로 복귀하는 통합 테스트
+- 추적 상황 / 추적 판단
+- 자연 위험
+- 비전투 위험 대응
+- `food-secured` / `empty-handed`
+- 귀환
+- 모티프 회상
+- 불빛
+- `buildHuntCompletion.ts`
+- real Hunt integration test
 
-### Changed
+### Guardrails
 
-- Stage 08-A `stage-08a-checkpoint`를 제거하고 첫 사냥 시도에서 후반 추적 상황으로 실제 연결
-- `HuntFeature`를 출발부터 공동체 귀환까지 완결되는 Vertical Slice v0.1로 확장
-- `huntReducer`를 Hunt 전용 후반 상태와 이벤트로 확장하되 Common reducer는 변경하지 않음
-- 더 추적하는 선택에서 Hunt 내부 거리 부담과 DayMoment가 증가하도록 구현
-- 위험 대응은 비전투 판단으로 구현하고 사냥 성공/실패 채점 입력에서 분리
-- 사냥 결과를 `food-secured` / `empty-handed`의 질적 상태로 구현
-- 성공/빈손 두 경로 모두 동일한 귀환·불빛·Perspective Bridge 경계로 연결
-- `“해가 지기 전에 돌아와.”` 모티프를 귀환 구간에서 다시 사용
-- `package.json` version을 `0.0.0-stage08b`로 갱신
-- AppShell 표시를 `Stage 08-B · Hunt Vertical Slice v0.1`로 갱신
-- 다음 공식 작업을 **Stage 09-A 교사 직접 플레이**로 갱신
-
-### Verified
-
-- Node.js 24.19.0 / npm 11.17.0
-- install PASS
-- typecheck PASS
-- Vitest 7 files / 25 tests PASS
-- Vite production build PASS — 38 modules transformed
-- Stage 08-B implementation run: `32677132365`
-
----
-
-## Stage 08-A — Hunt front-half Vertical Slice
-
-### Added
-
-- `src/roles/hunt/huntTypes.ts` — Hunt 전반부 내부 stage / clue / approach / attempt outcome 타입
-- `src/roles/hunt/huntContent.ts` — Hunt 전반부 prototype 관찰 지점·단서·접근 선택·질적 결과 문구
-- `src/roles/hunt/huntReducer.ts` — Hunt 전용 내부 reducer
-- `src/roles/hunt/hunt.css` — Hunt 역할 전용 prototype 스타일
-- `tests/unit/huntReducer.test.ts` — Hunt 내부 상태 Guardrail 4 tests
-- 실제 Hunt 전반부 상호작용: 출발 → 흔적 탐색 → 단서 판단 → 발견 → 접근 판단 → 사냥 시도
-- Stage 08-A 개발 체크포인트
-
-### Changed
-
-- `HuntFeature` placeholder를 실제 Stage 08-A interaction으로 교체
-- `HuntFeature` 테스트를 실제 user-event 경로 2 tests로 확장
-- Hunt 내부에서 `DayMoment`를 morning → late-morning → midday로 사용
-- 첫 사냥 시도 뒤 Hunt를 조기 완료하지 않고 Stage 08-B를 기다리도록 변경
-- AppShell의 단계 표기를 Stage 08-A로 갱신
-- 앱 시작 설명을 현재 Hunt 전반부 prototype 상태에 맞게 갱신
-- `package.json` version을 `0.0.0-stage08a`로 갱신
-- GitHub Actions workflow 표시명을 단계 종속적인 `Stage 07 CI`에서 `Project CI`로 변경
-- 다음 핵심 작업을 **Stage 08-B 사냥 Vertical Slice 후반 구현**으로 갱신
+- score / HP / EXP / ranking 없음
+- 전투 시스템 없음
+- danger response가 Hunt 성공을 채점하지 않음
+- 성공/빈손 모두 귀환
+- firelight 이전 RoleCompletion 금지
+- Perspective Bridge 사용
 
 ### Verified
 
-- Node.js 24.19.0 / npm 11.17.0
-- install PASS
-- typecheck PASS
-- Vitest 5 files / 17 tests PASS
-- Vite production build PASS
-- Stage 08-A implementation run: `32671525020`
+- Node.js 24.19.0
+- npm 11.17.0
+- 7 test files / 25 tests PASS
+- production build PASS
+- implementation CI: `32677132365`
+- final recorded CI: `32677268699`
 
 ---
 
-## Unreleased / Stage 07 and earlier
+## Stage 08-A — Hunt Front Half
 
-### Added
+- 출발
+- 흔적 탐색
+- 단서 판단
+- 발견
+- 접근 판단
+- 사냥 시도
+- Hunt 내부 reducer/state 구축
+- 첫 사냥 시도에서 역할을 조기 완료하지 않도록 Guardrail 확립
 
-- GitHub Single Source of Truth 운영 원칙
-- `AGENTS.md` 프로젝트 작업 지침
-- `PROJECT_STATUS.md` 현재 진행 상태
-- `docs/00_DEVELOPMENT_WORKFLOW.md` ChatGPT 채팅 중심 전체 개발 워크플로우
-- `handoff/CURRENT_HANDOFF.md` 세션 간 인수인계 문서
-- `docs/01_PROJECT_CORE.md` — 기본 아이디어·학습 방향 v3 canonical 문서
-- `docs/02_EXPERIENCE_STRUCTURE.md` — 구석기 전체 체험 구조 v2 canonical 문서
-- `docs/03_HUNT_STORY.md` — 사냥 역할 메인 서사 v2 canonical 문서
-- `docs/04_HUNT_PLAYFLOW.md` — 사냥 역할 실제 플레이 흐름 v2 canonical 문서
-- `docs/05_ROLE_EXPERIENCE_MAP.md` — 세 역할 핵심 경험 맵 canonical 문서
-- `docs/05A_STAGE01-05_DESIGN_VALIDATION.md` — Stage 01~05 설계 검증 리포트
-- `docs/06_TECH_BLUEPRINT.md` — ChatGPT 채팅 중심 기술 설계 v1
-- Stage 07 React + TypeScript + Vite 실행 앱 골격
-- `src/app/` App / AppShell
-- `src/experience/` ExperienceOrchestrator / reducer / ExperiencePlan / 계약 / Common Experience / Integration
-- `src/roles/hunt`, `src/roles/gather`, `src/roles/camp` 독립 Role Feature placeholder
-- `src/roles/registry.ts` Role Registry
-- `src/persistence/experienceStorage.ts` schema-versioned localStorage adapter
-- `src/ui/` 최소 Shared UI primitive
-- `tests/unit/`, `tests/integration/` Stage 07 Guardrail 테스트
-- `.github/workflows/ci.yml` install → typecheck → test → build 자동 검증
-- `handoff/TEST_REPORT.md` 실행 검증 기록
+---
 
-### Changed
+## Stage 07 — App Skeleton
 
-- 기존 Codex 중심 개발 계획에서 **ChatGPT 채팅 중심 개발 방식**으로 전환
-- 세션 전환 기준을 ‘대화 길이’가 아니라 ‘작업 책임 완료’로 변경
-- 세션 간 `LATEST_BUILD.zip` 전달 대신 GitHub 최신 소스를 기준으로 사용
-- 이미지 생성은 일반 개발 세션에서 분리하고, 시각 맥락을 초기부터 축적한 뒤 Functional Complete 이후 본격 제작하는 구조로 변경
-- 사냥 PLAYFLOW를 01 v3·02 v2·03 v2에 맞춰 리비전
-- 공통 아침 / 사냥 고유 플레이 / 공통 저녁의 경계를 명확히 분리
-- 사냥 플레이 문법을 채집·머무는 역할의 표준 템플릿으로 사용하지 않는 개발 경계 추가
-- 사냥 끝에서 이동 생활 결론을 완성하지 않고 `더 멀리 감`이라는 변화 신호만 남기도록 조정
-- Stage 05에서 사냥·채집·머무는 역할의 핵심 질문, 행동, 감정선, 역사적 의미, 고유 경험, 침범 금지 영역을 확정
-- 역할 동등성을 동일 분량이 아니라 `각 역할이 빠지면 전체 역사 이해의 한 축이 사라지는가`로 판단하도록 기준 강화
-- 공통 시스템은 역할을 연결하는 Shell이고, 역할별 플레이 문법은 각 Feature가 독립적으로 책임진다는 기술 설계 경계 확정
-- Stage 01~05 전체 설계 검증을 수행하고 Stage 06 진입 가능 판정
-- `docs/05_ROLE_EXPERIENCE_MAP.md`를 v2로 리비전
-- 최종 체험의 기본값을 **한 학생이 사냥·채집·머무는 세 역할을 모두 경험하는 구조**로 명확화
-- 세 역할을 같은 하루의 독립 미니게임 세 개로 반복하지 않고, 역할을 하나씩 경험하며 같은 하루의 빈칸을 채우는 방향으로 정리
-- 채집의 `가까운 자원 감소`를 구체적인 자원 고갈 사실로 단정하지 않고 **가까운 곳에서 이전처럼 쉽게 먹을 것을 찾지 못해 탐색 범위가 넓어지는 체험**으로 보정
-- 머무는 역할의 `기다림 증가`를 독립적 이동 원인이 아니라 **사냥·채집의 생활 반경 확대가 공동체 생활에 주는 시간·불확실성의 부담**으로 재정의
-- 공통 저녁을 단순 결과 화면이 아니라 역할 경험이 공동체 이해로 합쳐지는 핵심 통합 장면으로 기술 설계 Guardrail에 추가
-- 사냥의 자연 위험 표현을 포식자 직접 등장에만 의존하지 않도록 구현 여지를 명확화
-- Stage 06 기술 설계에서 React + TypeScript + Vite 기반의 서버리스 브라우저 앱 구조 확정
-- 초기 전역 상태는 React `useReducer` 중심으로 최소화하고 외부 상태 관리 프레임워크를 필수로 두지 않음
-- 아키텍처를 `App → Experience Orchestrator → Common Experience / Role Features → Shared UI`로 확정
-- Common Shell과 Hunt / Gather / Camp Feature의 의존성 경계를 확정하고 역할 간 직접 import를 금지
-- **학생의 실제 플레이 순서와 같은 하루의 역사적 시간 진행을 분리**하는 시간 모델 확정
-- 역할 순서를 코드에 하드코딩하지 않고 `ExperiencePlan`으로 required roles / 순서 정책을 분리
-- Production Plan은 세 역할 모두를 요구하고 Dev/Test Plan은 Vertical Slice를 위한 부분 역할 실행을 허용하도록 분리
-- 공통 아침은 한 번 실행하고 역할별 `RoleEntry`로 관점을 전환하는 구조 확정
-- 역할 종료와 최종 공통 저녁 사이에 `PerspectiveBridge` 경계를 두어 같은 하루의 다른 관점으로 연결하도록 설계
-- Common Evening을 결과 모달이 아닌 `Integration Feature`로 명시
-- Role Result를 점수가 아닌 의미 있는 qualitative signal 중심으로 전달하도록 계약 설계
-- Common reducer에서 역할별 Scene / interaction 상태를 제거하고 Feature 내부 상태로 한정
-- Hunt에 맞춘 범용 `Scene Engine`을 먼저 만들지 않는 과설계 방지 원칙 확정
-- 최소 localStorage checkpoint 저장 구조와 개인정보 비저장 원칙 확정
-- Stage 07 Acceptance Criteria와 테스트 Guardrail 확정
-- Stage 07에서 `ExperiencePlan` 기반 역할 진행과 `RoleCompletion → Integration` 경로를 실제 코드로 고정
-- CommonMorning을 역할별 반복이 아닌 단일 공통 경험으로 구현하고 역할별 RoleEntry와 분리
-- PerspectiveBridge를 Role Feature와 Common Evening 사이의 실제 경계 컴포넌트로 구현
-- Common Evening을 세 역할 결과를 전달받는 Integration placeholder로 구현하고 점수표 구조를 배제
-- CI 검증 런타임을 Node 24로 설정하여 현재 npm CLI에서 install/typecheck/test/build 검증 완료
+- React + TypeScript + Vite
+- App / AppShell
+- ExperienceOrchestrator
+- Common Morning / RoleEntry / Perspective Bridge / Common Evening Integration boundary
+- Hunt / Gather / Camp Feature 경계
+- ExperiencePlan
+- localStorage adapter
+- Vitest / React Testing Library
+- GitHub Actions CI
+
+---
+
+## Stage 01~06 — Canonical Foundation
+
+- Project Core
+- Experience Structure
+- Hunt STORY
+- Hunt PLAYFLOW
+- Role Experience Map
+- Stage 01~05 validation
+- Tech Blueprint
+- GitHub SSOT / ChatGPT 책임 단위 개발 방식
