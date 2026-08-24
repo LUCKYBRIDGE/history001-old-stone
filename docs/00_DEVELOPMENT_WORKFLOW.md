@@ -1,951 +1,510 @@
 # 00_DEVELOPMENT_WORKFLOW.md
 
-# 구석기 역사 체험 웹게임 — ChatGPT 채팅 중심 개발 워크플로우
+# 구석기 역사 체험 웹게임 — 개발 워크플로우 v2
 
-이 문서는 프로젝트의 **개발 운영 계획, 세션 분리 원칙, 단계별 도구·입력·결과물, 이미지 제작 흐름**을 정의한다.
+이 문서는 **어떤 순서로 무엇을 만들고 어떤 품질 게이트를 통과해야 다음 단계로 가는지**를 정의한다.
 
-기획 세부 내용은 각 `docs/` 문서를 따르고, 이 문서는 **어떤 순서로 무엇을 만들어야 하는지**를 관리한다.
+기획 내용은 각 `docs/` 문서를 따른다.
 
 ---
 
-# 1. 전체 운영 원칙
+# 1. 운영 원칙
 
-## 1-1. GitHub가 단일 기준점이다
+## GitHub = Single Source of Truth
 
-- 프로젝트의 최신 기획 문서, 코드, 테스트 기록, 인수인계, 자산 명세는 모두 GitHub 저장소에 둔다.
-- 새 ChatGPT 세션에서 과거 대화를 기억하고 있다고 가정하지 않는다.
-- 새 세션은 항상 저장소의 최신 상태를 읽고 시작한다.
-- 별도의 `LATEST_BUILD.zip`을 세션 사이에 옮기는 방식은 사용하지 않는다. GitHub의 최신 코드가 빌드 기준이다.
+- 최신 기획, 코드, 테스트, 인수인계, 자산 계획은 GitHub에 둔다.
+- 새 ChatGPT 세션은 과거 채팅 기억이 아니라 저장소를 읽고 시작한다.
+- 별도 `LATEST_BUILD.zip`을 기준으로 삼지 않는다.
 
-## 1-2. 세션은 책임 단위로 나눈다
-
-세션이 너무 길어졌을 때만 새 채팅을 만드는 것이 아니라, **하나의 작업 책임이 끝날 때 새 세션으로 전환**한다.
+## 세션 = 책임 단위
 
 예:
 
-- 역할 균형 설계 세션
-- 기술 설계 세션
-- 사냥 전반 구현 세션
-- 사냥 후반 구현 세션
-- 사냥 UX 검증 세션
-- 채집 서사 세션
-- 채집 PLAYFLOW 세션
-- 채집 구현 세션
-- 이미지 아트 디렉션 세션
-- 이미지 QA 세션
+- 역할 STORY
+- 역할 Immersion Script
+- 역할 PLAYFLOW
+- 기능 구현
+- 교사 몰입 QA
+- 학생 테스트
+- 아트 디렉션
 
-한 세션에서 기획·개발·아트·QA를 한꺼번에 처리하지 않는다.
+한 세션에서 무관한 단계까지 무리하게 확장하지 않는다.
 
-## 1-3. 새 세션의 기본 읽기 순서
+## 새 세션 읽기 순서
 
 1. `AGENTS.md`
 2. `PROJECT_STATUS.md`
-3. 이 문서 `docs/00_DEVELOPMENT_WORKFLOW.md`
+3. `docs/00_DEVELOPMENT_WORKFLOW.md`
 4. `handoff/CURRENT_HANDOFF.md`
-5. 이번 작업에 직접 필요한 기획 문서
-6. 실제 개발 세션이라면 관련 코드와 테스트
-
-## 1-4. 작업 종료 시
-
-저장소를 변경한 세션은 다음 세션이 과거 대화를 몰라도 이어갈 수 있도록 상태를 남긴다.
-
-- `PROJECT_STATUS.md`
-- `CHANGELOG.md`
-- `handoff/CURRENT_HANDOFF.md`
-- 필요 시 `handoff/TEST_REPORT.md`
-- 필요 시 `handoff/KNOWN_ISSUES.md`
-- 필요 시 `handoff/ASSET_REQUESTS.md`
+5. 관련 canonical 문서
+6. 실제 개발이면 관련 코드/테스트
 
 ---
 
-# 2. 역할 분담
+# 2. 개발 파이프라인의 핵심 변경
 
-## ChatGPT 채팅
+Stage 09-A 플레이에서 `HUX-001 — 시작 직후 역할 몰입 부족`이 확인되었다.
 
-담당:
+따라서 앞으로 역할 개발은
 
-- 교육·역사 방향
-- 내러티브
-- PLAYFLOW
-- 시스템 설계
-- 실제 앱 코드 개발
-- 코드 리뷰와 수정
-- UX 분석
-- 시각 맥락 설계
-- 아트 디렉션
-- 이미지 제작용 Context Packet 작성
-- 이미지 QA
+## **STORY → PLAYFLOW → CODE**
 
-단, 한 세션에서는 지정된 역할만 맡는다.
+가 아니라
 
-## 이미지 생성 도구
+# **Historical Core → Role Identity → STORY → Immersion Script → PLAYFLOW → Functional Prototype → Teacher Immersion Test → Student Test → Final Art/Sound → Final QA**
 
-예:
+순서를 기본으로 한다.
 
-- ChatGPT 이미지 생성
-- Antigravity
-- 기타 선택한 이미지 생성 서비스
-
-담당:
-
-- 승인된 시각 맥락과 기준 이미지에 따라 실제 이미지 자산 제작
-
-이미지 생성 도구가 게임의 역사·서사·UX 방향을 임의로 결정하게 하지 않는다.
-
-## Google 이미지 등 외부 검색
-
-주 용도:
-
-- 역사적 환경·도구·자연물·시각 스타일 레퍼런스 조사
-
-최종 게임 자산으로 직접 사용하려면 별도의 권리 확인이 필요하다.
-
-## 교사
-
-담당:
-
-- 기획 승인
-- 직접 플레이
-- 이미지 승인
-- 학생 관찰
-- 최종 수정 우선순위 결정
-
-## 학생
-
-담당:
-
-- 실제 UX와 학습 효과 최종 검증
+몰입은 최종 미술 단계의 장식이 아니라 **기능 완성과 별도의 필수 품질 게이트**다.
 
 ---
 
-# 3. 단계별 전체 로드맵
+# 3. 공통 품질 게이트
 
-## Stage 01 — 프로젝트 코어
+## Historical Gate
 
-상태: 기존 기획 완료, canonical 정리 필요
+- 교과 사실 / 재구성 / 게임 장치를 구분
+- 불확실한 세부를 사실처럼 단정하지 않음
+
+## Role Identity Gate
+
+- 학생은 이 역할에서 누구인가?
+- 누구와 연결되어 있는가?
+- 지금 무엇이 필요한가?
+- 이 역할만의 Dramatic Question은 무엇인가?
+
+## Immersion Gate
+
+- 시작 20~30초 안에 장소·사람·생활 문제·첫 행동이 드러남
+- 개발 메타 UI가 학생 화면에 없음
+- 몸/감각 앵커 존재
+- 관계 인물 존재
+- 선택 뒤 세계가 반응
+- 시간·공간 연속성 존재
+- 앞의 모티프가 뒤에서 회수
+
+## Functional Gate
+
+- 진행 막힘 없음
+- 상태/계약/저장/역할 경계 정상
+- 자동 테스트 통과
+
+## Learning Gate
+
+- 학생이 설명을 외운 것이 아니라 플레이 경험을 근거로 역사적 이유를 말할 수 있음
+
+---
+
+# 4. Stage 01~08 — 완료된 기반
+
+## Stage 01 — Project Core
+
+결과물: `docs/01_PROJECT_CORE.md`
+
+현재 v4로 몰입/역할 빙의 원칙까지 확장.
+
+## Stage 02 — Experience Structure
+
+결과물: `docs/02_EXPERIENCE_STRUCTURE.md`
+
+현재 v3로 Cold Open, Perspective continuity, Common Evening 통합을 강화.
+
+## Stage 03 — Hunt STORY
+
+결과물: `docs/03_HUNT_STORY.md`
+
+현재 v3로 관계·플롯·감정 회수를 강화.
+
+## Stage 04 — Hunt PLAYFLOW
+
+결과물: `docs/04_HUNT_PLAYFLOW.md`
+
+현재 v3로 설명 카드형 진행을 줄이고 행동/반응 중심으로 강화.
+
+## Stage 05 — Role Experience Map
+
+결과물: `docs/05_ROLE_EXPERIENCE_MAP.md`
+
+현재 v3로 역할별 고유 몰입 문법까지 명시.
+
+## Stage 06 — Tech Blueprint
+
+결과물: `docs/06_TECH_BLUEPRINT.md`
+
+현재 v2로 Player-facing / Debug 분리, 몰입 UI, 테스트 전략을 추가.
+
+## Stage 07 — App Skeleton
+
+완료.
+
+- React + TypeScript + Vite
+- Experience Orchestrator
+- Common / Role Feature 경계
+- localStorage checkpoint
+- 테스트 / CI
+
+## Stage 08 — Hunt Vertical Slice v0.1
+
+완료.
+
+기능 흐름:
+
+**공통 아침 → Hunt → 추적/위험/결과 → 귀환 → 불빛 → RoleCompletion → Perspective Bridge**
+
+기능/아키텍처 기준선은 통과했지만 Stage 09 실제 플레이에서 몰입 문제를 발견했다.
+
+---
+
+# 5. Stage 09 — Hunt 몰입·서사 리빌드
+
+## Stage 09-A — 교사 첫 플레이 / 문제 발견
+
+상태: **진행됨 / 핵심 HUX-001 확인**
+
+확인된 핵심:
+
+> 시작부터 해당 상황·인물이 된 느낌이 부족함.
+
+기록:
+
+- `handoff/HUNT_PLAYTEST_NOTES.md`
+- `handoff/HUNT_PLAYTEST_OBSERVATIONS.md`
+
+이 관찰은 단순 문구 수정이 아니라 상위 설계 리비전을 요구하는 수준으로 판정한다.
+
+---
+
+## Stage 09-B — 몰입·내러티브 기반 재설계
+
+상태: **현재 문서 리비전 단계**
 
 결과물:
 
-- `docs/01_PROJECT_CORE.md`
+- `docs/07_IMMERSION_NARRATIVE_BIBLE.md`
+- `docs/08_HUNT_IMMERSION_REDESIGN.md`
+- `AGENTS.md` 몰입 Guardrail 강화
+- `docs/01~06` canonical 리비전
+- 향후 개발 로드맵 개편
 
-핵심:
+코드는 이 단계에서 먼저 고치지 않는다.
 
-- 교육 목표
-- 프로젝트 핵심 질문
-- 세 역할의 동등성
-- 역사적 사실 / 재구성 / 게임 구분
-- 이동 생활은 경험의 결론
+Acceptance:
+
+- 상위 문서 모두 역할 빙의 기준과 모순 없음
+- Hunt v0.2의 구현 우선순위가 구체적임
+- Gather/Camp가 Hunt 복사본이 되지 않을 몰입 기준이 존재
 
 ---
 
-## Stage 02 — 전체 경험 구조
+## Stage 09-C — Hunt v0.2 몰입 구현
 
-상태: 기존 기획 완료, canonical 정리 필요
+새 개발 세션.
+
+읽을 것:
+
+1. `AGENTS.md`
+2. `PROJECT_STATUS.md`
+3. `docs/01_PROJECT_CORE.md`
+4. `docs/02_EXPERIENCE_STRUCTURE.md`
+5. `docs/03_HUNT_STORY.md`
+6. `docs/04_HUNT_PLAYFLOW.md`
+7. `docs/06_TECH_BLUEPRINT.md`
+8. `docs/07_IMMERSION_NARRATIVE_BIBLE.md`
+9. `docs/08_HUNT_IMMERSION_REDESIGN.md`
+10. 현재 Hunt 코드/tests
+
+### P0
+
+- Player-facing에서 개발 메타 UI 제거/분리
+- Common Morning Cold Open
+- 시작 30초 내 감각 + 관계 + 첫 행동
+- `같이 가자` / `해가 지기 전에 돌아와` 관계 앵커
+- 거처가 멀어지는 공간 연속성
+
+### P1
+
+- 탐색 결과에 동행자/환경 반응
+- 발견 전 정적/시선 연출
+- 추적에서 시간·거리 부담 표현
+- 위험을 환경 신호 중심으로 강화
+- 결과 → 귀환 목표 전환 강화
+- 랜드마크 선행 노출 → 귀환 회수
+- 아침 불 → 저녁 불빛 회수
+
+### P2
+
+- student/debug mode separation 테스트
+- 핵심 E2E 경로
+
+결과: **Hunt v0.2 immersive functional prototype**
+
+---
+
+## Stage 09-D — 교사 재플레이 / 몰입 QA
+
+Hunt v0.2를 직접 플레이.
+
+반드시 측정:
+
+- 시작 30초 역할 빙의
+- 기억되는 사람
+- 개발 UI에 의한 몰입 깨짐
+- 텍스트 부담
+- 선택의 결과감
+- 거리/시간 체감
+- 자연 위험의 긴장과 비전투성
+- 성공/빈손 감정 균형
+- 귀환/불빛의 감정
+- 모티프 회수
+
+문제는 HUX ID로 기록.
+
+---
+
+## Stage 09-E — Hunt UX Review / 수정
 
 결과물:
 
-- `docs/02_EXPERIENCE_STRUCTURE.md`
+- `docs/09_HUNT_UX_REVIEW.md`
 
-핵심:
-
-**공통 아침 → 세 역할의 같은 하루 → 공통 저녁 → 며칠의 변화 → 이동 → 새 거처 → 역사 개념화**
-
----
-
-## Stage 03 — 사냥 메인 서사
-
-상태: 기존 기획 완료, canonical 정리 필요
-
-결과물:
-
-- `docs/03_HUNT_STORY.md`
-
-사냥은 전체 게임의 메인 스토리가 아니라 **세 관점 중 사냥 관점의 메인 서사**다.
-
----
-
-## Stage 04 — 사냥 실제 PLAYFLOW 리비전
-
-### 도구
-ChatGPT 새 기획 세션
-
-### 읽을 파일
-
-- `docs/01_PROJECT_CORE.md`
-- `docs/02_EXPERIENCE_STRUCTURE.md`
-- `docs/03_HUNT_STORY.md`
-- 기존 사냥 PLAYFLOW
-
-### 작업 순서
-
-1. 기존 PLAYFLOW의 유지/수정/추가/삭제 항목 분석
-2. 공통 경험과 사냥 고유 경험 분리
-3. v2 초안 작성
-4. 초안 자기비평
-5. 교사 승인 후 최종 정리
-
-### 반드시 반영할 것
-
-- 공통 아침 / 사냥 고유 플레이 / 공통 저녁 구분
-- 사냥의 흐름을 다른 역할의 기본 템플릿으로 만들지 않음
-- 성공과 실패 모두 정상 결과
-- 위험은 전투가 아님
-- `잡는다 → 돌아간다`로 목표 전환
-- 사냥 하나로 이동 생활을 결론내리지 않음
-
-### 결과물
-
-- `docs/04_HUNT_PLAYFLOW.md`
-
----
-
-## Stage 05 — 세 역할 핵심 경험 균형
-
-### 도구
-ChatGPT 새 기획 세션
-
-### 읽을 파일
-
-- `docs/01_PROJECT_CORE.md`
-- `docs/02_EXPERIENCE_STRUCTURE.md`
-- `docs/03_HUNT_STORY.md`
-- `docs/04_HUNT_PLAYFLOW.md`
-
-### 1차 작업
-
-사냥이 먼저 상세화된 탓에 채집·머무름이 보조 콘텐츠나 사냥 변형판이 될 위험을 분석한다.
-
-### 2차 작업
-
-세 역할 각각의 다음 항목을 확정한다.
-
-- 핵심 질문
-- 학생 핵심 행동
-- 감정선
-- 반드시 경험할 변화
-- 역사적 의미
-- 고유 플레이 감각
-- 다른 역할이 침범하면 안 되는 경험
-- 공통 아침 연결점
-- 공통 저녁 연결점
-- 며칠 변화에 제공하는 신호
-
-### 결과물
-
-- `docs/05_ROLE_EXPERIENCE_MAP.md`
-
-이 문서는 실제 앱 개발 전에 역할 경계를 잠그는 안전장치다.
-
----
-
-# 4. 실제 앱 개발 단계
-
-## Stage 06 — ChatGPT 개발용 기술 설계
-
-### 도구
-ChatGPT 새 기술 설계 세션
-
-### 읽을 파일
-
-- `AGENTS.md`
-- `docs/01_PROJECT_CORE.md`
-- `docs/02_EXPERIENCE_STRUCTURE.md`
-- `docs/04_HUNT_PLAYFLOW.md`
-- `docs/05_ROLE_EXPERIENCE_MAP.md`
-
-### 목표
-
-여러 새 ChatGPT 세션에서 이어서 개발해도 구조가 무너지지 않는 최소 기술 설계를 만든다.
-
-### 설계 대상
-
-- React + TypeScript 기반 브라우저 앱
-- 서버·로그인·DB 없이 동작하는 초기 구조
-- 공통 장면 진행
-- 역할 진입
-- 시간 변화
-- 역할 결과 전달
-- 공통 저녁
-- 역할 고유 상호작용 분리
-- 테스트 전략
-- 코드 변경 규칙
-- 추후 이미지 자산 연결 구조
-
-### 하지 않을 것
-
-- 범용 게임엔진 제작
-- 지나친 추상화
-- 이미지 제작
-- 전체 콘텐츠 구현
-
-### 결과물
-
-- `docs/06_TECH_BLUEPRINT.md`
-
----
-
-## Stage 07 — 최초 앱 골격 구축
-
-### 도구
-ChatGPT 새 개발 세션
-
-### 읽을 파일
-
-- `AGENTS.md`
-- `PROJECT_STATUS.md`
-- `docs/06_TECH_BLUEPRINT.md`
-- 필요한 상위 기획 문서
-
-### 목표
-
-실행 가능한 최소 웹앱 골격을 만든다.
-
-### 구현 범위
-
-- 앱 실행
-- 공통 화면 구조
-- 장면 진행 기반
-- 역할 진입 구조
-- 공통 상태 전달 기반
-- 테스트 기본 환경
-
-### 이미지
-
-- 최종 이미지 사용 금지
-- CSS / 단순 도형 / 텍스트 placeholder 사용
-
-### 결과물
-
-- 실제 소스코드
-- 테스트
-- `PROJECT_STATUS.md` 갱신
-- `handoff/CURRENT_HANDOFF.md` 갱신
-
----
-
-## Stage 08 — 사냥 Vertical Slice
-
-사냥 전체를 한 세션에서 만들지 않고 최소 두 개발 세션으로 나눈다.
-
-### 08-A 사냥 전반 구현
-
-범위:
-
-**공통 아침 → 역할 진입 → 출발 → 흔적 탐색 → 발견 → 사냥 시도**
-
-직접 조작해야 할 핵심 경험은 실제 상호작용으로 구현한다.
-
-금지:
-
-- HP
-- 점수
-- EXP
-- 랭킹
-- 전투 시스템
-- 이미지 생성
-
-필요한 이미지는 `handoff/ASSET_REQUESTS.md`에 기록한다.
-
-### 08-B 사냥 후반 구현
-
-범위:
-
-**추적 판단 → 자연 위험 → 성공/실패 → 귀환 → 불빛 → 공통 저녁**
-
-원칙:
-
-- 위험은 전투가 아님
-- 성공과 실패 모두 공통 저녁으로 귀환
-- 공통 저녁을 사냥 전용 엔딩으로 만들지 않음
-
-### 결과
-
-- Hunt Vertical Slice v0.1
-
----
-
-## Stage 09 — 사냥 UX 검증·수정
-
-### 09-A 교사 직접 플레이
-
-관찰:
-
-- 지루한 구간
-- 너무 긴 설명
-- 이해하기 어려운 조작
-- 의미 없는 선택
-- 사냥 성공 편중
-- 귀환 의미
-- 다른 사람의 존재감
-
-### 09-B UX 분석
-
-도구: ChatGPT 새 QA 세션
-
-읽을 자료:
-
-- `docs/01_PROJECT_CORE.md`
-- `docs/04_HUNT_PLAYFLOW.md`
-- `docs/05_ROLE_EXPERIENCE_MAP.md`
-- 교사 메모
-- 필요 시 스크린샷·영상
-
-문제를 다음으로 분류한다.
+문제 분류:
 
 - 유지
 - 축소
 - 수정
 - 삭제
 
-### 결과물
+승인된 항목만 코드 수정.
 
-- `docs/07_HUNT_UX_REVIEW.md`
-
-### 09-C 수정 개발
-
-새 개발 세션에서 리뷰의 승인 항목만 구현한다.
-
-결과:
-
-- Hunt v0.2
-
-기획 결정 자체가 달라졌을 때만 관련 기획 문서를 수정한다.
+결과: Hunt v0.3 candidate.
 
 ---
 
-# 5. 채집 역할
+## Stage 09-F — 소규모 학생 테스트
 
-## Stage 10-A — 채집 메인 서사
+교사 QA 뒤 실제 학생 대상으로 검증.
 
-### 도구
-ChatGPT 새 기획 세션
+관찰:
 
-### 읽을 파일
+- 설명 없이 역할 이해
+- 첫 행동 이해
+- 몰입을 깨는 문구/UI
+- 기억하는 인물/장면
+- 빈손 해석
+- `해가 지기 전에 돌아와` 의미
+- 사냥만이 전체 생활이라고 오해하는지
 
-- `docs/01_PROJECT_CORE.md`
-- `docs/02_EXPERIENCE_STRUCTURE.md`
-- `docs/05_ROLE_EXPERIENCE_MAP.md`
-
-사냥 상세 문서는 기본 입력에서 제외한다. 사냥의 플레이 감각에 끌려가는 것을 방지한다.
-
-### 핵심 감정
-
-**발견의 재미 → 익숙함 → 반복 → 가까운 자원의 감소 → 더 넓게 움직여야 함**
-
-### 결과
-
-- `docs/08_GATHER_STORY.md`
-
-## Stage 10-B — 채집 PLAYFLOW
-
-읽을 파일:
-
-- 01
-- 02
-- 05
-- `08_GATHER_STORY.md`
-
-결과:
-
-- `docs/08_GATHER_PLAYFLOW.md`
-
-## Stage 10-C — 채집 구현
-
-새 개발 세션에서 현재 코드에 추가한다.
-
-원칙:
-
-- 공통 시스템은 재사용 가능
-- 사냥 전용 인터랙션은 복제하지 않음
-- 필요한 이미지는 ASSET_REQUESTS에만 기록
-
-결과:
-
-- Hunt + Gather v0.3
+학생 테스트 전에 최종 아트를 필수로 하지 않는다. 필요한 경우 제한적 prototype asset을 사용할 수 있으나 역사 검토를 거친다.
 
 ---
 
-# 6. 머무는 사람 역할
+# 6. Stage 10 — Gather 개발
 
-## Stage 11-A — 메인 서사
+Hunt 코드를 복사해 시작하지 않는다.
 
-읽을 파일:
+## 10-A Historical / Narrative Research
 
-- 01
-- 02
-- 05
+- Gather가 담당할 교과·역사 범위 검토
+- 구체 먹을거리/식생 세부는 검증 후 사용
 
-핵심 감정:
+## 10-B Gather Role Identity + STORY
 
-**일상적인 일 → 해야 할 일의 우선순위 → 시간 흐름 → 기다림 → 작은 불확실성 → 해 질 무렵 긴장 → 귀환의 안도**
+결과물 예:
 
-결과:
+- `docs/10_GATHER_STORY.md`
 
-- `docs/09_CAMP_STORY.md`
+확정:
 
-## Stage 11-B — PLAYFLOW
+- Dramatic Question
+- 관계
+- 감정선
+- 역할 고유 변화
+- 다른 역할과의 연결
 
-결과:
+## 10-C Gather Immersion Script
 
-- `docs/09_CAMP_PLAYFLOW.md`
+장면별:
 
-## Stage 11-C — 구현
+- 위치
+- 감각
+- 관계
+- 행동
+- 반응
+- 공간 기억
+- 모티프
+
+## 10-D Gather PLAYFLOW
+
+Hunt와 다른 플레이 리듬을 설계.
+
+## 10-E Gather Vertical Slice
+
+Functional + Immersion Gate 둘 다 통과해야 함.
+
+## 10-F Teacher QA
+
+## 10-G Student Test / 수정
+
+---
+
+# 7. Stage 11 — Camp 개발
+
+동일한 품질 파이프라인을 사용하되 Hunt/Gather 플레이 문법은 복제하지 않는다.
+
+## 11-A Historical / Narrative Research
+
+## 11-B Camp Role Identity + STORY
 
 핵심:
 
 - 생활 유지
-- 시간 흐름
-- 기다림
-- 다른 사람의 결과를 알 수 없는 불확실성
-- 공통 저녁 연결
+- 같은 장소의 시간 변화
+- 밖에 나간 사람을 기다림
+- 불과 공동체
 
-사냥이나 채집의 이동·탐색 구조를 그대로 복제하지 않는다.
+## 11-C Camp Immersion Script
 
-결과:
+특히 `같은 장소가 시간에 따라 다르게 느껴지는 방법`을 집중 설계.
 
-- 세 역할 플레이 가능 v0.4
+## 11-D Camp PLAYFLOW
 
----
+## 11-E Camp Vertical Slice
 
-# 7. 하루 통합과 며칠의 변화
+## 11-F Teacher QA
 
-## Stage 12-A — 통합 설계
-
-### 도구
-ChatGPT 새 시스템·내러티브 설계 세션
-
-### 읽을 파일
-
-- 01
-- 02
-- 05
-- 최신 Hunt PLAYFLOW
-- Gather PLAYFLOW
-- Camp PLAYFLOW
-
-### 목표
-
-세 역할이 독립 미니게임 세 개가 아니라 **같은 공동체의 같은 하루**로 느껴지게 한다.
-
-설계:
-
-- 공통 아침
-- 역할 분기
-- 같은 시간대의 서로 다른 관점
-- 동일 사건의 관점 차이
-- 공통 저녁 결과 통합
-
-이후 같은 하루를 반복하지 않고 며칠의 시간을 압축한다.
-
-변화:
-
-- 사냥: 더 멀리 감
-- 채집: 가까운 자원이 감소
-- 머무름: 밖에 나간 사람들이 더 늦게 돌아옴
-
-학생이 설명을 듣기 전에 **“이곳에서 계속 살기 어려워지고 있다.”**고 느껴야 한다.
-
-### 결과
-
-- `docs/10_DAY_INTEGRATION.md`
-
-## Stage 12-B — 통합 구현
-
-개발 세션에서 공통 아침·저녁과 며칠 변화를 실제 앱에 구현한다.
-
-결과:
-
-- v0.6
+## 11-G Student Test / 수정
 
 ---
 
-# 8. 이동·새 거처와 기능 완성
+# 8. Stage 12 — 세 역할 통합 / Common Evening
 
-## Stage 13-A — 이동 PLAYFLOW
+세 역할의 실제 질적 결과가 모두 존재한 뒤 수행.
 
-### 도구
-ChatGPT 새 기획 세션
+## 12-A Perspective Bridge 통합
 
-### 읽을 파일
+- 같은 하루의 동시성
+- 같은 사람/불/해의 관점 전환
+- 역할 메뉴 느낌 제거
 
-- 01
-- 02
-- 05
-- `10_DAY_INTEGRATION.md`
+## 12-B Common Evening STORY
 
-### 핵심 경험
+공통 저녁을 결과표가 아니라 재회 장면으로 구현.
 
-**머무는 것도 어렵지만 떠나는 것도 쉽지 않다.**
+## 12-C Integration implementation
 
-포함:
+RoleCompletion sharedSignals를 공동체 이야기로 조합.
 
-- 떠날 필요가 생김
-- 방향 판단
-- 시간
-- 자연 위험
-- 함께 움직이는 어려움
-- 새 거처 후보의 장단점
-- 완벽한 정답 없음
+## 12-D Teacher / Student QA
 
-마지막:
+질문:
 
-**“오늘은 이곳에서 머문다.”**
-
-### 결과
-
-- `docs/11_MIGRATION_PLAYFLOW.md`
-
-## Stage 13-B — 구현
-
-처음부터 새로운 밤과 역사 개념화까지 전체 흐름을 구현한다.
-
-결과:
-
-- Functional Complete v0.7
-
-정의:
-
-**최종 그림은 없어도 게임이 처음부터 끝까지 플레이 가능하다.**
+> **“내 역할만이 하루의 전부가 아니었다”는 느낌이 드는가?**
 
 ---
 
-# 9. 시각 맥락은 개발 중부터 축적한다
+# 9. Stage 13 — 며칠의 변화
 
-이미지는 늦게 제작하지만 **이미지 제작에 필요한 맥락은 일찍부터 기록**한다.
+세 역할 신호가 반복되며 부담이 변하는 것을 보여준다.
 
-## `visual/VISUAL_CONTEXT_BIBLE.md`
+- Hunt: 거리/귀환 부담
+- Gather: 가까운 탐색 범위의 변화
+- Camp: 기다림/생활 부담
 
-사냥 프로토타입이 생기기 시작할 때 초안을 만들고 역할이 추가될 때마다 업데이트한다.
-
-기록:
-
-- 장소
-- 시간대
-- 등장인물 관계
-- 반복 오브젝트
-- 불의 의미
-- 해와 시간의 변화
-- 거리감
-- 감정
-- 학생이 관찰해야 할 핵심 정보
-- 역사적 제약
-- `[재구성]` 요소
-- 금지 요소
-
-## `visual/VISUAL_CONTINUITY_MAP.md`
-
-세 역할이 통합될 때 작성한다.
-
-목적:
-
-- 같은 시간에 각 역할이 어디에 있는지
-- 같은 장소가 역할별로 어떻게 이어지는지
-- 같은 불·해·거처·인물이 어떻게 일관되게 나타나는지
-- 이미지 AI가 독립 그림이 아닌 **같은 하루의 장면**을 만들게 하는 것
+단순 반복 플레이가 아니라 짧고 의미 있는 변화 표현을 설계한다.
 
 ---
 
-# 10. 최종 이미지 제작 파이프라인
+# 10. Stage 14 — 이동과 새 거처
 
-최종 이미지는 Functional Complete 이후 제작한다.
+## 14-A 이동 결정 STORY / Immersion Script
 
-## Stage 14-A — Art Direction Bible
+학생이 앞선 경험 때문에 이동 필요를 예상할 수 있어야 한다.
 
-### 도구
-ChatGPT 새 아트 디렉션 세션
+## 14-B 이동 PLAYFLOW
 
-### 읽을 자료
+- 무엇을 챙길지
+- 함께 이동
+- 익숙한 장소를 떠남
+- 새 장소 탐색
 
-- 01
-- 02
-- 05
-- `VISUAL_CONTEXT_BIBLE.md`
-- `VISUAL_CONTINUITY_MAP.md`
-- v0.7 실제 화면
-- `handoff/ASSET_REQUESTS.md`
+## 14-C 새 거처
 
-### 결정
-
-- 현실감 수준
-- 화풍
-- 색감
-- 조명
-- 인물 표현
-- 동물 표현
-- 폭력 수위
-- 카메라 거리
-- UI 여백
-- 시대 분위기
-- 초등학생 적합성
-
-### 결과
-
-- `visual/ART_DIRECTION_BIBLE.md`
-
-## Stage 14-B — Asset Spec
-
-각 자산마다 기록:
-
-- Asset ID
-- 사용 장면
-- 서사 기능
-- 시간대
-- 이전 장면
-- 다음 장면
-- 등장인물
-- 학생이 가장 먼저 보아야 할 것
-- 상호작용 여부
-- UI 여백
-- 연속성 조건
-- 역사 제약
-- 피해야 할 요소
-- 필수 / 있으면 좋음 / 불필요
-
-결과:
-
-- `visual/ASSET_SPEC.md`
-
-## Stage 14-C — 기준 이미지 Anchor 제작
-
-먼저 소수 기준 이미지만 만든다.
-
-예:
-
-1. 공통 거처 낮
-2. 공통 거처 해 질 무렵
-3. 주요 인물 기준
-4. 사냥 환경
-5. 채집 환경
-6. 이동 환경
-
-교사가 승인한 기준 이미지를 이후 제작에 사용한다.
-
-## Stage 14-D — Scene Context Packet
-
-각 실제 이미지 제작 전에 ChatGPT가 해당 장면만을 위한 맥락 패킷을 작성한다.
-
-포함:
-
-1. 전체 이야기상의 위치
-2. 직전 장면
-3. 직후 장면
-4. 시간대·날씨
-5. 등장인물
-6. 감정
-7. 행동
-8. 학생이 먼저 봐야 할 요소
-9. 상호작용 영역
-10. UI 여백
-11. 기준 이미지와 동일해야 할 요소
-12. 역사적 근거
-13. 재구성 요소
-14. 절대 넣으면 안 되는 것
-15. 비율·해상도
-
-## Stage 14-E — 실제 이미지 생성
-
-도구:
-
-- ChatGPT 이미지 생성
-- Antigravity
-- 기타 선택 도구
-
-입력:
-
-- Scene Context Packet
-- 승인 스타일 Anchor
-- 동일 인물 기준 이미지
-- 동일 장소 기준 이미지
-
-## Stage 14-F — 이미지 QA
-
-ChatGPT + 교사 검수.
-
-평가:
-
-- 역사 적합성
-- 내러티브 기능
-- 장소·인물 연속성
-- 시간 연속성
-- 학생 시선
-- 상호작용 가독성
-- UI 여백
-- 초등학생 적합성
-
-판정:
-
-- 승인
-- 수정 후 승인
-- 재생성
-
-승인된 자산만 Manifest에 등록한다.
-
-## Stage 14-G — Asset Manifest
-
-결과:
-
-- `visual/ASSET_MANIFEST.json`
-
-최소 기록:
-
-- ID
-- 파일명
-- 버전
-- 사용 장면
-- continuity group
-- 제작 도구
-- reference asset
-- 승인 상태
-
-## Stage 14-H — 앱에 이미지 연결
-
-ChatGPT 새 개발 세션에서 승인된 자산만 코드에 연결한다.
-
-허용:
-
-- 크기
-- 위치
-- object-fit
-- 반응형 처리
-
-금지:
-
-- 이미지 새로 생성
-- 승인되지 않은 이미지 사용
-- 이미지 내용을 임의 변경
-
-문제가 있으면 `handoff/ASSET_ISSUES.md` 등에 보고한다.
+첫 아침의 불과 구조적으로 대구되는 새로운 밤/불을 만든다.
 
 ---
 
-# 11. 최종 폴리시와 학생 테스트
+# 11. Stage 15 — 역사 개념화 / 학습 브리지
 
-## Stage 15 — Release Candidate
+학생이 자신의 경험을 근거로 교과 개념을 정리한다.
 
-개발 세션에서 새 콘텐츠를 추가하지 않고 다음만 정리한다.
+목표:
 
-- 터치 영역
-- 텍스트 가독성
-- 반응형 화면
-- 이미지 로딩
-- 화면 전환
-- 사운드 재생
-- 성능
-- 불필요한 대기
+> **경험에 이름을 붙이는 것**
 
-결과:
-
-- RC v0.9
-
-## Stage 16-A — 학생 테스트
-
-교사 관찰:
-
-- 집중하는 지점
-- 지루해하는 지점
-- 조작 혼란
-- 역할별 중요도 인식
-- 사냥 실패 해석
-- 이동 이유 설명 가능 여부
-- 역사적 사실과 재구성 혼동 여부
-- 이미지가 핵심 정보를 방해하는지
-- 위험 이미지가 지나치게 무서운지
-
-## Stage 16-B — 학생 테스트 분석
-
-도구: ChatGPT 새 UX·교육 평가 세션
-
-결과:
-
-- `docs/12_STUDENT_TEST_REPORT.md`
-
-문제를 다음으로 분류한다.
-
-- 코드 문제
-- 이미지 문제
-- 기획 문제
-
-그리고:
-
-- 유지
-- 반드시 수정
-- 가능하면 수정
-- 삭제
-
-로 우선순위를 정한다.
-
-## Stage 16-C — 최종 수정
-
-- 코드 문제 → 새 개발 세션
-- 이미지 문제 → 이미지 제작 → QA → 승인 → 개발 세션에서 교체
-- 기획 문제 → 새 기획 세션 → 승인된 수정 명세 → 개발 반영
-
-## Stage 16-D — v1.0
-
-전체 end-to-end 테스트 후 최종 릴리스.
-
-결과:
-
-**구석기 역사 체험 웹게임 v1.0**
+이지 게임 뒤 별도 암기시험을 붙이는 것이 아니다.
 
 ---
 
-# 12. 가장 짧은 전체 흐름
+# 12. Stage 16 — 역사·시각 Context Bible
 
-```text
-상위 기획 01~04 정렬
-↓
-05 세 역할 경계 확정
-↓
-06 기술 설계
-↓
-앱 골격
-↓
-사냥 Vertical Slice
-↓
-사냥 UX 검증·수정
-↓
-채집 서사 → PLAYFLOW → 구현
-↓
-머무름 서사 → PLAYFLOW → 구현
-↓
-같은 하루 + 며칠 변화 통합
-↓
-이동·새 거처 구현
-↓
-FUNCTIONAL COMPLETE
-↓
-Visual Context / Continuity 정리
-↓
-Art Direction / Asset Spec
-↓
-Anchor 이미지
-↓
-Scene Context Packet
-↓
-이미지 생성
-↓
-이미지 QA / 승인
-↓
-앱에 승인 자산 연결
-↓
-Release Candidate
-↓
-학생 테스트
-↓
-코드·이미지·기획 문제 분리 수정
-↓
-v1.0
-```
+기능/몰입 구조가 검증된 뒤 본격 자산 설계.
+
+결과물:
+
+- `VISUAL_CONTEXT_BIBLE`
+- `VISUAL_CONTINUITY_MAP`
+- `ART_DIRECTION_BIBLE`
+- `ASSET_SPEC`
+- 역사 레퍼런스 검토
 
 ---
 
-# 13. 이 워크플로우의 핵심 문장
+# 13. Stage 17 — 이미지·사운드 제작
 
-> **프로젝트의 기억은 채팅이 아니라 GitHub에 둔다.**
+별도 제작 세션.
 
-> **새 세션은 과거 대화를 이어받는 것이 아니라 저장소의 현재 상태를 읽고 들어온다.**
+우선순위:
 
-> **이미지는 늦게 만들지만, 이미지를 만드는 데 필요한 맥락은 개발 초기부터 축적한다.**
+- 공간/시간 정보
+- 사람의 연속성
+- 상호작용 단서
+- 감정 모티프
+- 앰비언스/행동 피드백/대사
 
-> **기능 검증 → 장면 확정 → 시각 맥락 확정 → 이미지 제작 → 승인 → 코드 연결 순서를 지킨다.**
+단순 장식보다 서사 기능을 우선한다.
+
+---
+
+# 14. Stage 18 — Final Integration / QA
+
+- 기능
+- 접근성
+- 브라우저/화면 크기
+- 자동 테스트
+- 몰입 QA
+- 역사 QA
+- 아트 연속성
+- 사운드
+- 학생 테스트
+
+모두 통과 후 release candidate로 본다.
+
+---
+
+# 15. 역할별 완료 정의
+
+앞으로 `구현 완료`는 다음 세 수준을 구분한다.
+
+## Functional Complete
+
+코드/상태/테스트가 정상.
+
+## Immersion Complete
+
+교사/학생 테스트에서 역할 빙의, 관계, 연속성, 감정 회수가 기준 통과.
+
+## Production Complete
+
+최종 역사 검토 + 아트/사운드 + 접근성 + 최종 QA까지 통과.
+
+**Functional Complete만으로 역할을 최종 완성이라고 부르지 않는다.**
