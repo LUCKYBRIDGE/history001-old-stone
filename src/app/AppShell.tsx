@@ -4,7 +4,7 @@ export function AppShell({ children }: PropsWithChildren) {
   return (
     <div className="app-shell">
       <header className="app-shell__header">
-        <p className="eyebrow">Stage 08-A · 사냥 Vertical Slice 전반</p>
+        <p className="eyebrow">Stage 08-B · Hunt Vertical Slice v0.1</p>
         <h1>구석기 공동체의 하루</h1>
         <p>
           같은 하루를 사냥·채집·머무름의 서로 다른 관점에서 경험하는 교육용

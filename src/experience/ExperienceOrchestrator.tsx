@@ -93,8 +93,8 @@ export function ExperienceOrchestrator({
           title="앱 시작"
           description={
             <p>
-              현재 빌드는 공통 경험 구조를 유지하면서 사냥 관점의 전반부 상호작용을
-              검증합니다.
+              현재 빌드는 공통 경험 구조를 유지하면서 사냥 관점의 출발부터
+              귀환까지 이어지는 Vertical Slice를 검증합니다.
             </p>
           }
         >
@@ -178,7 +178,10 @@ export function ExperienceOrchestrator({
         <span>
           현재 단계: <strong>{state.phase}</strong>
         </span>
-        <ActionButton className="action-button--secondary" onClick={resetExperience}>
+        <ActionButton
+          className="action-button--secondary"
+          onClick={resetExperience}
+        >
           처음부터 다시
         </ActionButton>
       </div>

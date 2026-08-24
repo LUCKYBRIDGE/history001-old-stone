@@ -1,15 +1,21 @@
-import { useReducer } from 'react';
+import { useReducer, useRef } from 'react';
+import type { ReactNode } from 'react';
 import type { RoleFeatureProps } from '../../experience/contracts/role';
 import { ActionButton } from '../../ui/ActionButton/ActionButton';
 import { ScreenRegion } from '../../ui/ScreenRegion/ScreenRegion';
+import { buildHuntCompletion } from './buildHuntCompletion';
 import {
   HUNT_APPROACH_COPY,
   HUNT_ATTEMPT_OUTCOME_COPY,
   HUNT_CLUE_COPY,
+  HUNT_DANGER_CUE_COPY,
+  HUNT_DANGER_RESPONSE_COPY,
+  HUNT_FINAL_OUTCOME_COPY,
+  HUNT_RETURN_LANDMARK_COPY,
   HUNT_SEARCH_SPOTS,
+  HUNT_TRACKING_COPY,
 } from './huntContent';
 import { createInitialHuntState, huntReducer } from './huntReducer';
-import type { HuntClueId } from './huntTypes';
 import './hunt.css';
 
 const DAY_MOMENT_LABELS = {
@@ -21,14 +27,15 @@ const DAY_MOMENT_LABELS = {
   evening: '저녁',
 } as const;
 
-export function HuntFeature({ dayContext }: RoleFeatureProps) {
+export function HuntFeature({ dayContext, onComplete }: RoleFeatureProps) {
   const [state, dispatch] = useReducer(
     huntReducer,
     undefined,
     createInitialHuntState,
   );
+  const completionSent = useRef(false);
 
-  const frame = (content: React.ReactNode) => (
+  const frame = (content: ReactNode) => (
     <div className="hunt-feature">
       <div className="hunt-stage-meta" aria-label="사냥 관점 진행 정보">
         <span>같은 공동체의 하루 · 사냥 관점</span>
@@ -42,6 +49,21 @@ export function HuntFeature({ dayContext }: RoleFeatureProps) {
       {content}
     </div>
   );
+
+  const finishHunt = () => {
+    if (completionSent.current) {
+      return;
+    }
+
+    const completion = buildHuntCompletion(state);
+
+    if (!completion) {
+      return;
+    }
+
+    completionSent.current = true;
+    onComplete(completion);
+  };
 
   if (state.stage === 'departure') {
     return frame(
@@ -89,7 +111,9 @@ export function HuntFeature({ dayContext }: RoleFeatureProps) {
                 type="button"
                 className="hunt-observation-button"
                 aria-pressed={inspected}
-                onClick={() => dispatch({ type: 'INSPECT_SPOT', spotId: spot.id })}
+                onClick={() =>
+                  dispatch({ type: 'INSPECT_SPOT', spotId: spot.id })
+                }
               >
                 <strong>{spot.label}</strong>
                 <span>{inspected ? spot.reveal : spot.prompt}</span>
@@ -125,7 +149,11 @@ export function HuntFeature({ dayContext }: RoleFeatureProps) {
           </p>
         }
       >
-        <div className="hunt-choice-list" role="group" aria-label="따라갈 단서 선택">
+        <div
+          className="hunt-choice-list"
+          role="group"
+          aria-label="따라갈 단서 선택"
+        >
           {state.foundClues.map((clueId) => {
             const clue = HUNT_CLUE_COPY[clueId];
             const selected = state.trailChoice === clueId;
@@ -199,26 +227,32 @@ export function HuntFeature({ dayContext }: RoleFeatureProps) {
           </p>
         }
       >
-        <div className="hunt-choice-list" role="group" aria-label="접근 방법 선택">
-          {(Object.keys(HUNT_APPROACH_COPY) as Array<keyof typeof HUNT_APPROACH_COPY>).map(
-            (choice) => {
-              const option = HUNT_APPROACH_COPY[choice];
-              const selected = state.approachChoice === choice;
+        <div
+          className="hunt-choice-list"
+          role="group"
+          aria-label="접근 방법 선택"
+        >
+          {(
+            Object.keys(HUNT_APPROACH_COPY) as Array<
+              keyof typeof HUNT_APPROACH_COPY
+            >
+          ).map((choice) => {
+            const option = HUNT_APPROACH_COPY[choice];
+            const selected = state.approachChoice === choice;
 
-              return (
-                <ActionButton
-                  key={choice}
-                  className={`action-button--secondary hunt-choice-button${
-                    selected ? ' hunt-choice-button--selected' : ''
-                  }`}
-                  aria-pressed={selected}
-                  onClick={() => dispatch({ type: 'CHOOSE_APPROACH', choice })}
-                >
-                  {option.label}
-                </ActionButton>
-              );
-            },
-          )}
+            return (
+              <ActionButton
+                key={choice}
+                className={`action-button--secondary hunt-choice-button${
+                  selected ? ' hunt-choice-button--selected' : ''
+                }`}
+                aria-pressed={selected}
+                onClick={() => dispatch({ type: 'CHOOSE_APPROACH', choice })}
+              >
+                {option.label}
+              </ActionButton>
+            );
+          })}
         </div>
 
         {state.approachChoice ? (
@@ -265,31 +299,360 @@ export function HuntFeature({ dayContext }: RoleFeatureProps) {
     );
   }
 
-  const attemptCopy = state.attemptOutcome
-    ? HUNT_ATTEMPT_OUTCOME_COPY[state.attemptOutcome]
-    : '사냥 시도 결과를 확인할 수 없습니다.';
+  if (state.stage === 'tracking-situation') {
+    const attemptCopy = state.attemptOutcome
+      ? HUNT_ATTEMPT_OUTCOME_COPY[state.attemptOutcome]
+      : '사냥 시도 결과를 확인할 수 없습니다.';
+
+    return frame(
+      <ScreenRegion
+        title="사냥 · 아직 끝나지 않았다"
+        description={<p>{attemptCopy}</p>}
+      >
+        <p className="hunt-emphasis">“조금만 더 가면…”</p>
+        <p>
+          흔적은 더 멀리 이어지고 해의 위치도 달라졌습니다. 먹을 것을 얻을
+          가능성과 돌아갈 시간·거리를 함께 생각해야 합니다.
+        </p>
+        <ActionButton
+          onClick={() => dispatch({ type: 'CONTINUE_TO_TRACKING_CHOICE' })}
+        >
+          시간과 거리를 함께 살피기
+        </ActionButton>
+      </ScreenRegion>,
+    );
+  }
+
+  if (state.stage === 'tracking-choice') {
+    return frame(
+      <ScreenRegion
+        title="사냥 · 추적 판단"
+        description={
+          <p>
+            끝까지 쫓는 것이 언제나 좋은 선택도, 돌아가는 것이 겁이 많은 선택도
+            아닙니다. 서로 다른 이유와 부담이 있습니다.
+          </p>
+        }
+      >
+        <div
+          className="hunt-choice-list"
+          role="group"
+          aria-label="추적 여부 선택"
+        >
+          {(
+            Object.keys(HUNT_TRACKING_COPY) as Array<
+              keyof typeof HUNT_TRACKING_COPY
+            >
+          ).map((choice) => {
+            const option = HUNT_TRACKING_COPY[choice];
+            const selected = state.trackingChoice === choice;
+
+            return (
+              <ActionButton
+                key={choice}
+                className={`action-button--secondary hunt-choice-button${
+                  selected ? ' hunt-choice-button--selected' : ''
+                }`}
+                aria-pressed={selected}
+                onClick={() => dispatch({ type: 'CHOOSE_TRACKING', choice })}
+              >
+                {option.label}
+              </ActionButton>
+            );
+          })}
+        </div>
+
+        {state.trackingChoice ? (
+          <p className="hunt-feedback" role="status">
+            {HUNT_TRACKING_COPY[state.trackingChoice].consequence}
+          </p>
+        ) : null}
+
+        <ActionButton
+          disabled={!state.trackingChoice}
+          onClick={() => dispatch({ type: 'CONTINUE_TO_DANGER' })}
+        >
+          이 판단으로 움직이기
+        </ActionButton>
+      </ScreenRegion>,
+    );
+  }
+
+  if (state.stage === 'danger-cue') {
+    const cue = state.dangerCue ? HUNT_DANGER_CUE_COPY[state.dangerCue] : null;
+
+    return frame(
+      <ScreenRegion
+        title="사냥 · 낯선 신호"
+        description={
+          <p>
+            사냥감을 찾던 시선이 주변의 위험을 살피는 쪽으로 바뀝니다. 사람은
+            자연에서 항상 쫓는 쪽만은 아닙니다.
+          </p>
+        }
+      >
+        {cue ? (
+          <div className="hunt-result-card" role="status">
+            <strong>{cue.label}</strong>
+            <p>{cue.detail}</p>
+          </div>
+        ) : null}
+        <ActionButton
+          onClick={() => dispatch({ type: 'OBSERVE_DANGER_CUE' })}
+        >
+          동행자들과 멈춰 주변 살피기
+        </ActionButton>
+      </ScreenRegion>,
+    );
+  }
+
+  if (state.stage === 'danger-choice') {
+    return frame(
+      <ScreenRegion
+        title="사냥 · 자연의 위험"
+        description={
+          <p>
+            위험을 처치하는 전투가 아닙니다. 주변을 살피고 서로 떨어지지 않으며
+            위험과 거리를 두는 판단을 합니다.
+          </p>
+        }
+      >
+        <div
+          className="hunt-choice-list"
+          role="group"
+          aria-label="위험 대응 선택"
+        >
+          {(
+            Object.keys(HUNT_DANGER_RESPONSE_COPY) as Array<
+              keyof typeof HUNT_DANGER_RESPONSE_COPY
+            >
+          ).map((response) => {
+            const option = HUNT_DANGER_RESPONSE_COPY[response];
+            const selected = state.dangerResponse === response;
+
+            return (
+              <ActionButton
+                key={response}
+                className={`action-button--secondary hunt-choice-button${
+                  selected ? ' hunt-choice-button--selected' : ''
+                }`}
+                aria-pressed={selected}
+                onClick={() =>
+                  dispatch({ type: 'CHOOSE_DANGER_RESPONSE', response })
+                }
+              >
+                {option.label}
+              </ActionButton>
+            );
+          })}
+        </div>
+
+        {state.dangerResponse ? (
+          <p className="hunt-feedback" role="status">
+            {HUNT_DANGER_RESPONSE_COPY[state.dangerResponse].reflection}
+          </p>
+        ) : null}
+
+        <ActionButton
+          disabled={!state.dangerResponse}
+          onClick={() => dispatch({ type: 'LEAVE_DANGER' })}
+        >
+          위험과 거리를 두며 움직이기
+        </ActionButton>
+      </ScreenRegion>,
+    );
+  }
+
+  if (state.stage === 'danger-resolved') {
+    const response = state.dangerResponse
+      ? HUNT_DANGER_RESPONSE_COPY[state.dangerResponse]
+      : null;
+
+    return frame(
+      <ScreenRegion
+        title="사냥 · 위험에서 벗어난다"
+        description={
+          <p>
+            누가 더 강한지 겨루는 일이 아니었습니다. 사람들과 판단을 맞추며 낯선
+            신호에서 거리를 벌렸습니다.
+          </p>
+        }
+      >
+        {response ? <p className="hunt-feedback">{response.reflection}</p> : null}
+        <p>
+          위험에서 벗어나고 나니 사냥감의 흔적과 우리가 걸어온 시간이 다시 눈에
+          들어옵니다. 이제 오늘의 결과를 받아들여야 합니다.
+        </p>
+        <ActionButton onClick={() => dispatch({ type: 'CONTINUE_TO_RESULT' })}>
+          오늘 사냥 결과를 받아들이기
+        </ActionButton>
+      </ScreenRegion>,
+    );
+  }
+
+  if (state.stage === 'hunt-result') {
+    const outcome = state.finalOutcome
+      ? HUNT_FINAL_OUTCOME_COPY[state.finalOutcome]
+      : null;
+
+    return frame(
+      <ScreenRegion
+        title="사냥 · 오늘의 결과"
+        description={
+          <p>
+            어떤 날은 먹을 것을 얻고, 어떤 날은 빈손으로 돌아갈 수 있습니다.
+            어느 쪽이든 오늘의 하루는 이어집니다.
+          </p>
+        }
+      >
+        {outcome ? (
+          <div className="hunt-result-card" role="status">
+            <strong>{outcome.title}</strong>
+            <p>{outcome.detail}</p>
+          </div>
+        ) : null}
+        <ActionButton onClick={() => dispatch({ type: 'START_RETURN' })}>
+          이제 사람들에게 돌아가기
+        </ActionButton>
+      </ScreenRegion>,
+    );
+  }
+
+  if (state.stage === 'return-start') {
+    const outcome = state.finalOutcome
+      ? HUNT_FINAL_OUTCOME_COPY[state.finalOutcome]
+      : null;
+
+    return frame(
+      <ScreenRegion
+        title="사냥 · 귀환 시작"
+        description={
+          <p>
+            목표가 바뀝니다. 이제 중요한 일은 먹을 것을 더 찾는 것이 아니라
+            사람들이 있는 곳으로 돌아가는 것입니다.
+          </p>
+        }
+      >
+        {outcome ? <p className="hunt-feedback">{outcome.returnNote}</p> : null}
+        <p className="hunt-emphasis">돌아간다.</p>
+        <ActionButton
+          onClick={() => dispatch({ type: 'CONTINUE_TO_RETURN_CHOICE' })}
+        >
+          돌아가는 길을 확인하기
+        </ActionButton>
+      </ScreenRegion>,
+    );
+  }
+
+  if (state.stage === 'return-choice') {
+    return frame(
+      <ScreenRegion
+        title="사냥 · 돌아가는 길"
+        description={
+          <p>
+            멀리 왔다면 돌아갈 방향도 다시 확인해야 합니다. 이 판단을 큰 길찾기
+            시험으로 만들지는 않습니다.
+          </p>
+        }
+      >
+        <div
+          className="hunt-choice-list"
+          role="group"
+          aria-label="귀환 단서 선택"
+        >
+          {(
+            Object.keys(HUNT_RETURN_LANDMARK_COPY) as Array<
+              keyof typeof HUNT_RETURN_LANDMARK_COPY
+            >
+          ).map((landmark) => {
+            const option = HUNT_RETURN_LANDMARK_COPY[landmark];
+            const selected = state.returnLandmark === landmark;
+
+            return (
+              <ActionButton
+                key={landmark}
+                className={`action-button--secondary hunt-choice-button${
+                  selected ? ' hunt-choice-button--selected' : ''
+                }`}
+                aria-pressed={selected}
+                onClick={() =>
+                  dispatch({ type: 'CHOOSE_RETURN_LANDMARK', landmark })
+                }
+              >
+                {option.label}
+              </ActionButton>
+            );
+          })}
+        </div>
+
+        {state.returnLandmark ? (
+          <p className="hunt-feedback" role="status">
+            {HUNT_RETURN_LANDMARK_COPY[state.returnLandmark].reflection}
+          </p>
+        ) : null}
+
+        <ActionButton
+          disabled={!state.returnLandmark}
+          onClick={() => dispatch({ type: 'CONTINUE_RETURN' })}
+        >
+          이 단서를 기준으로 돌아가기
+        </ActionButton>
+      </ScreenRegion>,
+    );
+  }
+
+  if (state.stage === 'motif-recall') {
+    return frame(
+      <ScreenRegion
+        title="사냥 · 해 질 무렵"
+        description={
+          <p>
+            해가 거의 지고 주변이 어두워집니다. 아침에 들었던 말이 다시
+            떠오릅니다.
+          </p>
+        }
+      >
+        <blockquote className="hunt-quote">“해가 지기 전에 돌아와.”</blockquote>
+        <p>
+          아침에는 평범한 당부였지만 지금은 우리를 기다리는 사람들이 있다는
+          뜻으로 다르게 들립니다.
+        </p>
+        <ActionButton
+          onClick={() => dispatch({ type: 'CONTINUE_AFTER_MOTIF' })}
+        >
+          사람들이 있는 곳을 향해 계속 걷기
+        </ActionButton>
+      </ScreenRegion>,
+    );
+  }
+
+  const outcome = state.finalOutcome
+    ? HUNT_FINAL_OUTCOME_COPY[state.finalOutcome]
+    : null;
 
   return frame(
     <ScreenRegion
-      title="사냥 시도 결과"
+      title="사냥 · 불빛"
       description={
         <p>
-          사냥을 시도했지만 오늘의 사냥 전체 결과는 아직 정해지지 않았습니다.
+          멀리 작은 불빛이 보입니다. 사냥 결과가 어떠했든 같은 공동체의
+          사람들이 있는 곳으로 돌아왔습니다.
         </p>
       }
     >
-      <div className="hunt-result-card" role="status">
-        <strong>발견과 성공은 같은 일이 아니다.</strong>
-        <p>{attemptCopy}</p>
-      </div>
-      <aside className="hunt-dev-checkpoint" aria-label="Stage 08-A 개발 경계">
-        <strong>Stage 08-A 구현 완료 지점</strong>
-        <p>
-          여기서는 Hunt 역할을 완료 처리하지 않습니다. 다음 Stage 08-B에서 추적
-          판단 → 자연 위험 → 성공/실패 → 귀환으로 이어진 뒤에만 공통
-          RoleCompletion을 반환합니다.
+      <p className="hunt-emphasis">돌아왔다.</p>
+      {outcome ? (
+        <p className="hunt-feedback">
+          {outcome.title} 이제 이 결과는 개인의 승패가 아니라 공동체의 오늘에
+          합쳐집니다.
         </p>
-      </aside>
+      ) : null}
+      <p>
+        우리가 밖에 있는 동안에도 다른 사람들의 하루는 이어지고 있었습니다.
+      </p>
+      <ActionButton onClick={finishHunt}>
+        불 주변 사람들에게 합류하기
+      </ActionButton>
     </ScreenRegion>,
   );
 }
