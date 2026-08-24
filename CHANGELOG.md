@@ -1,5 +1,40 @@
 # CHANGELOG.md
 
+## Stage 08-B — Hunt Vertical Slice v0.1
+
+### Added
+
+- Hunt 후반부 실제 플레이: 추적 상황 → 추적 판단 → 자연 위험 → 결과 → 귀환 → 모티프 회상 → 불빛
+- `src/roles/hunt/buildHuntCompletion.ts` — 귀환 완료 후 질적 `RoleCompletion` 생성
+- Hunt 질적 상태: tracking choice / danger cue / danger response / final outcome / return landmark / distance burden
+- `tests/unit/buildHuntCompletion.test.ts` — 귀환 완료 전 completion 차단 및 질적 결과 계약 검증
+- `tests/integration/HuntVerticalSlice.test.tsx` — 실제 Hunt Feature가 불빛 이후 Perspective Bridge와 Common Evening 경계로 복귀하는 통합 테스트
+
+### Changed
+
+- Stage 08-A `stage-08a-checkpoint`를 제거하고 첫 사냥 시도에서 후반 추적 상황으로 실제 연결
+- `HuntFeature`를 출발부터 공동체 귀환까지 완결되는 Vertical Slice v0.1로 확장
+- `huntReducer`를 Hunt 전용 후반 상태와 이벤트로 확장하되 Common reducer는 변경하지 않음
+- 더 추적하는 선택에서 Hunt 내부 거리 부담과 DayMoment가 증가하도록 구현
+- 위험 대응은 비전투 판단으로 구현하고 사냥 성공/실패 채점 입력에서 분리
+- 사냥 결과를 `food-secured` / `empty-handed`의 질적 상태로 구현
+- 성공/빈손 두 경로 모두 동일한 귀환·불빛·Perspective Bridge 경계로 연결
+- `“해가 지기 전에 돌아와.”` 모티프를 귀환 구간에서 다시 사용
+- `package.json` version을 `0.0.0-stage08b`로 갱신
+- AppShell 표시를 `Stage 08-B · Hunt Vertical Slice v0.1`로 갱신
+- 다음 공식 작업을 **Stage 09-A 교사 직접 플레이**로 갱신
+
+### Verified
+
+- Node.js 24.19.0 / npm 11.17.0
+- install PASS
+- typecheck PASS
+- Vitest 7 files / 25 tests PASS
+- Vite production build PASS — 38 modules transformed
+- Stage 08-B implementation run: `32677132365`
+
+---
+
 ## Stage 08-A — Hunt front-half Vertical Slice
 
 ### Added

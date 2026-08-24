@@ -2,16 +2,19 @@
 
 ## Scope
 
-Stage 08-A — 사냥 Vertical Slice 전반 구현 검증.
+Stage 08-B — Hunt Vertical Slice v0.1 기능 검증.
 
 검증 대상:
 
 - dependency install
 - TypeScript typecheck
-- 기존 Stage 07 architecture guardrails
-- Hunt 내부 reducer 진행
-- Hunt 실제 UI interaction
-- Hunt 조기 RoleCompletion 방지
+- Stage 07/08-A architecture guardrails
+- Hunt 추적 판단
+- 비전투 자연 위험
+- 성공/빈손 질적 결과
+- 귀환 판단 / 모티프 / 불빛
+- 귀환 완료 후 RoleCompletion
+- 실제 Hunt → Perspective Bridge → Common Evening Integration 경계
 - Vite production build
 
 ---
@@ -26,9 +29,10 @@ GitHub Actions Ubuntu runner:
 - Vite: 8.2.2
 - Vitest: 4.1.10
 - Workflow: `.github/workflows/ci.yml` (`Project CI`)
-- Final successful run: `32671722477`
+- Stage 08-B implementation successful run: `32677132365`
 - `.nvmrc`: Node 24
-- `package.json` engines: Node >= 24 / npm >= 11
+- `package.json`: `0.0.0-stage08b`
+- engines: Node >= 24 / npm >= 11
 
 ---
 
@@ -43,7 +47,7 @@ npm run build
 
 ---
 
-## Results
+## Results — implementation run 32677132365
 
 ### dependency install
 
@@ -63,16 +67,18 @@ tsc --noEmit
 
 **PASS**
 
-- Test files: 5 passed / 5
-- Tests: 17 passed / 17
+- Test files: 7 passed / 7
+- Tests: 25 passed / 25
 
 Breakdown:
 
 - `tests/unit/experienceReducer.test.ts` — 6
 - `tests/unit/experienceStorage.test.ts` — 2
-- `tests/unit/huntReducer.test.ts` — 4
-- `tests/unit/HuntFeature.test.tsx` — 2
+- `tests/unit/huntReducer.test.ts` — 8
+- `tests/unit/buildHuntCompletion.test.ts` — 2
+- `tests/unit/HuntFeature.test.tsx` — 3
 - `tests/integration/ExperienceOrchestrator.test.tsx` — 3
+- `tests/integration/HuntVerticalSlice.test.tsx` — 1
 
 ### production build
 
@@ -85,68 +91,64 @@ tsc --noEmit && vite build
 Vite result:
 
 - Vite 8.2.2
-- 37 modules transformed
+- 38 modules transformed
 - `dist/index.html` generated
-- CSS/JS bundles generated
+- CSS / JS bundles generated
 
 ---
 
-## Stage 08-A behavior verification
+## Stage 08-B behavior verification
 
-### PASS — Hunt state remains role-internal
+### PASS — tracking judgment
 
-- `huntReducer` exists under `src/roles/hunt/`
-- Common `experienceReducer` unchanged in gameplay responsibility
-- Common reducer has no Hunt clue/approach/attempt events
+- 사냥 시도 직후 역할 완료가 아니라 `tracking-situation`으로 이동
+- 학생이 더 추적 / 귀환 고려 / 주변·시간 재확인 가운데 판단
+- 더 추적하는 경우 Hunt 내부 거리 부담과 DayMoment 증가
+- Common global time에는 영향 없음
 
-### PASS — departure
+### PASS — natural danger is not combat
 
-- 공동체의 여러 일 중 사냥 역할로 출발
-- `“해가 지기 전에 돌아와.”` 모티프 존재
+- 모든 후반 경로에서 자연 위험 신호 경험
+- 위험 대응은 함께 움직이기 / 거리 두기 / 안전 방향 살피기
+- 위험 대응 선택은 Hunt 성공/실패를 채점하지 않음
+- 공격 / 처치 / 적 HP / 전투 점수 구조 없음
 
-### PASS — clue search direct interaction
+### PASS — both outcomes are normal
 
-- 학생이 주변 지점을 직접 관찰
-- 단서가 없는 지점도 neutral observation으로 처리
-- 오답 counter 없음
-- 제한시간 없음
-- GAME OVER 없음
+- `food-secured` 경로 존재
+- `empty-handed` 경로 존재
+- 두 경로 모두 `hunt-result` 이후 동일한 귀환 구조 사용
+- 빈손도 실패 화면이나 GAME OVER가 아님
 
-### PASS — clue judgment
+### PASS — return is part of Hunt completion
 
-- 최소 관찰 전에는 다음 단계로 이동하지 않음
-- 실제 찾은 단서만 선택 가능
-- 정답/오답 UI 없음
+- 사냥 결과 뒤 목표가 귀환으로 전환
+- return landmark를 선택하기 전에는 귀환 진행 불가
+- 잘못된 방향 GAME OVER 없음
+- `“해가 지기 전에 돌아와.”` 모티프를 귀환 중 다시 확인
+- firelight에서 `돌아왔다.`는 공동체 복귀 확인
 
-### PASS — discovery / approach judgment
+### PASS — qualitative RoleCompletion
 
-- 발견과 성공을 분리
-- 기다림 / 접근 / 현재 조건 시도 준비의 세 판단 제공
-- 각 선택을 점수나 평가 문구로 채점하지 않음
+- `buildHuntCompletion`은 `firelight` 전에는 null
+- 결과 / 자연 위험 / 공동체 귀환 / 거리 부담의 SharedSignal 전달
+- Hunt 세부 결과는 Hunt-owned `detail`
+- score / HP / EXP 기본 필드 없음
 
-### PASS — hunt attempt direct interaction
+### PASS — real integration boundary
 
-- 학생이 실제 사냥 시도를 실행
-- 조작 성공을 곧바로 최종 사냥 성공으로 만들지 않음
-- 접근 판단에 따라 서로 다른 질적 상황으로 이어짐
+`tests/integration/HuntVerticalSlice.test.tsx`가 실제 다음 경로를 검증한다.
 
-### PASS — Stage 08-A boundary
+```text
+Common Morning
+→ real HuntFeature
+→ firelight
+→ Hunt RoleCompletion
+→ Perspective Bridge
+→ Common Evening
+```
 
-- 첫 사냥 시도 후 `stage-08a-checkpoint`
-- `HuntFeature`가 `onComplete`를 호출하지 않음
-- Stage 08-B의 추적·위험·귀환을 건너뛰지 않음
-
-### PASS — prohibited systems absent
-
-자동 UI 테스트에서 다음이 나타나지 않음을 확인:
-
-- 점수
-- HP
-- EXP
-- 랭킹
-- GAME OVER
-
-범용 Scene Engine도 추가하지 않았다.
+Hunt-only development plan에서 Common Evening으로 들어가더라도 Common Evening은 총점/랭킹 결과표가 아니다.
 
 ---
 
@@ -154,45 +156,45 @@ Vite result:
 
 ### PASS — Common Shell / Role Feature separation
 
-- Hunt / Gather / Camp 독립
-- 역할 간 직접 import 없음
-- Role Feature → ExperienceOrchestrator 역방향 import 없음
+- Common `experienceReducer`에 Hunt-specific event 없음
+- Hunt state는 `src/roles/hunt/` 내부
+- Gather / Camp가 Hunt reducer/type을 import하지 않음
+- Role Feature가 ExperienceOrchestrator를 import하지 않음
 
-### PASS — Role order remains configurable
+### PASS — role order remains configurable
 
-- `ExperiencePlan.roleOrderPolicy` 유지
-- 기존 reorder test 통과
+- 기존 `ExperiencePlan.roleOrderPolicy` 테스트 통과
 
-### PASS — Common Morning / Perspective Bridge / Common Evening guardrails
+### PASS — same-day time separation
 
-- 기존 integration tests 전부 통과
-- Common Morning 단일 실행 구조 유지
-- Common Evening score table 없음
+- Hunt DayMoment는 Hunt 내부 같은 하루 표현
+- Hunt 완료 순서가 다른 역할 시작 시간을 변경하지 않음
 
-### PASS — localStorage guardrail
+### PASS — Common Evening Integration boundary
 
-- 기존 checkpoint round-trip / malformed data tests 통과
-- Hunt 중간 scene state를 공통 persistence에 억지로 올리지 않음
+- Hunt는 Perspective Bridge로 복귀
+- Common Evening은 Hunt 전용 엔딩이 아님
+- Common Shell이 Hunt `detail`을 직접 해석하지 않음
+
+### PASS — prohibited systems absent
+
+- 범용 Scene Engine 없음
+- score / HP / EXP / ranking 없음
+- 전투 시스템 없음
+- 최종 이미지 / 사운드 없음
 
 ---
 
-## Prior environment issue retained for reference
+## Runtime note retained
 
-Stage 07 첫 CI에서 Node 22 / npm 10.9.8의 npm Arborist `edgesOut` 내부 오류가 있었고, Node 24 / npm 11로 변경한 뒤 해결됐다.
-
-현재 `.nvmrc`, `package.json.engines`, `packageManager` 설정은 그대로 유지한다.
+Stage 07 첫 CI의 Node 22 / npm 10.9.8 Arborist `edgesOut` 문제 때문에 프로젝트는 계속 Node 24 / npm 11을 개발 기준으로 유지한다.
 
 ---
 
-## Final verdict
+## Current verdict
 
-**Stage 08-A: PASS**
+**Stage 08-B implementation: PASS**
 
-운영 문서와 package version(`0.0.0-stage08a`), CI 표시명(`Project CI`)까지 반영된 커밋을 GitHub Actions run `32671722477`에서 검증했다.
+기능 구현 커밋은 GitHub Actions run `32677132365`에서 install → typecheck → 25 tests → production build를 모두 통과했다.
 
-- install: PASS
-- typecheck: PASS
-- 5 test files / 17 tests: PASS
-- production build: PASS
-
-Stage 08-A의 구현 및 자동 검증 대상은 충족했다. 실제 Hunt 후반부와 최종 RoleCompletion은 의도적으로 Stage 08-B에 남겨 두었다.
+운영 문서 갱신 커밋을 동일 CI로 다시 검증한 뒤 최종 successful run ID를 이 문서에 기록한다.
