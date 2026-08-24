@@ -2,11 +2,25 @@
 
 ## Current phase
 
-**Stage 08-B — 사냥 Vertical Slice 후반 구현 완료. Hunt Vertical Slice v0.1 기능 구현·검증 완료.**
+**Stage 09-A — 교사 직접 플레이 진행 단계.**
 
-현재 실제 Hunt 역할은 공통 아침과 RoleEntry 이후 출발부터 귀환까지 플레이할 수 있고, **불빛을 보고 공동체로 복귀한 뒤에만** `RoleCompletion`을 반환한다.
+Hunt Vertical Slice v0.1의 기능 구현과 자동 검증은 Stage 08-B에서 완료됐다. 이제 새 기능을 먼저 추가하지 않고, 실제 브라우저 플레이를 통해 **이해도·조작·리듬·역사적 의미·귀환의 감정**을 관찰한다.
 
-전체 흐름:
+현재 Stage 09-A 상태:
+
+- **플레이테스트 프로토콜/기록지 준비 완료**
+- **실제 교사 플레이 관찰은 아직 미실시**
+- 따라서 Stage 09-A 자체를 `완료`로 판정하지 않는다.
+
+플레이테스트 기준 문서:
+
+- `handoff/HUNT_PLAYTEST_NOTES.md`
+
+---
+
+## Hunt Vertical Slice v0.1 baseline
+
+현재 실제 Hunt 흐름:
 
 ```text
 공통 아침
@@ -30,102 +44,123 @@
 → Perspective Bridge
 ```
 
-다음 공식 단계는 **Stage 09-A — 교사 직접 플레이**다.
+Hunt는 **불빛을 보고 공동체로 복귀한 뒤에만** `RoleCompletion`을 반환한다.
 
----
-
-## Stage 08-B implemented
-
-### Hunt 내부 후반 상태
-
-`src/roles/hunt/` 내부에서만 다음 상태를 추가했다.
-
-- `tracking-situation`
-- `tracking-choice`
-- `danger-cue`
-- `danger-choice`
-- `danger-resolved`
-- `hunt-result`
-- `return-start`
-- `return-choice`
-- `motif-recall`
-- `firelight`
-
-Common `ExperienceState`나 Common reducer에는 Hunt 내부 stage/event를 추가하지 않았다.
-
-### 추적 판단
-
-학생은 다음 가운데 판단한다.
-
-- 조금 더 흔적을 따라간다.
-- 여기서 돌아가는 쪽을 생각한다.
-- 주변과 해의 위치를 한 번 더 확인한다.
-
-어느 선택도 용기/겁, 정답/오답으로 채점하지 않는다. 더 추적하면 Hunt 내부의 거리·시간 부담이 커진다.
-
-### 자연의 위험
-
-자연 위험은 반드시 경험하지만 전투로 구현하지 않았다.
-
-위험 신호 prototype:
-
-- 낯선 울음소리
-- 가까운 수풀의 큰 움직임
-- 지금까지와 다른 큰 흔적
-
-대응 prototype:
-
-- 사람들과 가까이 붙어 움직이기
-- 소리를 줄이고 조용히 거리 두기
-- 더 안전해 보이는 방향 살피기
-
-공격 / 처치 / 적 HP / 전투 승패 / 위험 대응 점수는 없다. 위험 대응 선택은 사냥 성공/실패를 채점하는 입력으로 사용하지 않는다.
-
-### 사냥 결과
-
-결과는 같은 하루의 두 질적 상태다.
+질적 결과:
 
 - `food-secured` — 공동체에 가져갈 먹을 것이 생김
 - `empty-handed` — 오늘 가져갈 사냥감 없이 돌아감
 
 두 결과 모두 정상적으로 귀환한다.
 
-### 귀환 / 모티프 / 불빛
+---
 
-사냥 결과 뒤 목표를 `먹을 것을 구한다`에서 `사람들이 있는 곳으로 돌아간다`로 전환한다.
+## Stage 09-A playtest packet
 
-귀환은 대형 길찾기 게임이 아니다. 큰 바위 / 물 흐름 / 능선 같은 자연 단서 중 하나를 기준으로 방향을 확인한다. GAME OVER는 없다.
+새 파일:
 
-해 질 무렵 다시:
+- `handoff/HUNT_PLAYTEST_NOTES.md`
 
-> **“해가 지기 전에 돌아와.”**
+이 문서에 다음을 고정했다.
 
-가 나타나고, 마지막 불빛 장면에서는 성공/빈손 어느 경로도 `돌아왔다.`는 안도와 공동체 복귀를 확인한다.
+### 실행 절차
+
+```bash
+git switch main
+git pull
+nvm use
+npm install
+npm run dev
+```
+
+### Round 1 — 자연스러운 첫 플레이
+
+- 결과를 의도적으로 만들지 않음
+- 정답을 찾으려 하지 않음
+- 막힘, 재독, 지루함, 감정 변화 자체를 기록
+- 플레이 도중 코드를 수정하지 않음
+
+### Round 2 — 성공/빈손 결과 비교
+
+첫 플레이와 다른 질적 결과를 의도적으로 한 번 더 확인해 다음을 비교한다.
+
+- 먹을 것 확보가 `게임 승리`처럼 과장되는가
+- 빈손이 `플레이 실패`처럼 느껴지는가
+- 두 결과가 모두 동일한 귀환 의미로 연결되는가
+
+### 장면별 관찰
+
+공통 아침부터 Perspective Bridge까지 장면별로 다음을 기록한다.
+
+- 이해/조작
+- 리듬
+- 감정/역사적 의미
+- 실제 관찰 메모
+
+### 핵심 UX 관찰 영역
+
+- 탐색과 직접 조작
+- 선택의 의미
+- 자연 위험
+- 성공과 빈손
+- 귀환과 공동체
+- 텍스트와 리듬
+
+### 전체 판정 10개
+
+사냥 역할이 의도한 핵심 이해가 실제로 얼마나 살아 있는지 1~5점과 근거로 기록한다.
+
+### 문제 로그
+
+문제마다 `HUX-001` 같은 ID를 부여하고 다음을 분리한다.
+
+- 관찰 사실
+- 사용자에게 생긴 문제
+- 심각도
+- 재현 가능 여부
+
+Stage 09-A에서는 바로 해결책을 확정하지 않는다.
 
 ---
 
-## Hunt RoleCompletion
+## Stage 09-A completion criteria
 
-추가 파일:
+다음을 모두 만족해야 Stage 09-A를 완료로 전환한다.
 
-- `src/roles/hunt/buildHuntCompletion.ts`
-
-Hunt는 `firelight` 전에는 완료 결과를 만들지 않는다.
-
-공통으로 전달하는 질적 신호:
-
-- 사냥 결과: 먹을 것 확보 또는 빈손
-- 자연 위험 경험
-- 공동체로 귀환
-- 거리 부담
-
-Hunt 상세 상태는 `RoleCompletion.detail`에서 Hunt가 소유하고 Common Shell은 이를 해석하지 않는다.
-
-기본 결과에는 score / HP / EXP / ranking / stars가 없다.
+- [ ] Hunt v0.1을 처음부터 Perspective Bridge까지 최소 1회 실제 플레이
+- [ ] 자연스러운 첫 플레이 결과 기록
+- [ ] `food-secured` / `empty-handed` 두 결과 비교
+- [ ] 장면별 관찰표 작성
+- [ ] 핵심 UX 질문에 근거 기록
+- [ ] 전체 판정 10개 작성
+- [ ] 발견 문제에 HUX ID 부여
+- [ ] 플레이 도중 즉시 코드 수정하지 않음
 
 ---
 
-## Common architecture preserved
+## Automated baseline — Stage 08-B
+
+Stage 09-A에 들어오기 전 기능 기준선은 이미 자동 검증되어 있다.
+
+최종 Stage 08-B GitHub Actions 성공:
+
+- Run: `32677268699`
+- Workflow: `Project CI`
+- OS: Ubuntu 24.04.4 LTS
+- Node.js: 24.19.0
+- npm: 11.17.0
+- install: PASS
+- typecheck: PASS
+- tests: PASS — **7 files / 25 tests**
+- production build: PASS — Vite 8.2.2 / **38 modules transformed**
+
+최종 Stage 08-B HEAD 자체도 이후 CI run `32677370024`에서 success를 확인했다.
+
+상세: `handoff/TEST_REPORT.md`
+
+---
+
+## Architecture guardrails still active
 
 ```text
 App
@@ -137,65 +172,25 @@ Common Experience / Role Features
 Shared UI
 ```
 
-유지된 Guardrail:
+Stage 09에서도 다음을 유지한다.
 
-- Common reducer에 Hunt-specific event 없음
-- Hunt / Gather / Camp 직접 import 없음
-- Hunt 내부 stage를 `ExperienceState`로 올리지 않음
-- 범용 Scene Engine 없음
-- Gather / Camp를 Hunt 구조에 맞추지 않음
-- 역할 플레이 순서와 같은 하루의 역사적 시간 분리
-- Common Morning 한 번만 실행
-- 실제 Hunt 완료 후 Perspective Bridge 사용
-- Common Evening은 Hunt 엔딩이 아니라 Integration 경계
-- score / HP / EXP / ranking 없음
-- 자연 위험 전투화 없음
-
----
-
-## Tests
-
-현재 전체 자동 테스트:
-
-- Test files: **7**
-- Tests: **25**
-
-Hunt 관련:
-
-- `tests/unit/huntReducer.test.ts` — 8
-- `tests/unit/buildHuntCompletion.test.ts` — 2
-- `tests/unit/HuntFeature.test.tsx` — 3
-- `tests/integration/HuntVerticalSlice.test.tsx` — 1
-
-기존 공통 reducer / persistence / Orchestrator tests도 모두 통과한다.
-
----
-
-## Final verification
-
-최종 GitHub Actions 성공:
-
-- Run: **`32677268699`**
-- Workflow: `Project CI`
-- OS: Ubuntu 24.04.4 LTS
-- Node.js: 24.19.0
-- npm: 11.17.0
-- install: PASS
-- typecheck: PASS
-- tests: PASS — **7 files / 25 tests**
-- production build: PASS — Vite 8.2.2, **38 modules transformed**
-
-Stage 08-B 코드, `package.json` Stage 08-B metadata, 운영 문서가 반영된 상태를 검증했다.
-
-상세: `handoff/TEST_REPORT.md`
+- Common reducer에 Hunt-specific event를 넣지 않는다.
+- Hunt / Gather / Camp끼리 직접 import하지 않는다.
+- Hunt 내부 stage를 `ExperienceState`로 올리지 않는다.
+- 범용 Scene Engine을 만들지 않는다.
+- Gather / Camp를 Hunt의 플레이 문법에 맞추지 않는다.
+- 학생의 역할 플레이 순서와 같은 하루의 역사적 시간을 연결하지 않는다.
+- score / HP / EXP / ranking을 기본 구조에 넣지 않는다.
+- 자연 위험을 전투 시스템으로 만들지 않는다.
+- Common Evening을 Hunt 전용 엔딩이나 점수표로 만들지 않는다.
 
 ---
 
 ## Current unfinished work
 
-Hunt Vertical Slice v0.1 기능 구현은 완료됐지만 다음은 아직 아니다.
-
-- Stage 09 교사/학생 UX 검증과 수정
+- **Stage 09-A 실제 교사 플레이와 관찰 기록**
+- Stage 09-B Hunt UX 분석
+- Stage 09-C 승인된 UX 수정
 - 최종 Hunt 대사·텍스트 다듬기
 - 구체 동물 종 / 자연 환경의 역사·시각 확정
 - Hunt 최종 이미지 / 사운드
@@ -206,25 +201,22 @@ Hunt Vertical Slice v0.1 기능 구현은 완료됐지만 다음은 아직 아�
 - 이동 / 새 거처
 - 최종 시각 자산 체계
 
-현재는 CSS / 텍스트 prototype으로 기능·UX 검증이 가능하므로 새 최종 자산 요청은 만들지 않았다.
-
 ---
 
 ## Next planned work
 
-### Stage 09-A — 교사 직접 플레이
+### 현재 해야 할 일 — Stage 09-A 실제 플레이
 
-브라우저에서 Hunt v0.1을 처음부터 끝까지 플레이하며 다음을 관찰한다.
+`handoff/HUNT_PLAYTEST_NOTES.md`를 열어 둔 상태에서 Hunt v0.1을 브라우저로 직접 플레이하고 **관찰값만 기록**한다.
 
-- 지루한 구간
-- 너무 긴 설명
-- 이해하기 어려운 조작
-- 의미 없는 선택
-- 사냥 성공 편중
-- 빈손도 정상적인 하루로 느껴지는지
-- 귀환 의미가 충분한지
-- 자연 위험이 전투보다 취약함/판단으로 느껴지는지
-- 다른 사람들의 존재가 느껴지는지
-- `“해가 지기 전에 돌아와.”`의 의미 변화가 느껴지는지
+### 그 다음 — Stage 09-B
 
-교사 관찰 메모 이후 **Stage 09-B — Hunt UX 분석**에서 문제를 `유지 / 축소 / 수정 / 삭제`로 분류하고 `docs/07_HUNT_UX_REVIEW.md`를 만든다.
+Stage 09-A 기록이 채워진 뒤 새 QA 세션에서:
+
+1. 각 HUX 문제의 근거를 검토한다.
+2. 문제를 `유지 / 축소 / 수정 / 삭제`로 분류한다.
+3. 교육적 의미와 UX 비용을 함께 평가한다.
+4. `docs/07_HUNT_UX_REVIEW.md`를 작성한다.
+5. 실제 수정은 Stage 09-C로 넘긴다.
+
+**Stage 09-A 실제 관찰 없이 Stage 09-B를 완료했다고 간주하지 않는다.**
