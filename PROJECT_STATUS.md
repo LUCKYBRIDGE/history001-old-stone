@@ -2,7 +2,7 @@
 
 ## Current phase
 
-**Stage 09-B — 몰입·내러티브 기반 재설계. Hunt v0.1의 기능 기준선은 유지하고, 역할 빙의와 줄거리 강화를 상위 설계 전체에 반영하는 단계.**
+**Stage 09-B — 몰입·내러티브 기반 재설계 완료. 다음 공식 단계는 Stage 09-C — Hunt v0.2 immersive functional prototype 구현.**
 
 Stage 09-A 실제 첫 플레이에서 다음 핵심 피드백이 확인됐다.
 
@@ -10,17 +10,17 @@ Stage 09-A 실제 첫 플레이에서 다음 핵심 피드백이 확인됐다.
 
 이 문제를 `HUX-001 — 시작 직후 역할 몰입 부족`으로 기록했고 심각도는 **높음**으로 판정했다.
 
-판정:
+현재 판정:
 
-## **현재 Hunt v0.1은 Functional Complete이지만 Immersion Complete가 아니다.**
+## **Hunt v0.1은 Functional Complete이지만 Immersion Complete가 아니다.**
+
+Stage 09-B에서 이 문제를 첫 화면 문구 수준이 아니라 프로젝트 전체의 몰입·서사 설계 문제로 승격해 canonical 문서와 향후 개발 계획을 재구성했다.
 
 ---
 
-## 이번 재설계에서 확정한 핵심 변화
+## Stage 09-B에서 확정한 핵심 변화
 
 ### 1. 몰입을 최상위 품질 게이트로 승격
-
-몰입은 최종 이미지/사운드 단계의 장식이 아니다.
 
 모든 역할은 다음을 검증해야 한다.
 
@@ -33,9 +33,7 @@ Stage 09-A 실제 첫 플레이에서 다음 핵심 피드백이 확인됐다.
 - 모티프/감정 회수
 - Player-facing UI와 개발 메타 UI 분리
 
-### 2. 줄거리 강화
-
-Hunt는 단순 장면 목록이 아니라 다음 연속 플롯으로 재설계했다.
+### 2. Hunt 줄거리 강화
 
 ```text
 불 옆의 새벽
@@ -65,19 +63,21 @@ Hunt는 단순 장면 목록이 아니라 다음 연속 플롯으로 재설계�
 
 Gather/Camp를 Hunt의 화면 구조나 reducer 문법의 복사본으로 만들지 않는다.
 
-### 4. 개발 계획 개편
+### 4. 개발 파이프라인 개편
 
 앞으로 역할 개발 기본 순서:
 
 ## **Historical Core → Role Identity → STORY → Immersion Script → PLAYFLOW → Functional Prototype → Teacher Immersion Test → Student Test → Final Art/Sound → Final QA**
 
-Functional Complete와 Immersion Complete를 구분한다.
+역할 완료 정의를 다음처럼 분리한다.
+
+- Functional Complete
+- Immersion Complete
+- Production Complete
 
 ---
 
 ## Canonical documents revised
-
-이번 Stage 09-B에서 다음 문서를 몰입 기준으로 개편했다.
 
 - `AGENTS.md`
 - `README.md`
@@ -87,10 +87,12 @@ Functional Complete와 Immersion Complete를 구분한다.
 - `docs/03_HUNT_STORY.md` — v3
 - `docs/04_HUNT_PLAYFLOW.md` — v3
 - `docs/05_ROLE_EXPERIENCE_MAP.md` — v3
-- `docs/05A_STAGE01-05_DESIGN_VALIDATION.md` — v2 재검증
+- `docs/05A_STAGE01-05_DESIGN_VALIDATION.md` — v2
 - `docs/06_TECH_BLUEPRINT.md` — v2
+- `handoff/HUNT_PLAYTEST_NOTES.md` — v2
+- `handoff/HUNT_PLAYTEST_OBSERVATIONS.md`
 
-새 문서:
+새 canonical 문서:
 
 - `docs/07_IMMERSION_NARRATIVE_BIBLE.md`
 - `docs/08_HUNT_IMMERSION_REDESIGN.md`
@@ -99,9 +101,7 @@ Functional Complete와 Immersion Complete를 구분한다.
 
 ## Current Hunt code baseline
 
-코드는 아직 Stage 08-B Hunt v0.1이다.
-
-기능 흐름:
+현재 런타임 코드는 아직 Stage 08-B Hunt v0.1이다.
 
 ```text
 Common Morning
@@ -122,7 +122,7 @@ Common Morning
 → Perspective Bridge
 ```
 
-보존해야 할 Guardrail:
+보존할 Guardrail:
 
 - Hunt 내부 상태는 Hunt가 소유
 - Common reducer에 Hunt-specific event 없음
@@ -138,36 +138,34 @@ Common Morning
 
 ---
 
-## Automated baseline
+## Stage 09-B verification
 
-Stage 08-B 기능 기준선:
+최종 설계/운영 문서가 포함된 브랜치 HEAD 검증:
 
-- Node.js 24.19.0
-- npm 11.17.0
-- 7 test files
-- 25 tests
-- typecheck PASS
-- production build PASS
+- GitHub Actions run: **`32755102466`**
+- Workflow: `Project CI`
+- install: PASS
+- typecheck: PASS
+- tests: PASS — **7 files / 25 tests**
+- production build: PASS
 
-기존 최종 성공 run: `32677268699`
-
-Stage 09-B는 현재 문서/설계 리비전이므로 코드 구현은 다음 단계에서 수행한다.
+상세: `handoff/TEST_REPORT.md`
 
 ---
 
-## Next task — Stage 09-C Hunt v0.2 immersive prototype
+## Next official task — Stage 09-C
 
-우선순위:
+### **Hunt v0.2 immersive functional prototype 구현**
 
-### P0
+### P0 — 시작 몰입과 체험 surface
 
-1. 학생 화면에서 Stage/Vertical Slice/RoleEntry 등 개발 메타 UI 제거 또는 debug 분리
+1. 학생 화면에서 Stage / Vertical Slice / RoleEntry 등 개발 메타 UI 제거 또는 Debug 분리
 2. Common Morning을 Cold Open으로 재구성
 3. 첫 30초 안에 감각 + 관계 + 의미 있는 첫 행동 구현
-4. `같이 가자` / `해가 지기 전에 돌아와` 관계 앵커
-5. 거처가 멀어지는 공간 연속성
+4. `같이 가자` / `해가 지기 전에 돌아와` 관계 앵커 구현
+5. 거처가 멀어지는 공간 연속성 구현
 
-### P1
+### P1 — Hunt 전체 서사 연결
 
 6. 탐색에 동행자/환경 반응
 7. 발견 전 정적과 시선 연출
@@ -177,17 +175,21 @@ Stage 09-B는 현재 문서/설계 리비전이므로 코드 구현은 다음 �
 11. 귀환 랜드마크를 앞 장면에 미리 심기
 12. 아침 불 → 저녁 불빛 회수
 
-### P2
+### P2 — 검증
 
-13. Player-facing / debug 테스트
-14. 핵심 E2E 경로
+13. Player-facing / Debug 테스트
+14. 핵심 E2E 경로 검토/추가
 15. 교사 몰입 재테스트 준비
 
-결과 목표:
+목표 결과:
 
 ## **Hunt v0.2 — immersive functional prototype**
 
-그 뒤 Stage 09-D 교사 재플레이 → Stage 09-E UX 수정 → Stage 09-F 학생 테스트로 진행한다.
+그 뒤:
+
+- Stage 09-D — 교사 재플레이 / 몰입 QA
+- Stage 09-E — HUX 분석·승인 수정
+- Stage 09-F — 소규모 학생 테스트
 
 ---
 
