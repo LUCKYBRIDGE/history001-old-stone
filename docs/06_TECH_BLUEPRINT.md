@@ -1,5 +1,5 @@
 # 구석기 역사 체험 웹게임
-## Stage 06 — 기술 설계 v6 / Same-Day Embodied Role Architecture
+## Stage 06 — 기술 설계 v7 / Same-Day Embodied Role Architecture + Curriculum Anchors
 
 > 목적: Stage 01~05의 최신 R2 설계를 React/TypeScript 브라우저 앱으로 구현할 수 있도록 **최소하고 명시적이며 테스트 가능한 계약**을 고정한다. 기존 Hunt v0.1은 Legacy Functional Prototype이며, 새 설계와 충돌하면 R2 계약을 우선한다.
 >
@@ -10,6 +10,7 @@
 > - `docs/01B_RELATIONSHIP_AGENCY_PRINCIPLES.md`
 > - `docs/01C_SUBTLE_SCREEN_TREATMENT_PRINCIPLES.md`
 > - `docs/01D_LEARNING_CLARITY_SAFETY_HISTORICAL_INTEGRITY.md`
+> - `docs/01E_CURRICULUM_TEXTBOOK_ANCHORS.md`
 > - `docs/02_EXPERIENCE_STRUCTURE.md`
 > - `docs/03_HUNT_STORY.md`
 > - `docs/04_HUNT_PLAYFLOW.md`
@@ -27,37 +28,9 @@ App
 → Embodied Presentation
 ```
 
-책임:
+Curriculum Anchor는 별도 거대한 엔진 계층을 만들지 않는다.
 
-## App
-
-- player / teacher / debug surface 진입점
-- 기본은 player surface
-
-## Experience Orchestrator
-
-- 학생 플레이 순서
-- major phase
-- 역할 진입/완료
-- Perspective Bridge
-- Common Evening 진입
-- stable checkpoint
-
-## Same-Day World / Integration
-
-- 같은 날의 stable world facts
-- cross-role에 실제로 필요한 질적 신호
-- 역할 결과를 Common Evening/후속 관점에서 회수
-
-## Role Features
-
-- Hunt/Gather/Camp 내부 상태와 행동 규칙 소유
-- 다른 역할의 내부 stage를 해석하지 않음
-
-## Embodied Presentation
-
-- 몸/시점/사람/interaction/treatment 표현 primitive
-- 역할 규칙 소유 금지
+기존 역할/프레젠테이션 구조 안에서 작은 명시적 계약으로 처리한다.
 
 ---
 
@@ -75,7 +48,7 @@ App
 - React Testing Library
 - `@testing-library/user-event`
 
-현재 Stage 07에서 추가하지 않을 것:
+Stage 07에서 추가하지 않을 것:
 
 - 서버
 - 로그인
@@ -83,29 +56,22 @@ App
 - WebGL/3D 엔진
 - 범용 state machine 라이브러리
 - NPC AI
-- VFX 엔진
+- generic VFX engine
+- generic Curriculum Engine
 - 대규모 Scene DSL
 
-Playwright는 실제 필요가 생긴 뒤 도입 가능하지만 Stage 07의 필수 조건은 아니다.
+# **교과 연계가 추가됐다고 architecture를 과설계하지 않는다.**
 
 ---
 
 # 3. 시간 모델 — Play Sequence와 World Time 분리
-
-가장 중요한 신규 계약이다.
-
-학생 세션:
 
 ```ts
 export interface ExperienceSessionProgress {
   currentRole: RoleId | null;
   completedRoles: readonly RoleId[];
 }
-```
 
-세계 시간:
-
-```ts
 export interface SharedDayContext {
   experienceId: string;
   communityId: string;
@@ -114,24 +80,19 @@ export interface SharedDayContext {
 }
 ```
 
-핵심:
+규칙:
 
-- `completedRoles`는 **학생이 어떤 관점을 이미 플레이했는가**를 나타낸다.
-- `dayId`는 역할 세 개가 같은 날에 속한다는 world identity다.
-- 역할을 완료했다고 `dayId`를 증가시키지 않는다.
-- 세 역할 + Common Evening 이후에만 later-days phase를 별도로 시작한다.
-
-# **세션 진행 상태와 역사 세계 시간을 같은 값으로 표현하지 않는다.**
+- `completedRoles`는 학생이 플레이한 관점.
+- `dayId`는 세계 안의 같은 하루.
+- 역할 완료로 `dayId` 증가 금지.
+- 역할 순서를 바꿔도 동일 day context 전달.
+- 세 역할 + Common Evening 후 later-days phase 시작 가능.
 
 ---
 
-# 4. Same-Day World Facts와 Cross-Role Signal
+# 4. Same-Day World Facts
 
-공유 정보는 두 종류로 나눈다.
-
-## Stable World Facts
-
-같은 날 역할 순서와 무관하게 유지되는 정보.
+필요한 만큼만 공유한다.
 
 예:
 
@@ -142,35 +103,40 @@ export interface SharedWorldFacts {
   sharedMorningId: string;
   motifIds: readonly string[];
   castIds: readonly string[];
+  currentShelterKind?: 'temporary-open-shelter' | 'rock-overhang' | 'cave';
 }
 ```
 
-## Cross-Role Signal
+`currentShelterKind`는 실제 구현 필요가 생긴 뒤 도입해도 된다.
 
-한 관점에서 생긴 결과를 다른 관점의 **후속 표현**에 쓰는 질적 신호.
+Stage 07에서 미리 범용 world database를 만들지 않는다.
+
+---
+
+# 5. Cross-Role Signal
 
 기존 `SharedSignal` 형태를 우선 유지한다.
 
-좋은 신호:
+좋은 signal:
 
 - `hunt-returned-late`
 - `hunt-returned-with-food`
+- `hunt-cave-shelter-noticed`
+- `hunt-cave-shelter-inspected`
 - `hunt-shared-carry`
 
 금지:
 
 - 모든 클릭 기록
-- role 내부 stage
-- actor 모든 내부 상태
-- animation/treatment 순간 상태
+- transient animation state
+- role 내부 reducer step 전체 노출
+- curriculum popup의 open/close 상태를 cross-role에 저장
 
-Cross-role signal은 다른 역할의 과거를 소급 변경하지 않는다.
+# **교과 개념 자체를 signal로 공유하기보다, 후속 역할에서 의미가 달라지는 세계 사건만 공유한다.**
 
 ---
 
-# 5. RoleCompletion은 단순하게 유지
-
-현재 계약을 최대한 보존한다.
+# 6. RoleCompletion은 단순하게 유지
 
 ```ts
 export interface RoleCompletion<TResultDetail = unknown> {
@@ -183,73 +149,126 @@ export interface RoleCompletion<TResultDetail = unknown> {
 
 원칙:
 
-- 역할 내부 detail은 역할이 소유
-- Common은 `sharedSignals`와 필요한 통합 detail만 읽음
-- 점수/HP/EXP 추가 금지
-- 관계/학습/treatment를 무조건 별도 전역 배열로 늘리지 않음
-
-# **실제로 후속 장면에서 필요할 때만 계약을 확장한다.**
+- 역할 내부 detail은 역할이 소유.
+- Common은 필요한 질적 signal만 읽음.
+- 점수/HP/EXP 추가 금지.
+- Curriculum Anchor 때문에 전역 배열을 무분별하게 추가하지 않음.
 
 ---
 
-# 6. Scene-State와 Cinematic Beat
-
-Stage 04의 핵심을 기술적으로 보존한다.
+# 7. Scene-State와 Cinematic / Curriculum Beat
 
 ## Scene state
 
-Reducer/state에 올릴 가치가 있는 것:
+Reducer/state에 올릴 가치:
 
 - 목표가 달라짐
 - 직접 행동 가능성이 달라짐
-- 결과/관계/위치/시간이 의미 있게 달라짐
+- 위치/시간/결과/관계가 의미 있게 달라짐
+- 후속 signal이 필요함
 
 ## Beat
 
-state enum으로 만들 필요가 없는 것:
+별도 reducer stage가 필요 없는 것:
 
-- actor가 잠깐 멈춤
-- 시선 이동
+- actor 정지
+- gaze
 - sound drop
-- 짧은 jolt
-- focus 변화
+- jolt/focus
+- 손 transition
 - 대사 한 줄
-- 손이 올라오는 transition
+- **짧은 `뗀석기 / 주먹도끼` terminology reveal**
+- 동굴 입구의 밝기/노출 변화
 
-필요하면 component-local transient state 또는 CSS transition으로 처리한다.
-
-# **모든 연출을 reducer stage로 만들지 않는다.**
+# **용어 reveal을 Scene Engine으로 만들지 않는다.**
 
 ---
 
-# 7. Stage 07에 필요한 최소 Scene 모델
+# 8. Curriculum Anchor 최소 타입
 
-범용 Scene Engine을 만들지 않는다.
+Stage 07에서 필요한 경우 다음 정도면 충분하다.
 
-Stage 07 Skeleton은 작은 명시적 상태만 있으면 된다.
+```ts
+export type CurriculumAnchorId =
+  | 'paleolithic-chipped-stone'
+  | 'handaxe'
+  | 'fire-use'
+  | 'temporary-shelter'
+  | 'cave-or-rock-shelter'
+  | 'mobile-livelihood';
+```
+
+이 타입은 QA/문서 대응을 위한 안정 ID다.
+
+학생에게 그대로 노출하지 않는다.
+
+---
+
+# 9. Terminology Reveal 최소 모델
+
+범용 튜토리얼/백과사전 시스템을 만들지 않는다.
+
+Stage 07에서는 component-local presentation으로 충분하다.
 
 예:
 
 ```ts
-export type SkeletonStep =
-  | 'orientation'
-  | 'fire'
-  | 'receive-tool'
-  | 'join'
-  | 'depart'
-  | 'crouch-proof'
-  | 'perspective-proof';
+export interface TerminologyReveal {
+  anchorId: CurriculumAnchorId;
+  title: string;
+  description: string;
+}
 ```
 
-이 타입은 **Skeleton 전용**이다.
+예시:
 
-향후 Hunt 전체의 generic Scene DSL로 승격하지 않는다.
+```ts
+{
+  anchorId: 'handaxe',
+  title: '뗀석기 · 주먹도끼',
+  description: '돌을 깨뜨리거나 떼어 만든 대표적인 도구',
+}
+```
+
+원칙:
+
+- student-facing text는 짧음.
+- reveal은 행동 뒤에 나타남.
+- 다음 행동을 막는 modal이 아님.
+- 필요하면 `aria-live="polite"` 등으로 접근성 고려.
 
 ---
 
-# 8. Role-True Perspective Contract
+# 10. Learning Evidence
 
-Stage 07부터 presentation이 현재 관점을 명시적으로 알 수 있어야 한다.
+Learning Evidence는 학생 점수가 아니라 QA용 증거다.
+
+```ts
+export interface LearningEvidence {
+  id: string;
+  sourceRole: RoleId;
+}
+```
+
+Stage 07 권장 evidence:
+
+- `tool-received-in-embodied-context`
+- `handaxe-term-revealed`
+- `embodied-observation-performed`
+- `natural-shelter-evaluated`
+
+Stage 08 이후 실제 기능적 도구 사용이 구현되면:
+
+- `tool-reused-in-living-action`
+- `handaxe-multiple-uses-experienced`
+
+를 추가할 수 있다.
+
+# **도구를 단지 받았다는 사실을 ‘자르기/땅파기까지 학습했다’고 과장하지 않는다.**
+
+---
+
+# 11. Role-True Perspective Contract
 
 ```ts
 export interface RolePerspectiveContext {
@@ -259,19 +278,15 @@ export interface RolePerspectiveContext {
 }
 ```
 
-player-facing에서는:
+Player:
 
-- 역할 시작 시 perspective label을 짧게 노출 가능
-- role 내부에서는 반복 label을 고정 HUD처럼 노출하지 않아도 됨
-- 다른 역할의 내부 정보/속마음/미래 결과를 player text에 넣지 않음
-
-Debug에서는 현재 role/step을 볼 수 있다.
+- 역할 시작 시 perspective label 짧게 노출 가능.
+- 내부에서는 다른 역할 사실을 전지적으로 보여주지 않음.
+- 교과 설명도 현재 경험과 연결된 범위만 짧게 노출.
 
 ---
 
-# 9. Embodied Presentation — 필요한 만큼만
-
-범용 asset engine 대신 소수의 명시적 presentation state를 사용한다.
+# 12. Embodied Presentation
 
 ```ts
 export type BodyPose =
@@ -279,49 +294,84 @@ export type BodyPose =
   | 'receive-tool'
   | 'standing-with-tool'
   | 'walking-with-tool'
-  | 'crouch-observe';
+  | 'crouch-observe'
+  | 'cave-inspect'
+  | 'camp-fire-rest';
 
 export interface BodyPresentation {
   pose: BodyPose;
-  heldItem: 'stone-tool' | null;
-  emotionalTone?: 'neutral' | 'alert' | 'hesitant' | 'relieved';
+  heldItem: 'stone-handaxe' | null;
+  emotionalTone?: 'neutral' | 'alert' | 'hesitant' | 'relieved' | 'curious';
 }
 ```
 
-Skeleton은 silhouette / CSS shape / placeholder로 충분하다.
+Stage 07은 CSS shape/silhouette로 충분하다.
 
-목표는 최종 아트가 아니라:
+검증 대상:
 
 - body placement
-- pose 변화
-- tool continuity
-- actor와의 spatial relation
-
-검증이다.
+- held-item continuity
+- actor relation
+- cave/world spatial composition
 
 ---
 
-# 10. Cast Anchor
+# 13. Held Item Continuity
 
-범용 NPC 모델 없음.
+주먹도끼는 Scene이 바뀌어도 의미 없이 사라지면 안 된다.
 
-Stage 07 최소 anchor:
+Stage 07 규칙:
 
-```ts
-export type SkeletonActorId = 'r' | 'h1' | 'h2';
+```text
+before RECEIVE_TOOL → null
+RECEIVE_TOOL 이후 → stone-handaxe
+perspective 전환 후 다른 사람 몸 → null 또는 그 역할의 별도 item
 ```
 
-각 actor에 필요한 것:
-
-- 화면 위치
-- 짧은 label/대사
-- player와의 관계 기능
-
-관계 기억은 실제 후속 장면에서 쓸 것만 만든다.
+다른 역할의 몸으로 바뀌는 순간 Hunt 도구가 자동으로 계속 붙어 있으면 안 된다.
 
 ---
 
-# 11. Relationship / Emotional Consequence
+# 14. Natural Shelter / Cave 상태
+
+Stage 07 proof에 필요한 최소 상태:
+
+```ts
+export type ShelterObservation =
+  | 'not-seen'
+  | 'noticed'
+  | 'inspected';
+```
+
+또는 Skeleton step 자체로 충분하면 별도 필드를 만들지 않아도 된다.
+
+Stage 08 이후 실제 결과에 필요할 때만 signal을 확장한다.
+
+# **Skeleton proof를 위해 generic shelter simulation을 만들지 않는다.**
+
+---
+
+# 15. Cave Scene Presentation
+
+필요한 primitive:
+
+- cave/rock opening shape
+- entrance vs interior exposure difference
+- dry ground cue
+- optional animal-sign cue
+- actor 위치
+- player hand/body
+
+필요 없는 것:
+
+- 3D cave navigation
+- procedural cave generation
+- collision engine
+- inventory system
+
+---
+
+# 16. Relationship / Emotional Consequence
 
 관계는 점수로 저장하지 않는다.
 
@@ -333,83 +383,33 @@ export type RelationshipMemoryId =
   | 'pressed-on-despite-fatigue'
   | 'stayed-close-under-danger'
   | 'shared-carry-burden'
-  | 'returned-late';
+  | 'returned-late'
+  | 'shared-new-shelter-discovery';
 ```
 
-감정 자체를 boolean으로 강제 저장하지 않는다.
+`guilt=true` 같은 감정 boolean은 기본적으로 만들지 않는다.
 
-예를 들어 `guilt=true`보다:
-
-```text
-returned-late
-+
-R의 기다린 흔적
-+
-재회 반응
-```
-
-이 감정을 만들게 한다.
-
-필요 시 `emotionalCallbackId`처럼 **표현용 callback**을 둘 수 있지만 점수화하지 않는다.
+세계 사건과 사람 반응이 감정을 만든다.
 
 ---
 
-# 12. Choice Fairness 기술 기준
-
-Choice Fairness는 결과 평등이 아니다.
+# 17. Choice Fairness
 
 테스트 가능한 조건:
 
-- 선택 전에 관련 observation state가 존재
-- 가능한 선택이 최소 2개 이상
-- 결과 규칙이 앞선 상태와 연결
-- 더 나쁜 결과가 있어도 deterministic/controlled rule로 설명 가능
-- 학생 인격을 평가하는 score를 만들지 않음
-- 한 선택만 필수 역사 콘텐츠를 독점하지 않음
+- 선택 전에 관련 observation이 존재.
+- 결과가 앞선 정보와 연결.
+- 더 나쁜 결과도 허용.
+- 학생 인격을 score로 평가하지 않음.
+- 필수 교과 개념을 특정 선택 하나만 독점하지 않음.
 
-불확실성은 허용한다.
+특히 Cave:
 
-# **자의적인 벌은 피하고, 납득 가능한 위험은 허용한다.**
-
----
-
-# 13. Learning Evidence는 QA용 증거
-
-학생 점수가 아니다.
-
-```ts
-export interface LearningEvidence {
-  id: string;
-  sourceRole: RoleId;
-}
-```
-
-Hunt 후보:
-
-- `tool-used-in-context`
-- `hunt-begins-with-observation`
-- `discovery-does-not-guarantee-food`
-- `time-distance-constrained`
-- `human-vulnerable-in-nature`
-- `return-to-community-matters`
-
-Stage 07 Skeleton 최소 evidence:
-
-- `tool-used-in-context`
-- `embodied-observation-performed`
-
-목적:
-
-- 어떤 핵심 경험이 실제 상호작용으로 존재했는지 테스트
-- 마지막 개념화/교사 QA 지원
-
-학생에게 배지/점수로 노출하지 않는다.
+- 직접 발견하지 않은 경로에서도 `동굴/바위 그늘 생활` 개념을 전체 체험 어디선가 보장.
 
 ---
 
-# 14. Screen Treatment Contract
-
-최신 강도:
+# 18. Screen Treatment Contract
 
 ```ts
 export type ScreenTreatmentIntensity =
@@ -419,269 +419,234 @@ export type ScreenTreatmentIntensity =
   | 'strong-accent';
 ```
 
-Stage 07 후보 preset:
+Stage 07 preset 후보:
 
 ```ts
 export type SkeletonTreatmentPreset =
   | 'none'
   | 'fire-warmth'
+  | 'tool-focus'
   | 'standing-shift'
   | 'walking-air'
   | 'crouch-focus'
+  | 'cave-exposure'
   | 'perspective-transition';
 ```
 
-Stage 07에서는 horror strong-accent를 억지로 넣지 않아도 된다.
-
-다만 구조는 향후 Hunt Threat에서 `strong-accent`를 지원할 수 있어야 한다.
-
-원칙:
-
-# **Subtle by default. Strong when earned.**
-
-반복 HP damage flash 금지.
+Cave는 빨간 위험 화면보다 **입구와 안쪽의 명암 차**가 우선이다.
 
 ---
 
-# 15. Reduced Effects Resolver
+# 19. Reduced Effects
 
-효과를 끄면 내용이 사라지면 안 된다.
+Reduced Effects에서도 유지:
 
-간단한 resolver면 충분하다.
+- body/item continuity
+- terminology reveal
+- cave 정보
+- actor 반응
+- 선택/결과
+- learning evidence
 
-```ts
-function resolveTreatment(
-  preset: SkeletonTreatmentPreset,
-  reducedEffects: boolean,
-): SkeletonTreatmentPreset {
-  if (!reducedEffects) return preset;
+줄여도 되는 것:
 
-  if (preset === 'standing-shift' || preset === 'perspective-transition') {
-    return 'none';
-  }
+- sway
+- jolt
+- fade
+- focus animation
+- transition motion
 
-  return preset;
-}
+---
+
+# 20. Scaffold
+
+범용 tutorial engine 없음.
+
+순서:
+
+```text
+actor gesture / gaze
+→ environmental cue
+→ weak hotspot
+→ short action label
+→ explicit hint
 ```
 
-실제 구현은 더 세밀할 수 있다.
+Terminology Reveal은 scaffold가 아니다.
 
-Reduced Effects에서 유지해야 하는 것:
-
-- actor position
-- body pose 의미
-- 선택 정보
-- 대사
-- historical/relationship event
+개념명을 알려주는 것과 `무엇을 눌러야 하는지`를 알려주는 것은 별개다.
 
 ---
 
-# 16. Scaffold는 로컬하고 점진적으로
-
-범용 튜토리얼 엔진 없음.
-
-Skeleton 도구 전달 정도에서만 검증한다.
-
-```ts
-export type HintLevel = 0 | 1 | 2 | 3;
-```
-
-- 0: actor gesture
-- 1: 약한 cue
-- 2: 짧은 행동 문구
-- 3: 명확한 hint
-
-Stage 07에서는 시간 자동 증가 엔진까지 만들 필요 없다.
-
-테스트에서는 수동/명시적 hint 진행이 가능한지만 확인해도 된다.
-
----
-
-# 17. Player / Teacher / Debug 분리
-
-현재 Legacy runtime의 가장 큰 구조 부채다.
+# 21. Player / Teacher / Debug 분리
 
 ## Player
 
-보이면 안 되는 것:
+보이면 안 됨:
 
 - Stage 번호
-- reducer phase
-- internal step ID
-- debug signal
-- `Vertical Slice v0.1`
-- 개발용 toolbar
+- reducer ID
+- internal curriculum ID
+- evidence ID
+- debug toolbar
 
-보일 수 있는 것:
+보일 수 있음:
 
-- 현재 역할 관점의 짧은 진입 표시
-- 세계/몸/사람
+- role orientation
 - 직접 행동
-- 필요한 최소 안내
+- 짧은 terminology reveal
+- 세계/몸/사람
 
 ## Teacher
 
-명시적으로 열었을 때만:
-
-- 처음부터/현재 skeleton 재시작
-- reduced effects 토글
-- 현재 major step 정도
-
-학생 화면과 시각적으로 분리한다.
+- 현재 major step
+- reset
+- reduced effects
+- 필요하면 experienced curriculum anchors 요약
 
 ## Debug
 
-개발 환경 + 명시적 opt-in에서만:
-
-- exact step ID
-- body pose
-- treatment preset
-- reduced effects
-- evidence/memory
-
-# **기본 URL/기본 렌더는 Player surface다.**
+- exact step
+- held item
+- treatment
+- evidence
+- curriculum reveal state
 
 ---
 
-# 18. Stage 07 진입 모드
+# 22. Stage 07 Skeleton 모델 — Revised
 
-기존 Legacy Hunt v0.1을 삭제하지 않는다.
+Stage 07 전용 상태 예:
 
-개발 중 비교 가능하게 한다.
-
-권장:
-
-- 기본 앱: R2 Stage 07 Skeleton
-- 개발 환경에서 `?legacy=1`: 기존 ExperienceOrchestrator
-- 개발 환경에서 `?teacher=1`: Skeleton teacher controls
-- 개발 환경에서 `?debug=1`: Skeleton debug surface
-
-프로덕션 빌드에서는 legacy/debug 진입을 제품 기능처럼 노출하지 않는다.
-
----
-
-# 19. AppShell 원칙
-
-현재의
-
-```text
-Stage 08-B · Hunt Vertical Slice v0.1
-현재 단계: ...
-프로토타입 안내 footer
+```ts
+export type SkeletonStep =
+  | 'orientation'
+  | 'fire'
+  | 'receive-tool'
+  | 'tool-reveal'
+  | 'join'
+  | 'depart'
+  | 'crouch-proof'
+  | 'cave-notice'
+  | 'cave-inspect'
+  | 'perspective-proof';
 ```
 
-는 player surface에서 제거한다.
+이 타입은 Skeleton 전용이다.
 
-Skeleton은 화면 자체가 체험의 입구여야 한다.
-
-AppShell은 구조/접근성 컨테이너만 담당하고 개발 메타데이터를 표시하지 않는다.
+향후 generic Scene DSL로 승격하지 않는다.
 
 ---
 
-# 20. Persistence
+# 23. Stage 07 직접 구현 Acceptance
 
-Stage 07 Skeleton은 짧으므로 모든 순간을 저장하지 않는다.
+Stage 07이 실제 코드로 증명해야 하는 것:
 
-기존 ExperienceStorage는 Legacy 경로를 유지한다.
-
-R2 Skeleton에 persistence가 필요하다면 stable checkpoint만 고려한다.
-
-Stage 07 필수 구현에는 로컬 저장을 새로 추가하지 않아도 된다.
-
----
-
-# 21. Common Evening / Cross-Role 계약
-
-Stage 07에서는 Common Evening을 새로 구현하지 않는다.
-
-하지만 Stage 06은 향후 계약을 명확히 한다.
-
-- 세 역할의 같은 날 관점이 모두 끝난 뒤 한 번 실행
-- `completedRoles`는 play completion이지 world clock이 아님
-- role completion sharedSignals를 장면 변주에 사용
-- 한 역할 결과로 다른 역할의 이미 지나간 과거를 소급 변경 금지
+1. Player surface에 개발 chrome 없음.
+2. `사냥을 나선 사람의 관점` 명료함.
+3. R에게 돌도구를 받음.
+4. 도구가 내 몸에 붙음.
+5. **도구를 받은 뒤 `뗀석기 / 주먹도끼`를 짧게 명명함.**
+6. terminology reveal이 몰입을 완전히 막는 modal이 아님.
+7. departure 후 held item continuity 유지.
+8. crouch observation 가능.
+9. **넓은 동굴/바위 그늘을 발견하고 살피는 proof 존재.**
+10. cave가 자동 `새 집` 판정을 내리지 않음.
+11. cave inspection 뒤 `동굴/바위 그늘 생활`의 짧은 교과 연결 가능.
+12. perspective transition proof.
+13. reduced effects에서도 같은 정보 유지.
+14. Debug evidence가 학생 화면에 노출되지 않음.
 
 ---
 
-# 22. 테스트 전략
+# 24. 자동 테스트 전략
 
-## Legacy regression
-
-기존 테스트는 계속 통과해야 한다.
-
-- ExperienceOrchestrator
-- Hunt v0.1 reducer
-- completion
-- storage
-- integration
-
-## Stage 07 Skeleton unit/presentation
+## Stage 07 tests
 
 검증:
 
-1. player surface에 개발 메타데이터가 없음
-2. role orientation 표시
-3. 도구 받기 전/후 held item continuity
-4. fire → receive → join → depart → crouch 진행
-5. body pose가 step에 따라 변함
-6. reduced effects에서도 진행 가능
-7. teacher controls는 player 기본 화면에 없음
-8. debug data는 explicit debug mode에만 있음
-9. perspective proof에서 새 역할 관점이 명확함
-10. 최소 Learning Evidence 생성
+- player surface no dev chrome
+- tool receive
+- terminology reveal timing
+- handaxe held-item continuity
+- body pose transitions
+- cave notice → cave inspect progression
+- natural-shelter evidence
+- perspective transition
+- teacher reduced effects
+- debug evidence only
 
-자동 테스트는 `진짜 몰입되었다`를 증명하지 않는다.
+자동 테스트가 증명하지 않는 것:
 
----
+- 실제 손 비율 자연스러움
+- cave가 실제 공간처럼 느껴지는 정도
+- 용어 reveal이 감각적으로 덜 거슬리는지
+- 학생이 역사적 상상력을 실제로 형성하는지
 
-# 23. Stage 07 구현 순서
-
-1. AppShell의 legacy dev chrome 제거
-2. R2 Skeleton local state 구현
-3. role orientation
-4. fire / tool receive / join / depart / crouch proof
-5. body/actor/world placeholder composition
-6. treatment + reduced effects
-7. teacher/debug explicit surface
-8. perspective transition proof
-9. tests
-10. 브라우저 교사 QA 준비
-
-전체 Hunt는 Stage 07 승인 뒤 Stage 08에서 구현한다.
+이것은 Human QA가 책임진다.
 
 ---
 
-# 24. 하지 않을 것
+# 25. Persistence
 
-- 전체 Hunt v6를 이번 Skeleton에 구현
-- Gather/Camp 본체 구현
-- 3D/FPS
-- 범용 Scene Engine
-- 범용 NPC/Dialogue Engine
-- generic VFX system
-- 전역 관계 점수
-- 모든 body/treatment 조합 타입 생성
-- transient beat를 전역 reducer에 저장
-- Stage 07을 최종 아트 품질로 평가
+Stage 07 Skeleton은 짧으므로 모든 beat 저장 금지.
+
+Stage 08 이후 stable checkpoint가 필요할 때만 저장.
+
+Cave observation도 단지 proof 단계라면 persistence 불필요.
 
 ---
 
-# 25. Stage 06 Acceptance Gate
+# 26. Common Evening / Later-Day 확장
 
-- Student Play Order와 same-day world time이 기술적으로 구분되는가?
-- RoleCompletion 단순 계약을 보존하는가?
-- Scene와 Beat를 구분해 state 폭발을 막는가?
-- Role-True limited POV를 presentation 계약이 지원하는가?
-- Embodied body/held-item continuity를 표현 가능한가?
-- 관계/감정이 점수 대신 사건 memory/callback으로 표현되는가?
-- Choice Fairness가 `결과 평등`으로 잘못 구현되지 않는가?
-- `strong-accent`를 드물게 지원하되 기본값으로 만들지 않는가?
-- Reduced Effects가 동일한 사건 의미를 유지하는가?
-- Player/Teacher/Debug가 기본적으로 분리되는가?
-- Stage 07 Skeleton을 작은 local state로 구현할 수 있는가?
-- Legacy Hunt v0.1을 보존하면서 새 기본 체험을 만들 수 있는가?
-- 향후 Common Evening이 세 역할 완료 뒤 한 번 실행되는 구조를 침해하지 않는가?
+향후 역할 completion signal로:
 
-## 판정
+- cave discovery
+- tool use
+- late return
 
-이 문서는 R2 Stage 07 Skeleton의 직접 구현 입력이다.
+등을 후속 표현에 사용 가능.
+
+여러 날의 변화가 시작되면:
+
+- 자원 감소
+- 거리 증가
+- current shelter burden
+- new shelter candidate
+
+를 결합할 수 있다.
+
+이때도 generic simulation engine은 만들지 않는다.
+
+---
+
+# 27. 하지 않을 것
+
+- generic Curriculum Engine
+- 교과서 전체 DB
+- 장문의 glossary modal 시스템
+- 모든 유물에 item rarity/collection UI
+- cave 3D 탐험 엔진
+- 범용 shelter simulator
+- 주먹도끼 inventory stats
+- quiz-first learning loop
+- Stage 07에서 전체 Hunt 구현
+
+---
+
+# 28. Stage 06 Acceptance Gate
+
+- same-day world time 계약이 유지되는가?
+- Curriculum Anchor가 최소 타입/QA 수준으로 구현 가능한가?
+- terminology reveal이 작은 presentation beat인가?
+- 뗀석기/주먹도끼를 행동 뒤 명명할 수 있는가?
+- held-item continuity가 기술적으로 보존되는가?
+- 실제 기능 사용과 단순 receive evidence를 구분하는가?
+- cave/natural shelter proof를 2D DOM/CSS로 만들 수 있는가?
+- cave를 generic engine 없이 상태/표현할 수 있는가?
+- 핵심 교과 개념이 특정 분기에만 갇히지 않는가?
+- Player/Teacher/Debug가 분리되는가?
+- reduced effects에서 의미가 유지되는가?
+- Legacy Hunt baseline을 보존하는가?
+
+이 문서는 R2 Stage 07 Curriculum Anchor Skeleton revision의 직접 구현 입력이다.
