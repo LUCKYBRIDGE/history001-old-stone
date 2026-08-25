@@ -15,8 +15,9 @@
 5. `docs/01_PROJECT_CORE.md`
 6. `docs/01A_EMBODIED_FIRST_PERSON_PRINCIPLES.md`
 7. `docs/01B_RELATIONSHIP_AGENCY_PRINCIPLES.md`
-8. 이번 작업에 직접 필요한 Stage 문서
-9. 실제 개발이면 관련 코드와 테스트
+8. `docs/01C_SUBTLE_SCREEN_TREATMENT_PRINCIPLES.md`
+9. 이번 작업에 직접 필요한 Stage 문서
+10. 실제 개발이면 관련 코드와 테스트
 
 과거 채팅 기억보다 GitHub 최신 문서를 우선한다.
 
@@ -27,12 +28,13 @@
 1. `docs/01_PROJECT_CORE.md` — 프로젝트 교육·체험 헌법
 2. `docs/01A_EMBODIED_FIRST_PERSON_PRINCIPLES.md` — 몸이 보이는 1인칭 시점 헌법
 3. `docs/01B_RELATIONSHIP_AGENCY_PRINCIPLES.md` — 관계·딜레마·결과 헌법
-4. `docs/02_EXPERIENCE_STRUCTURE.md` — 전체 경험 구조
-5. `docs/07_IMMERSION_NARRATIVE_BIBLE.md` — 공통 몰입 실무 기준
-6. `docs/05_ROLE_EXPERIENCE_MAP.md` — 역할 경계·균형
-7. 역할별 `*_STORY.md`
-8. 역할별 `*_PLAYFLOW.md` / 구현 브리프
-9. `docs/06_TECH_BLUEPRINT.md` — 기술 기준
+4. `docs/01C_SUBTLE_SCREEN_TREATMENT_PRINCIPLES.md` — 색·명암·초점·깜빡임·미세 움직임 연출 헌법
+5. `docs/02_EXPERIENCE_STRUCTURE.md` — 전체 경험 구조
+6. `docs/07_IMMERSION_NARRATIVE_BIBLE.md` — 공통 몰입 실무 기준
+7. `docs/05_ROLE_EXPERIENCE_MAP.md` — 역할 경계·균형
+8. 역할별 `*_STORY.md`
+9. 역할별 `*_PLAYFLOW.md` / 구현 브리프
+10. `docs/06_TECH_BLUEPRINT.md` — 기술 기준
 
 하위 문서·기존 코드가 상위 원칙과 충돌하면 **기존 코드를 정당화하지 말고 상위 문서를 우선**한다.
 
@@ -53,6 +55,8 @@
 - 선택의 흔적은 이후 사람·몸·시간·공간·대사·다른 관점 중 최소 하나에 남아야 한다.
 - 큰 플롯은 재수렴할 수 있지만 모든 경로가 같은 의미의 결론으로 축소되면 안 된다.
 - Perspective Recontextualization을 핵심 학습 장치로 사용한다.
+- **색·명암·초점·짧은 blink·미세 sway 같은 작은 화면 효과를 몸/환경 상태의 보조 언어로 사용할 수 있다.**
+- 화면 효과는 의미를 대신하지 않는다. 먼저 세계·몸·사람에서 상황이 성립하고 효과는 이를 강화한다.
 - 사냥·채집·머무는 관점은 주역/보조역이 아니라 동등하다.
 - 점수, HP, EXP, 랭킹, 호감도 게이지, 전투 중심 구조를 임의로 추가하지 않는다.
 - 실패는 GAME OVER가 아니라 당시 생활의 불확실성을 보여주는 정상 상태다.
@@ -92,7 +96,38 @@
 
 ---
 
-## 6. 역할 경계
+## 6. Subtle Screen Treatment Guardrail
+
+화면 효과는 **대형 VFX가 아니라 지각 상태의 미세한 변화**로 사용한다.
+
+허용 예:
+
+- 불 근처의 따뜻한 색온도
+- 해질녘의 점진적 명암/색 변화
+- 위협 징후 인식 순간의 매우 약한 주변부 어두움 또는 focus shift
+- 피로한 귀환의 미세 sway
+- 자세/시간/관점 전환의 자연스러운 한 번의 blink
+- 먼 불빛 발견 뒤의 미세한 밝기 회복
+
+금지 또는 강한 제한:
+
+- 위험 때마다 진한 전체 화면 빨강
+- HP damage flash처럼 보이는 red flash
+- 반복적·빠른 flashing
+- 지속적인 강한 shake/blur/zoom
+- 효과 하나만 보고 위험·피로·진행 상태를 이해해야 하는 구조
+- 모든 장면에 효과를 겹쳐 사용하는 것
+
+원칙:
+
+- `none / subtle / accent` 정도의 작은 강도 budget을 사용한다.
+- `strong`을 기본 연출로 두지 않는다.
+- 효과를 꺼도 역사적 의미와 진행이 유지되어야 한다.
+- `prefers-reduced-motion` 또는 동등한 저감 모드를 고려한다.
+
+---
+
+## 7. 역할 경계
 
 ### Hunt
 
@@ -127,7 +162,7 @@
 
 ---
 
-## 7. 기술 Guardrail
+## 8. 기술 Guardrail
 
 기본 구조:
 
@@ -145,6 +180,7 @@ App
 - 같은 날의 역할 시간 분리
 - 질적 RoleCompletion
 - Common Evening은 Integration
+- screen treatment는 작은 presentation preset 수준에서 지원
 
 금지:
 
@@ -154,10 +190,11 @@ App
 - 절차 생성 서사
 - FPS/3D 엔진을 몰입의 전제조건으로 삼기
 - 전역 상태에 역할 내부 stage를 무분별하게 올리기
+- 범용 VFX 엔진 과설계
 
 ---
 
-## 8. 기존 코드의 지위
+## 9. 기존 코드의 지위
 
 기존 Stage 07/08 Hunt v0.1 코드는 **Legacy Functional Prototype**이다.
 
@@ -175,7 +212,7 @@ App
 
 ---
 
-## 9. 이미지·사운드 원칙
+## 10. 이미지·사운드·화면 연출 원칙
 
 일반 개발 세션에서 최종 자산을 성급히 만들지 않는다.
 
@@ -198,6 +235,8 @@ App
 
 이 하나의 장면으로 자연스러워야 한다.
 
+화면 연출은 최종 아트가 없어도 CSS/DOM 기반 prototype으로 검증할 수 있다.
+
 사운드 우선순위:
 
 1. 공간 ambience
@@ -208,7 +247,7 @@ App
 
 ---
 
-## 10. QA 원칙
+## 11. QA 원칙
 
 자동 테스트:
 
@@ -218,6 +257,7 @@ App
 - variant selection
 - persistence
 - debug 분리
+- screen treatment preset / reduced-effects 분리
 
 교사/학생 플레이테스트:
 
@@ -229,13 +269,15 @@ App
 - 선택이 뒤에서 기억되는가
 - 결론이 획일적으로 느껴지는가
 - 다른 관점에서 이전 행동을 다시 생각하는가
+- 색/명암/초점/미세 움직임이 상황을 자연스럽게 강화하는가
+- 화면 효과가 과하거나 게임 HUD처럼 느껴지지 않는가
 - 역사적 이유를 자기 경험으로 설명하는가
 
 자동 CI만으로 Immersion Complete를 선언하지 않는다.
 
 ---
 
-## 11. 저장소 변경 세션 종료 시 갱신
+## 12. 저장소 변경 세션 종료 시 갱신
 
 필요한 항목:
 
@@ -248,7 +290,7 @@ App
 
 ---
 
-## 12. 현재 공식 개발 계획
+## 13. 현재 공식 개발 계획
 
 `docs/00_DEVELOPMENT_WORKFLOW.md`의 **Design Reboot R2**를 따른다.
 
