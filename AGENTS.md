@@ -2,11 +2,11 @@
 
 이 저장소는 초등학생용 **구석기 신체화 1인칭 역사 체험 웹게임** 프로젝트의 Single Source of Truth다.
 
-현재 프로젝트는 기존 Hunt v0.1 기능 프로토타입 이후 **Design Reboot R2 / Stage 01 Deep Audit 기준**으로 진행한다.
+현재 프로젝트는 기존 Hunt v0.1 기능 프로토타입 이후 **Design Reboot R2 / Stage 01 Deep Audit + Emotional Realism Refinement** 기준으로 진행한다.
 
 ---
 
-## 1. 새 ChatGPT 작업 세션의 시작 순서
+## 1. 새 작업 세션의 시작 순서
 
 1. `AGENTS.md`
 2. `PROJECT_STATUS.md`
@@ -26,48 +26,52 @@
 
 ## 2. 문서 위계
 
-1. `docs/01_PROJECT_CORE.md` — 프로젝트 교육·체험 헌법
-2. `docs/01A_EMBODIED_FIRST_PERSON_PRINCIPLES.md` — 몸/시야 헌법
-3. `docs/01B_RELATIONSHIP_AGENCY_PRINCIPLES.md` — 관계·딜레마·결과 헌법
-4. `docs/01C_SUBTLE_SCREEN_TREATMENT_PRINCIPLES.md` — 미세 화면 연출 헌법
-5. `docs/01D_LEARNING_CLARITY_SAFETY_HISTORICAL_INTEGRITY.md` — 학습 명료성·안전·역사성 상한
-6. `docs/02_EXPERIENCE_STRUCTURE.md` — 전체 경험 구조
-7. `docs/07_IMMERSION_NARRATIVE_BIBLE.md` — 공통 몰입 실무 기준
-8. `docs/05_ROLE_EXPERIENCE_MAP.md` — 역할 경계·균형
+1. `docs/01_PROJECT_CORE.md`
+2. `docs/01A_EMBODIED_FIRST_PERSON_PRINCIPLES.md`
+3. `docs/01B_RELATIONSHIP_AGENCY_PRINCIPLES.md`
+4. `docs/01C_SUBTLE_SCREEN_TREATMENT_PRINCIPLES.md`
+5. `docs/01D_LEARNING_CLARITY_SAFETY_HISTORICAL_INTEGRITY.md`
+6. `docs/02_EXPERIENCE_STRUCTURE.md`
+7. `docs/07_IMMERSION_NARRATIVE_BIBLE.md`
+8. `docs/05_ROLE_EXPERIENCE_MAP.md`
 9. 역할별 `*_STORY.md`
-10. 역할별 `*_PLAYFLOW.md` / 구현 브리프
-11. `docs/06_TECH_BLUEPRINT.md` — 기술 기준
+10. 역할별 `*_PLAYFLOW.md`
+11. `docs/06_TECH_BLUEPRINT.md`
 
-하위 문서·기존 코드가 상위 원칙과 충돌하면 **기존 구현을 정당화하지 말고 상위 문서를 우선**한다.
+하위 문서·기존 코드가 상위 원칙과 충돌하면 상위 문서를 우선한다.
 
 ---
 
-## 3. 네 가지 비타협 기준
+## 3. 프로젝트 최상위 균형
 
-모든 작업은 다음 네 축을 동시에 만족해야 한다.
+모든 작업은 다음을 함께 만족한다.
 
-1. **Historical Integrity** — 역사 사실과 재구성을 구분
-2. **Learner Safety & Accessibility** — 초등학생에게 불필요한 공포/불편/장벽을 만들지 않음
-3. **Learning Clarity** — 학생이 무엇을 보고 무엇을 할 수 있는지 이해 가능
-4. **Embodiment & Agency** — 몸과 판단이 세계 안에서 의미 있게 느껴짐
+1. **Historical Integrity** — 사실과 재구성을 구분
+2. **Learning Clarity** — 학생이 상황과 행동을 이해 가능
+3. **Emotional & Accessibility Safety** — 감정을 없애지 않되 모욕·강압·접근성 장벽을 피함
+4. **Embodiment, Agency & Historical Imagination** — 그 시대 사람의 몸·관계·불확실성을 경험하고 역사적 상상력으로 연결
 
-몰입이 다른 세 기준을 침해하면 몰입 연출을 줄인다.
+중요:
+
+# **안전 = 감정 제거가 아니다.**
+
+두려움, 긴장, 죄책감, 후회, 걱정, 안도, 책임감, 의견 충돌은 역사적 상황에서 자연스럽다면 적극 활용할 수 있다.
 
 ---
 
 ## 4. Learning Invariants
 
-선택/분기가 달라도 다음 핵심은 전체 체험에서 보존한다.
+선택/분기가 달라도 전체 체험에서 다음 핵심 조건은 보존한다.
 
-- 도구와 생활 행동 연결
+- 도구와 생활 행동
 - 불과 생활 유지
 - 먹을거리 확보의 불확실성
-- 역할 상호의존
+- 사람들의 상호의존
 - 자연·시간·거리 제약
 - 한 장소 생활 부담의 누적
 - 이동 생활의 맥락
 
-분기는 **역사 사실을 바꾸는 것**이 아니라 같은 생활 조건을 다른 개인적 경험으로 만나게 한다.
+모든 학생이 같은 장면과 같은 감정을 경험할 필요는 없다.
 
 ---
 
@@ -79,201 +83,207 @@
 
 # **환경 + 내 몸 + 들고 있는 것 + 사람 + 행동 + 빛/소리**
 
-의 한 장면으로 설계한다.
+의 한 장면이다.
 
 확인:
 
-- 지금 눈의 위치/방향은 자연스러운가?
+- 눈의 위치/방향이 자연스러운가?
 - 몸은 실제 자세에서 보일 만큼만 보이는가?
-- 손은 실제 행동을 하는가?
-- 물건/도구 continuity가 유지되는가?
+- 손이 실제 행동을 하는가?
+- 도구 continuity가 유지되는가?
 - 사람과 내 몸이 같은 공간처럼 보이는가?
 - 광원/가림/원근이 일관되는가?
-- 몸이 Primary Attention Target을 방해하지 않는가?
 
 금지:
 
-- 모든 장면 하단에 고정 손 PNG
-- 몸이 많이 보일수록 좋다는 접근
+- 모든 화면 하단에 고정 손 PNG
 - 자유 3D/FPS를 몰입 전제조건으로 삼기
 
 ---
 
-## 6. Player Body Identity Guardrail
+## 6. Role-True Perspective Guardrail
 
-역할별 다른 몸을 사용할 수 있지만 다음을 금지한다.
+역할 진입 시 현재 시점을 짧게 알려줄 수 있다.
 
-- Hunt = 남성 고정
-- Gather/Camp = 여성 고정
-- 나이/성별/친족 분업을 근거 없이 사실처럼 표현
-- 몸 크기/힘을 역할 중요도와 연결
+예:
 
-외형보다 **행동·장소·관계·딜레마**로 역할 차이를 만든다.
+> 사냥을 나선 사람의 관점
+
+이후에는 그 역할의 사람이 실제로 보고·듣고·알 수 있는 범위에서 player-facing 경험을 진행한다.
+
+### Hunt
+
+사냥하는 사람의 눈앞 풍경, 몸, 동행자, 흔적, 거리, 먹을거리 필요, 위험, 귀환 고민을 본다.
+
+Camp에서 벌어지는 일을 전지적으로 알지 않는다.
+
+### Gather
+
+가까운 환경과 채집 행동, 함께 찾는 사람, 장소 기억과 범위 확대를 중심으로 본다.
+
+### Camp
+
+거처와 불, 남아 있는 사람, 해야 하는 일, 부재, 시간 변화, 기다림을 본다.
+
+# **관점 전환은 명확히 알려주고, 역할에 들어간 뒤에는 그 사람으로 살아가게 한다.**
 
 ---
 
-## 7. Relationship / Agency Guardrail
+## 7. Player Body Identity Guardrail
+
+역할별 다른 몸과 구체적 인물을 사용할 수 있다.
+
+다만 개인의 특징을 시대 전체의 규칙처럼 일반화하지 않는다.
+
+- Hunt=남성, Gather/Camp=여성 자동 고정 금지
+- 성별·연령·친족 분업을 근거 없이 역사적 보편 사실로 단정 금지
+- 역할 차이는 행동·장소·관계·시야·도구로 먼저 표현
+
+중립적 마네킹을 만드는 것이 목표는 아니다.
+
+---
+
+## 8. Relationship / Emotional Reality Guardrail
 
 관계는 호감도 숫자가 아니라 **함께 겪은 사건의 기억과 이후 반응**이다.
 
+허용:
+
+- 걱정
+- 죄책감
+- 후회
+- 의견 충돌
+- 안도
+- 관계적 압박
+- 늦은 귀환에 대한 현실적인 반응
+- 내 선택이 타인에게 미친 영향을 다른 관점에서 깨닫기
+
+피할 것:
+
+- NPC 모욕/조롱
+- 복잡한 상황을 학생 개인의 도덕적 잘못으로 단정
+- 죄책감만으로 숨겨진 정답 선택을 강요
+- 호감도/친밀도 점수
+
+# **관계가 학생의 판단을 무겁게 만드는 것은 좋다. 학생 인격을 채점하는 것은 피한다.**
+
+---
+
+## 9. Choice / Consequence Guardrail
+
+모든 선택이 똑같이 좋은 결과를 가질 필요는 없다.
+
+어떤 판단은 더 위험하거나 더 후회스러운 결과를 낳을 수 있다.
+
 확인:
 
-- 반복 인물이 있는가?
-- 그 사람이 학생 행동에 반응하는가?
-- 관계가 죄책감/도덕 채점으로 작동하지 않는가?
-- 주요 선택 전에 필요한 정보가 보이는가?
-- 적어도 두 선택이 합리적 이유를 갖는가?
-- 특정 선택만 좋은 관계/핵심 콘텐츠를 독점하지 않는가?
-- 선택 결과가 뒤에서 최소 한 번 회수되는가?
+- 당시 판단할 정보가 있었는가?
+- 결과가 세계 조건과 연결되는가?
+- 무작위 벌처럼 느껴지지 않는가?
+- 선택의 흔적이 사람·몸·시간·감정·다음 관점 중 하나 이상에 남는가?
 - 재수렴 뒤에도 의미 차이가 남는가?
 
-금지:
-
-- 호감도/친밀도 게이지
-- NPC 모욕/비난
-- 숨겨진 정답 루트
-- 무작위 처벌
+# **Choice Fairness는 결과 평등이 아니라 결과의 납득 가능성이다.**
 
 ---
 
-## 8. Threat Guardrail
+## 10. Threat / Horror Guardrail
 
-기본 문법:
+공포게임 같은 순간을 허용한다.
 
-# **징후 → actor reaction → body reaction → player observation → judgment → recovery**
+특히 Hunt에서는
 
-위협은 전투/공포가 목적이 아니다.
+- 어둠
+- 시야 밖 움직임
+- 자연의 소리
+- 갑작스러운 정지
+- 가까워지는 위험
+- 짧은 회피/도주
+- 순간적인 강한 화면/사운드 accent
 
-금지:
+를 사용할 수 있다.
 
-- 고어/그래픽 부상
-- 반복 jump scare
-- enemy HP/처치
-- 장시간 강한 공포
-- 죽음 GAME OVER
+목표는 자연 속 인간의 취약함·불확실성·판단을 체감시키는 것이다.
 
-학생이 UI보다 상황으로 먼저 이상함을 느껴야 한다.
+피할 것:
+
+- 고어/잔혹함 자체를 볼거리로 삼기
+- 의미 없는 jump scare 반복
+- 적 HP/처치 루프
+- 공포만 남고 역사적 상황이 사라지는 구성
+
+위협 뒤 긴장이 어느 정도 남는 것은 허용한다.
 
 ---
 
-## 9. Learning Clarity / Scaffold Guardrail
+## 11. Learning Clarity / Scaffold Guardrail
 
 학생은 최소한 다음을 알 수 있어야 한다.
 
 - 지금 어디에 있는가
-- 무엇을 살펴보거나 할 수 있는가
-- 왜 지금 행동할 이유가 있는가
+- 무엇을 할 수 있는가
+- 왜 행동할 이유가 있는가
 
 막힐 때 지원 순서:
 
 1. 사람/환경 cue
-2. 은은한 hotspot
+2. 시각/사운드 cue
 3. 짧은 행동 문구
 4. 명확한 hint
 
-중요한 조작을 pixel hunting으로 만들지 않는다.
-
-장면마다 **Primary Attention Target**을 하나 정한다.
+학생이 자연스럽게 이해하면 UI는 뒤로 물러난다.
 
 ---
 
-## 10. Perspective Recontextualization Guardrail
+## 12. Screen Treatment Guardrail
 
-Hunt / Gather / Camp는 같은 사람이 세 일을 하는 구조가 아니다.
+원칙:
 
-# **같은 하루를 서로 다른 공동체 구성원의 몸과 눈으로 경험한다.**
-
-관점 전환은 다음 anchor 중 2개 이상을 사용한다.
-
-- 같은 사람
-- 같은 불/물건
-- 같은 대사/소리
-- 같은 사건의 반대편 위치
-- 달라진 손/몸
-
-혼란이 생기면 한 줄 orientation을 허용한다.
-
-몰입보다 이해가 우선이다.
-
----
-
-## 11. Subtle Screen Treatment Guardrail
+# **Subtle by default. Strong when earned.**
 
 허용:
 
 - 불의 따뜻한 색
-- 시간대별 색온도/명암
-- 짧은 focus 변화
-- 미세 sway
-- 제한적 blink/fade
+- 시간대별 색/명암
+- focus/vignette
+- sway/jolt
+- blink/fade
+- 드문 strong accent
+- 맥락 있는 한 번의 red/dark accent
 
-원칙:
+피할 것:
 
-# **World/Actor → Body → Treatment**
-
-효과가 먼저 의미를 말하지 않는다.
-
-금지:
-
-- 위험마다 진한 전체 빨강
-- HP damage flash
+- 위험마다 같은 빨간 화면
+- HP damage pulse
 - 반복 빠른 flashing
-- 지속 강한 shake/blur/zoom
+- 장시간 강한 blur/shake/zoom
 - 효과 하나에 핵심 정보 의존
-- 범용 VFX 엔진
 
-`none / subtle / accent` 정도의 작은 budget을 사용한다.
+`none / subtle / accent / strong-accent`를 사용하되 strong-accent는 드문 핵심 순간에만 사용한다.
 
-Reduced effects에서도 모든 정보와 진행이 유지되어야 한다.
-
----
-
-## 12. 역할 경계
-
-### Hunt
-
-- 먼 시야
-- 걷기
-- 흔적 앞에 몸 낮추기
-- 추적
-- 자연 위험
-- 동행
-- 운반
-- 귀환
-
-### Gather
-
-- 가까운 시야
-- 손으로 살피기
-- 담기
-- 장소 기억/비교
-- 탐색 범위 확대
-
-### Camp
-
-- 불 가까이의 몸
-- 손질
-- 같은 장소의 시간 변화
-- 빈자리
-- 멀리 바라보기
-- 기다림
-- 재회
-
-Hunt의 플레이 문법을 다른 역할에 복제하지 않는다.
+Reduced Effects에서도 같은 사건과 판단이 유지되어야 한다.
 
 ---
 
-## 13. Reflection / Historical Concept
+## 13. Historical Imagination / Concept Guardrail
 
-몰입만으로 학습 완료를 선언하지 않는다.
+전체 학습 흐름:
 
-전체 루프:
+# **Immersion → Historical Imagination → Understanding → Conceptualization**
 
-# **Experience → Reflection → Historical Concept**
+학생은 먼저
 
-Reflection은 학생이 자기 플레이를 근거로 설명하게 한다.
+- 왜 무서웠는지
+- 왜 돌아갈지 고민했는지
+- 왜 다른 사람이 필요했는지
+- 왜 불과 거처가 중요했는지
+- 왜 한 장소에서 계속 살기 어려웠는지
 
-교과 개념은 경험에 이름을 붙이는 단계다.
+를 자기 경험으로 느끼고 상상한다.
+
+Reflection은 필요할 때 사용하지만 모든 역할 뒤에 강제로 삽입하지 않는다.
+
+교과 개념은 경험에서 생긴 이해에 이름을 붙인다.
 
 ---
 
@@ -305,7 +315,6 @@ App
 - procedural narrative
 - FPS/3D 엔진 선행
 - 범용 VFX 엔진
-- 전역 상태에 모든 역할 내부 stage 저장
 
 ---
 
@@ -313,16 +322,14 @@ App
 
 ### Player
 
-세계·몸·사람·행동·reflection만 본다.
+세계·몸·사람·행동을 본다. 필요한 경우 역할 시점과 최소 UI만 본다.
 
 ### Teacher
-
-필요한 경우:
 
 - major phase
 - checkpoint/restart
 - reduced effects
-- 학생 막힘 상태
+- 학생 막힘 지원
 
 ### Debug
 
@@ -346,7 +353,7 @@ App
 - React/TypeScript/Vite
 - CI
 - reducer/RoleCompletion 아이디어
-- non-combat / qualitative result guardrail
+- qualitative result 철학
 
 재설계 가능:
 
@@ -354,10 +361,10 @@ App
 - player-facing UI
 - role flow presentation
 - result detail
-- relationship/learning data
+- relationship/emotion data
 - Perspective Bridge
 
-기존 구현이 R2 v6 설계를 제한하면 설계를 우선한다.
+기존 구현이 최신 R2 설계를 제한하면 설계를 우선한다.
 
 ---
 
@@ -367,11 +374,10 @@ App
 
 - 기능/상태/계약
 - Learning Invariant coverage
-- choice precondition
 - variant selection
-- relationship memory
-- threat build-up/recovery
-- reduced effects parity
+- relationship/emotional memory
+- threat build-up
+- treatment preset / reduced effects
 - persistence/checkpoint
 - player/teacher/debug separation
 
@@ -379,13 +385,14 @@ App
 
 - 첫 행동 이해
 - 몸 자연스러움
+- 역할 관점 유지
 - 기억되는 사람
 - 실제 고민
-- 위협 강도
+- 죄책감/후회/안도 등 감정의 자연스러움
+- 공포/긴장의 적절성
 - 선택 회수
-- 관점 전환 이해
-- 효과 불편 여부
-- Reflection을 통한 역사 이해
+- 효과 위치와 강도
+- 역사적 상상력과 개념 이해
 
 자동 CI만으로 Immersion Complete를 선언하지 않는다.
 
@@ -408,10 +415,10 @@ App
 
 `docs/00_DEVELOPMENT_WORKFLOW.md`의 R2 계획을 따른다.
 
-현재 다음 구현 단계는
+다음 구현 단계는
 
 # **R2 Stage 07 — Embodied Experience Skeleton**
 
 이다.
 
-Skeleton은 몸/사람/시점뿐 아니라 **명료성·reduced effects·teacher/debug 분리·관점 orientation**도 함께 검증해야 한다.
+Skeleton은 **role-true POV + 몸/사람 + 관계 + 명료성 + 화면 treatment + reduced effects + 교사/디버그 분리**를 검증한다.
