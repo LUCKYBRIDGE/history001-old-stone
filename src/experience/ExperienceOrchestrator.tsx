@@ -47,6 +47,7 @@ export function ExperienceOrchestrator({
     () => ({
       experienceId: plan.id,
       communityId: 'old-stone-community-day-1',
+      dayId: 'day-1',
       sharedMorningSeen: state.commonMorningCompleted,
     }),
     [plan.id, state.commonMorningCompleted],
