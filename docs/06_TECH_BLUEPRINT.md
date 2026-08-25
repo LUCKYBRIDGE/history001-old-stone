@@ -1,404 +1,611 @@
 # 구석기 역사 체험 웹게임
-## 6단계 결과물 — 기술 설계 v2
+## Stage 06 — 기술 설계 v3 / Embodied Narrative Architecture
 
-> 목적: 여러 ChatGPT 개발 세션이 이어져도 교육·몰입·역할 경계가 무너지지 않도록 최소 기술 구조와 테스트 전략을 고정한다.
+> 목적: Stage 01~05 Design Reboot R2를 실제 브라우저 앱으로 구현할 수 있도록 최소 기술 구조를 다시 정의한다. 기존 Hunt v0.1 코드는 참고 가능한 기능 프로토타입이지만 이 문서보다 우선하지 않는다.
 >
-> 상위 기준: `AGENTS.md`, `docs/01_PROJECT_CORE.md`, `docs/02_EXPERIENCE_STRUCTURE.md`, `docs/05_ROLE_EXPERIENCE_MAP.md`, `docs/07_IMMERSION_NARRATIVE_BIBLE.md`.
+> 상위 기준:
+> - `AGENTS.md`
+> - `docs/01_PROJECT_CORE.md`
+> - `docs/01A_EMBODIED_FIRST_PERSON_PRINCIPLES.md`
+> - `docs/01B_RELATIONSHIP_AGENCY_PRINCIPLES.md`
+> - `docs/02_EXPERIENCE_STRUCTURE.md`
+> - `docs/05_ROLE_EXPERIENCE_MAP.md`
 
 ---
 
-# 1. 기술 구조
+# 1. 기술 최상위 결론
 
-초기 구조는 계속 다음을 유지한다.
+기존의 역할 경계는 유지하되, 세계·관계·관점 연속성을 위한 얇은 Integration 층을 명확히 둔다.
 
-# **App → Experience Orchestrator → Common Experience / Role Features → Shared UI**
+# **App → Experience Orchestrator → World Continuity / Integration → Common Experience / Role Features → Embodied Presentation UI**
 
-핵심:
+원칙:
 
-1. Common Shell은 큰 체험 흐름만 책임진다.
-2. Hunt / Gather / Camp는 독립 Feature다.
-3. Common Shell은 역할 내부 장면/게임 규칙을 모른다.
-4. Role Feature는 질적 `RoleCompletion`만 반환한다.
-5. 학생의 플레이 순서와 세계 안 같은 하루의 시간은 분리한다.
-6. 공통 저녁은 결과표가 아니라 Integration Feature다.
-7. score / HP / EXP / ranking을 전역 기본 구조로 만들지 않는다.
-8. 몰입을 위해 범용 게임엔진을 만들지 않는다.
+1. Experience Orchestrator는 큰 진행만 책임진다.
+2. Hunt / Gather / Camp는 각자 내부 플레이 규칙을 소유한다.
+3. `World Continuity / Integration`은 역할 플레이 규칙을 소유하지 않는다.
+4. 공통층은 반복 인물·공통 모티프·역할 간 회수에 필요한 최소 의미만 전달한다.
+5. Embodied UI는 표현 primitive를 제공하지만 역할의 게임 규칙을 알지 않는다.
+6. 범용 Scene Engine, NPC AI Engine, Quest Engine을 만들지 않는다.
 
 ---
 
 # 2. 기술 스택
+
+유지:
 
 - React
 - TypeScript
 - Vite
 - React `useReducer`
 - 필요한 범위의 Context
-- CSS Variables + 컴포넌트/Feature 단위 CSS
+- CSS Variables / Feature 단위 CSS
 - Vitest
 - React Testing Library
 - `@testing-library/user-event`
-- 핵심 몰입 경로에는 Playwright E2E 도입 권장
 
-초기에는 서버, 로그인, DB, 원격 저장이 없다.
+도입 권장:
 
-Redux/Zustand/XState/대형 UI 프레임워크는 실제 필요가 생기기 전까지 도입하지 않는다.
+- Playwright: 핵심 POV/E2E 경로
 
----
+초기에는 계속 없음:
 
-# 3. Player Experience와 Development Chrome 분리
-
-Stage 09-A에서 개발용 메타 UI가 몰입을 깨는 위험이 확인됐다.
-
-따라서 기술적으로 **학생용 체험 화면과 개발 정보 표시를 분리**한다.
-
-## Player-facing 기본
-
-보이는 것:
-
-- 세계 상황
-- 사람/대사
-- 환경 단서
-- 행동 가능한 요소
-- 필요한 최소 진행 UI
-
-보이지 않는 것:
-
-- `Stage 09-C`
-- `Vertical Slice`
-- role id
-- internal stage key
-- SharedSignal
-- 테스트 경로
-- 개발 설명
-
-## Development / Debug mode
-
-필요할 때만 다음을 별도 surface에 표시할 수 있다.
-
-- Experience phase
-- active role
-- role internal stage
-- DayMoment
-- RoleCompletion detail
-- persistence 상태
-
-구현 방식은 가장 단순한 것을 사용한다. 이를 위해 전역 debug framework를 만들지 않는다.
+- 서버
+- 로그인
+- DB
+- 원격 저장
+- 실시간 멀티플레이
 
 ---
 
-# 4. 시간 모델
+# 3. Embodied View는 기술적 1급 개념이다
 
-학생의 플레이 순서 ≠ 세계 안 시간 순서.
+이제 `ExperienceFrame`은 단순 배경 컨테이너가 아니다.
 
-## Experience Progress
-
-- common morning 완료
-- 어떤 역할을 완료했는지
-- 현재 Perspective Bridge
-- 모든 역할 완료 여부
-- common evening 진입 여부
-
-## In-world DayMoment
-
-역할 내부 같은 하루의 시간 표현:
+장면은 최소한 다음 레이어/의미를 표현할 수 있어야 한다.
 
 ```ts
-export type DayMoment =
-  | 'morning'
-  | 'late-morning'
-  | 'midday'
-  | 'afternoon'
-  | 'dusk'
-  | 'evening';
+export interface EmbodiedScenePresentation {
+  sceneId: string;
+  viewpoint: ViewpointSpec;
+  body: BodyPresentation;
+  environment: EnvironmentPresentation;
+  actors: readonly ActorPresentation[];
+  interactables: readonly InteractablePresentation[];
+  ambience?: AmbiencePresentation;
+}
 ```
 
-Hunt가 dusk에 끝났다고 Gather가 dusk에 시작하지 않는다.
+실제 타입은 구현 단계에서 최소화해도 된다. 중요한 것은 의미 분리다.
 
 ---
 
-# 5. Experience Phase
+# 4. ViewpointSpec
 
-Common Shell은 큰 phase만 관리한다.
+역할마다 POV 일관성이 필요하다.
+
+개념 예시:
 
 ```ts
-export type ExperiencePhase =
-  | 'start'
-  | 'common-morning'
-  | 'role-entry'
-  | 'role-playing'
-  | 'perspective-bridge'
-  | 'common-evening'
-  | 'multi-day'
-  | 'migration'
-  | 'new-home'
-  | 'concept-bridge'
-  | 'complete';
+export interface ViewpointSpec {
+  roleId: RoleId;
+  pose: 'sitting' | 'standing' | 'walking' | 'crouching' | 'carrying';
+  gaze: 'forward' | 'down' | 'left' | 'right' | 'back' | 'focused';
+  dayMoment: DayMoment;
+}
 ```
 
-몰입 강화를 이유로 역할 내부 Scene을 Common phase에 추가하지 않는다.
+이것은 3D 카메라 엔진을 뜻하지 않는다.
+
+초기 구현에서는 pose/gaze에 따라 적절한 장면 구성과 CSS/이미지 자산을 선택하는 수준이면 충분하다.
 
 ---
 
-# 6. ExperiencePlan
+# 5. BodyPresentation
 
-최종 production은 세 역할 모두를 요구한다.
+몸은 장식 overlay가 아니라 장면 상태다.
+
+개념 예시:
 
 ```ts
-export type RoleId = 'hunt' | 'gather' | 'camp';
+export interface BodyPresentation {
+  visibleParts: readonly ('left-hand' | 'right-hand' | 'forearm' | 'knees' | 'legs' | 'feet')[];
+  heldItem?: string;
+  burden?: 'none' | 'light' | 'heavy';
+  tension?: 'relaxed' | 'alert' | 'tired';
+}
+```
 
-export type RoleOrderPolicy =
-  | { kind: 'free-order' }
-  | { kind: 'configured'; order: readonly RoleId[] };
+초기 프로토타입에서 모든 조합을 이미지로 만들지 않는다.
 
-export interface ExperiencePlan {
+필요한 주요 상태만 명시적으로 지원한다.
+
+예:
+
+- fire-rest
+- tool-in-hand
+- crouch-observe
+- alert-with-companions
+- carrying-return
+- tired-return
+
+분기 폭발을 막기 위해 **소수의 의미 있는 body pose preset**을 둔다.
+
+---
+
+# 6. Player Body Identity
+
+역할마다 다른 사람의 몸을 빌린다는 것을 기술적으로 표현한다.
+
+```ts
+export interface PlayerBodyIdentity {
+  perspectiveId: string;
+  roleId: RoleId;
+  bodyAssetSet: string;
+  dominantHand?: 'left' | 'right';
+  continuityTags: readonly string[];
+}
+```
+
+학생에게 ID를 보여주지 않는다.
+
+목적:
+
+- 같은 역할 내 손/팔/도구 일관성
+- 역할 전환 시 다른 몸으로 바뀌는 명확성
+- 최종 아트 자산 continuity 관리
+
+---
+
+# 7. 반복 등장 인물 — Cast Anchor
+
+범용 NPC 시스템을 만들지 않는다.
+
+공통으로 필요한 것은 소수 인물의 **동일성**이다.
+
+```ts
+export interface CastAnchor {
   id: string;
-  requiredRoles: readonly RoleId[];
-  roleOrderPolicy: RoleOrderPolicy;
+  continuityKey: string;
+  crossRoleFunctions: readonly string[];
 }
 ```
 
-Development/Test Plan은 Hunt-only 같은 부분 실행을 허용한다.
+예:
 
-Production Plan과 Dev/Test Plan을 혼동하지 않는다.
+- `waiting-person-r`
+- `hunt-companion-h1`
+- `hunt-companion-h2`
 
----
+실제 이름·외형은 별도 역사/아트 문서가 소유한다.
 
-# 7. Common Morning의 기술 책임
-
-Common Morning은 이제 단순 안내 컴포넌트가 아니라 **세계 진입 경험**이다.
-
-하지만 Common Shell에 역할 내부 규칙을 넣지는 않는다.
-
-Common Morning이 책임질 수 있는 것:
-
-- 공통 장소/불/아침 분위기
-- 공동체 사람들의 존재
-- 오늘의 생활 문제를 상황으로 드러내기
-- 최소한의 첫 행동
-- 역할로 갈라지는 순간
-
-Role-specific 사냥 흔적/채집 탐색/Camp 관리 규칙은 넣지 않는다.
+Common Shell은 캐릭터 AI를 돌리지 않는다.
 
 ---
 
-# 8. Shared Immersion UI Primitive
+# 8. 관계 상태 — 숫자 대신 Memory Signal
 
-역할 공통으로 재사용할 수 있는 것은 **표현 도구**뿐이다.
-
-후보:
-
-- `ExperienceFrame` — 전체 플레이 surface
-- `AmbientLayer` — 배경/빛/환경 표현
-- `DialogueLine` — 짧은 인물 대사
-- `ObservationPrompt` — 짧은 관찰 유도
-- `ActionChoice` — 행동 선택 UI
-- `TransitionBeat` — 조작 없이 감정/공간 전환
-- `DebugPanel` — development only
-
-중요:
-
-## **Shared UI는 역할의 규칙을 알지 않는다.**
-
-예를 들어 `ClueTracker`, `HuntDangerMeter` 같은 Hunt 의미를 Shared UI에 넣지 않는다.
-
-또한 `Scene Engine`을 만들지 않는다. 각 Role Feature가 자신의 흐름을 소유한다.
-
----
-
-# 9. Role Feature 계약
-
-기본 계약은 계속 단순하게 유지한다.
+호감도 수치를 사용하지 않는다.
 
 ```ts
-export interface SharedDayContext {
-  experienceId: string;
-  communityId: string;
-  sharedMorningSeen: boolean;
-}
-
-export interface RoleFeatureProps<TResult = unknown> {
-  dayContext: Readonly<SharedDayContext>;
-  onComplete: (result: TResult) => void;
-}
-```
-
-몰입에 필요한 `사람/관계` 정보가 실제 구현에서 공통 컨텍스트로 필요해질 경우, 먼저 공통성 여부를 검토한다.
-
-Hunt 전용 동행자 상태를 Common에 올리지 않는다.
-
----
-
-# 10. RoleCompletion
-
-점수가 아니라 의미 있는 질적 신호를 전달한다.
-
-```ts
-export interface SharedSignal {
+export interface RelationshipMemory {
   id: string;
+  actorId: string;
   sourceRole: RoleId;
   tags: readonly string[];
 }
+```
 
+예:
+
+- `stayed-together-under-danger`
+- `shared-carry-burden`
+- `returned-late`
+- `noticed-waiting-person`
+
+역할 내부 기억은 역할이 소유한다.
+
+다른 관점/공통 저녁에서 실제로 필요한 기억만 RoleCompletion을 통해 공유한다.
+
+---
+
+# 9. Consequence Model — 다축 질적 상태
+
+기존처럼 `food-secured / empty-handed` 하나만 결과 의미를 대표하지 않는다.
+
+Hunt detail 예시:
+
+```ts
+export interface HuntCompletionDetail {
+  foodOutcome: 'food-secured' | 'empty-handed';
+  returnTiming: 'earlier' | 'late';
+  distanceBurden: 'moderate' | 'far' | 'farther';
+  dangerExposure: 'low' | 'heightened';
+  carryBurden: 'none' | 'shared' | 'heavy';
+  relationshipMemories: readonly RelationshipMemory[];
+  returnedToCommunity: true;
+}
+```
+
+정확한 enum은 구현 과정에서 현재 reducer와 비교해 확정한다.
+
+원칙:
+
+## **한 축의 성공/실패로 전체 서사를 결정하지 않는다.**
+
+---
+
+# 10. RoleCompletion vNext 방향
+
+공통 계약은 질적 신호를 유지한다.
+
+```ts
 export interface RoleCompletion<TResultDetail = unknown> {
   roleId: RoleId;
   completed: true;
   sharedSignals: readonly SharedSignal[];
+  relationshipSignals?: readonly SharedSignal[];
+  consequenceSignals?: readonly SharedSignal[];
   detail: TResultDetail;
 }
 ```
 
-- `detail`은 Role Feature 소유
-- Common Shell은 detail을 해석하지 않음
-- Integration이 질적 signal을 서사로 변환
+실제 구현에서 배열을 분리할지 기존 `sharedSignals.tags`로 유지할지는 단순성을 비교해 결정한다.
+
+중요한 것은 **의미 카테고리**이지 타입 개수 증가가 아니다.
 
 ---
 
-# 11. 몰입 연속성 데이터
+# 11. WorldContinuity
 
-몰입을 위해 모든 것을 전역 상태로 저장하지 않는다.
+역할 간 공유가 필요한 최소 데이터만 둔다.
 
-다음 기준을 적용한다.
+후보:
 
-## 역할 내부 상태로 둘 것
+```ts
+export interface SharedWorldContinuity {
+  sharedMorningSeen: boolean;
+  castAnchors: readonly string[];
+  sharedMotifs: readonly string[];
+  completedRoleSignals: readonly SharedSignal[];
+}
+```
 
-- Hunt에서 본 랜드마크
-- 동행자의 Hunt 반응
-- 선택한 추적 판단
-- 역할 내부 감각/연출 state
+추가 여부는 실제 구현에서 증명한다.
 
-## 공통으로 전달할 가능성이 있는 것
+금지:
 
-- 역할 완료 여부
-- 공통 저녁에 의미 있는 질적 결과
-- 다른 관점에서 회수해야 하는 최소 공동체 signal
-
-`아침에 말한 사람이 누구인가` 같은 관계 정보가 세 역할에 실제로 공유되어야 할 때만 SharedDayContext 또는 Integration input 확장을 검토한다.
-
-먼저 문서와 prototype으로 필요성을 증명한다.
-
----
-
-# 12. 사운드/이미지 자산 연결
-
-최종 자산은 이후 제작하지만 기술 구조는 다음을 고려한다.
-
-## Asset 의미
-
-자산은 장식이 아니라 다음 역할을 할 수 있다.
-
-- 장소 식별
-- 시간 변화
-- 거리 변화
-- 관계 인물 식별
-- 상호작용 단서
-- 모티프 회수
-
-## 구현 원칙
-
-- asset key를 역할/장면 코드와 명확히 연결
-- 최종 자산이 없어도 CSS/placeholder로 기능 검증 가능
-- 오디오 자동재생 제한을 고려해 첫 사용자 상호작용 이후 활성화
-- mute / volume 접근성을 고려
-- 중요한 정보를 소리 하나에만 의존하지 않음
-- 이미지 하나에만 필수 조작 정보를 숨기지 않음
+- 모든 NPC 상태를 전역 저장
+- 역할 내부 stage를 전역으로 승격
+- Hunt 선택 전체 로그를 Common reducer가 해석
 
 ---
 
-# 13. 접근성은 몰입과 충돌하지 않는다
+# 12. Narrative Variant Selector
 
-- 버튼/상호작용 영역은 초등학생이 클릭하기 충분한 크기
-- 색만으로 상태를 전달하지 않음
-- 소리 신호는 시각적 보조 제공
-- 긴 텍스트를 피하되 필요한 내용은 읽을 수 있게 유지
-- reduced motion 선호를 고려
-- 키보드 포커스가 필요한 기본 웹 접근성을 유지
+비획일적 결과를 위해 거대한 대화 트리 엔진을 만들지 않는다.
 
-몰입을 이유로 조작법을 숨겨 학생이 막히게 하지 않는다.
+필요한 장면에서 명시적으로 변주를 선택한다.
 
----
+개념:
 
-# 14. 테스트 전략 v2
+```ts
+function chooseReturnBeat(detail: HuntCompletionDetail): ReturnBeatId {
+  // 작은 규칙 집합
+}
+```
 
-## Unit
+예:
 
-- reducer guardrail
-- 결과 계약
-- 역할 내부 주요 선택 효과
+- late + empty-handed
+- late + food-secured
+- earlier + empty-handed
+- shared-carry
 
-## Integration
+이런 몇 개의 의미 있는 조합만 우선 지원한다.
 
-- Common Morning → Role Feature → RoleCompletion → Perspective Bridge
-- role order
-- persistence
-- Common Evening integration
-
-## Player-facing UI tests
-
-Stage 09-C부터 추가할 것:
-
-- 개발 메타 문자열이 기본 학생 화면에 없음
-- 첫 행동이 실제 user-event로 가능
-- Hunt의 핵심 모티프가 적절한 시점에 나타남
-- 빈손/성공 모두 귀환
-
-## E2E / Immersion smoke
-
-Playwright 도입 시 최소 경로:
-
-- 앱 진입 → Cold Open → Hunt 출발 → 불빛 → Perspective Bridge
-- 기본 viewport에서 진행 막힘 없음
-- debug UI 기본 비노출
-
-자동화가 `몰입감을 느꼈다`를 증명할 수는 없다. 그 부분은 교사/학생 플레이테스트가 책임진다.
+규칙 우선순위는 테스트 가능해야 한다.
 
 ---
 
-# 15. Persistence
+# 13. 재수렴 구조
 
-초기 persistence는 안정된 checkpoint만 저장한다.
+기술적으로 다음을 선호한다.
+
+```text
+공통 주요 장면
+→ 선택/상태 변화
+→ 짧은 변주
+→ 공통 주요 장면
+→ 이전 상태를 다시 회수하는 변주
+```
+
+각 선택마다 완전히 새로운 컴포넌트 트리를 만들지 않는다.
+
+목표:
+
+- 선택 의미 유지
+- 개발량 통제
+- 테스트 가능성 유지
+
+---
+
+# 14. Threat Build-up
+
+위험 이벤트는 `danger=true`가 되자마자 선택 패널을 띄우지 않는다.
+
+역할 내부 상태는 최소 몇 Beat를 가질 수 있다.
+
+예:
+
+```text
+ambient-normal
+→ anomaly-heard
+→ companion-reacts
+→ player-observes
+→ threat-understood
+→ response-choice
+```
+
+이것을 범용 위협 엔진으로 만들지 않는다.
+
+HuntFeature 내부의 명시적 stage/beat로 구현할 수 있다.
+
+---
+
+# 15. Perspective Bridge 기술 구조
+
+Perspective Bridge는 새로운 역할 메뉴보다 **시각 continuity transition**을 지원해야 한다.
+
+필요 요소:
+
+- 이전 관점의 마지막 actor
+- 다음 관점의 PlayerBodyIdentity
+- 같은 장소/불/시간 anchor
+- 짧은 transition beat
+
+예:
+
+Hunt에서 R을 바라봄
+→ R 중심으로 transition
+→ 다음 관점에서 R의 손/몸이 player body가 됨
+
+이 구현은 CSS transition + asset/state 교체만으로도 가능하다.
+
+3D 카메라 이동은 필수 아님.
+
+---
+
+# 16. Shared Presentation Primitive v3
+
+공통으로 재사용할 수 있는 것은 표현 수단이다.
+
+후보:
+
+- `EmbodiedExperienceFrame`
+- `BodyLayer`
+- `WorldLayer`
+- `ActorLayer`
+- `InteractionHotspot`
+- `GazeControl`
+- `DialogueBeat`
+- `AmbientAudioLayer`
+- `TransitionBeat`
+- `DebugPanel`
+
+주의:
+
+레이어 이름은 구현 편의에 따라 바꿀 수 있다.
+
+최종 이미지가 완전 합성된 한 장이라면 BodyLayer를 별도로 두지 않아도 된다.
+
+## **기술 레이어 분리는 최종 시각이 분리되어 보여야 한다는 뜻이 아니다.**
+
+광원·가림·원근이 자연스러운 하나의 시야가 최종 목표다.
+
+---
+
+# 17. 이미지 자산 전략
+
+초기 프로토타입:
+
+- CSS
+- 단순 배경
+- 임시 body silhouette
+- hotspot
+
+등으로 상호작용과 POV 구조를 검증할 수 있다.
+
+최종 자산 단계:
+
+- 역할별 Player Body Continuity Sheet
+- POV height / lens 느낌 / gaze 기준
+- 손·팔·도구 연속성
+- 반복 인물 continuity
+- scene별 광원
+
+을 선행한다.
+
+최종 이미지 생성 요청은 `배경`이 아니라 **POV composition** 단위로 만든다.
+
+---
+
+# 18. 사운드
+
+사운드는 1인칭 공간감을 강화한다.
+
+우선순위:
+
+1. 공간 ambience
+2. 몸/행동 소리
+3. 사람의 위치가 느껴지는 짧은 대사
+4. 위협 징후
+5. 음악
+
+위험을 음악만으로 알려주지 않는다.
+
+---
+
+# 19. 접근성
+
+- 모션 감소
+- 과도한 화면 흔들림 금지
+- 소리 정보의 시각 보조
+- 충분한 hotspot 크기
+- 키보드/포인터 기본 접근성
+- 중요한 정보가 이미지의 미세한 한 점에만 있지 않게 함
+- 긴 텍스트를 줄여도 의미 있는 대체 텍스트/설명 구조 유지
+
+---
+
+# 20. Persistence
+
+초기에는 stable checkpoint만 저장한다.
 
 저장 후보:
 
-- completed common morning
 - completed roles
-- current common phase
-- role completion result
+- role completion details
+- cross-role에 필요한 selected memories
+- current major phase
 
-짧은 애니메이션/대사 중간 상태까지 무리하게 저장하지 않는다.
+저장하지 않을 것:
 
-개인정보를 저장하지 않는다.
-
----
-
-# 16. Stage 09-C 기술 변경 원칙
-
-Hunt v0.2 몰입 구현에서 우선순위:
-
-1. Player-facing / debug surface 분리
-2. Common Morning Cold Open
-3. Shared UI를 표현 primitive 수준에서만 보완
-4. HuntFeature의 서사 연속성 강화
-5. 기존 Hunt reducer의 핵심 의미를 가능한 한 재사용
-6. 필요할 때만 Hunt 내부 state 추가
-7. Common reducer 변경은 최소화
-
-하지 않을 것:
-
-- 몰입용 범용 Scene Engine
-- NPC 시스템 프레임워크
-- 대화 트리 엔진
-- 전역 퀘스트 시스템
-- 오디오 엔진 과설계
+- 모든 시선 이동
+- 모든 hover
+- 짧은 애니메이션 beat
+- 개인 식별 정보
 
 ---
 
-# 17. 기술 Acceptance Criteria
+# 21. Debug와 Player Surface 분리
 
-- 기존 아키텍처 경계 유지
-- 학생 화면에서 개발 메타 UI 분리 가능
-- Common Morning이 몰입형 Cold Open을 담을 수 있음
-- Shared UI가 역할 규칙을 소유하지 않음
-- Hunt v0.2가 기존 질적 RoleCompletion을 유지
-- 동일 하루 시간 모델 유지
-- score/HP/EXP/ranking 구조 없음
-- 자동 테스트 + 교사 몰입 테스트를 별도 품질 게이트로 유지
+Player-facing:
+
+- 세계
+- 몸
+- 사람
+- 필요한 최소 행동 UI
+
+Debug:
+
+- role stage
+- pose/gaze
+- selected variant
+- relationship memories
+- consequence detail
+- RoleCompletion
+
+Debug 정보가 기본 화면에 나오면 몰입 Gate 실패다.
+
+---
+
+# 22. 테스트 전략 v3
+
+## Unit
+
+- reducer state transition
+- qualitative result resolution
+- relationship memory creation
+- narrative variant selection
+- completion guard
+
+## Integration
+
+- Common/Perspective → Role → completion → Bridge
+- cross-role shared signal 전달
+- persistence
+
+## Presentation tests
+
+- player-facing에서 debug text 없음
+- 주요 Scene에서 필요한 body state 존재
+- interaction 뒤 actor/world response 존재
+- threat choice 전에 threat build-up beat 존재
+
+## E2E
+
+최소 Hunt 경로:
+
+- Cold Open
+- 도구 받기
+- 사람들과 출발
+- 흔적 관찰
+- 발견
+- 추적 딜레마
+- 위협 build-up
+- 귀환
+- R 재회
+- Perspective Bridge
+
+성공/빈손뿐 아니라 `late/earlier`, 관계 변주 중 최소 몇 개를 검증한다.
+
+자동 테스트는 감정을 증명하지 않는다.
+
+---
+
+# 23. 구현 순서
+
+기존 Hunt v0.1을 한 번에 덮어쓰지 않는다.
+
+## Phase A — Embodied Surface
+
+- player/debug 분리
+- Embodied frame
+- 몸 pose preset
+- Cold Open
+
+## Phase B — Relationship
+
+- R/H1/H2 continuity
+- actor reaction
+- relationship memory
+
+## Phase C — Dilemma/Threat
+
+- 딜레마 정보 선행
+- threat build-up
+- 다축 consequence
+
+## Phase D — Return/Recontextualization
+
+- return variants
+- R reaction variants
+- Perspective Bridge
+
+각 Phase마다 기존 자동 테스트를 유지/수정하고 브라우저 플레이를 검증한다.
+
+---
+
+# 24. 하지 않을 것
+
+- WebGL/3D 엔진을 몰입의 전제조건으로 삼기
+- 자유 이동 FPS 만들기
+- 범용 NPC AI
+- 호감도 시스템
+- 대규모 대화 트리 엔진
+- 범용 Scene DSL
+- procedural narrative
+- 점수/HP/EXP/ranking
+- 전투 시스템
+
+---
+
+# 25. Stage 06 Acceptance Criteria
+
+- Embodied POV를 기술적으로 표현할 최소 구조가 있음
+- 역할별 Player Body Identity를 지원 가능
+- 반복 인물 continuity를 지원 가능
+- 역할 내부 관계 기억과 cross-role 최소 공유를 구분함
+- 다축 질적 결과를 지원함
+- narrative variant를 작은 규칙으로 선택 가능
+- 재수렴형 분기를 과설계 없이 구현 가능
+- Threat build-up을 선택 이전 Beat로 표현 가능
+- Perspective Bridge를 시점 전환으로 구현 가능
+- 기존 역할 경계와 same-day 시간 원칙 유지
+- player/debug surface 분리
+- 자동 테스트 가능성 유지
+
+## 판정
+
+이 기술 설계가 승인되기 전에는 기존 Hunt v0.1을 새 방향의 최종 구현으로 간주하지 않는다.
