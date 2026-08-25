@@ -2,46 +2,99 @@
 
 ## Current scope
 
-# **Design Reboot R2 — Emotional Realism / Horror / Role-True Perspective Refinement verification**
+# **R2 Stage 01~07 Sequential Audit + Stage 07 Embodied Skeleton verification**
 
-이번 변경은 runtime 기능 구현이 아니라 최신 사용자 방향을 canonical 설계에 반영한 작업이다.
+이번 변경은 문서 감사만이 아니라 실제 Stage 07 runtime skeleton 구현을 포함한다.
 
 PR:
 
-- PR #11 — `R2: rebalance emotional realism, horror, and role-true POV`
-
-변경 범위:
-
-- canonical design / workflow / status / QA 문서
-- `src/`, `tests/`, `package.json` 변경 없음
-
-핵심 보완:
-
-- 죄책감·후회·두려움·안도 등 Emotional Reality 허용
-- Choice Fairness를 결과 평등이 아닌 결과 납득 가능성으로 재정의
-- 공포게임 같은 순간 허용
-- `Subtle by default. Strong when earned.`
-- 드문 `strong-accent`, red/dark accent, jolt 허용
-- 역할 시작 시 현재 시점 명료화
-- 역할 내부는 Role-True limited POV 유지
-- 강제 Micro Reflection 완화
-- `Immersion → Historical Imagination → Understanding → Conceptualization`
+- PR #12 — `R2 sequential audit: Stage 01-07 and embodied skeleton`
 
 ---
 
-## PR #11 design-head verification
+# 1. 변경 범위
 
-검증 HEAD:
+## Canonical design
 
-- `7834636e2dfc943a753396e2ded7f027a9e9a235`
+- Stage 01A → v4
+- Stage 02 → v7
+- Stage 03 Hunt STORY → v6
+- Stage 04 Hunt PLAYFLOW → v6
+- Stage 05 Role Map → v6
+- Stage 06 Tech Blueprint → v6
+- `docs/R2_STAGE01_07_SEQUENTIAL_AUDIT.md` 추가
 
-GitHub Actions run:
+## Runtime
 
-# **`32820254290`**
+- R2 Stage 07 Skeleton 추가
+- default App을 R2 Skeleton으로 전환
+- Legacy Hunt는 dev `?legacy=1` 비교 경로로 보존
+- Player/Teacher/Debug surface 분리
+- same-day `dayId` contract 추가
+- package version `0.0.0-r2-stage07`
 
-Result:
+## Tests
 
-# **PASS**
+- `tests/integration/R2EmbodiedSkeleton.test.tsx` 추가 — 6 tests
+- 기존 App integration expectation 갱신
+- Legacy Hunt fixture를 새 `dayId` contract에 맞춤
+
+---
+
+# 2. First CI — failure caught by audit
+
+검증 branch head 당시 run:
+
+# **`32822108088` — FAIL**
+
+결과:
+
+- Install dependencies — PASS
+- Typecheck — FAIL
+- Test — skipped
+- Production build — skipped
+
+오류:
+
+```text
+Property 'dayId' is missing in type
+'{ experienceId; communityId; sharedMorningSeen; }'
+```
+
+위치:
+
+```text
+tests/unit/HuntFeature.test.tsx
+```
+
+원인:
+
+`SharedDayContext`에 same-day identity를 위해
+
+```ts
+dayId: 'day-1'
+```
+
+을 추가했지만 Legacy Hunt test fixture 한 곳을 같이 갱신하지 않았다.
+
+조치:
+
+- fixture에 `dayId: 'day-1'` 추가
+
+이 실패는 **새 contract가 실제 누락을 잡았다는 의미**이므로 기록한다.
+
+---
+
+# 3. Successful verification
+
+수정 후 run:
+
+# **`32822273986` — PASS**
+
+환경:
+
+- Node: **24.19.0**
+- npm: **11.17.0**
 
 Steps:
 
@@ -50,128 +103,132 @@ Steps:
 - Test — PASS
 - Production build — PASS
 
-기존 runtime 자동 테스트 기준선:
+Vitest:
 
-- Test files: **7 / 7 PASS**
-- Tests: **25 / 25 PASS**
+# **8 test files / 31 tests PASS**
 
----
+구성:
 
-## What this verification proves
+- `huntReducer.test.ts` — 8
+- `ExperienceOrchestrator.test.tsx` — 3
+- `HuntFeature.test.tsx` — 3
+- `R2EmbodiedSkeleton.test.tsx` — 6
+- `experienceReducer.test.ts` — 6
+- `buildHuntCompletion.test.ts` — 2
+- `HuntVerticalSlice.test.tsx` — 1
+- `experienceStorage.test.ts` — 2
 
-- 감정·공포·시점·화면 효과 설계를 크게 보정해도 repository가 정상 설치됨
-- TypeScript typecheck 통과
-- 기존 Hunt/reducer/storage/orchestrator integration baseline 유지
-- production build 생성 가능
-- Legacy Functional Prototype source를 우발적으로 손상시키지 않음
+Production build:
 
----
-
-## What this verification does NOT prove
-
-현재 runtime은 아직 최신 R2 설계를 구현하지 않았다.
-
-따라서 CI는 다음을 증명하지 않는다.
-
-- 죄책감/후회가 자연스럽게 느껴지는가
-- 학생을 심리적으로 강압하지 않는가
-- 공포게임 같은 순간이 실제로 효과적인가
-- strong-accent가 과하지 않은가
-- red/dark accent가 HP damage UI처럼 보이지 않는가
-- 역할 진입 후 limited POV가 자연스럽게 유지되는가
-- 다른 역할 정보를 전지적으로 미리 알게 되지 않는가
-- 역사적 상상력이 실제로 생기는가
-
-이 항목은 R2 Stage 07 이후 브라우저 교사/학생 플레이테스트가 책임진다.
+- Vite 8.2.2
+- 40 modules transformed
+- build PASS
 
 ---
 
-## Latest design verdict
+# 4. New Stage 07 automated coverage
 
-### Project Core: **PASS / REVISED**
+`R2EmbodiedSkeleton.test.tsx`가 검증하는 것:
 
-- `docs/01_PROJECT_CORE.md` v7
+1. 기본 Player surface에 개발 chrome 미노출
+2. role perspective heading 표시
+3. 돌도구를 받은 뒤 held-item continuity 유지
+4. standing → walking → crouch body pose 변화
+5. 다른 사람 관점으로 전환 proof
+6. Teacher surface에서만 reduced-effects 제어 노출
+7. explicit Debug surface에서만 exact state/evidence 노출
+8. Learning Evidence 기록
 
-### Relationship / Emotional Reality: **PASS AS DESIGN INPUT**
+Evidence:
 
-- `docs/01B_RELATIONSHIP_AGENCY_PRINCIPLES.md` v3
-
-### Screen Treatment: **PASS AS DESIGN INPUT**
-
-- `docs/01C_SUBTLE_SCREEN_TREATMENT_PRINCIPLES.md` v3
-
-### Learning / Safety / Historical Imagination: **PASS AS DESIGN INPUT**
-
-- `docs/01D_LEARNING_CLARITY_SAFETY_HISTORICAL_INTEGRITY.md` v2
-
-### Experience Structure: **PASS AS DESIGN INPUT**
-
-- `docs/02_EXPERIENCE_STRUCTURE.md` v6
-
-### Immersion Bible: **PASS AS DESIGN INPUT**
-
-- `docs/07_IMMERSION_NARRATIVE_BIBLE.md` v5
-
-### Existing runtime regression: **PASS**
-
-기존 25 tests / typecheck / build 기준선 유지.
-
-### Latest R2 runtime: **NOT YET IMPLEMENTED**
-
-다음 공식 구현:
-
-# **R2 Stage 07 — Embodied Experience Skeleton**
-
-Skeleton에서 먼저 검증할 것:
-
-- Hunt role entry
-- Role-True limited POV
-- 몸/사람/환경의 한 공간감
-- 도구 전달
-- 관계 반응
-- subtle/accent/strong-accent 일부
-- reduced effects
-- 짧은 Perspective transition
-- Historical Imagination evidence
+- `tool-used-in-context`
+- `embodied-observation-performed`
 
 ---
 
-# Previous verification — Stage 01~06 Deep Audit
+# 5. Legacy regression coverage
 
-PR #10:
+기존 Hunt v0.1 자동 테스트도 모두 유지됐다.
 
-- run `32801115632` — PASS
-- final HEAD run `32801169696` — PASS
-- 7 test files / 25 tests PASS
-- production build PASS
+증명:
 
----
+- Hunt front/back reducer 계약 유지
+- RoleCompletion 유지
+- firelight 이후 completion 유지
+- Perspective Bridge / Common Evening legacy integration 유지
+- score / HP / EXP / ranking 없음
+- persistence baseline 유지
 
-# Previous verification — Subtle Screen Treatment Foundation
-
-PR #9:
-
-- run `32799409964` — PASS
-- final HEAD run `32799469439` — PASS
-- 7 test files / 25 tests PASS
-- production build PASS
+따라서 R2 기본 앱 전환이 Legacy functional baseline을 우발적으로 파괴하지 않았다.
 
 ---
 
-# Previous verification — Design Reboot R2 Stage 01~06
+# 6. What automated verification proves
 
-PR #8:
+- repository 정상 설치
+- TypeScript 계약 정합성
+- R2 Skeleton state progression
+- held-item continuity의 DOM/state proof
+- body pose state proof
+- Player/Teacher/Debug 분리
+- reduced-effects 경로 존재
+- Learning Evidence 생성
+- Legacy regression 유지
+- production build 가능
 
-- run `32798539692` — PASS
-- run `32798599185` — PASS
-- 7 test files / 25 tests PASS
+---
 
-Legacy Hunt v0.1은 Functional Prototype으로 보존하되 최신 R2 player-facing 기준의 최종 구현으로 간주하지 않는다.
+# 7. What automated verification does NOT prove
+
+CI는 다음을 증명하지 않는다.
+
+- CSS placeholder의 손/팔 비율이 사람 눈에 자연스러운가
+- 실제 시야와 비슷한 embodied presence가 생기는가
+- R/H1/H2가 주변 사람처럼 느껴지는가
+- 도구 전달이 관계 형성 순간처럼 느껴지는가
+- walking/crouch transition의 움직임이 자연스러운가
+- treatment 강도가 실제 화면에서 적절한가
+- reduced effects가 체감상 충분히 편안한가
+- perspective label이 몰입을 깨지 않는가
+- 초등학생에게 실제 역사적 상상력이 발생하는가
+
+이 항목은 **Stage 07 Teacher Browser Visual/Immersion QA**가 책임진다.
+
+---
+
+# 8. Current verdict
+
+### Stage 01~06 design audit
+
+# **PASS / REVISED**
+
+### Stage 07 implementation
+
+# **IMPLEMENTED**
+
+### Stage 07 automated verification
+
+# **PASS**
+
+### Stage 07 human visual/immersion QA
+
+# **PENDING**
+
+### Stage 08 authorization
+
+# **BLOCKED UNTIL STAGE 07 HUMAN GATE PASSES**
+
+---
+
+# 9. Previous baselines
+
+- PR #11 Emotional Reality refinement — `32820254290`, `32820338965` PASS — 7 files / 25 tests
+- PR #10 Deep Audit — `32801115632`, `32801169696` PASS — 7 files / 25 tests
+- PR #9 Subtle Screen Treatment — `32799409964` PASS
+- PR #8 R2 Embodied Foundation — `32798539692`, `32798599185` PASS
 
 ---
 
 ## Final note
 
-이 TEST_REPORT 갱신 자체가 새로운 docs-only PR HEAD를 만든다.
-
-따라서 최종 HEAD도 CI에서 한 번 더 regression 확인한 뒤 main에 반영한다.
+이 TEST_REPORT 갱신 이후 PR HEAD가 다시 바뀌므로 **최종 정확한 HEAD에 대해 CI를 다시 통과시킨 뒤 main에 반영한다.**
