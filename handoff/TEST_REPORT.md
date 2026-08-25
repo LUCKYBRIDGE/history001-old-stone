@@ -2,53 +2,34 @@
 
 ## Current scope
 
-# **Design Reboot R2 — Stage 01~06 Embodied First-Person Foundation 검증**
+# **Design Reboot R2 — Subtle Screen Treatment Foundation 검증**
 
-이번 변경은 runtime 기능 구현이 아니라 프로젝트의 개발 이전 설계를 Stage 01부터 다시 작성한 작업이다.
+이번 변경은 runtime 기능 구현이 아니라 R2 Stage 01~06 설계에 다음을 정식 추가한 작업이다.
 
-핵심 변경:
-
-- Embodied First-Person
-- Player Body Identity
-- 관계 기억
-- 체감형 위협/딜레마
-- 다축 질적 결과
-- Reconverging Narrative
-- Perspective Recontextualization
-- 새 R2 개발 로드맵
+- `docs/01C_SUBTLE_SCREEN_TREATMENT_PRINCIPLES.md`
+- color / exposure / vignette / focus / blink / micro-motion 원칙
+- `none / subtle / accent` Effect Intensity Budget
+- reduced-effects 접근성
+- lightweight `ScreenTreatmentLayer` 기술 방향
+- R2 Stage 07 treatment prototype 범위
 
 PR:
 
-- PR #8 — `Design Reboot R2: embodied first-person foundation from Stage 01`
+- PR #9 — `R2: add subtle screen treatment foundation`
 
 변경 범위는 기획/운영 문서이며 `src/`, `tests/`, `package.json`은 변경하지 않았다.
 
 ---
 
-## Verification run 1
-
-GitHub Actions run:
-
-- `32798539692`
-
-Result: **PASS**
-
-- Install dependencies — PASS
-- Typecheck — PASS
-- Test — PASS
-- Production build — PASS
-
----
-
-## Final design-branch HEAD verification
+## PR #9 verification
 
 검증 HEAD:
 
-- `dce57d62eb303befe4e6da6b948df361fe7a59b8`
+- `aecf7c8624e2d90b02fa02749e86c75a44e3d2f7`
 
 GitHub Actions run:
 
-# **`32798599185`**
+# **`32799409964`**
 
 Result:
 
@@ -68,7 +49,7 @@ Result:
 
 ## What this verification proves
 
-- 대규모 Stage 01~06 문서 리비전 후에도 repository가 정상 설치됨
+- screen-treatment 설계 문서를 추가해도 repository가 정상 설치됨
 - TypeScript typecheck 통과
 - 기존 Hunt/reducer/storage/orchestrator integration test 기준선 유지
 - production build 생성 가능
@@ -78,73 +59,74 @@ Result:
 
 ## What this verification does NOT prove
 
-현재 runtime은 아직 R2 Embodied 구현이 아니다.
+현재 runtime은 아직 R2 Embodied/Screen Treatment 구현이 아니다.
 
 따라서 CI는 다음을 증명하지 않는다.
 
-- 화면에 보이는 내 몸이 자연스러운가
-- 풍경/몸/사람이 한 공간처럼 보이는가
-- 반복 인물과 관계가 실제로 느껴지는가
-- 위협이 설명 전에 위협으로 다가오는가
-- 선택 전에 실제 고민이 생기는가
-- 선택의 흔적이 뒤에서 체감되는가
-- 같은 큰 결론으로 돌아와도 의미가 달라지는가
-- 다른 역할의 몸으로 이동한 느낌이 드는가
-- Perspective Recontextualization이 학습에 효과적인가
+- 따뜻한 color wash가 실제 불의 온기로 느껴지는가
+- threat-attention이 위협을 자연스럽게 보조하는가
+- blink transition이 눈 깜빡임처럼 자연스러운가
+- sway/focus 변화가 과하거나 멀미를 유발하지 않는가
+- red treatment가 HP damage effect처럼 느껴지지 않는가
+- reduced-effects 모드가 실제로 편안한가
 
-이 항목은 R2 Stage 07 이후 `handoff/R2_EMBODIED_PLAYTEST_PROTOCOL.md`로 직접 검증한다.
+이 항목은 R2 Stage 07 브라우저 skeleton 구현 후 직접 플레이로 검증한다.
 
 ---
 
-## Legacy runtime baseline
+## Design guardrail verdict
 
-기존 Hunt v0.1 Guardrail:
+### Subtle Screen Treatment design: **PASS AS DESIGN INPUT**
 
-- React + TypeScript + Vite
-- Hunt-specific state는 Hunt 내부
-- non-combat danger
-- score / HP / EXP / ranking 없음
-- `food-secured` / `empty-handed` 질적 결과
-- 귀환 후 completion
-- Perspective Bridge
-- same-day role time 분리
+승인 원칙:
 
-이 baseline은 보존하지만 R2 설계와 충돌하는 player-facing 구조/state detail은 향후 수정 가능하다.
+```text
+세계/사람/몸에서 의미가 먼저 성립
+→ 작은 화면 treatment가 보조
+```
 
----
+금지:
 
-## R2 design verification verdict
-
-### Stage 01~05 design consistency: **PASS**
-
-`docs/05A_STAGE01-05_DESIGN_VALIDATION.md` v3에서 재검증.
-
-### Stage 06 technical blueprint: **PASS AS DESIGN INPUT**
-
-현재 구현 전 기술 방향으로 승인 가능한 상태.
-
-### Existing runtime regression: **PASS**
-
-R2 설계 변경은 기존 runtime 기준선을 깨지 않았다.
-
-### Current runtime as R2 experience: **NOT IMPLEMENTED**
+- 위험마다 진한 전체 화면 빨강
+- HP damage flash 같은 red pulse
+- 반복 flashing
+- 지속 강한 shake/blur/zoom
+- 효과에만 의존하는 필수 정보
+- 범용 VFX 엔진 과설계
 
 다음 공식 구현:
 
 # **R2 Stage 07 — Embodied Experience Skeleton**
 
-목표:
-
-- 내 몸
-- R/H1/H2
-- 도구 전달
-- 걷기/몸 낮추기 POV
-- 짧은 Perspective Bridge
-
-이 최소 골격을 브라우저에서 검증한 뒤 Hunt 전체를 다시 구축한다.
+여기에 최소 screen treatment prototype 2~3개와 reduced-effects fallback을 포함한다.
 
 ---
 
-## Final note
+# Previous verification — Design Reboot R2 Stage 01~06
 
-이 리포트 자체를 추가한 마지막 docs-only commit은 PR CI에서 한 번 더 regression 확인 후 main에 반영한다.
+핵심 변경:
+
+- Embodied First-Person
+- Player Body Identity
+- 관계 기억
+- 체감형 위협/딜레마
+- 다축 질적 결과
+- Reconverging Narrative
+- Perspective Recontextualization
+- 새 R2 개발 로드맵
+
+PR:
+
+- PR #8 — `Design Reboot R2: embodied first-person foundation from Stage 01`
+
+검증 run:
+
+- `32798539692` — PASS
+- `32798599185` — PASS
+
+기존 runtime 자동 테스트 기준선:
+
+- Test files: **7 / 7 PASS**
+- Tests: **25 / 25 PASS**
+
+Legacy Hunt v0.1은 Functional Prototype으로 보존하되 R2 player-facing 기준의 최종 구현으로 간주하지 않는다.
