@@ -66,4 +66,42 @@
 
 ---
 
+# Stage 02 감사
+
+## 판정
+
+**PASS / REVISED**
+
+## 확인한 강점
+
+- Role-True Perspective, 반복 Cast, Perspective Bridge, Emotional Reality 방향은 Stage 01과 일치한다.
+- Reflection을 필수 화면으로 강제하지 않는 방향이 최신 학습 철학과 맞다.
+- Common Evening을 결과표보다 재회 장면으로 보는 방향이 적절하다.
+
+## 발견한 문제
+
+- `Hunt → Gather → Camp` 학생 플레이 순서가 세계 시간의 연속 진행으로 오해될 여지가 있었다.
+- cross-role signal이 잘못 구현되면 나중 역할 결과가 앞 역할의 과거를 소급 변경할 수 있었다.
+- Common Evening이 정확히 세 관점 완료 뒤 한 번 열린다는 규칙이 충분히 강하게 고정되지 않았다.
+- multi-day 변화가 same-day multi-perspective보다 먼저 섞일 위험이 있었다.
+
+## 수정
+
+`docs/02_EXPERIENCE_STRUCTURE.md`를 v7로 개정했다.
+
+- `Student Play Order ≠ In-World Time` 명시
+- Same-Day Snapshot Rule 추가
+- Stable World Facts / Cross-Role Presentation Signals 분리
+- cross-role signal의 과거 소급 변경 금지
+- Common Evening은 세 관점 뒤 한 번만 실행
+- Day 1 multi-perspective가 끝난 뒤에만 multi-day 시간 전진
+- 역할별 제한 시점과 Perspective Bridge를 더 단순하게 정리
+
+## 남은 리스크
+
+- 현재 Legacy runtime은 `SharedDayContext`가 매우 얕아 새 same-day snapshot 계약을 아직 코드로 표현하지 않는다.
+- 이 차이는 Stage 06 계약과 Stage 07 skeleton에서 실제 코드로 보완한다.
+
+---
+
 각 Stage를 완료할 때 발견/수정/남은 리스크를 이 문서에 누적한다.
