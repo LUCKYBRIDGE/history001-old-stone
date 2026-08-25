@@ -1,5 +1,83 @@
 # CHANGELOG.md
 
+## Design Reboot R2 — Stage 01~07 Curriculum / Textbook Anchor Revision
+
+### Trigger
+
+사용자가 제공한 5학년 사회 교과서의 구석기 내용을 프로젝트의 몰입형 스토리에 자연스럽게 반영하되, 교과서 용어가 서사를 끊지 않도록 Stage 01부터 Stage 07까지 다시 점검했다.
+
+핵심 사용자 방향:
+
+- 뗀석기·주먹도끼 같은 핵심 교과 용어는 한 번 명확히 짚고 넘어갈 것
+- 주먹도끼는 카드가 아니라 실제 손에 들고 사용하는 물건처럼 느껴질 것
+- 막집뿐 아니라 동굴/바위 그늘 생활도 반영할 것
+- 넓고 튼튼해 보이는 동굴을 발견하고 `사람 살기 괜찮겠다`고 판단하는 사건이 스토리 안에서 자연스럽게 일어날 것
+- 교과서 내용은 설명/퀴즈보다 경험과 관계 안에 녹일 것
+
+### Added
+
+- `docs/01E_CURRICULUM_TEXTBOOK_ANCHORS.md`
+  - 구석기 Curriculum Anchor
+  - `Experience → Name → Reuse → Connect`
+  - Terminology Reveal 규칙
+  - 뗀석기 / 주먹도끼 / 불 / 막집 / 동굴·바위 그늘 / 이동 생활
+  - 역사 사실과 재구성 사건 구분
+  - 동굴 발견 이벤트 원칙
+
+### Revised
+
+- `docs/01_PROJECT_CORE.md` — v8
+- `docs/02_EXPERIENCE_STRUCTURE.md` — v8
+- `docs/03_HUNT_STORY.md` — v7
+- `docs/04_HUNT_PLAYFLOW.md` — v7
+- `docs/05_ROLE_EXPERIENCE_MAP.md` — v7
+- `docs/06_TECH_BLUEPRINT.md` — v7
+- `docs/07_IMMERSION_NARRATIVE_BIBLE.md` — v6
+- `AGENTS.md`
+- `PROJECT_STATUS.md`
+- `handoff/CURRENT_HANDOFF.md`
+- `handoff/TEST_REPORT.md`
+- `handoff/R2_EMBODIED_PLAYTEST_PROTOCOL.md`
+
+### Runtime
+
+Stage 07 Skeleton에 다음 proof를 추가했다.
+
+```text
+도구 전달
+→ '뗀석기 · 주먹도끼' 짧은 cue
+→ held-item continuity
+→ 지면 관찰
+→ cave / rock-shelter 발견
+→ 공간 살핌
+→ '동굴 · 바위 그늘' 짧은 cue
+→ 다른 관점 전환
+```
+
+### Key decisions
+
+- **교과 개념은 숨기지 않는다. 그러나 경험보다 먼저 설명하지 않는다.**
+- `주먹도끼 = 사냥 무기`로 축소하지 않는다.
+- `막집 vs 동굴`을 경쟁 정답으로 만들지 않는다.
+- 동굴은 `좋은 새 집`도 `무서운 던전`도 자동 판정하지 않는다.
+- 동굴의 넓이·바람 회피 가능성·마른 바닥과 어둠·동물 흔적·자원 거리 불확실성을 함께 본다.
+- 실제 유물/유적과 프로젝트의 재구성 하루를 구분한다.
+- 필수 교과 개념을 특정 선택 분기 하나가 독점하지 않는다.
+
+### Verification
+
+Implementation-head CI:
+
+- run `32841962496`
+- install PASS
+- typecheck PASS
+- **8 test files / 33 tests PASS**
+- production build PASS
+
+Human Visual / Immersion / Curriculum QA는 아직 남아 있다.
+
+---
+
 ## Design Reboot R2 — Emotional Realism / Horror / Role-True Perspective Refinement
 
 ### Trigger
