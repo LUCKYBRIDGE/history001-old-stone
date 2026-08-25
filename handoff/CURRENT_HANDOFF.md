@@ -120,7 +120,7 @@ Immersion
 
 ## 최신 canonical 문서
 
-- `docs/01_PROJECT_CORE.md` v6
+- `docs/01_PROJECT_CORE.md` v7
 - `docs/01A_EMBODIED_FIRST_PERSON_PRINCIPLES.md` v3
 - `docs/01B_RELATIONSHIP_AGENCY_PRINCIPLES.md` v3
 - `docs/01C_SUBTLE_SCREEN_TREATMENT_PRINCIPLES.md` v3
