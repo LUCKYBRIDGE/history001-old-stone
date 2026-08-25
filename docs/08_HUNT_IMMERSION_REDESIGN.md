@@ -1,131 +1,215 @@
 # 구석기 역사 체험 웹게임
-## Hunt 재설계 구현 브리프 v2 / Embodied First-Person vNext
+## Hunt 전환 브리프 v3 / Legacy v0.1 → R2 Embodied Hunt
 
-> 목적: 기존 Hunt v0.1 기능 프로토타입을 Stage 01~06 Design Reboot R2 기준으로 다시 구현할 때의 직접 입력 문서다.
+> **문서 지위: 보조 전환 문서. 최신 Hunt 구현의 canonical source는 이 문서가 아니라 `docs/03_HUNT_STORY.md` v5, `docs/04_HUNT_PLAYFLOW.md` v5, `docs/06_TECH_BLUEPRINT.md` v5, `docs/07_IMMERSION_NARRATIVE_BIBLE.md` v4, `docs/01D_LEARNING_CLARITY_SAFETY_HISTORICAL_INTEGRITY.md`다.**
 >
-> 상위 기준:
-> - `docs/03_HUNT_STORY.md` v4
-> - `docs/04_HUNT_PLAYFLOW.md` v4
-> - `docs/06_TECH_BLUEPRINT.md` v3
-> - `docs/07_IMMERSION_NARRATIVE_BIBLE.md` v2
+> 목적: 기존 Hunt v0.1에서 무엇을 보존하고 무엇을 폐기/재설계하는지 설명한다. 과거 Stage 09-C 구현 계획은 더 이상 공식 다음 단계가 아니다.
 
 ---
 
-# 1. 기존 v0.1의 위치
+# 1. 기존 Hunt v0.1의 지위
 
-기존 Hunt v0.1은 다음을 검증했다.
+# **Legacy Functional Prototype**
 
-- React/TypeScript 앱 실행
-- Hunt 내부 reducer
-- 질적 결과
-- 위험 비전투성
-- 귀환 후 completion
-- Perspective Bridge
-- 자동 테스트
+보존 가치:
 
-따라서 **기능 프로토타입으로는 가치가 있다.**
+- React + TypeScript + Vite 실행 기반
+- Hunt-local reducer
+- qualitative outcome 철학
+- non-combat natural danger
+- 귀환 뒤 completion
+- Perspective Bridge의 개념
+- 기존 자동 테스트/CI 기준선
 
-그러나 새 설계 기준에서는 다음이 부족하다.
+새 R2와 충돌하면 수정 가능한 것:
 
-- 신체가 포함된 1인칭 시야
-- 관계 인물의 지속성
-- 위협의 build-up
-- 고민을 만드는 상황 정보
+- Common Morning UI
+- player-facing 카드형 화면
+- role entry UI
+- Hunt stage 구조/표현
+- result detail
+- relationship/learning state
+- Perspective Bridge 표현
+
+`이미 구현되어 있다`는 이유로 새 설계를 약화하지 않는다.
+
+---
+
+# 2. 기존 v0.1의 핵심 결손
+
+기능은 있었지만 다음 체험이 충분하지 않았다.
+
+- 내 몸이 실제 시야에 존재하는 감각
+- 같은 공간에 있는 반복 인물
+- 첫 행동의 신체적 상호작용
+- 선택 전에 형성되는 실제 고민
+- 위협의 징후/사람/몸 build-up
+- 관계 기억
 - 다축 결과
-- 선택의 후속 회수
-- 관점 재맥락화
+- 관점 전환의 명료성
+- screen treatment / reduced effects
+- Learning Invariant coverage
+- Progressive Scaffold
+- Reflection / Historical Concept Bridge
 
-결론:
-
-## **v0.1 코드는 참고 대상이지 새 UX의 정답이 아니다.**
-
----
-
-# 2. 새 Hunt prototype 목표
-
-학생이 브라우저에서 다음을 느끼게 한다.
-
-> “내 손에 도구가 있고, 저 사람들이 내 앞에서 움직이고 있다.”
-
-> “저 사람이 나를 기다릴 거라는 게 신경 쓰인다.”
-
-> “더 가고 싶지만 해와 거리와 옆 사람 상태를 보니 고민된다.”
-
-> “위험하다고 써 있지 않아도 뭔가 이상해서 긴장된다.”
-
-> “내가 어떻게 움직였는지를 사람들이 기억하는 것 같다.”
-
-> “같은 거처로 돌아와도 내가 겪은 하루에 따라 분위기가 다르다.”
+따라서 단순 스타일 수정이 아니라 presentation/state/flow 일부를 다시 설계한다.
 
 ---
 
-# 3. 구현 우선순위 A — Embodied Surface
+# 3. 최신 구현 순서
 
-1. player-facing / debug 완전 분리
-2. `EmbodiedExperienceFrame` 또는 동등한 최소 구조
-3. body pose preset
-4. tool-in-hand continuity
-5. Cold Open의 도구 전달
-6. 걸을 때 / 몸 낮출 때 / 귀환 때 다른 body state
+이전 `Stage 09-C Hunt v0.2 전체 구현` 계획은 폐기됐다.
 
-프로토타입 이미지가 없어도 CSS/실루엣으로 먼저 검증 가능하다.
+공식 순서:
 
----
+## R2 Stage 07 — Embodied Experience Skeleton
 
-# 4. 구현 우선순위 B — 관계 인물
+먼저 작은 골격에서 검증한다.
 
-반복 인물:
+```text
+Player / Teacher / Debug 분리
+→ 불 앞 embodied POV
+→ R의 도구 전달
+→ first-action scaffold
+→ H1/H2와 합류
+→ walking POV
+→ crouch POV
+→ subtle treatment / reduced effects
+→ Perspective transition + orientation
+→ 최소 Learning Evidence
+→ checkpoint
+```
 
-- R
-- H1
-- H2
+## R2 Stage 08 — Hunt Embodied Vertical Slice
 
-필수:
+Stage 07 통과 뒤:
 
-- 같은 actor identity 유지
-- 대사 위치/시선 일관성
-- 학생 선택 직후 반응
-- relationship memory 2~4개 우선 구현
-
-첫 구현 후보:
-
-- `noticed-waiting-person`
-- `stayed-together-under-danger`
-- `shared-carry-burden`
-- `returned-late`
-
-숫자 호감도 없음.
-
----
-
-# 5. 구현 우선순위 C — 고민과 위협
-
-## 추적 딜레마
-
-선택 UI 전에 반드시 보여줄 것:
-
-- 흔적/가능성
-- 해
-- 거리
-- H1/H2 피로
-- 내 몸 피로
-
-## 위험
-
-선택 전에 최소 Beat:
-
-- anomaly
-- companion reaction
-- player observation
-- threat recognition
-
-기존 danger choice를 이 build-up 뒤로 이동한다.
+- 흔적 탐색/발견
+- 접근/시도
+- 추적 딜레마
+- Threat build-up + recovery
+- 다축 결과
+- 귀환
+- R/H1/H2 관계 회수
+- Perspective Bridge
+- Hunt Micro Reflection
 
 ---
 
-# 6. 구현 우선순위 D — 다축 결과
+# 4. 구현 시 보존할 Hunt Learning Invariants
 
-기존 food outcome을 유지하되 최소 다음을 추가 검토한다.
+어떤 경로에서도 다음을 잃지 않는다.
+
+1. 사냥은 흔적/환경을 살피는 것부터 시작된다.
+2. 발견은 성공을 보장하지 않는다.
+3. 먹을거리 확보는 불확실하다.
+4. 더 멀리 가는 데 시간·거리·피로 부담이 있다.
+5. 자연 속 인간도 위험할 수 있다.
+6. 위험 대응은 전투가 아니라 관찰·거리·협력이다.
+7. 성공/빈손 모두 귀환한다.
+8. Hunt만으로 공동체 하루가 완성되지 않는다.
+
+---
+
+# 5. 기존 코드에서 재사용 판단 기준
+
+코드 하나마다 묻는다.
+
+- R2 Learning Invariant를 지원하는가?
+- Embodied presentation을 방해하지 않는가?
+- 관계/결과 확장에 과도한 결합이 없는가?
+- Common/Role 경계를 유지하는가?
+- 새 구조보다 단순하게 재사용 가능한가?
+
+YES면 재사용.
+
+NO면 과거 구현이라는 이유로 유지하지 않는다.
+
+---
+
+# 6. State migration 원칙
+
+현재 v0.1 state를 한꺼번에 일반화하지 않는다.
+
+필요한 최소 상태만 추가한다.
+
+후보:
+
+- player body preset / gaze
+- R/H1/H2 continuity key
+- relationship memory
+- observation state before choice
+- return timing / burden
+- Learning Evidence
+- treatment preset / reduced-effects resolution
+
+금지:
+
+- 범용 Scene state machine 프레임워크
+- 모든 actor state 전역화
+- 모든 클릭 로그 저장
+- 관계 점수화
+
+---
+
+# 7. 화면 전환 원칙
+
+기존 카드형
+
+```text
+제목
+→ 설명
+→ 버튼
+→ 다음 카드
+```
+
+을 그대로 꾸미지 않는다.
+
+새 기본:
+
+```text
+세계/사람이 먼저 보임
+→ 몸/시선으로 직접 살핌
+→ 필요한 정보가 형성됨
+→ 판단/행동
+→ 사람/세계가 반응
+→ 앞선 상태가 뒤에서 회수
+```
+
+학생이 막히면 Progressive Scaffold를 사용한다.
+
+---
+
+# 8. Threat migration
+
+기존 danger choice를 바로 띄우지 않는다.
+
+새 흐름:
+
+```text
+ambient
+→ anomaly
+→ companion reaction
+→ body reaction
+→ player observation
+→ response choice
+→ recovery
+```
+
+기존 danger response의 비전투 철학은 보존한다.
+
+---
+
+# 9. Result migration
+
+기존:
+
+- food-secured
+- empty-handed
+
+은 계속 의미 있는 한 축이다.
+
+하지만 전체 결과는 다음 축을 추가 검토한다.
 
 - return timing
 - distance burden
@@ -133,117 +217,89 @@
 - carry burden
 - relationship memories
 
-모든 조합을 UI로 보여주지 않는다.
-
-이 데이터는 장면 변주와 Integration에 사용한다.
+공통 저녁/재회는 작은 명시적 variant 규칙으로 변주한다.
 
 ---
 
-# 7. 구현 우선순위 E — 귀환 변주
+# 10. Screen Treatment migration
 
-귀환은 최소 몇 가지 의미 있는 variant를 갖는다.
+최종 이미지가 없어도 CSS/DOM 수준에서 검증한다.
 
-예:
+우선 후보:
 
-- early + empty-handed
-- late + empty-handed
-- early + food-secured
-- late + food-secured
-- shared-carry 강조
+- `fire-warmth`
+- `crouch-shift`
+- `threat-attention`
+- `return-firelight`
+- `blink-perspective-transition`
 
-여기에 relationship memory를 일부 겹칠 수 있다.
+기본 순서:
 
-모든 조합에 별도 장면을 만들지 않는다.
+# **World/Actor → Body → Treatment**
 
-규칙 우선순위로 대표 variant를 선택한다.
-
----
-
-# 8. 구현 우선순위 F — Perspective Bridge
-
-Hunt 종료 뒤 역할 카드로 가지 않는다.
-
-우선 prototype:
-
-- R을 바라보는 Hunt POV
-- 짧은 화면 전환
-- 같은 공간에서 R의 POV/몸으로 전환되는 visual beat
-
-이 Bridge가 성공하면 Camp 설계의 기반으로 사용한다.
+효과를 끄거나 줄여도 정보/학습/진행이 유지된다.
 
 ---
 
-# 9. 테스트 추가
+# 11. 관계 migration
 
-## Unit
+R/H1/H2는 AI NPC가 아니다.
 
-- relationship memory 생성
-- 다축 result resolution
-- return variant selection
+필요한 것:
 
-## Integration
+- 동일 인물 continuity
+- 장면별 위치/시선
+- 몇 개의 명시적 반응
+- 소수 Relationship Memory
 
-- body/scene progression이 completion을 방해하지 않음
-- relationship/consequence signal 전달
-
-## Player-facing
-
-- debug meta 없음
-- Cold Open에서 실제 첫 행동 가능
-- threat choice 전에 build-up 존재
-
-## E2E
-
-- 도구 받기 → 출발 → 흔적 → 발견 → 딜레마 → 위험 → 귀환 → R 반응 → Bridge
-
-서로 다른 최소 2~3 결과 조합 검증.
+관계는 학생 선택을 처벌하거나 죄책감을 주지 않는다.
 
 ---
 
-# 10. 구현하지 않을 것
+# 12. Perspective migration
 
-- 최종 역사 아트 대량 제작
-- 자유 3D 이동
-- 전투
-- 호감도 수치
-- 범용 NPC AI
-- 대규모 분기 트리
-- procedural narrative
+Perspective Bridge는 `다음 역할` 화면이 아니다.
+
+같은 사람/불/물건을 anchor로 다음 Player Body Identity로 이동한다.
+
+학생 혼란을 줄이기 위해 필요한 경우 짧은 orientation 문장을 허용한다.
 
 ---
 
-# 11. 완료 기준
+# 13. 구현 전 읽기 순서
 
-새 Hunt prototype은 다음을 모두 만족해야 한다.
+R2 Stage 07:
 
-## Functional
+1. `AGENTS.md`
+2. `PROJECT_STATUS.md`
+3. `docs/00_DEVELOPMENT_WORKFLOW.md`
+4. `handoff/CURRENT_HANDOFF.md`
+5. `docs/01_PROJECT_CORE.md`
+6. `docs/01A_EMBODIED_FIRST_PERSON_PRINCIPLES.md`
+7. `docs/01B_RELATIONSHIP_AGENCY_PRINCIPLES.md`
+8. `docs/01C_SUBTLE_SCREEN_TREATMENT_PRINCIPLES.md`
+9. `docs/01D_LEARNING_CLARITY_SAFETY_HISTORICAL_INTEGRITY.md`
+10. `docs/02_EXPERIENCE_STRUCTURE.md`
+11. `docs/06_TECH_BLUEPRINT.md`
+12. 기존 code/tests
 
-- 진행 막힘 없음
-- 기존 핵심 architecture guardrail 유지
-- 자동 테스트 통과
+R2 Stage 08에서는 추가로:
 
-## Embodied
+13. `docs/03_HUNT_STORY.md`
+14. `docs/04_HUNT_PLAYFLOW.md`
+15. `docs/05_ROLE_EXPERIENCE_MAP.md`
+16. `docs/07_IMMERSION_NARRATIVE_BIBLE.md`
 
-- 첫 장면부터 몸이 보임
-- 주요 행동에 몸 pose 변화
-- 몸/환경/사람이 한 공간처럼 구성됨
+---
 
-## Relationship
+# 14. 이 문서로 하지 않을 것
 
-- R/H1/H2 중 최소 2명이 기억됨
-- 선택에 대한 사람 반응이 뒤에서 회수됨
+이 브리프 자체를 최신 Scene specification으로 사용하지 않는다.
 
-## Dilemma/Threat
+최신 행동/장면/상태 판단은 상위 canonical 문서가 소유한다.
 
-- 고민과 위협이 선택 UI 전에 상황으로 형성됨
+이 문서의 역할은 오직:
 
-## Consequence
+# **Legacy Hunt에서 새 R2 Hunt로 무엇을 가져가고 무엇을 버릴지 안내하는 것**
 
-- food outcome 외 다른 질적 축이 실제 장면을 바꿈
-- 모든 경로가 같은 귀환 문장으로 축소되지 않음
-
-## Perspective
-
-- 다음 관점으로의 전환이 메뉴보다 사람/시야 변화로 느껴짐
-
-이후 교사 재플레이에서 실제 몰입 여부를 판정한다.
+이다.
