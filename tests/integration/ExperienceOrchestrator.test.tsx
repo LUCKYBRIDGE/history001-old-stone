@@ -32,11 +32,14 @@ function makeCompletion(roleId: RoleId): RoleCompletion {
 }
 
 function makeFakeRole(roleId: RoleId): ComponentType<RoleFeatureProps> {
-  return function FakeRole({ onComplete }) {
+  return function FakeRole({ dayContext, onComplete }) {
     return (
-      <button type="button" onClick={() => onComplete(makeCompletion(roleId))}>
-        fake {roleId} 완료
-      </button>
+      <>
+        <span data-testid={`fake-${roleId}-day`}>{dayContext.dayId}</span>
+        <button type="button" onClick={() => onComplete(makeCompletion(roleId))}>
+          fake {roleId} 완료
+        </button>
+      </>
     );
   };
 }
@@ -79,7 +82,7 @@ describe('ExperienceOrchestrator', () => {
     expect(document.body.textContent).not.toContain('현재 단계:');
   });
 
-  it('runs common morning once, receives role completions, bridges perspectives, and reaches common evening', async () => {
+  it('runs common morning once, keeps all role play on the same day, bridges perspectives, and reaches common evening', async () => {
     const user = userEvent.setup();
 
     render(
@@ -103,6 +106,7 @@ describe('ExperienceOrchestrator', () => {
     ).toBeTruthy();
 
     await user.click(screen.getByRole('button', { name: '사냥 관점 시작' }));
+    expect(screen.getByTestId('fake-hunt-day').textContent).toBe('day-1');
     await user.click(screen.getByRole('button', { name: 'fake hunt 완료' }));
 
     expect(
@@ -114,12 +118,14 @@ describe('ExperienceOrchestrator', () => {
       screen.getByRole('button', { name: '다른 관점으로 이어가기' }),
     );
     await user.click(screen.getByRole('button', { name: '채집 관점 시작' }));
+    expect(screen.getByTestId('fake-gather-day').textContent).toBe('day-1');
     await user.click(screen.getByRole('button', { name: 'fake gather 완료' }));
 
     await user.click(
       screen.getByRole('button', { name: '다른 관점으로 이어가기' }),
     );
     await user.click(screen.getByRole('button', { name: '머무름 관점 시작' }));
+    expect(screen.getByTestId('fake-camp-day').textContent).toBe('day-1');
     await user.click(screen.getByRole('button', { name: 'fake camp 완료' }));
 
     expect(
@@ -139,7 +145,7 @@ describe('ExperienceOrchestrator', () => {
     expect(document.body.textContent).not.toContain('랭킹');
   });
 
-  it('honors a reordered ExperiencePlan without changing role features', async () => {
+  it('honors a reordered ExperiencePlan without changing role features or the shared day identity', async () => {
     const user = userEvent.setup();
     const reorderedPlan: ExperiencePlan = {
       id: 'integration-reordered',
@@ -169,6 +175,7 @@ describe('ExperienceOrchestrator', () => {
     expect(screen.queryByRole('button', { name: '사냥 관점 시작' })).toBeNull();
 
     await user.click(screen.getByRole('button', { name: '채집 관점 시작' }));
+    expect(screen.getByTestId('fake-gather-day').textContent).toBe('day-1');
     await user.click(screen.getByRole('button', { name: 'fake gather 완료' }));
     await user.click(
       screen.getByRole('button', { name: '다른 관점으로 이어가기' }),
