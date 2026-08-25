@@ -2,13 +2,13 @@
 
 ## Current scope
 
-# **Design Reboot R2 — Stage 01~06 Deep Audit verification**
+# **Design Reboot R2 — Emotional Realism / Horror / Role-True Perspective Refinement verification**
 
-이번 변경은 runtime 기능 구현이 아니라, Embodied First-Person·관계 기억·비획일적 결과·Subtle Screen Treatment가 누적된 뒤 프로젝트 foundation을 Stage 01부터 다시 감사하고 보완한 작업이다.
+이번 변경은 runtime 기능 구현이 아니라 최신 사용자 방향을 canonical 설계에 반영한 작업이다.
 
 PR:
 
-- PR #10 — `R2 Deep Audit: rebuild Stage 01-06 for clarity, safety, and learning`
+- PR #11 — `R2: rebalance emotional realism, horror, and role-true POV`
 
 변경 범위:
 
@@ -17,31 +17,27 @@ PR:
 
 핵심 보완:
 
-- Historical Integrity / Learner Safety / Learning Clarity / Embodiment 4축
-- Learning Invariants / Narrative Variants
-- Progressive Scaffolding
-- Primary Attention Target
-- Player Body Identity stereotype guardrail
-- Relationship Emotional Safety
-- Choice Fairness
-- Threat Intensity Ceiling + recovery
-- Perspective Orientation
-- Reduced Effects parity
-- Reflection / Historical Concept Bridge
-- Player / Teacher / Debug separation
-- Classroom checkpoint
+- 죄책감·후회·두려움·안도 등 Emotional Reality 허용
+- Choice Fairness를 결과 평등이 아닌 결과 납득 가능성으로 재정의
+- 공포게임 같은 순간 허용
+- `Subtle by default. Strong when earned.`
+- 드문 `strong-accent`, red/dark accent, jolt 허용
+- 역할 시작 시 현재 시점 명료화
+- 역할 내부는 Role-True limited POV 유지
+- 강제 Micro Reflection 완화
+- `Immersion → Historical Imagination → Understanding → Conceptualization`
 
 ---
 
-## PR #10 design-head verification
+## PR #11 design-head verification
 
 검증 HEAD:
 
-- `cc2901e99fb6ae695d38769f70d24b417dae668b`
+- `7834636e2dfc943a753396e2ded7f027a9e9a235`
 
 GitHub Actions run:
 
-# **`32801115632`**
+# **`32820254290`**
 
 Result:
 
@@ -63,7 +59,7 @@ Steps:
 
 ## What this verification proves
 
-- Stage 01~06 대규모 문서 재설계 뒤에도 repository가 정상 설치됨
+- 감정·공포·시점·화면 효과 설계를 크게 보정해도 repository가 정상 설치됨
 - TypeScript typecheck 통과
 - 기존 Hunt/reducer/storage/orchestrator integration baseline 유지
 - production build 생성 가능
@@ -73,47 +69,54 @@ Steps:
 
 ## What this verification does NOT prove
 
-현재 runtime은 아직 새 Deep Audit 설계를 구현하지 않았다.
+현재 runtime은 아직 최신 R2 설계를 구현하지 않았다.
 
 따라서 CI는 다음을 증명하지 않는다.
 
-- 실제 브라우저에서 몸/사람/환경이 한 공간처럼 느껴지는가
-- 첫 행동을 초등학생이 이해하는가
-- Progressive Scaffold가 실제로 적절한가
-- 반복 인물이 관계 대상으로 기억되는가
-- Player Body Identity가 성/연령 고정관념을 만들지 않는가
-- Choice Fairness가 실제 고민으로 느껴지는가
-- Threat intensity가 적절한가
-- recovery beat가 긴장을 적절히 낮추는가
-- 관점 전환을 `다른 사람의 몸`으로 이해하는가
-- screen treatment가 불편하지 않은가
-- reduced effects가 실제로 동등한 경험인가
-- Reflection이 역사 개념 전이로 이어지는가
+- 죄책감/후회가 자연스럽게 느껴지는가
+- 학생을 심리적으로 강압하지 않는가
+- 공포게임 같은 순간이 실제로 효과적인가
+- strong-accent가 과하지 않은가
+- red/dark accent가 HP damage UI처럼 보이지 않는가
+- 역할 진입 후 limited POV가 자연스럽게 유지되는가
+- 다른 역할 정보를 전지적으로 미리 알게 되지 않는가
+- 역사적 상상력이 실제로 생기는가
 
 이 항목은 R2 Stage 07 이후 브라우저 교사/학생 플레이테스트가 책임진다.
 
 ---
 
-## Deep Audit design verdict
+## Latest design verdict
 
-### Stage 01~05 design consistency: **PASS / REVISED**
+### Project Core: **PASS / REVISED**
 
-상세:
+- `docs/01_PROJECT_CORE.md` v7
 
-- `docs/05A_STAGE01-05_DESIGN_VALIDATION.md` v4
-- `docs/R2_STAGE01_DEEP_AUDIT_REPORT.md`
+### Relationship / Emotional Reality: **PASS AS DESIGN INPUT**
 
-### Stage 06 Technical Blueprint: **PASS AS IMPLEMENTATION INPUT**
+- `docs/01B_RELATIONSHIP_AGENCY_PRINCIPLES.md` v3
 
-최신:
+### Screen Treatment: **PASS AS DESIGN INPUT**
 
-- `docs/06_TECH_BLUEPRINT.md` v5
+- `docs/01C_SUBTLE_SCREEN_TREATMENT_PRINCIPLES.md` v3
+
+### Learning / Safety / Historical Imagination: **PASS AS DESIGN INPUT**
+
+- `docs/01D_LEARNING_CLARITY_SAFETY_HISTORICAL_INTEGRITY.md` v2
+
+### Experience Structure: **PASS AS DESIGN INPUT**
+
+- `docs/02_EXPERIENCE_STRUCTURE.md` v6
+
+### Immersion Bible: **PASS AS DESIGN INPUT**
+
+- `docs/07_IMMERSION_NARRATIVE_BIBLE.md` v5
 
 ### Existing runtime regression: **PASS**
 
 기존 25 tests / typecheck / build 기준선 유지.
 
-### R2 Deep Audit runtime: **NOT YET IMPLEMENTED**
+### Latest R2 runtime: **NOT YET IMPLEMENTED**
 
 다음 공식 구현:
 
@@ -121,14 +124,26 @@ Steps:
 
 Skeleton에서 먼저 검증할 것:
 
-- Player / Teacher / Debug 분리
+- Hunt role entry
+- Role-True limited POV
 - 몸/사람/환경의 한 공간감
-- first-action clarity + scaffold
-- walking/crouch POV
-- screen treatment + reduced effects
-- perspective transition + orientation
-- 최소 Learning Evidence
-- stable checkpoint
+- 도구 전달
+- 관계 반응
+- subtle/accent/strong-accent 일부
+- reduced effects
+- 짧은 Perspective transition
+- Historical Imagination evidence
+
+---
+
+# Previous verification — Stage 01~06 Deep Audit
+
+PR #10:
+
+- run `32801115632` — PASS
+- final HEAD run `32801169696` — PASS
+- 7 test files / 25 tests PASS
+- production build PASS
 
 ---
 
@@ -137,15 +152,9 @@ Skeleton에서 먼저 검증할 것:
 PR #9:
 
 - run `32799409964` — PASS
+- final HEAD run `32799469439` — PASS
 - 7 test files / 25 tests PASS
 - production build PASS
-
-핵심 원칙:
-
-```text
-세계/사람/몸에서 의미가 먼저 성립
-→ 작은 화면 treatment가 보조
-```
 
 ---
 
@@ -157,7 +166,7 @@ PR #8:
 - run `32798599185` — PASS
 - 7 test files / 25 tests PASS
 
-Legacy Hunt v0.1은 Functional Prototype으로 보존하되 R2 player-facing 기준의 최종 구현으로 간주하지 않는다.
+Legacy Hunt v0.1은 Functional Prototype으로 보존하되 최신 R2 player-facing 기준의 최종 구현으로 간주하지 않는다.
 
 ---
 
@@ -165,4 +174,4 @@ Legacy Hunt v0.1은 Functional Prototype으로 보존하되 R2 player-facing 기
 
 이 TEST_REPORT 갱신 자체가 새로운 docs-only PR HEAD를 만든다.
 
-따라서 이 최종 HEAD도 CI에서 한 번 더 regression 확인한 뒤 main에 반영한다.
+따라서 최종 HEAD도 CI에서 한 번 더 regression 확인한 뒤 main에 반영한다.
