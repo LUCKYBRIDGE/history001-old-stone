@@ -2,13 +2,13 @@
 
 ## Current scope
 
-# **R2 Stage 01~07 Sequential Audit + Stage 07 Embodied Skeleton verification**
+# **R2 Stage 01~07 Curriculum Anchor Revision + Stage 07 Browser Skeleton verification**
 
-이번 변경은 문서 감사만이 아니라 실제 Stage 07 runtime skeleton 구현을 포함한다.
+이번 변경은 문서 설계뿐 아니라 Stage 07 runtime skeleton을 실제로 확장했다.
 
 PR:
 
-- PR #12 — `R2 sequential audit: Stage 01-07 and embodied skeleton`
+- PR #13 — `R2 Stage 01-07 curriculum anchor revision`
 
 ---
 
@@ -16,80 +16,63 @@ PR:
 
 ## Canonical design
 
-- Stage 01A → v4
-- Stage 02 → v7
-- Stage 03 Hunt STORY → v6
-- Stage 04 Hunt PLAYFLOW → v6
-- Stage 05 Role Map → v6
-- Stage 06 Tech Blueprint → v6
-- `docs/R2_STAGE01_07_SEQUENTIAL_AUDIT.md` 추가
+- Stage 01 Project Core → v8
+- `01E_CURRICULUM_TEXTBOOK_ANCHORS.md` NEW
+- Stage 02 → v8
+- Stage 03 Hunt STORY → v7
+- Stage 04 Hunt PLAYFLOW → v7
+- Stage 05 Role Map → v7
+- Stage 06 Tech Blueprint → v7
+- Immersion Narrative Bible → v6
 
 ## Runtime
 
-- R2 Stage 07 Skeleton 추가
-- default App을 R2 Skeleton으로 전환
-- Legacy Hunt는 dev `?legacy=1` 비교 경로로 보존
-- Player/Teacher/Debug surface 분리
-- same-day `dayId` contract 추가
-- package version `0.0.0-r2-stage07`
+Stage 07 Skeleton 확장:
 
-## Tests
+- `뗀석기 · 주먹도끼` terminology cue
+- handaxe held-item continuity
+- cave / rock-shelter visual proof
+- cave notice → inspection progression
+- `동굴 · 바위 그늘` terminology cue
+- curriculum anchor / evidence Debug visibility
+- teacher surface curriculum summary
 
-- `tests/integration/R2EmbodiedSkeleton.test.tsx` 추가 — 6 tests
-- 기존 App integration expectation 갱신
-- Legacy Hunt fixture를 새 `dayId` contract에 맞춤
+package:
+
+```text
+0.0.0-r2-stage07-curriculum
+```
 
 ---
 
-# 2. First CI — failure caught by audit
+# 2. 교과서 기반 검증 범위
 
-검증 branch head 당시 run:
+프로젝트에서 공식 Curriculum Anchor로 반영한 것:
 
-# **`32822108088` — FAIL**
+- 뗀석기
+- 주먹도끼
+- 불
+- 막집
+- 동굴/바위 그늘
+- 먹을 것을 찾아 이동하는 생활
+- 사냥·채집·생활 가공
 
-결과:
+Stage 07에서 직접 runtime proof까지 만든 것은:
 
-- Install dependencies — PASS
-- Typecheck — FAIL
-- Test — skipped
-- Production build — skipped
+- 주먹도끼 first encounter / naming
+- held tool continuity
+- embodied observation
+- 동굴/바위 그늘 발견/살핌
 
-오류:
-
-```text
-Property 'dayId' is missing in type
-'{ experienceId; communityId; sharedMorningSeen; }'
-```
-
-위치:
-
-```text
-tests/unit/HuntFeature.test.tsx
-```
-
-원인:
-
-`SharedDayContext`에 same-day identity를 위해
-
-```ts
-dayId: 'day-1'
-```
-
-을 추가했지만 Legacy Hunt test fixture 한 곳을 같이 갱신하지 않았다.
-
-조치:
-
-- fixture에 `dayId: 'day-1'` 추가
-
-이 실패는 **새 contract가 실제 누락을 잡았다는 의미**이므로 기록한다.
+막집/불/실제 기능적 도구 사용의 전체 구현은 후속 역할/Stage 08 이후 책임이다.
 
 ---
 
-# 3. Successful verification
+# 3. Implementation head verification
 
-수정 후 run:
+GitHub Actions:
 
-# **`32822273986` — PASS**
+# **run `32841962496` — PASS**
 
 환경:
 
@@ -105,14 +88,14 @@ Steps:
 
 Vitest:
 
-# **8 test files / 31 tests PASS**
+# **8 test files / 33 tests PASS**
 
 구성:
 
 - `huntReducer.test.ts` — 8
-- `ExperienceOrchestrator.test.tsx` — 3
+- `R2EmbodiedSkeleton.test.tsx` — **8**
 - `HuntFeature.test.tsx` — 3
-- `R2EmbodiedSkeleton.test.tsx` — 6
+- `ExperienceOrchestrator.test.tsx` — 3
 - `experienceReducer.test.ts` — 6
 - `buildHuntCompletion.test.ts` — 2
 - `HuntVerticalSlice.test.tsx` — 1
@@ -126,79 +109,113 @@ Production build:
 
 ---
 
-# 4. New Stage 07 automated coverage
+# 4. Stage 07 Curriculum Skeleton automated coverage
 
-`R2EmbodiedSkeleton.test.tsx`가 검증하는 것:
+`R2EmbodiedSkeleton.test.tsx` 8 tests가 검증한다.
 
-1. 기본 Player surface에 개발 chrome 미노출
-2. role perspective heading 표시
-3. 돌도구를 받은 뒤 held-item continuity 유지
-4. standing → walking → crouch body pose 변화
-5. 다른 사람 관점으로 전환 proof
-6. Teacher surface에서만 reduced-effects 제어 노출
-7. explicit Debug surface에서만 exact state/evidence 노출
-8. Learning Evidence 기록
+1. 기본 Player perspective / no dev chrome
+2. 도구 전달 전에는 `뗀석기 · 주먹도끼` cue 없음
+3. 도구를 받은 뒤 handaxe cue가 나타남
+4. cue 이후에도 동일 도구가 몸에 유지됨
+5. crouch observation에서 held tool continuity 유지
+6. 관찰 뒤 cave/natural-shelter discovery로 진행
+7. cave를 `정답` 문제로 만들지 않음
+8. cave inspection 뒤 `동굴 · 바위 그늘` cue
+9. cave 장점 + 불확실성 텍스트 존재
+10. shelter 평가 뒤 다른 관점 proof
+11. teacher reduced effects에서도 curriculum content 유지
+12. debug에서만 exact evidence / anchor ID 노출
 
-Evidence:
+한 테스트가 여러 계약을 동시에 확인하므로 항목 수와 test count는 동일하지 않다.
 
-- `tool-used-in-context`
+---
+
+# 5. Learning Evidence 의미
+
+현재 Stage 07 evidence:
+
+- `tool-received-in-embodied-context`
+- `handaxe-term-revealed`
 - `embodied-observation-performed`
+- `natural-shelter-evaluated`
+- `cave-shelter-term-revealed`
+
+중요:
+
+`tool-received-in-embodied-context`는 **주먹도끼의 기능적 사용까지 학습했다는 뜻이 아니다.**
+
+Stage 08 이후 실제 자르기/땅파기/두들기기 같은 interaction이 구현되면 별도 evidence:
+
+- `tool-reused-in-living-action`
+- `handaxe-multiple-uses-experienced`
+
+등을 추가한다.
 
 ---
 
-# 5. Legacy regression coverage
+# 6. Same-Day regression
 
-기존 Hunt v0.1 자동 테스트도 모두 유지됐다.
+기존 Stage 02 contract도 유지된다.
 
-증명:
+- Hunt/Gather/Camp play order와 world day 분리
+- 각 역할에 동일 `dayId` 전달
+- RoleCompletion qualitative contract 유지
+- Common Morning once
+- Perspective Bridge
+- Common Evening integration
 
-- Hunt front/back reducer 계약 유지
-- RoleCompletion 유지
-- firelight 이후 completion 유지
-- Perspective Bridge / Common Evening legacy integration 유지
+---
+
+# 7. Legacy regression
+
+기존 Hunt v0.1 자동 테스트도 모두 PASS.
+
+유지:
+
+- Hunt reducer front/back 계약
+- completion
+- firelight 이후 Perspective Bridge
 - score / HP / EXP / ranking 없음
-- persistence baseline 유지
+- storage baseline
 
-따라서 R2 기본 앱 전환이 Legacy functional baseline을 우발적으로 파괴하지 않았다.
+R2 Skeleton 확장이 Legacy 기능 기준선을 파괴하지 않았다.
 
 ---
 
-# 6. What automated verification proves
+# 8. 자동 검증이 증명하는 것
 
-- repository 정상 설치
-- TypeScript 계약 정합성
-- R2 Skeleton state progression
-- held-item continuity의 DOM/state proof
-- body pose state proof
+- repository 설치 가능
+- TypeScript 정합성
+- 새 Skeleton progression
+- handaxe terminology timing
+- held-item continuity state/DOM proof
+- cave discovery / inspection progression
+- curriculum cue rendering
+- reduced effects 경로
 - Player/Teacher/Debug 분리
-- reduced-effects 경로 존재
 - Learning Evidence 생성
-- Legacy regression 유지
-- production build 가능
+- Legacy regression
+- production build
 
 ---
 
-# 7. What automated verification does NOT prove
+# 9. 자동 검증이 증명하지 않는 것
 
-CI는 다음을 증명하지 않는다.
+- 손/팔/주먹도끼 비율이 실제 시야처럼 자연스러운가
+- `뗀석기 · 주먹도끼` cue가 몰입을 얼마나 방해하는가
+- 학생이 cue를 실제 물건의 이름으로 기억하는가
+- cave가 넓고 튼튼한 자연 공간처럼 느껴지는가
+- cave의 어둠/보호 가능성/위험 가능성이 시각적으로 전달되는가
+- NPC가 실제 주변 사람처럼 느껴지는가
+- 초등학생이 역사적 상상력으로 연결하는가
 
-- CSS placeholder의 손/팔 비율이 사람 눈에 자연스러운가
-- 실제 시야와 비슷한 embodied presence가 생기는가
-- R/H1/H2가 주변 사람처럼 느껴지는가
-- 도구 전달이 관계 형성 순간처럼 느껴지는가
-- walking/crouch transition의 움직임이 자연스러운가
-- treatment 강도가 실제 화면에서 적절한가
-- reduced effects가 체감상 충분히 편안한가
-- perspective label이 몰입을 깨지 않는가
-- 초등학생에게 실제 역사적 상상력이 발생하는가
-
-이 항목은 **Stage 07 Teacher Browser Visual/Immersion QA**가 책임진다.
+이 항목은 **Stage 07 Teacher Browser Visual / Immersion / Curriculum QA**가 책임진다.
 
 ---
 
-# 8. Current verdict
+# 10. Current verdict
 
-### Stage 01~06 design audit
+### Stage 01~06 curriculum-aware design revision
 
 # **PASS / REVISED**
 
@@ -206,11 +223,11 @@ CI는 다음을 증명하지 않는다.
 
 # **IMPLEMENTED**
 
-### Stage 07 automated verification
+### Stage 07 implementation-head automated verification
 
-# **PASS**
+# **PASS — run 32841962496**
 
-### Stage 07 human visual/immersion QA
+### Stage 07 human visual/immersion/curriculum QA
 
 # **PENDING**
 
@@ -220,15 +237,20 @@ CI는 다음을 증명하지 않는다.
 
 ---
 
-# 9. Previous baselines
+# 11. Integration rule
 
-- PR #11 Emotional Reality refinement — `32820254290`, `32820338965` PASS — 7 files / 25 tests
-- PR #10 Deep Audit — `32801115632`, `32801169696` PASS — 7 files / 25 tests
-- PR #9 Subtle Screen Treatment — `32799409964` PASS
-- PR #8 R2 Embodied Foundation — `32798539692`, `32798599185` PASS
+이 TEST_REPORT 및 상태 문서 갱신으로 branch HEAD가 implementation verification head보다 앞으로 이동한다.
+
+따라서 PR #13을 `main`에 반영하기 전 **최종 정확한 PR HEAD에 대해 CI를 다시 통과시킨다.**
+
+`main` 반영 후 push CI도 확인한다.
 
 ---
 
-## Final note
+# 12. Previous baselines
 
-이 TEST_REPORT 갱신 이후 PR HEAD가 다시 바뀌므로 **최종 정확한 HEAD에 대해 CI를 다시 통과시킨 뒤 main에 반영한다.**
+- Stage 01~07 Sequential Audit final main — `32832538451` PASS — 8 files / 31 tests
+- PR #11 Emotional Reality refinement — PASS — 7 files / 25 tests
+- PR #10 Deep Audit — PASS — 7 files / 25 tests
+- PR #9 Subtle Screen Treatment — PASS
+- PR #8 R2 Embodied Foundation — PASS
