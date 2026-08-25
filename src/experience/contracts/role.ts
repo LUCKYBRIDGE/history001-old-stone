@@ -11,6 +11,7 @@ export const ROLE_LABELS: Readonly<Record<RoleId, string>> = {
 export interface SharedDayContext {
   experienceId: string;
   communityId: string;
+  dayId: 'day-1';
   sharedMorningSeen: boolean;
 }
 
