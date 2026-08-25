@@ -2,7 +2,7 @@
 
 이 저장소는 초등학생용 **구석기 신체화 1인칭 역사 체험 웹게임** 프로젝트의 Single Source of Truth다.
 
-현재 프로젝트는 기존 Hunt v0.1 기능 프로토타입 이후 **Design Reboot R2**를 기준으로 진행한다.
+현재 프로젝트는 기존 Hunt v0.1 기능 프로토타입 이후 **Design Reboot R2 / Stage 01 Deep Audit 기준**으로 진행한다.
 
 ---
 
@@ -16,8 +16,9 @@
 6. `docs/01A_EMBODIED_FIRST_PERSON_PRINCIPLES.md`
 7. `docs/01B_RELATIONSHIP_AGENCY_PRINCIPLES.md`
 8. `docs/01C_SUBTLE_SCREEN_TREATMENT_PRINCIPLES.md`
-9. 이번 작업에 직접 필요한 Stage 문서
-10. 실제 개발이면 관련 코드와 테스트
+9. `docs/01D_LEARNING_CLARITY_SAFETY_HISTORICAL_INTEGRITY.md`
+10. 이번 작업에 필요한 Stage 문서
+11. 실제 개발이면 관련 코드/tests
 
 과거 채팅 기억보다 GitHub 최신 문서를 우선한다.
 
@@ -26,108 +27,208 @@
 ## 2. 문서 위계
 
 1. `docs/01_PROJECT_CORE.md` — 프로젝트 교육·체험 헌법
-2. `docs/01A_EMBODIED_FIRST_PERSON_PRINCIPLES.md` — 몸이 보이는 1인칭 시점 헌법
+2. `docs/01A_EMBODIED_FIRST_PERSON_PRINCIPLES.md` — 몸/시야 헌법
 3. `docs/01B_RELATIONSHIP_AGENCY_PRINCIPLES.md` — 관계·딜레마·결과 헌법
-4. `docs/01C_SUBTLE_SCREEN_TREATMENT_PRINCIPLES.md` — 색·명암·초점·깜빡임·미세 움직임 연출 헌법
-5. `docs/02_EXPERIENCE_STRUCTURE.md` — 전체 경험 구조
-6. `docs/07_IMMERSION_NARRATIVE_BIBLE.md` — 공통 몰입 실무 기준
-7. `docs/05_ROLE_EXPERIENCE_MAP.md` — 역할 경계·균형
-8. 역할별 `*_STORY.md`
-9. 역할별 `*_PLAYFLOW.md` / 구현 브리프
-10. `docs/06_TECH_BLUEPRINT.md` — 기술 기준
+4. `docs/01C_SUBTLE_SCREEN_TREATMENT_PRINCIPLES.md` — 미세 화면 연출 헌법
+5. `docs/01D_LEARNING_CLARITY_SAFETY_HISTORICAL_INTEGRITY.md` — 학습 명료성·안전·역사성 상한
+6. `docs/02_EXPERIENCE_STRUCTURE.md` — 전체 경험 구조
+7. `docs/07_IMMERSION_NARRATIVE_BIBLE.md` — 공통 몰입 실무 기준
+8. `docs/05_ROLE_EXPERIENCE_MAP.md` — 역할 경계·균형
+9. 역할별 `*_STORY.md`
+10. 역할별 `*_PLAYFLOW.md` / 구현 브리프
+11. `docs/06_TECH_BLUEPRINT.md` — 기술 기준
 
-하위 문서·기존 코드가 상위 원칙과 충돌하면 **기존 코드를 정당화하지 말고 상위 문서를 우선**한다.
-
----
-
-## 3. 프로젝트 최상위 원칙
-
-- 학생에게 구석기 시대를 설명하는 웹이 아니라 **그 사람의 몸과 눈을 잠시 빌려 살아보게 하는 웹게임**을 만든다.
-- 기본 player-facing 시점은 **Embodied First-Person**이다.
-- 화면은 `배경 + UI`보다 **환경 + 내 몸 + 물건 + 사람 + 행동**의 하나의 시야로 설계한다.
-- 내 손·팔·다리 등은 실제 자세와 행동에 따라 자연스럽게 시야에 들어온다.
-- 손/팔을 모든 화면 하단에 고정된 장식처럼 붙이지 않는다.
-- Hunt / Gather / Camp는 같은 한 사람이 세 일을 하는 구조가 아니라 **같은 하루를 서로 다른 공동체 구성원의 몸과 눈으로 경험하는 관점 전환**이다.
-- 관계는 NPC 호감도 숫자가 아니라 **함께 겪은 사건의 기억과 이후 반응**으로 표현한다.
-- 중요한 주변 인물은 역할 간에 동일 인물로 기억될 수 있어야 한다.
-- 위협은 `위험입니다`라는 설명보다 **징후 → 사람 반응 → 내 관찰 → 판단**으로 다가와야 한다.
-- 고민은 정답/오답이 아니라 서로 다른 장단점이 있는 가치 충돌이어야 한다.
-- 선택의 흔적은 이후 사람·몸·시간·공간·대사·다른 관점 중 최소 하나에 남아야 한다.
-- 큰 플롯은 재수렴할 수 있지만 모든 경로가 같은 의미의 결론으로 축소되면 안 된다.
-- Perspective Recontextualization을 핵심 학습 장치로 사용한다.
-- **색·명암·초점·짧은 blink·미세 sway 같은 작은 화면 효과를 몸/환경 상태의 보조 언어로 사용할 수 있다.**
-- 화면 효과는 의미를 대신하지 않는다. 먼저 세계·몸·사람에서 상황이 성립하고 효과는 이를 강화한다.
-- 사냥·채집·머무는 관점은 주역/보조역이 아니라 동등하다.
-- 점수, HP, EXP, 랭킹, 호감도 게이지, 전투 중심 구조를 임의로 추가하지 않는다.
-- 실패는 GAME OVER가 아니라 당시 생활의 불확실성을 보여주는 정상 상태다.
-- 역사적 사실 `[교과서]`, 가상 관계·사건 `[재구성]`, 상호작용 `[게임]`을 내부적으로 구분한다.
-- 이동 생활은 단일 실패나 정답 버튼이 아니라 여러 관점의 누적 경험으로 이해하게 한다.
+하위 문서·기존 코드가 상위 원칙과 충돌하면 **기존 구현을 정당화하지 말고 상위 문서를 우선**한다.
 
 ---
 
-## 4. Embodied First-Person Guardrail
+## 3. 네 가지 비타협 기준
 
-모든 주요 player-facing Scene은 다음을 확인한다.
+모든 작업은 다음 네 축을 동시에 만족해야 한다.
 
-- 지금 내 눈의 위치와 방향은 어디인가?
-- 내 몸의 어느 부분이 자연스럽게 보이는가?
-- 손은 실제로 무엇을 하고 있는가?
-- 들고 있는 물건은 앞뒤 장면에서 같은가?
-- 사람과 내 몸이 같은 공간에 있는 것처럼 보이는가?
-- 자세·피로·운반·긴장이 몸에 반영되는가?
-- 역할 안에서 몸의 비율/시점/도구가 연속적인가?
+1. **Historical Integrity** — 역사 사실과 재구성을 구분
+2. **Learner Safety & Accessibility** — 초등학생에게 불필요한 공포/불편/장벽을 만들지 않음
+3. **Learning Clarity** — 학생이 무엇을 보고 무엇을 할 수 있는지 이해 가능
+4. **Embodiment & Agency** — 몸과 판단이 세계 안에서 의미 있게 느껴짐
 
-`풍경 이미지 + 하단 손 PNG + 버튼`만으로 완료 처리하지 않는다.
+몰입이 다른 세 기준을 침해하면 몰입 연출을 줄인다.
 
 ---
 
-## 5. Relationship / Agency Guardrail
+## 4. Learning Invariants
 
-주요 역할은 다음을 확인한다.
+선택/분기가 달라도 다음 핵심은 전체 체험에서 보존한다.
 
-- 반복해서 기억되는 인물이 있는가?
-- 그 사람이 학생 선택을 실제로 보고 반응하는가?
-- 관계를 소개 카드/숫자로 설명하지 않는가?
-- 고민 전에 장단점이 상황으로 보이는가?
-- 위협이 선택지보다 먼저 체감되는가?
+- 도구와 생활 행동 연결
+- 불과 생활 유지
+- 먹을거리 확보의 불확실성
+- 역할 상호의존
+- 자연·시간·거리 제약
+- 한 장소 생활 부담의 누적
+- 이동 생활의 맥락
+
+분기는 **역사 사실을 바꾸는 것**이 아니라 같은 생활 조건을 다른 개인적 경험으로 만나게 한다.
+
+---
+
+## 5. Embodied First-Person Guardrail
+
+기본 player-facing 시점은 **Embodied First-Person**이다.
+
+화면은 가능한 한
+
+# **환경 + 내 몸 + 들고 있는 것 + 사람 + 행동 + 빛/소리**
+
+의 한 장면으로 설계한다.
+
+확인:
+
+- 지금 눈의 위치/방향은 자연스러운가?
+- 몸은 실제 자세에서 보일 만큼만 보이는가?
+- 손은 실제 행동을 하는가?
+- 물건/도구 continuity가 유지되는가?
+- 사람과 내 몸이 같은 공간처럼 보이는가?
+- 광원/가림/원근이 일관되는가?
+- 몸이 Primary Attention Target을 방해하지 않는가?
+
+금지:
+
+- 모든 장면 하단에 고정 손 PNG
+- 몸이 많이 보일수록 좋다는 접근
+- 자유 3D/FPS를 몰입 전제조건으로 삼기
+
+---
+
+## 6. Player Body Identity Guardrail
+
+역할별 다른 몸을 사용할 수 있지만 다음을 금지한다.
+
+- Hunt = 남성 고정
+- Gather/Camp = 여성 고정
+- 나이/성별/친족 분업을 근거 없이 사실처럼 표현
+- 몸 크기/힘을 역할 중요도와 연결
+
+외형보다 **행동·장소·관계·딜레마**로 역할 차이를 만든다.
+
+---
+
+## 7. Relationship / Agency Guardrail
+
+관계는 호감도 숫자가 아니라 **함께 겪은 사건의 기억과 이후 반응**이다.
+
+확인:
+
+- 반복 인물이 있는가?
+- 그 사람이 학생 행동에 반응하는가?
+- 관계가 죄책감/도덕 채점으로 작동하지 않는가?
+- 주요 선택 전에 필요한 정보가 보이는가?
+- 적어도 두 선택이 합리적 이유를 갖는가?
+- 특정 선택만 좋은 관계/핵심 콘텐츠를 독점하지 않는가?
 - 선택 결과가 뒤에서 최소 한 번 회수되는가?
-- 재수렴 뒤에도 대사·관계·몸 상태·장면 중 하나 이상이 달라지는가?
-- 다른 관점에서 앞의 행동을 다시 해석할 수 있는가?
+- 재수렴 뒤에도 의미 차이가 남는가?
+
+금지:
+
+- 호감도/친밀도 게이지
+- NPC 모욕/비난
+- 숨겨진 정답 루트
+- 무작위 처벌
 
 ---
 
-## 6. Subtle Screen Treatment Guardrail
+## 8. Threat Guardrail
 
-화면 효과는 **대형 VFX가 아니라 지각 상태의 미세한 변화**로 사용한다.
+기본 문법:
 
-허용 예:
+# **징후 → actor reaction → body reaction → player observation → judgment → recovery**
 
-- 불 근처의 따뜻한 색온도
-- 해질녘의 점진적 명암/색 변화
-- 위협 징후 인식 순간의 매우 약한 주변부 어두움 또는 focus shift
-- 피로한 귀환의 미세 sway
-- 자세/시간/관점 전환의 자연스러운 한 번의 blink
-- 먼 불빛 발견 뒤의 미세한 밝기 회복
+위협은 전투/공포가 목적이 아니다.
 
-금지 또는 강한 제한:
+금지:
 
-- 위험 때마다 진한 전체 화면 빨강
-- HP damage flash처럼 보이는 red flash
-- 반복적·빠른 flashing
-- 지속적인 강한 shake/blur/zoom
-- 효과 하나만 보고 위험·피로·진행 상태를 이해해야 하는 구조
-- 모든 장면에 효과를 겹쳐 사용하는 것
+- 고어/그래픽 부상
+- 반복 jump scare
+- enemy HP/처치
+- 장시간 강한 공포
+- 죽음 GAME OVER
+
+학생이 UI보다 상황으로 먼저 이상함을 느껴야 한다.
+
+---
+
+## 9. Learning Clarity / Scaffold Guardrail
+
+학생은 최소한 다음을 알 수 있어야 한다.
+
+- 지금 어디에 있는가
+- 무엇을 살펴보거나 할 수 있는가
+- 왜 지금 행동할 이유가 있는가
+
+막힐 때 지원 순서:
+
+1. 사람/환경 cue
+2. 은은한 hotspot
+3. 짧은 행동 문구
+4. 명확한 hint
+
+중요한 조작을 pixel hunting으로 만들지 않는다.
+
+장면마다 **Primary Attention Target**을 하나 정한다.
+
+---
+
+## 10. Perspective Recontextualization Guardrail
+
+Hunt / Gather / Camp는 같은 사람이 세 일을 하는 구조가 아니다.
+
+# **같은 하루를 서로 다른 공동체 구성원의 몸과 눈으로 경험한다.**
+
+관점 전환은 다음 anchor 중 2개 이상을 사용한다.
+
+- 같은 사람
+- 같은 불/물건
+- 같은 대사/소리
+- 같은 사건의 반대편 위치
+- 달라진 손/몸
+
+혼란이 생기면 한 줄 orientation을 허용한다.
+
+몰입보다 이해가 우선이다.
+
+---
+
+## 11. Subtle Screen Treatment Guardrail
+
+허용:
+
+- 불의 따뜻한 색
+- 시간대별 색온도/명암
+- 짧은 focus 변화
+- 미세 sway
+- 제한적 blink/fade
 
 원칙:
 
-- `none / subtle / accent` 정도의 작은 강도 budget을 사용한다.
-- `strong`을 기본 연출로 두지 않는다.
-- 효과를 꺼도 역사적 의미와 진행이 유지되어야 한다.
-- `prefers-reduced-motion` 또는 동등한 저감 모드를 고려한다.
+# **World/Actor → Body → Treatment**
+
+효과가 먼저 의미를 말하지 않는다.
+
+금지:
+
+- 위험마다 진한 전체 빨강
+- HP damage flash
+- 반복 빠른 flashing
+- 지속 강한 shake/blur/zoom
+- 효과 하나에 핵심 정보 의존
+- 범용 VFX 엔진
+
+`none / subtle / accent` 정도의 작은 budget을 사용한다.
+
+Reduced effects에서도 모든 정보와 진행이 유지되어야 한다.
 
 ---
 
-## 7. 역할 경계
+## 12. 역할 경계
 
 ### Hunt
 
@@ -158,18 +259,32 @@
 - 기다림
 - 재회
 
-먼저 개발된 Hunt의 플레이 문법을 Gather/Camp에 복제하지 않는다.
+Hunt의 플레이 문법을 다른 역할에 복제하지 않는다.
 
 ---
 
-## 8. 기술 Guardrail
+## 13. Reflection / Historical Concept
+
+몰입만으로 학습 완료를 선언하지 않는다.
+
+전체 루프:
+
+# **Experience → Reflection → Historical Concept**
+
+Reflection은 학생이 자기 플레이를 근거로 설명하게 한다.
+
+교과 개념은 경험에 이름을 붙이는 단계다.
+
+---
+
+## 14. 기술 Guardrail
 
 기본 구조:
 
 ```text
 App
 → Experience Orchestrator
-→ World Continuity / Integration
+→ World Continuity / Learning Integration
 → Common Experience / Role Features
 → Embodied Presentation UI
 ```
@@ -177,125 +292,126 @@ App
 유지:
 
 - Role Feature 독립
-- 같은 날의 역할 시간 분리
+- same-day role time 분리
 - 질적 RoleCompletion
-- Common Evening은 Integration
-- screen treatment는 작은 presentation preset 수준에서 지원
+- small explicit variant rules
+- stable checkpoint
 
 금지:
 
 - 범용 Scene Engine
 - 범용 NPC AI
-- 대규모 대화 트리 엔진
-- 절차 생성 서사
-- FPS/3D 엔진을 몰입의 전제조건으로 삼기
-- 전역 상태에 역할 내부 stage를 무분별하게 올리기
-- 범용 VFX 엔진 과설계
+- 대규모 대화 트리
+- procedural narrative
+- FPS/3D 엔진 선행
+- 범용 VFX 엔진
+- 전역 상태에 모든 역할 내부 stage 저장
 
 ---
 
-## 9. 기존 코드의 지위
+## 15. Player / Teacher / Debug 분리
 
-기존 Stage 07/08 Hunt v0.1 코드는 **Legacy Functional Prototype**이다.
+### Player
 
-보존할 수 있는 것:
+세계·몸·사람·행동·reflection만 본다.
 
-- React/TypeScript/Vite 스택
+### Teacher
+
+필요한 경우:
+
+- major phase
+- checkpoint/restart
+- reduced effects
+- 학생 막힘 상태
+
+### Debug
+
+- internal stage
+- pose/gaze
+- selected variant
+- memories
+- learning evidence
+- treatment preset
+
+학생 화면에 개발 정보를 노출하지 않는다.
+
+---
+
+## 16. 기존 코드의 지위
+
+기존 Hunt v0.1은 **Legacy Functional Prototype**이다.
+
+재사용 가능:
+
+- React/TypeScript/Vite
 - CI
-- reducer/RoleCompletion의 일부 아이디어
-- non-combat guardrail
-- qualitative result 철학
+- reducer/RoleCompletion 아이디어
+- non-combat / qualitative result guardrail
 
-새 R2 설계와 충돌하면 기존 화면/flow/state 계약을 수정할 수 있다.
+재설계 가능:
 
-`이미 구현되어 있다`는 이유만으로 R2 설계를 약화하지 않는다.
+- Common Morning
+- player-facing UI
+- role flow presentation
+- result detail
+- relationship/learning data
+- Perspective Bridge
 
----
-
-## 10. 이미지·사운드·화면 연출 원칙
-
-일반 개발 세션에서 최종 자산을 성급히 만들지 않는다.
-
-최종 이미지 제작 전 필요한 것:
-
-- Player Body Continuity Sheet
-- Cast Continuity Sheet
-- POV / Camera Bible
-- Visual Context Bible
-- Art Direction Bible
-- Asset Spec
-
-최종 이미지의 기본 단위는 **POV composition**이다.
-
-- 환경
-- 내 몸
-- 상대 인물
-- 행동
-- 광원
-
-이 하나의 장면으로 자연스러워야 한다.
-
-화면 연출은 최종 아트가 없어도 CSS/DOM 기반 prototype으로 검증할 수 있다.
-
-사운드 우선순위:
-
-1. 공간 ambience
-2. 몸/행동 소리
-3. 관계 대사
-4. 위협 징후
-5. 음악
+기존 구현이 R2 v6 설계를 제한하면 설계를 우선한다.
 
 ---
 
-## 11. QA 원칙
+## 17. QA 원칙
 
 자동 테스트:
 
-- 기능
-- 상태
-- 계약
+- 기능/상태/계약
+- Learning Invariant coverage
+- choice precondition
 - variant selection
-- persistence
-- debug 분리
-- screen treatment preset / reduced-effects 분리
+- relationship memory
+- threat build-up/recovery
+- reduced effects parity
+- persistence/checkpoint
+- player/teacher/debug separation
 
-교사/학생 플레이테스트:
+교사/학생 테스트:
 
-- 내 몸이 실제로 느껴지는가
-- 기억되는 사람이 있는가
-- 관계가 생기는가
-- 위협이 위협으로 다가오는가
-- 실제 고민을 했는가
-- 선택이 뒤에서 기억되는가
-- 결론이 획일적으로 느껴지는가
-- 다른 관점에서 이전 행동을 다시 생각하는가
-- 색/명암/초점/미세 움직임이 상황을 자연스럽게 강화하는가
-- 화면 효과가 과하거나 게임 HUD처럼 느껴지지 않는가
-- 역사적 이유를 자기 경험으로 설명하는가
+- 첫 행동 이해
+- 몸 자연스러움
+- 기억되는 사람
+- 실제 고민
+- 위협 강도
+- 선택 회수
+- 관점 전환 이해
+- 효과 불편 여부
+- Reflection을 통한 역사 이해
 
 자동 CI만으로 Immersion Complete를 선언하지 않는다.
 
 ---
 
-## 12. 저장소 변경 세션 종료 시 갱신
+## 18. 저장소 변경 세션 종료 시
 
-필요한 항목:
+필요한 문서를 갱신한다.
 
 - `PROJECT_STATUS.md`
 - `CHANGELOG.md`
 - `handoff/CURRENT_HANDOFF.md`
 - 테스트 시 `handoff/TEST_REPORT.md`
 - 미해결 시 `handoff/KNOWN_ISSUES.md`
-- 자산 요구가 구체화되면 `handoff/ASSET_REQUESTS.md`
+- 자산 요구 시 `handoff/ASSET_REQUESTS.md`
 
 ---
 
-## 13. 현재 공식 개발 계획
+## 19. 현재 공식 개발 계획
 
-`docs/00_DEVELOPMENT_WORKFLOW.md`의 **Design Reboot R2**를 따른다.
+`docs/00_DEVELOPMENT_WORKFLOW.md`의 R2 계획을 따른다.
 
-현재 새 설계 기준의 다음 구현 단계는:
+현재 다음 구현 단계는
 
 # **R2 Stage 07 — Embodied Experience Skeleton**
 
 이다.
+
+Skeleton은 몸/사람/시점뿐 아니라 **명료성·reduced effects·teacher/debug 분리·관점 orientation**도 함께 검증해야 한다.
