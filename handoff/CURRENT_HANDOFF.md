@@ -1,160 +1,305 @@
 # CURRENT_HANDOFF.md
 
-## Current responsibility completed
+## Current phase
 
-# **Design Reboot R2 — Emotional Realism / Horror / Role-True Perspective Refinement**
+# **R2 Stage 01~07 Sequential Audit 완료 / Stage 07 Skeleton 구현·자동검증 완료 / Teacher Browser QA 대기**
 
-이번 보정의 핵심은 Deep Audit이 안전 쪽으로 과보정될 수 있었던 부분을 다시 현실적인 방향으로 조정한 것이다.
+이번 작업은 최근 R2 변경이 빠르게 누적된 뒤 Stage 01부터 Stage 07까지 의존 순서대로 다시 점검하고, 실제 모순·누락·구현 부채를 수정한 작업이다.
+
+상세 감사:
+
+- `docs/R2_STAGE01_07_SEQUENTIAL_AUDIT.md`
 
 ---
 
-## 최신 핵심 원칙
+# 1. 다음 세션이 가장 먼저 알아야 할 것
 
-### 1. 죄책감·후회·두려움은 금지하지 않는다
+현재 기본 앱은 더 이상 Legacy Hunt v0.1이 아니다.
+
+# **기본 `npm run dev` 화면 = R2 Stage 07 Embodied Experience Skeleton**
+
+현재 Skeleton 흐름:
+
+```text
+사냥을 나선 사람의 관점
+→ 눈을 뜬다
+→ 새벽 불 앞
+→ 익숙한 사람을 본다
+→ 돌도구를 받는다
+→ 동행자들과 일어난다
+→ “해가 지기 전에 돌아와.”
+→ 거처를 나선다
+→ 몸을 낮춰 지면을 살핀다
+→ 같은 날, 다른 사람 관점으로 전환
+```
+
+이것은 **최종 Hunt가 아니라 embodied layout / interaction / surface separation proof**다.
+
+---
+
+# 2. 개발 비교 URL
+
+개발 서버 기준:
+
+## 기본 Player
+
+```text
+http://localhost:5173/
+```
+
+## Legacy Hunt v0.1 비교
+
+```text
+http://localhost:5173/?legacy=1
+```
+
+## Teacher surface
+
+```text
+http://localhost:5173/?teacher=1
+```
+
+## Debug surface
+
+```text
+http://localhost:5173/?debug=1
+```
+
+query 기반 legacy/teacher/debug 경로는 개발 환경용이다.
+
+---
+
+# 3. Stage 01~06 최신 canonical 버전
+
+- `docs/01_PROJECT_CORE.md` — v7
+- `docs/01A_EMBODIED_FIRST_PERSON_PRINCIPLES.md` — v4
+- `docs/01B_RELATIONSHIP_AGENCY_PRINCIPLES.md` — v3
+- `docs/01C_SUBTLE_SCREEN_TREATMENT_PRINCIPLES.md` — v3
+- `docs/01D_LEARNING_CLARITY_SAFETY_HISTORICAL_INTEGRITY.md` — v2
+- `docs/02_EXPERIENCE_STRUCTURE.md` — v7
+- `docs/03_HUNT_STORY.md` — v6
+- `docs/04_HUNT_PLAYFLOW.md` — v6
+- `docs/05_ROLE_EXPERIENCE_MAP.md` — v6
+- `docs/06_TECH_BLUEPRINT.md` — v6
+
+공통 실무 기준:
+
+- `docs/07_IMMERSION_NARRATIVE_BIBLE.md`
+
+---
+
+# 4. 이번 순차 감사에서 수정한 핵심 오류
+
+## A. Role-True POV 불일치
+
+01A가 예전 관점 anchor 규칙을 과도하게 유지하고 있었다.
+
+수정:
+
+- 역할 진입 때 관점은 명료하게 표시 가능
+- 역할 내부에서는 그 인물이 보고/듣고/아는 범위만 사용
+- 다른 역할 내부/타인의 속마음/미래 결과 전지적 노출 금지
+
+## B. Student Play Order와 World Time 혼동
+
+수정:
+
+# **Student Play Order ≠ In-World Time**
+
+Hunt → Gather → Camp는 같은 Day 1의 세 관점이다.
+
+`SharedDayContext`에 `dayId: 'day-1'`을 추가했다.
+
+## C. 감정/공포에 남아 있던 과보수 규칙
+
+Hunt STORY/PLAYFLOW를 최신 Emotional Reality 기준으로 수정했다.
 
 허용:
 
-- 늦게 돌아와 기다린 사람을 보고 죄책감
-- 무리한 선택 뒤 동행자의 피로를 보고 후회
-- 빈손 귀환의 아쉬움
-- 위험을 함께 피한 뒤 안도
+- 공포게임 같은 순간
+- 후회
+- 죄책감
+- 긴장 잔여
+- 드문 strong-accent
 
-피할 것:
+단:
 
-- NPC 모욕/조롱
-- 학생 개인을 도덕적으로 낙인
-- 죄책감만으로 숨겨진 정답 강요
-
-# **현실적인 감정은 허용하고, 심리적 강압은 피한다.**
-
----
-
-### 2. 공포게임 같은 순간도 가능
-
-Hunt에서 허용:
-
-- 어둠
-- 시야 밖 소리
-- 갑작스러운 가까운 움직임
-- 짧은 jump-like scare
-- 짧은 회피/도주
-- 순간적 strong screen accent
-- 사건 뒤 남는 긴장
-
-금지에 가까운 것:
-
-- 고어 자체를 볼거리로 삼기
+- 반복 damage flash
 - 의미 없는 jump scare 반복
 - 적 HP/처치 루프
-- 공포만 남고 역사적 맥락이 사라지는 구성
+- 학생 인격 도덕 채점
+
+은 사용하지 않는다.
+
+## D. Scene state 폭발 위험
+
+Stage 04에서:
+
+# **Scene ≠ Beat**
+
+로 분리했다.
+
+actor stop / gaze / sound / focus / jolt 같은 연출 beat를 모두 reducer stage로 만들지 않는다.
+
+## E. 역할 복제 위험
+
+Stage 05에서 Hunt/Gather/Camp의 몸·감정·딜레마·treatment 문법을 다시 분리했다.
+
+## F. 기술 문서 과추상화
+
+Stage 06을 v6으로 다시 정리했다.
+
+- same-day identity
+- 단순 RoleCompletion 유지
+- local Skeleton state
+- strong-accent
+- reduced effects
+- Player/Teacher/Debug
+- no generic Scene/NPC/VFX engine
 
 ---
 
-### 3. Screen Treatment
+# 5. Stage 07 실제 변경 파일
 
-최신 원칙:
+새 파일:
 
-# **Subtle by default. Strong when earned.**
+- `src/experience/skeleton/R2EmbodiedSkeleton.tsx`
+- `src/experience/skeleton/r2EmbodiedSkeleton.css`
+- `tests/integration/R2EmbodiedSkeleton.test.tsx`
 
-강도:
+수정:
 
-- `none`
-- `subtle`
-- `accent`
-- `strong-accent` — 드문 핵심 순간
+- `src/app/App.tsx`
+- `src/app/AppShell.tsx`
+- `src/experience/contracts/role.ts`
+- `src/experience/ExperienceOrchestrator.tsx`
+- `tests/integration/ExperienceOrchestrator.test.tsx`
+- `tests/unit/HuntFeature.test.tsx`
+- `package.json`
 
-짧은 red/dark accent, jolt, strong focus도 상황이 충분히 쌓였다면 사용 가능.
-
-반복적인 HP-style red flash는 사용하지 않는다.
-
----
-
-### 4. 역할 관점은 단순하고 명확하게
-
-역할 시작 시 학생에게 현재 시점을 알려줄 수 있다.
-
-예:
-
-> 사냥을 나선 사람의 관점
-
-그 뒤에는 반복 설명하지 않는다.
-
-# **Hunt를 플레이하면 Hunt 사람의 눈·몸·지식·걱정으로만 세계를 본다.**
-
-- Camp에서 실제 무슨 일이 벌어지는지 알 수 없음
-- 다른 사람의 속마음을 전지적으로 보여주지 않음
-- 나중에 Camp 관점에서 반대편 사실을 알게 됨
-
-Perspective Bridge는 복잡한 퍼즐일 필요 없음.
-
-`짧은 transition → 현재 역할 표시 → 새 몸/시야`면 충분할 수 있다.
-
----
-
-### 5. 학습 방향
-
-강제 퀴즈/Reflection을 역할마다 삽입하지 않는다.
-
-최신 목표:
+package version:
 
 ```text
-Immersion
-→ Historical Imagination
-→ Understanding
-→ Conceptualization
+0.0.0-r2-stage07
 ```
 
-학생이 먼저 자기 경험으로
+---
 
-- 왜 멀리 가는 것이 부담인지
-- 왜 자연이 무서웠을지
-- 왜 다른 사람이 필요했는지
-- 왜 불과 거처가 중요했는지
-- 왜 이동을 고민했을지
+# 6. Stage 07 기능
 
-를 상상하고 이해하게 한다.
+## Player surface
 
-교과 개념은 그 경험을 정리하는 단계다.
+기본값.
+
+보이지 않음:
+
+- Stage 번호
+- exact reducer state
+- 개발 toolbar
+- debug evidence
+- `Vertical Slice v0.1`
+
+## Teacher surface
+
+- major step
+- reset
+- reduced effects
+
+## Debug surface
+
+- exact skeleton step
+- held tool state
+- treatment preset
+- evidence
+
+## Learning Evidence proof
+
+- `tool-used-in-context`
+- `embodied-observation-performed`
+
+학생에게 점수/배지로 노출하지 않는다.
 
 ---
 
-## 최신 canonical 문서
+# 7. 자동 검증
 
-- `docs/01_PROJECT_CORE.md` v7
-- `docs/01A_EMBODIED_FIRST_PERSON_PRINCIPLES.md` v3
-- `docs/01B_RELATIONSHIP_AGENCY_PRINCIPLES.md` v3
-- `docs/01C_SUBTLE_SCREEN_TREATMENT_PRINCIPLES.md` v3
-- `docs/01D_LEARNING_CLARITY_SAFETY_HISTORICAL_INTEGRITY.md` v2
-- `docs/02_EXPERIENCE_STRUCTURE.md` v6
-- `docs/07_IMMERSION_NARRATIVE_BIBLE.md` v5
+첫 PR CI:
+
+- run `32822108088`
+- install PASS
+- typecheck FAIL
+
+원인:
+
+- `SharedDayContext.dayId`를 추가하면서 `tests/unit/HuntFeature.test.tsx`의 legacy fixture 한 곳에 `dayId`가 빠짐
+
+수정 후 성공:
+
+- run `32822273986`
+- Node 24.19.0
+- npm 11.17.0
+- install PASS
+- typecheck PASS
+- **8 test files / 31 tests PASS**
+- production build PASS
+
+첫 실패를 숨기지 않는다. 순차 감사가 실제 계약 누락을 잡아낸 사례로 기록한다.
 
 ---
 
-## Legacy runtime
+# 8. 아직 하지 않은 것
 
-현재 `src/`의 Hunt v0.1은 **Legacy Functional Prototype**이다.
+- Stage 07 사람 눈 브라우저 visual QA
+- 최종 Player Body asset
+- 최종 Cast asset
+- 실제 사운드
+- Hunt v6 전체 flow 구현
+- 공포/strong-accent 실제 Threat 장면 구현
+- Gather/Camp 본체
 
-이번 세션은 문서/설계 보정이며 runtime 코드는 변경하지 않았다.
+현재 CSS body/actor는 **layout proof**다.
 
 ---
 
-## 다음 공식 작업
+# 9. 다음 공식 작업
 
-# **R2 Stage 07 — Embodied Experience Skeleton**
+# **R2 Stage 07 Teacher Browser Visual/Immersion QA**
 
-우선 구현/검증:
+교사가 기본 URL을 직접 플레이하며 확인한다.
 
-1. 역할 진입 시 `Hunt 관점` 명료화
-2. Hunt role-true first-person frame
-3. 내 몸 + R/H1/H2 + 환경
-4. 도구 전달
-5. 걷기/몸 낮추기
-6. 사람 반응
-7. subtle/accent/드문 strong-accent prototype
-8. reduced effects
-9. 짧고 명료한 Perspective Bridge
-10. 브라우저 교사 QA
+핵심 질문:
 
-가장 중요한 질문:
+1. 첫 화면부터 `웹페이지`보다 `그 사람의 시야`처럼 느껴지는가?
+2. 손/무릎/사람의 위치가 물리적으로 어색하지 않은가?
+3. 도구를 받는 순간이 실제 상호작용처럼 느껴지는가?
+4. H1/H2가 단순 아이콘이 아니라 같이 나가는 사람처럼 느껴지는가?
+5. 걷기/crouch 변화가 몸의 자세 변화로 느껴지는가?
+6. treatment가 과하거나 약하지 않은가?
+7. 관점 전환이 명료한가?
+8. 개발 정보가 기본 화면에 전혀 튀어나오지 않는가?
 
-> **사냥하는 사람을 플레이할 때, 정말 그 사람의 눈과 몸과 제한된 정보 안에서 그 시대를 살아가는 느낌이 드는가?**
+관찰은 `handoff/R2_EMBODIED_PLAYTEST_PROTOCOL.md`에 기록한다.
+
+Stage 07 human Gate PASS 전에는 Stage 08을 시작하지 않는다.
+
+---
+
+# 10. Stage 08 예정
+
+Stage 07 human QA 통과 뒤:
+
+# **R2 Stage 08 — Hunt Embodied Vertical Slice**
+
+그때 구현:
+
+- 실제 흔적 탐색
+- 발견
+- 접근/시도
+- 추적 딜레마
+- Threat/Horror
+- multi-axis result
+- 귀환
+- 죄책감/후회/안도 callbacks
+- 재회
+
+현재는 아직 시작하지 않는다.
