@@ -2,201 +2,222 @@
 
 ## Current phase
 
-# **Design Reboot R2 — Stage 01~06 재설계 완료. Subtle Screen Treatment 원칙까지 보강. 다음 공식 단계는 R2 Stage 07 — Embodied Experience Skeleton.**
+# **Design Reboot R2 — Stage 01~06 Deep Audit 완료. 다음 공식 단계는 R2 Stage 07 — Embodied Experience Skeleton.**
 
 기존 Hunt v0.1은 기능적으로 동작하지만 새 설계의 최종 기준이 아니다.
 
 현재 판정:
 
 - Legacy Hunt v0.1: **Functional Prototype / preserved**
-- Design Reboot R2 Stage 01~06: **canonical design baseline**
+- R2 Stage 01~06 Deep Audit: **canonical design baseline**
 - Embodied First-Person runtime: **not yet implemented**
 - Relationship / consequence runtime: **not yet implemented**
-- Subtle Screen Treatment runtime: **not yet implemented**
+- Learning Invariant / scaffold runtime: **not yet implemented**
+- Reduced-effects / teacher surface runtime: **not yet implemented**
 
 ---
 
-## 왜 Stage 01부터 다시 리비전했는가
+## 이번 Deep Audit을 다시 한 이유
 
-실제 첫 플레이와 후속 기획 대화에서 다음이 확인됐다.
+R2에서 다음 요소가 빠르게 추가됐다.
 
-1. 시작부터 `내가 그 시대의 그 사람`이라는 느낌이 부족함
-2. 실제 사람과 관계 맺는 감각이 더 필요함
-3. 위협과 고민이 화면의 선택지가 아니라 실제 상황으로 다가와야 함
-4. 모든 경로가 비슷한 결론으로 정리되는 구조를 피해야 함
-5. 실제 사람의 시야처럼 **내 손·팔·다리 등 신체 일부가 눈앞 풍경과 함께 보이는 1인칭 화면**이 적합함
-6. 대형 연출보다도 **색·명암·짧은 blink·초점·미세 흔들림 같은 작은 화면 변화**가 몸 상태와 상황을 자연스럽게 강화할 수 있어야 함
+- 몸이 보이는 1인칭
+- 실제 주변 인물과 관계
+- 체감형 위협/고민
+- 비획일적 결과
+- 색/명암/focus/blink/micro motion
 
-따라서 기존 Stage 09 UX 보완 범위를 넘어 프로젝트의 pre-development foundation을 다시 정의했다.
+방향은 유효하지만 서로 결합할수록 새로운 리스크가 생겼다.
+
+확인한 핵심 리스크:
+
+1. 몰입이 역사적 정확성/학습 목표보다 앞설 위험
+2. 분기에 따라 학생별 핵심 역사 학습이 달라질 위험
+3. diegetic UI를 과도하게 추구해 학생이 행동을 찾지 못할 위험
+4. 1인칭 몸이 성별/연령 역할 고정관념을 만들 위험
+5. 관계가 죄책감/도덕 채점으로 변질될 위험
+6. 위협/화면 효과가 초등학생에게 과할 위험
+7. 관점 전환이 `다른 사람의 몸`보다 혼란으로 느껴질 위험
+8. 몰입 후 reflection/역사 개념화가 약해질 위험
+
+이를 Stage 01부터 다시 보완했다.
 
 ---
 
 ## R2 Stage 01 — Project Constitution
 
-완료.
+### 완료 문서
 
-- `docs/01_PROJECT_CORE.md` v5
-- `docs/01A_EMBODIED_FIRST_PERSON_PRINCIPLES.md` v2
-- `docs/01B_RELATIONSHIP_AGENCY_PRINCIPLES.md` v1
-- `docs/01C_SUBTLE_SCREEN_TREATMENT_PRINCIPLES.md` v1
+- `docs/01_PROJECT_CORE.md` — v6
+- `docs/01A_EMBODIED_FIRST_PERSON_PRINCIPLES.md` — v3
+- `docs/01B_RELATIONSHIP_AGENCY_PRINCIPLES.md` — v2
+- `docs/01C_SUBTLE_SCREEN_TREATMENT_PRINCIPLES.md` — v2
+- `docs/01D_LEARNING_CLARITY_SAFETY_HISTORICAL_INTEGRITY.md` — v1 NEW
 
-새 핵심 원칙:
+### 네 가지 비타협 기준
 
-- Embodied First-Person
-- 다른 역할 = 다른 공동체 구성원의 몸과 눈
-- 관계 = 함께 겪은 기억과 이후 반응
-- 위협 = 징후 → 사람 반응 → 관찰 → 판단
-- 고민 = 가치 충돌
-- Bounded Agency
-- Persistent Consequence
-- Reconverging Narrative
-- Perspective Recontextualization
-- Subtle Screen Treatment
+1. Historical Integrity
+2. Learner Safety & Accessibility
+3. Learning Clarity
+4. Embodiment & Agency
 
-Screen Treatment 원칙:
+몰입이 다른 세 기준을 침해하면 몰입 연출을 줄인다.
 
-- 효과는 상황 의미를 생성하지 않고 보조
-- `none / subtle / accent` 강도 budget
-- 불/시간/피로/긴장/전환에 가벼운 color/exposure/focus/blink/micro-motion 사용 가능
-- 위험 때마다 진한 red damage flash 금지
-- 반복 flashing, 지속적 강한 shake/blur 금지
-- reduced effects에서도 진행/의미 유지
+### 새 핵심 개념
 
----
-
-## R2 Stage 02 — 전체 경험 구조
-
-완료.
-
-`docs/02_EXPERIENCE_STRUCTURE.md` v4
-
-새 구조:
-
-```text
-Embodied Cold Open
-→ 첫 관점의 같은 하루
-→ Perspective Recontextualization
-→ 두 번째 관점의 같은 하루
-→ Perspective Recontextualization
-→ 세 번째 관점의 같은 하루
-→ 관계/결과가 반영된 Common Evening
-→ 며칠 변화
-→ 공동체 고민
-→ 이동
-→ 새 거처
-→ 경험 기반 역사 개념화
-```
-
-Shared Morning Event와 역할별 Perspective Morning Echo를 구분한다.
+- Learning Invariants / Narrative Variants
+- Player Body Identity neutrality
+- Progressive Scaffolding
+- Primary Attention Target
+- Perspective Orientation
+- Relationship Emotional Safety
+- Threat Intensity Ceiling
+- Choice Fairness
+- Reduced Effects parity
+- Experience → Reflection → Historical Concept
 
 ---
 
-## R2 Stage 03 — Hunt STORY
+## R2 Stage 02 — Experience Structure v5
 
-완료.
+추가/강화:
 
-`docs/03_HUNT_STORY.md` v4
+- Shared Morning Event
+- Perspective Morning Echo
+- Perspective Orientation Rule
+- Micro Reflection
+- Shared Reflection
+- Learning Invariant coverage
+- Classroom Session Boundary
+- Historical Concept Bridge
 
-반복 관계 인물:
-
-- R — 거처에 남는 익숙한 사람
-- H1 — 함께 나가는 사람
-- H2 — 주변을 세심하게 보는 사람
-
-Hunt는 food outcome 하나가 아니라
-
-- food outcome
-- return timing
-- distance burden
-- danger exposure
-- carry burden
-- relationship memories
-
-등 다축 질적 결과를 갖는 방향으로 재설계했다.
+관점 전환은 몰입적이어야 하지만 학생이 현재 누구의 몸인지 이해할 수 있어야 한다.
 
 ---
 
-## R2 Stage 04 — Hunt PLAYFLOW
+## R2 Stage 03 — Hunt STORY v5
 
-완료.
+유지:
 
-`docs/04_HUNT_PLAYFLOW.md` v4
+- R / H1 / H2
+- 도구 전달
+- 흔적 탐색
+- 추적 딜레마
+- 자연 위험
+- 다축 결과
+- 귀환/재회
 
-각 주요 Scene은 다음을 가진다.
+강화:
+
+- Hunt Learning Invariants
+- first-action scaffold
+- body identity stereotype guardrail
+- Choice Fairness
+- Threat ceiling + recovery
+- relationship blame 금지
+- Micro Reflection seed
+
+---
+
+## R2 Stage 04 — Hunt PLAYFLOW v5
+
+각 주요 Scene 필수 항목:
 
 - POV
-- 보이는 몸
-- 손/도구 상태
-- 사람 위치
-- 환경/사운드
-- 직접 행동
-- 세계 반응
-- 관계 기억
-- 시간/거리/위험 변화
-- 뒤에서의 회수
-
-Screen Treatment는 이 Scene 의미를 보조하는 표현층으로 사용한다.
-
----
-
-## R2 Stage 05 — Role Experience Map
-
-완료.
-
-- `docs/05_ROLE_EXPERIENCE_MAP.md` v4
-- `docs/05A_STAGE01-05_DESIGN_VALIDATION.md` v3
-
-역할별 몸 문법:
-
-### Hunt
-
-먼 시야 / 걷기 / 흔적 앞에 몸 낮추기 / 위험 / 운반 / 귀환
-
-### Gather
-
-가까운 시야 / 손으로 살피기 / 담기 / 장소 기억 / 범위 확대
-
-### Camp
-
-불 가까운 몸 / 손질 / 같은 장소 / 빈자리 / 멀리 보기 / 기다림 / 재회
+- body / held item
+- actor positions
+- Primary Attention Target
+- environment / sound
+- direct action
+- immediate response
+- relationship / consequence
+- Learning Invariant contribution
+- screen treatment budget
+- scaffold fallback
+- safety/accessibility note
+- callback
 
 ---
 
-## R2 Stage 06 — Technical Blueprint
+## R2 Stage 05 — Role Experience Map v5
 
-완료.
+세 역할의 차이를 몸 외형이 아니라 다음으로 만든다.
 
-`docs/06_TECH_BLUEPRINT.md` v4
+- 행동
+- 장소
+- 관계
+- 딜레마
+- 시간 감각
+- 학습 증거
 
-기술 지원 대상:
+성별/연령을 역할 분업의 기본값으로 사용하지 않는다.
 
-- Embodied scene presentation
+`docs/05A_STAGE01-05_DESIGN_VALIDATION.md` v4에서 Deep Audit 결과를 정리했다.
+
+---
+
+## R2 Stage 06 — Technical Blueprint v5
+
+새 기술 지원 대상:
+
+- Embodied Scene Presentation
 - Player Body Identity
 - Cast Anchor
 - Relationship Memory
 - Multi-axis Consequence
+- Learning Evidence
+- AttentionSpec
+- Progressive Scaffold
 - Narrative Variant Selector
-- Threat Build-up Beat
-- Perspective Bridge
-- ScreenTreatmentPresentation
-- lightweight `ScreenTreatmentLayer`
-- reduced-effects fallback
+- Choice Fairness precondition
+- Threat build-up / recovery
+- Screen Treatment / Reduced Effects
+- Perspective Orientation
+- Reflection / Concept Bridge
+- Player / Teacher / Debug surface
+- Classroom checkpoint
 
 과설계 금지:
 
 - 범용 NPC AI
-- 호감도 시스템
 - 대규모 대화 트리
-- FPS/3D 엔진 선행
+- FPS/3D engine 선행
 - 범용 Scene Engine
-- 범용 VFX/particle engine
+- 범용 VFX Engine
 
 ---
 
-## Common immersion docs
+## Common immersion bible
 
-- `docs/07_IMMERSION_NARRATIVE_BIBLE.md` v3
-- `docs/08_HUNT_IMMERSION_REDESIGN.md` v2
+- `docs/07_IMMERSION_NARRATIVE_BIBLE.md` — v4
+
+이제 장면 제작 순서를 다음으로 고정한다.
+
+```text
+Learning Evidence
+→ Situation
+→ Primary Attention
+→ Body / Actor
+→ Action / Decision
+→ Response / Consequence
+→ Treatment
+→ Scaffold
+→ Callback
+→ Safety / Accessibility
+```
+
+---
+
+## 외부 기준과의 정합성 확인
+
+Deep Audit에서는 다음을 참고해 원칙을 보강했다.
+
+- K–6 몰입형 학습에서 reflection/scaffolding의 중요성
+- serious-game에서 intuitive navigation이 cognitive load를 줄인다는 설계 원칙
+- body ownership/perspective-taking에서 시점/몸 congruence의 중요성
+- WCAG 2.2 flashing / motion 접근성 기준
+
+이 프로젝트는 HMD VR이 아니므로 효과를 그대로 보장한다고 가정하지 않는다. 실제 효과는 브라우저 teacher/student QA로 검증한다.
 
 ---
 
@@ -204,24 +225,24 @@ Screen Treatment는 이 Scene 의미를 보조하는 표현층으로 사용한�
 
 현재 `src/`의 Hunt는 기존 v0.1이다.
 
-보존할 가치:
+보존 가치:
 
 - React + TypeScript + Vite
 - Experience Orchestrator
-- role feature boundary
+- role boundary
 - reducer/tests
-- non-combat natural danger
-- qualitative RoleCompletion 철학
-- CI 기준선
+- non-combat danger
+- qualitative completion
+- CI
 
-기존 자동 검증 기준:
+기존 기준선:
 
 - 7 test files
 - 25 tests
 - typecheck PASS
 - production build PASS
 
-하지만 player-facing UI와 일부 state/result 의미는 R2 구현에서 변경 가능하다.
+이번 Deep Audit은 문서 설계 변경이며 runtime은 아직 새 R2를 구현하지 않았다.
 
 ---
 
@@ -229,42 +250,54 @@ Screen Treatment는 이 Scene 의미를 보조하는 표현층으로 사용한�
 
 # **Embodied Experience Skeleton**
 
-목표는 Hunt 전체를 바로 다시 만드는 것이 아니다.
+전체 Hunt를 바로 만들지 않는다.
 
-먼저 브라우저에서 다음이 실제로 성립하는지 검증한다.
+### P0 — Surface / Embodied
 
-### P0
-
-1. Player-facing / Debug surface 분리
-2. Embodied first-person frame
+1. Player / Teacher / Debug surface 분리
+2. Embodied frame
 3. body pose preset 3~5개
-4. Cold Open
-5. R이 도구를 건네고 내 손이 받는 장면
-6. H1/H2와 같은 공간에 있는 장면
-7. 최소 `ScreenTreatmentLayer` 또는 동등 구조
-8. `fire-warmth`, `threat-attention`, `blink-transition` 중 2~3개 prototype preset
+4. R/H1/H2 최소 actor continuity
+5. Cold Open
+6. R의 도구 전달
 
-### P1
+### P1 — Clarity / Motion
 
-9. 걷는 POV
-10. 몸을 낮추는 POV
-11. 사람의 시선/위치 반응
-12. 화면의 미세 color/exposure/focus/motion 변화
-13. 짧은 Perspective Bridge prototype
+7. Primary Attention cue
+8. first-action scaffold fallback
+9. walking POV
+10. crouch POV
+11. body continuity
 
-### P2
+### P2 — Treatment / Accessibility
 
-14. reduced-effects fallback
-15. 자동 테스트
-16. 교사 직접 브라우저 플레이
+12. `fire-warmth`
+13. `crouch-shift`
+14. `threat-attention` 또는 attention prototype
+15. `blink-perspective-transition`
+16. reduced effects / prefers-reduced-motion
 
-완료 판정 질문:
+### P3 — Perspective / Learning
 
-> **화면이 `풍경 + 버튼`이 아니라 정말 내 눈앞의 풍경과 내 몸과 사람이 함께 있는 장면처럼 느껴지는가?**
+17. 다른 Player Body Identity로 전환
+18. orientation cue
+19. 최소 Learning Evidence prototype
+20. stable checkpoint / teacher restart
 
-> **화면의 작은 색·명암·초점·움직임 변화가 장면을 강화하면서도 과장된 게임 효과처럼 보이지 않는가?**
+### P4 — Verification
 
-이 Gate를 통과한 뒤 R2 Stage 08 Hunt Embodied Vertical Slice 전체를 구현한다.
+21. 자동 테스트
+22. 브라우저 교사 QA
+
+### 완료 질문
+
+> **최종 아트 없이도 내 몸과 사람이 같은 공간에 있다는 느낌이 드는가?**
+
+> **학생이 첫 행동과 관점 전환을 이해하는가?**
+
+> **효과를 줄여도 같은 정보·선택·학습이 유지되는가?**
+
+NO라면 Hunt 전체로 가지 않고 Skeleton부터 수정한다.
 
 ---
 
@@ -272,29 +305,31 @@ Screen Treatment는 이 Scene 의미를 보조하는 표현층으로 사용한�
 
 - R2 Stage 07 Embodied Experience Skeleton
 - R2 Stage 08 Hunt Embodied Vertical Slice
-- R2 Stage 09 Teacher Immersion QA
+- R2 Stage 09 Teacher Immersion + Clarity QA
 - R2 Stage 10 Student Pilot
 - R2 Stage 11 Gather
 - R2 Stage 12 Camp
-- R2 Stage 13 Three-Perspective Integration / Common Evening
+- R2 Stage 13 Three-Perspective Integration
 - R2 Stage 14 Multi-day Change
 - R2 Stage 15 Migration / New Home
 - R2 Stage 16 Historical Concept Bridge
+- Historical / Visual Context Bible
 - Player Body Continuity Sheets
 - Cast Continuity Sheets
 - POV / Camera Bible
-- Screen Treatment visual QA
 - final visual/audio production
 
 ---
 
 ## Do not do next
 
-- 기존 Hunt v0.1 화면에 텍스트/손 그림/빨간 overlay만 추가하고 `몰입 개선 완료` 처리
+- 기존 Hunt v0.1 화면에 손 그림/효과만 붙이고 완료 처리
+- 전체 Hunt를 한 번에 재구축
 - 최종 이미지 대량 제작
 - 자유 3D/FPS 전환
 - NPC AI 시스템 구축
-- Gather/Camp를 기존 Hunt UI 복사로 구현
-- 위험마다 강한 red flash/화면 흔들림을 넣어 긴장감을 대신함
+- Gather/Camp를 Hunt UI 복사로 구현
+- 화면 효과를 먼저 만들고 의미를 나중에 붙이기
+- 몰입을 이유로 학생에게 중요한 조작을 숨기기
 
-새 구현은 반드시 R2 Stage 01~06과 `01C`를 기준으로 한다.
+새 구현은 반드시 Stage 01 v6~01D와 Stage 06 v5를 기준으로 한다.
