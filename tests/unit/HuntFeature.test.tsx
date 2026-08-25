@@ -114,6 +114,7 @@ function renderHunt(onComplete = vi.fn()) {
       dayContext={{
         experienceId: 'test',
         communityId: 'community',
+        dayId: 'day-1',
         sharedMorningSeen: true,
       }}
       onComplete={onComplete}
