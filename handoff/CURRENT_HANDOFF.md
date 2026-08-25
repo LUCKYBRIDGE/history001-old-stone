@@ -2,218 +2,213 @@
 
 ## Current responsibility completed
 
-# **Design Reboot R2 — Stage 01~06 전면 리비전 + Subtle Screen Treatment 보강**
+# **Design Reboot R2 — Stage 01~06 Deep Audit**
 
-사용자 방향:
+사용자 요구가 누적되며 다음이 프로젝트 핵심으로 확정됐다.
 
-- 실제 사람의 시야처럼 눈앞 풍경과 내 신체 일부가 함께 보여야 함
-- 실제 주변 인물과 관계를 맺어야 함
-- 위협과 고민이 UI 문항이 아니라 실제 위협/고민으로 다가와야 함
-- 선택이 하나의 획일적인 결론으로 무효화되지 않아야 함
-- 거대한 연출보다 **화면이 잠깐 붉게/따뜻하게 물들거나, 짧게 깜빡이거나, 초점·명암·미세 흔들림이 바뀌는 작은 연출**도 몰입 언어로 사용해야 함
+- 실제 사람 시야처럼 내 신체 일부가 풍경과 함께 보이는 1인칭
+- 실제 주변 인물과 관계
+- 위협/고민이 UI 문항보다 상황으로 먼저 다가옴
+- 선택이 획일적 결론으로 무효화되지 않음
+- 붉은 기운, 명암, blink, focus, micro motion 같은 작은 화면 연출
 
-이를 기존 Stage 09 보완이 아니라 **Stage 01부터의 새 canonical foundation**으로 반영했다.
-
----
-
-## 가장 중요한 새 정의
-
-# Embodied First-Person
-
-학생은 카메라를 조종하는 사람이 아니다.
-
-학생 화면은:
-
-## **환경 + 내 몸 + 들고 있는 것 + 주변 사람 + 현재 행동**
-
-의 하나의 물리적 시야다.
-
-예:
-
-- 불 앞: 손 + 무릎 + 불 + 맞은편 사람
-- 도구 전달: 상대 손 + 도구 + 내 손
-- 흔적 관찰: 내 손 + 무릎 + 지면 흔적
-- 걷기: 도구 든 손 + 앞의 동행자
-- 귀환: 피로한 팔/운반 상태 + 멀리 보이는 거처
+이번 세션에서는 이 요소들을 **Stage 01부터 다시 감사**해 몰입이 역사 학습·명료성·안전보다 앞서지 않도록 전체 foundation을 보완했다.
 
 ---
 
-## Subtle Screen Treatment
+## 가장 중요한 새 결론
 
-새 canonical 문서:
+# **몰입은 목표가 아니라 학습 수단이다.**
 
-- `docs/01C_SUBTLE_SCREEN_TREATMENT_PRINCIPLES.md`
+모든 새 구현은 네 축을 동시에 만족한다.
 
-핵심 원칙:
+1. Historical Integrity
+2. Learner Safety & Accessibility
+3. Learning Clarity
+4. Embodiment & Agency
 
-## **대형 VFX보다 작은 지각 변화로 몸·환경·시간·긴장을 보조한다.**
-
-사용 가능:
-
-- 불의 따뜻한 color wash
-- 새벽/해질녘 색온도·명암 변화
-- 위협 순간의 아주 약한 주변부 변화/focus shift
-- 피로한 걸음의 미세 sway
-- 자세/시간/관점 전환의 한 번의 blink
-- 어두운 귀환 중 불빛을 발견할 때 미세한 밝기 회복
-
-금지/제한:
-
-- 위험마다 강한 전체 화면 빨강
-- HP damage flash처럼 보이는 red flash
-- 반복 flashing
-- 지속적 강한 shake/blur/zoom
-- 화면 효과만 보고 위험/피로를 이해하게 하는 구조
-
-기본 강도는 `none / subtle / accent`로 제한한다.
-
-효과보다 **세계·몸·사람이 먼저 의미를 만든다.**
+몰입 때문에 다른 세 축을 희생하지 않는다.
 
 ---
 
-## 역할의 새로운 의미
+## Stage 01 canonical
 
-Hunt / Gather / Camp는 같은 사람이 세 일을 하는 것이 아니다.
+### `docs/01_PROJECT_CORE.md` v6
 
-## **같은 공동체의 같은 하루를 서로 다른 구성원의 몸과 눈으로 경험한다.**
+새 핵심:
 
-Perspective Bridge는 역할 메뉴가 아니라 사람/몸/공간을 이용한 시점 전환이다.
+- Experience → Reflection → Historical Concept
+- Learning Invariants / Narrative Variants
+- Body Identity neutrality
+- Choice Fairness
+- Progressive Scaffolding
+- Primary Attention
+- Threat ceiling
+- Perspective orientation
+- Reduced-effects parity
 
----
+### `docs/01A_EMBODIED_FIRST_PERSON_PRINCIPLES.md` v3
 
-## 관계 모델
+- 몸이 안 보이는 순간도 허용
+- 몸을 많이 보여주는 것이 목표가 아님
+- 역할 몸의 성/연령 고정관념 금지
+- Embodied Fidelity Ladder
+- uncanny/mismatch QA
+- Primary Attention Target
 
-관계는 호감도 숫자가 아니다.
+### `docs/01B_RELATIONSHIP_AGENCY_PRINCIPLES.md` v2
 
-### Relationship Memory
+- Relationship Emotional Safety
+- Choice Fairness Gate
+- Learning Invariant 분기 독립
+- Threat intensity ceiling
+- 재수렴 뒤 의미 차이
 
-- 함께 위험을 피함
-- 부담을 나눔
-- 늦게 귀환
-- 기다리는 사람을 바라봄
+### `docs/01C_SUBTLE_SCREEN_TREATMENT_PRINCIPLES.md` v2
 
-같은 질적 기억이 이후 사람의 대사·시선·행동·저녁 장면에 반영된다.
-
----
-
-## 위협/고민 모델
-
-### 위협
+기본 순서:
 
 ```text
-징후
-→ 주변 사람 반응
-→ 내 몸의 긴장
-→ 내가 주변을 봄
-→ 필요하면 아주 약한 screen treatment
-→ 위협을 이해
-→ 판단
+World / Actor
+→ Body
+→ Treatment
 ```
 
-### 고민
+- flash보다 blink/fade
+- Primary Attention 우선
+- WCAG three-flashes threshold 초과 금지
+- reduced effects parity
+- 의미 중복 금지
 
-선택 전에
+### `docs/01D_LEARNING_CLARITY_SAFETY_HISTORICAL_INTEGRITY.md` v1 NEW
 
-- 원하는 것
-- 가능성
-- 시간
-- 거리
-- 피로
-- 다른 사람 상태
+이번 Deep Audit의 핵심 상한선 문서.
 
-가 함께 보여야 한다.
-
-정답/오답 없음.
-
----
-
-## 결과 모델
-
-# **Bounded Agency + Persistent Consequence + Reconverging Narrative**
-
-큰 이야기에서 같은 장소로 돌아올 수 있다.
-
-하지만 선택은 다음에 흔적을 남긴다.
-
-- 사람 반응
-- 관계 기억
-- 몸 상태
-- 시간
-- 거리
-- 위험 경험
-- 들고 있는 것
-- 다음 역할 시점
-
-같은 저녁이라도 같은 의미가 아니다.
+- Learning Invariants
+- Progressive Scaffold
+- Cognitive Load / Primary Attention
+- Body Identity neutrality
+- Perspective clarity
+- Relationship safety
+- Threat ceiling
+- Screen effect safety
+- Reflection
+- Teacher/Classroom readiness
 
 ---
 
-## Revised canonical docs
+## Stage 02~06 revised
 
-### R2 Stage 01
+### Stage 02 — `docs/02_EXPERIENCE_STRUCTURE.md` v5
 
-- `docs/01_PROJECT_CORE.md` v5
-- `docs/01A_EMBODIED_FIRST_PERSON_PRINCIPLES.md` v2
-- `docs/01B_RELATIONSHIP_AGENCY_PRINCIPLES.md` v1
-- `docs/01C_SUBTLE_SCREEN_TREATMENT_PRINCIPLES.md` v1
+추가:
 
-### R2 Stage 02
+- Learning Invariant coverage
+- Perspective Orientation
+- Micro Reflection
+- Shared Reflection
+- Classroom Session Boundary
+- Historical Concept Bridge
 
-- `docs/02_EXPERIENCE_STRUCTURE.md` v4
+### Stage 03 — `docs/03_HUNT_STORY.md` v5
 
-### R2 Stage 03
+추가:
 
-- `docs/03_HUNT_STORY.md` v4
+- Hunt Learning Invariants
+- first-action scaffold
+- Choice Fairness
+- body identity stereotype guardrail
+- Threat ceiling + recovery
+- 관계 비난 금지
+- Micro Reflection seed
 
-### R2 Stage 04
+### Stage 04 — `docs/04_HUNT_PLAYFLOW.md` v5
 
-- `docs/04_HUNT_PLAYFLOW.md` v4
+모든 주요 Scene에:
 
-### R2 Stage 05
+- Primary Attention Target
+- Learning Invariant contribution
+- treatment budget
+- scaffold fallback
+- safety/accessibility note
 
-- `docs/05_ROLE_EXPERIENCE_MAP.md` v4
-- `docs/05A_STAGE01-05_DESIGN_VALIDATION.md` v3
+을 추가.
 
-### R2 Stage 06
+### Stage 05 — `docs/05_ROLE_EXPERIENCE_MAP.md` v5
 
-- `docs/06_TECH_BLUEPRINT.md` v4
+역할 차이를 외형보다
 
-### Supporting canonical
+- 행동
+- 장소
+- 관계
+- 딜레마
+- 시간 감각
+- 학습 증거
 
-- `docs/07_IMMERSION_NARRATIVE_BIBLE.md` v3
-- `docs/08_HUNT_IMMERSION_REDESIGN.md` v2
-- `docs/00_DEVELOPMENT_WORKFLOW.md` v3
-- `AGENTS.md`
+로 만든다.
+
+### Stage 05A — v4
+
+Deep Audit 결과와 남은 리스크 기록.
+
+### Stage 06 — `docs/06_TECH_BLUEPRINT.md` v5
+
+새 지원 대상:
+
+- Learning Evidence
+- AttentionSpec
+- Progressive Scaffold
+- Choice Fairness precondition
+- Threat recovery
+- Reduced Effects
+- Perspective Orientation
+- Reflection/Concept Bridge
+- Player/Teacher/Debug separation
+- Classroom checkpoint
+
+과설계 금지 원칙은 유지한다.
 
 ---
 
-## Legacy runtime
+## Immersion Bible
 
-현재 `src/`의 Hunt v0.1은 삭제하지 않는다.
+`docs/07_IMMERSION_NARRATIVE_BIBLE.md` v4
 
-지위:
+장면 제작 순서:
+
+```text
+Learning Evidence
+→ Situation
+→ Primary Attention
+→ Body / Actor
+→ Action / Decision
+→ Response / Consequence
+→ Treatment
+→ Scaffold
+→ Callback
+→ Safety / Accessibility
+```
+
+효과/대사를 먼저 만들고 의미를 나중에 붙이지 않는다.
+
+---
+
+## 현재 코드의 지위
+
+현재 `src/` Hunt v0.1은 삭제하지 않는다.
 
 # **Legacy Functional Prototype**
 
 재사용 가능:
 
 - React/TS/Vite
-- Orchestrator 구조 일부
+- Orchestrator
 - reducer/test 기반
+- qualitative result 철학
 - non-combat guardrail
-- qualitative completion 철학
+- CI
 
-재설계 가능:
-
-- Common Morning
-- player-facing UI
-- Hunt Scene presentation
-- result detail
-- relationship data
-- Perspective Bridge
-- screen treatment layer
-
-기존 코드가 R2 설계를 제한하면 R2 설계가 우선한다.
+R2 Deep Audit와 충돌하는 player-facing 구조/state detail은 수정 가능.
 
 ---
 
@@ -223,62 +218,79 @@ Perspective Bridge는 역할 메뉴가 아니라 사람/몸/공간을 이용한 
 
 전체 Hunt를 바로 만들지 않는다.
 
-먼저 다음 작은 vertical skeleton을 구현/검증한다.
+최소 범위:
 
 ```text
-Cold Open
-→ 내 손/무릎 + 불
-→ 따뜻한 fire-warmth treatment
-→ R의 손에서 내 손으로 돌도구 전달
-→ H1/H2와 같은 공간에 서기
-→ 걷는 POV
-→ 잠깐 몸을 낮추는 POV
-→ 위협이 아닌 짧은 attention/focus treatment prototype
-→ Perspective Bridge에서 자연스러운 blink prototype
+Player/Teacher/Debug 분리
+→ Embodied frame
+→ 불 앞 내 손/무릎
+→ R의 도구 전달
+→ first-action scaffold
+→ H1/H2와 출발
+→ walking POV
+→ crouch POV
+→ subtle treatment on/off
+→ 다른 Player Body Identity로 전환
+→ orientation cue
+→ 최소 Learning Evidence
+→ checkpoint
 ```
 
-### P0
+---
 
-- Student / Debug surface 분리
-- Embodied frame
-- body pose preset
-- R/H1/H2 actor continuity 최소 구조
-- 최소 ScreenTreatmentLayer 또는 동등 구조
+## Stage 07에서 반드시 함께 검증할 것
 
-### P1
+### Embodiment
 
-- 도구 전달
-- 걷기
-- crouch POV
-- 시선/actor reaction
-- `fire-warmth`, `threat-attention`, `blink-transition` 중 2~3개 preset
+- 내 몸과 사람이 같은 공간처럼 보이는가?
 
-### P2
+### Clarity
 
-- Perspective Bridge
-- reduced-effects fallback
-- 자동 테스트
-- 브라우저 교사 QA
+- 첫 행동을 학생이 찾는가?
+
+### Continuity
+
+- 손/도구/사람이 장면 사이에 이어지는가?
+
+### Treatment
+
+- 효과가 보조적이며 과하지 않은가?
+
+### Accessibility
+
+- reduced effects에서도 동일하게 진행되는가?
+
+### Perspective
+
+- 다른 사람의 몸으로 바뀐 것을 이해하는가?
+
+### Learning
+
+- 최소 Learning Evidence가 실제 경험에서 생성되는가?
+
+### Classroom
+
+- teacher/debug 정보가 학생 화면과 분리되는가?
+- 안정된 checkpoint에서 재시작 가능한가?
 
 ---
 
-## R2 Stage 07 완료 질문
+## 하지 않을 것
 
-다음에 YES라고 답할 수 있어야 한다.
-
-> 화면이 `구석기 배경을 보는 웹`이 아니라 정말 **내 눈앞의 풍경에 내 몸과 다른 사람이 함께 존재하는 장면**처럼 느껴지는가?
-
-> 다른 사람의 손과 내 손이 같은 공간에서 물건을 주고받는 것이 자연스러운가?
-
-> 역할이 바뀔 때 `다음 게임`보다 `다른 사람의 몸으로 이동했다`는 느낌이 가능한가?
-
-> 색·명암·초점·blink·미세 움직임이 장면을 조용히 강화하며, 효과 자체가 튀어 보이지 않는가?
-
-NO라면 전체 Hunt를 만들지 않고 skeleton부터 수정한다.
+- 전체 Hunt를 한 번에 구현
+- 기존 화면에 손/필터만 추가하고 완료 처리
+- 최종 이미지 대량 제작
+- 자유 3D/FPS
+- NPC AI
+- 범용 Scene/VFX Engine
+- 성별로 역할을 구분
+- 관계를 죄책감 유도로 사용
+- screen effect로 위험/정답을 먼저 알려주기
+- 몰입을 위해 행동 가능성을 숨기기
 
 ---
 
-## 구현 시 읽기 순서
+## 새 구현 세션 읽기 순서
 
 1. `AGENTS.md`
 2. `PROJECT_STATUS.md`
@@ -288,31 +300,19 @@ NO라면 전체 Hunt를 만들지 않고 skeleton부터 수정한다.
 6. `docs/01A_EMBODIED_FIRST_PERSON_PRINCIPLES.md`
 7. `docs/01B_RELATIONSHIP_AGENCY_PRINCIPLES.md`
 8. `docs/01C_SUBTLE_SCREEN_TREATMENT_PRINCIPLES.md`
-9. `docs/02_EXPERIENCE_STRUCTURE.md`
-10. `docs/06_TECH_BLUEPRINT.md`
-11. R2 Stage 07 구현 대상 코드/tests
+9. `docs/01D_LEARNING_CLARITY_SAFETY_HISTORICAL_INTEGRITY.md`
+10. `docs/02_EXPERIENCE_STRUCTURE.md`
+11. `docs/06_TECH_BLUEPRINT.md`
+12. 구현 대상 코드/tests
 
-Hunt 전체 구현 세션에서는 추가로 `03`, `04`, `08`을 읽는다.
-
----
-
-## 금지
-
-다음 세션에서 바로 하지 않는다.
-
-- 최종 Hunt 전체를 한 번에 구현
-- 최종 이미지 대량 제작
-- 3D/FPS 엔진 도입
-- NPC AI 프레임워크 구축
-- 호감도/관계 점수
-- Gather/Camp 복제 구현
-- 기존 v0.1 UI에 손 그림/빨간 overlay만 붙이고 완료 처리
-- 화려한 VFX로 장면 설계 부족을 덮기
+Hunt 전체 구현 세션에서는 추가로 `03`, `04`, `05`, `07`을 읽는다.
 
 ---
 
 ## 현재 검증 상태
 
-이번 변경은 설계/문서 변경이다.
+이번 변경은 설계/문서 리비전이다.
 
-기존 runtime 기능 기준선은 보존한다. PR/CI에서 install, typecheck, 기존 tests, production build를 다시 확인한다.
+Runtime source는 변경하지 않았다.
+
+PR CI로 기존 25 tests/typecheck/build가 깨지지 않았는지 최종 확인한 뒤 main에 반영한다.
