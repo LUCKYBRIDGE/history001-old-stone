@@ -1,5 +1,5 @@
 # 구석기 역사 체험 웹게임
-## Stage 06 — 기술 설계 v3 / Embodied Narrative Architecture
+## Stage 06 — 기술 설계 v4 / Embodied Narrative + Subtle Treatment Architecture
 
 > 목적: Stage 01~05 Design Reboot R2를 실제 브라우저 앱으로 구현할 수 있도록 최소 기술 구조를 다시 정의한다. 기존 Hunt v0.1 코드는 참고 가능한 기능 프로토타입이지만 이 문서보다 우선하지 않는다.
 >
@@ -8,6 +8,7 @@
 > - `docs/01_PROJECT_CORE.md`
 > - `docs/01A_EMBODIED_FIRST_PERSON_PRINCIPLES.md`
 > - `docs/01B_RELATIONSHIP_AGENCY_PRINCIPLES.md`
+> - `docs/01C_SUBTLE_SCREEN_TREATMENT_PRINCIPLES.md`
 > - `docs/02_EXPERIENCE_STRUCTURE.md`
 > - `docs/05_ROLE_EXPERIENCE_MAP.md`
 
@@ -26,7 +27,8 @@
 3. `World Continuity / Integration`은 역할 플레이 규칙을 소유하지 않는다.
 4. 공통층은 반복 인물·공통 모티프·역할 간 회수에 필요한 최소 의미만 전달한다.
 5. Embodied UI는 표현 primitive를 제공하지만 역할의 게임 규칙을 알지 않는다.
-6. 범용 Scene Engine, NPC AI Engine, Quest Engine을 만들지 않는다.
+6. 화면 효과는 작은 presentation preset으로 지원하고 범용 VFX Engine을 만들지 않는다.
+7. 범용 Scene Engine, NPC AI Engine, Quest Engine을 만들지 않는다.
 
 ---
 
@@ -73,6 +75,7 @@ export interface EmbodiedScenePresentation {
   actors: readonly ActorPresentation[];
   interactables: readonly InteractablePresentation[];
   ambience?: AmbiencePresentation;
+  treatment?: ScreenTreatmentPresentation;
 }
 ```
 
@@ -105,8 +108,6 @@ export interface ViewpointSpec {
 
 몸은 장식 overlay가 아니라 장면 상태다.
 
-개념 예시:
-
 ```ts
 export interface BodyPresentation {
   visibleParts: readonly ('left-hand' | 'right-hand' | 'forearm' | 'knees' | 'legs' | 'feet')[];
@@ -120,8 +121,6 @@ export interface BodyPresentation {
 
 필요한 주요 상태만 명시적으로 지원한다.
 
-예:
-
 - fire-rest
 - tool-in-hand
 - crouch-observe
@@ -133,7 +132,57 @@ export interface BodyPresentation {
 
 ---
 
-# 6. Player Body Identity
+# 6. ScreenTreatmentPresentation
+
+화면 전체의 미세 연출도 장면 presentation의 일부로 취급할 수 있다.
+
+개념 예시:
+
+```ts
+export interface ScreenTreatmentPresentation {
+  preset?:
+    | 'none'
+    | 'fire-warmth'
+    | 'dusk-fatigue'
+    | 'threat-attention'
+    | 'crouch-shift'
+    | 'return-firelight';
+  intensity?: 'subtle' | 'accent';
+  reducedEffectsFallback?: 'none' | 'static';
+}
+```
+
+정확한 타입은 구현에서 더 줄여도 된다.
+
+원칙:
+
+- effect state를 게임 규칙 state와 동일시하지 않는다.
+- `danger=true → red flash` 같은 직접 매핑을 만들지 않는다.
+- effect preset은 **이미 의미가 성립한 장면을 보조**한다.
+- 초기에는 CSS variables / opacity / filter / transform / transition 수준으로 충분하다.
+- `strong` 효과 체계를 기본으로 만들지 않는다.
+
+---
+
+# 7. 작은 화면 효과의 구현 후보
+
+별도 무거운 라이브러리 없이 구현 가능한 범위:
+
+- color wash: 반투명 overlay 또는 CSS color/filter
+- exposure: brightness/contrast transition
+- vignette: pseudo-element / radial-gradient
+- focus: 제한된 blur / opacity / scale
+- micro motion: 작은 transform keyframe
+- blink: 짧은 dark overlay transition
+- motion stop: animation/sway를 순간적으로 정지
+
+주의:
+
+## **레이어를 기술적으로 나눠도 학생에게는 하나의 시야처럼 보여야 한다.**
+
+---
+
+# 8. Player Body Identity
 
 역할마다 다른 사람의 몸을 빌린다는 것을 기술적으로 표현한다.
 
@@ -157,7 +206,7 @@ export interface PlayerBodyIdentity {
 
 ---
 
-# 7. 반복 등장 인물 — Cast Anchor
+# 9. 반복 등장 인물 — Cast Anchor
 
 범용 NPC 시스템을 만들지 않는다.
 
@@ -183,7 +232,7 @@ Common Shell은 캐릭터 AI를 돌리지 않는다.
 
 ---
 
-# 8. 관계 상태 — 숫자 대신 Memory Signal
+# 10. 관계 상태 — 숫자 대신 Memory Signal
 
 호감도 수치를 사용하지 않는다.
 
@@ -209,7 +258,7 @@ export interface RelationshipMemory {
 
 ---
 
-# 9. Consequence Model — 다축 질적 상태
+# 11. Consequence Model — 다축 질적 상태
 
 기존처럼 `food-secured / empty-handed` 하나만 결과 의미를 대표하지 않는다.
 
@@ -229,13 +278,11 @@ export interface HuntCompletionDetail {
 
 정확한 enum은 구현 과정에서 현재 reducer와 비교해 확정한다.
 
-원칙:
-
 ## **한 축의 성공/실패로 전체 서사를 결정하지 않는다.**
 
 ---
 
-# 10. RoleCompletion vNext 방향
+# 12. RoleCompletion vNext 방향
 
 공통 계약은 질적 신호를 유지한다.
 
@@ -256,7 +303,7 @@ export interface RoleCompletion<TResultDetail = unknown> {
 
 ---
 
-# 11. WorldContinuity
+# 13. WorldContinuity
 
 역할 간 공유가 필요한 최소 데이터만 둔다.
 
@@ -278,16 +325,15 @@ export interface SharedWorldContinuity {
 - 모든 NPC 상태를 전역 저장
 - 역할 내부 stage를 전역으로 승격
 - Hunt 선택 전체 로그를 Common reducer가 해석
+- 화면 효과 transient state를 persistence에 저장
 
 ---
 
-# 12. Narrative Variant Selector
+# 14. Narrative Variant Selector
 
 비획일적 결과를 위해 거대한 대화 트리 엔진을 만들지 않는다.
 
 필요한 장면에서 명시적으로 변주를 선택한다.
-
-개념:
 
 ```ts
 function chooseReturnBeat(detail: HuntCompletionDetail): ReturnBeatId {
@@ -308,7 +354,7 @@ function chooseReturnBeat(detail: HuntCompletionDetail): ReturnBeatId {
 
 ---
 
-# 13. 재수렴 구조
+# 15. 재수렴 구조
 
 기술적으로 다음을 선호한다.
 
@@ -330,13 +376,11 @@ function chooseReturnBeat(detail: HuntCompletionDetail): ReturnBeatId {
 
 ---
 
-# 14. Threat Build-up
+# 16. Threat Build-up
 
-위험 이벤트는 `danger=true`가 되자마자 선택 패널을 띄우지 않는다.
+위험 이벤트는 `danger=true`가 되자마자 선택 패널이나 화면 효과를 띄우지 않는다.
 
 역할 내부 상태는 최소 몇 Beat를 가질 수 있다.
-
-예:
 
 ```text
 ambient-normal
@@ -347,13 +391,13 @@ ambient-normal
 → response-choice
 ```
 
-이것을 범용 위협 엔진으로 만들지 않는다.
+`threat-attention` 같은 화면 treatment는 `companion-reacts` 또는 `player-observes`에서 아주 약하게 들어갈 수 있지만, 위험의 의미를 생성하지 않는다.
 
-HuntFeature 내부의 명시적 stage/beat로 구현할 수 있다.
+이것을 범용 위협 엔진으로 만들지 않는다.
 
 ---
 
-# 15. Perspective Bridge 기술 구조
+# 17. Perspective Bridge 기술 구조
 
 Perspective Bridge는 새로운 역할 메뉴보다 **시각 continuity transition**을 지원해야 한다.
 
@@ -368,6 +412,7 @@ Perspective Bridge는 새로운 역할 메뉴보다 **시각 continuity transiti
 
 Hunt에서 R을 바라봄
 → R 중심으로 transition
+→ 짧은 blink/darkness 가능
 → 다음 관점에서 R의 손/몸이 player body가 됨
 
 이 구현은 CSS transition + asset/state 교체만으로도 가능하다.
@@ -376,7 +421,7 @@ Hunt에서 R을 바라봄
 
 ---
 
-# 16. Shared Presentation Primitive v3
+# 18. Shared Presentation Primitive v4
 
 공통으로 재사용할 수 있는 것은 표현 수단이다.
 
@@ -390,6 +435,7 @@ Hunt에서 R을 바라봄
 - `GazeControl`
 - `DialogueBeat`
 - `AmbientAudioLayer`
+- `ScreenTreatmentLayer`
 - `TransitionBeat`
 - `DebugPanel`
 
@@ -405,7 +451,7 @@ Hunt에서 R을 바라봄
 
 ---
 
-# 17. 이미지 자산 전략
+# 19. 이미지 자산 전략
 
 초기 프로토타입:
 
@@ -413,6 +459,7 @@ Hunt에서 R을 바라봄
 - 단순 배경
 - 임시 body silhouette
 - hotspot
+- lightweight screen treatment
 
 등으로 상호작용과 POV 구조를 검증할 수 있다.
 
@@ -423,6 +470,7 @@ Hunt에서 R을 바라봄
 - 손·팔·도구 연속성
 - 반복 인물 continuity
 - scene별 광원
+- treatment가 최종 asset 광원과 중복/충돌하지 않는지 검토
 
 을 선행한다.
 
@@ -430,7 +478,7 @@ Hunt에서 R을 바라봄
 
 ---
 
-# 18. 사운드
+# 20. 사운드
 
 사운드는 1인칭 공간감을 강화한다.
 
@@ -442,23 +490,36 @@ Hunt에서 R을 바라봄
 4. 위협 징후
 5. 음악
 
-위험을 음악만으로 알려주지 않는다.
+화면 treatment와 사운드는 서로 의미를 보조할 수 있지만 한 감각만으로 필수 정보를 전달하지 않는다.
 
 ---
 
-# 19. 접근성
+# 21. 접근성 / Reduced Effects
 
 - 모션 감소
 - 과도한 화면 흔들림 금지
+- 반복 flashing 금지
+- 강한 blur/zoom 지속 금지
 - 소리 정보의 시각 보조
 - 충분한 hotspot 크기
 - 키보드/포인터 기본 접근성
 - 중요한 정보가 이미지의 미세한 한 점에만 있지 않게 함
 - 긴 텍스트를 줄여도 의미 있는 대체 텍스트/설명 구조 유지
 
+구현 시 `prefers-reduced-motion`을 최소 기준으로 검토한다.
+
+가능하면 screen treatment를 다음처럼 축소할 수 있어야 한다.
+
+```text
+normal: subtle motion + color/focus treatment
+reduced: static color/light cue 또는 none
+```
+
+효과를 줄여도 진행과 역사 의미가 유지되어야 한다.
+
 ---
 
-# 20. Persistence
+# 22. Persistence
 
 초기에는 stable checkpoint만 저장한다.
 
@@ -474,11 +535,12 @@ Hunt에서 R을 바라봄
 - 모든 시선 이동
 - 모든 hover
 - 짧은 애니메이션 beat
+- 순간 screen treatment
 - 개인 식별 정보
 
 ---
 
-# 21. Debug와 Player Surface 분리
+# 23. Debug와 Player Surface 분리
 
 Player-facing:
 
@@ -486,6 +548,7 @@ Player-facing:
 - 몸
 - 사람
 - 필요한 최소 행동 UI
+- 장면 의미를 보조하는 subtle treatment
 
 Debug:
 
@@ -494,13 +557,14 @@ Debug:
 - selected variant
 - relationship memories
 - consequence detail
+- active treatment preset/intensity
 - RoleCompletion
 
 Debug 정보가 기본 화면에 나오면 몰입 Gate 실패다.
 
 ---
 
-# 22. 테스트 전략 v3
+# 24. 테스트 전략 v4
 
 ## Unit
 
@@ -509,12 +573,14 @@ Debug 정보가 기본 화면에 나오면 몰입 Gate 실패다.
 - relationship memory creation
 - narrative variant selection
 - completion guard
+- treatment preset resolver가 있다면 그 규칙
 
 ## Integration
 
 - Common/Perspective → Role → completion → Bridge
 - cross-role shared signal 전달
 - persistence
+- reduced-effects fallback
 
 ## Presentation tests
 
@@ -522,6 +588,8 @@ Debug 정보가 기본 화면에 나오면 몰입 Gate 실패다.
 - 주요 Scene에서 필요한 body state 존재
 - interaction 뒤 actor/world response 존재
 - threat choice 전에 threat build-up beat 존재
+- screen effect가 없더라도 조작/핵심 정보 유지
+- reduced-effects에서 진행 막힘 없음
 
 ## E2E
 
@@ -544,7 +612,7 @@ Debug 정보가 기본 화면에 나오면 몰입 Gate 실패다.
 
 ---
 
-# 23. 구현 순서
+# 25. 구현 순서
 
 기존 Hunt v0.1을 한 번에 덮어쓰지 않는다.
 
@@ -554,6 +622,7 @@ Debug 정보가 기본 화면에 나오면 몰입 Gate 실패다.
 - Embodied frame
 - 몸 pose preset
 - Cold Open
+- 최소 ScreenTreatmentLayer / preset 2~3개
 
 ## Phase B — Relationship
 
@@ -565,19 +634,21 @@ Debug 정보가 기본 화면에 나오면 몰입 Gate 실패다.
 
 - 딜레마 정보 선행
 - threat build-up
+- `threat-attention` 연출은 보조적으로만 사용
 - 다축 consequence
 
 ## Phase D — Return/Recontextualization
 
 - return variants
 - R reaction variants
+- `return-firelight` 같은 미세 연출
 - Perspective Bridge
 
 각 Phase마다 기존 자동 테스트를 유지/수정하고 브라우저 플레이를 검증한다.
 
 ---
 
-# 24. 하지 않을 것
+# 26. 하지 않을 것
 
 - WebGL/3D 엔진을 몰입의 전제조건으로 삼기
 - 자유 이동 FPS 만들기
@@ -586,12 +657,13 @@ Debug 정보가 기본 화면에 나오면 몰입 Gate 실패다.
 - 대규모 대화 트리 엔진
 - 범용 Scene DSL
 - procedural narrative
+- 범용 VFX/particle engine
 - 점수/HP/EXP/ranking
 - 전투 시스템
 
 ---
 
-# 25. Stage 06 Acceptance Criteria
+# 27. Stage 06 Acceptance Criteria
 
 - Embodied POV를 기술적으로 표현할 최소 구조가 있음
 - 역할별 Player Body Identity를 지원 가능
@@ -602,6 +674,8 @@ Debug 정보가 기본 화면에 나오면 몰입 Gate 실패다.
 - 재수렴형 분기를 과설계 없이 구현 가능
 - Threat build-up을 선택 이전 Beat로 표현 가능
 - Perspective Bridge를 시점 전환으로 구현 가능
+- 색/명암/초점/blink/micro motion을 가벼운 preset으로 지원 가능
+- reduced-effects fallback을 설계함
 - 기존 역할 경계와 same-day 시간 원칙 유지
 - player/debug surface 분리
 - 자동 테스트 가능성 유지
