@@ -4,7 +4,7 @@
 
 현재 기준은:
 
-# **Design Reboot R2 / Stage 01~07 Sequential Audit**
+# **Design Reboot R2 / Stage 01~07 Curriculum Anchor Revision**
 
 이다.
 
@@ -24,8 +24,9 @@
 8. `docs/01B_RELATIONSHIP_AGENCY_PRINCIPLES.md`
 9. `docs/01C_SUBTLE_SCREEN_TREATMENT_PRINCIPLES.md`
 10. `docs/01D_LEARNING_CLARITY_SAFETY_HISTORICAL_INTEGRITY.md`
-11. 이번 작업의 Stage 문서
-12. 관련 코드/tests
+11. `docs/01E_CURRICULUM_TEXTBOOK_ANCHORS.md`
+12. 이번 작업의 Stage 문서
+13. 관련 코드/tests
 
 과거 채팅 기억보다 GitHub 최신 문서를 우선한다.
 
@@ -38,13 +39,14 @@
 3. `docs/01B_RELATIONSHIP_AGENCY_PRINCIPLES.md`
 4. `docs/01C_SUBTLE_SCREEN_TREATMENT_PRINCIPLES.md`
 5. `docs/01D_LEARNING_CLARITY_SAFETY_HISTORICAL_INTEGRITY.md`
-6. `docs/02_EXPERIENCE_STRUCTURE.md`
-7. `docs/05_ROLE_EXPERIENCE_MAP.md`
-8. 역할별 `*_STORY.md`
-9. 역할별 `*_PLAYFLOW.md`
-10. `docs/06_TECH_BLUEPRINT.md`
-11. `docs/07_IMMERSION_NARRATIVE_BIBLE.md`
-12. 구현 브리프/handoff
+6. `docs/01E_CURRICULUM_TEXTBOOK_ANCHORS.md`
+7. `docs/02_EXPERIENCE_STRUCTURE.md`
+8. `docs/05_ROLE_EXPERIENCE_MAP.md`
+9. 역할별 `*_STORY.md`
+10. 역할별 `*_PLAYFLOW.md`
+11. `docs/06_TECH_BLUEPRINT.md`
+12. `docs/07_IMMERSION_NARRATIVE_BIBLE.md`
+13. 구현 브리프/handoff
 
 하위 문서와 코드가 상위 원칙과 충돌하면 상위 기준을 우선한다.
 
@@ -54,7 +56,7 @@
 
 학생이 구석기 시대를 밖에서 관찰하는 자료가 아니다.
 
-# **학생이 공동체 구성원의 몸과 눈으로 그 순간을 살아보고, 다른 사람의 관점도 경험하면서 당시 삶의 조건·감정·관계·판단을 역사적으로 상상하고 이해하게 한다.**
+# **학생이 공동체 구성원의 몸과 눈으로 그 순간을 살아보고, 다른 사람의 관점도 경험하면서 당시 삶의 조건·도구·감정·관계·판단을 역사적으로 상상하고 이해하게 한다.**
 
 학습 흐름:
 
@@ -62,24 +64,60 @@
 Immersion
 → Historical Imagination
 → Understanding
-→ Conceptualization
+→ Naming / Conceptualization
 ```
-
-Reflection은 필요한 곳에서 사용하지만 모든 역할 뒤에 강제하지 않는다.
 
 ---
 
-# 4. Historical Integrity
+# 4. Curriculum / Textbook Anchor Guardrail
+
+교과서 핵심을 분명히 짚되 스토리를 교과서 퀴즈로 만들지 않는다.
+
+구석기 핵심 Anchor:
+
+- 뗀석기
+- 주먹도끼
+- 불의 이용
+- 막집
+- 동굴 / 바위 그늘 생활
+- 먹을 것을 찾아 옮겨 다니는 생활
+- 사냥·채집·생활 가공
+
+기본 문법:
+
+# **Experience → Name → Reuse → Connect**
+
+예:
+
+```text
+R에게 돌도구를 받음
+→ 손에 들어온 뒤 '뗀석기 · 주먹도끼'를 짧게 명명
+→ 이후 실제 생활 행동에서 다시 사용
+→ 후속 개념화에서 교과서/실제 유물과 연결
+```
+
+금지:
+
+- 시작부터 유물 목록 제시
+- 장문의 교과서 모달
+- 즉시 객관식/OX 퀴즈
+- 모든 사물에 이름표 상시 표시
+- 교과서 Anchor 때문에 관계/위험/스토리를 정지
+
+---
+
+# 5. Historical Integrity
 
 - 확인 가능한 역사 사실과 재구성을 구분한다.
-- 개인 서사는 `[재구성]`일 수 있다.
+- 교과서가 뒷받침하는 핵심 사실은 Learning Invariant로 보존한다.
+- R/H1/H2, 특정 하루의 동굴 발견 같은 개인 서사는 `[재구성]`이다.
 - 재구성을 시대 전체의 보편 규칙으로 단정하지 않는다.
-- 구체 동물 종/도구/식생/의복/친족 구조는 근거 검토 전 확정하지 않는다.
+- 구체 동물 종/식생/의복/친족 구조는 근거 검토 전 확정하지 않는다.
 - Historical Imagination은 판타지가 아니라 **당시 조건 안에서 가능한 삶을 상상하는 것**이다.
 
 ---
 
-# 5. Same-Day Time Guardrail
+# 6. Same-Day Time Guardrail
 
 # **Student Play Order ≠ In-World Time**
 
@@ -94,7 +132,7 @@ Hunt → Gather → Camp는 세계 안에서 세 날이 아니다.
 
 ---
 
-# 6. Role-True Perspective
+# 7. Role-True Perspective
 
 역할 진입 시 현재 관점을 짧게 알려줄 수 있다.
 
@@ -111,17 +149,11 @@ Hunt → Gather → Camp는 세계 안에서 세 날이 아니다.
 
 범위 안에서만 제공한다.
 
-금지:
-
-- 다른 장소의 동시 사건 전지적 노출
-- 타인의 속마음 설명
-- 미래 결과 미리 설명
-
 다른 관점에서 나중에 새롭게 알게 되는 구조를 유지한다.
 
 ---
 
-# 7. Embodied First-Person
+# 8. Embodied First-Person
 
 기본 화면:
 
@@ -134,11 +166,51 @@ Hunt → Gather → Camp는 세계 안에서 세 날이 아니다.
 - pose에 따라 보이는 몸이 달라진다.
 - 같은 역할에서 손/도구/시점/광원 continuity를 유지한다.
 - 사람과 내 몸이 같은 공간처럼 보여야 한다.
-- 몸 외형으로 근거 없는 성별 역할 분업을 가르치지 않는다.
+- 핵심 유물은 카드보다 몸에 붙은 물건으로 반복된다.
 
 ---
 
-# 8. 관계와 Emotional Reality
+# 9. 주먹도끼 Guardrail
+
+주먹도끼를 사냥 무기 하나로 축소하지 않는다.
+
+프로젝트에서의 학습 경로:
+
+```text
+받음
+→ 뗀석기/주먹도끼 명명
+→ 손에 계속 보임
+→ 땅파기·두들기기·자르기/손질 등 역사적으로 타당한 생활 사용
+→ 다른 역할/저녁에서 다시 등장
+```
+
+단순 receive proof와 실제 기능 사용 evidence를 구분한다.
+
+---
+
+# 10. 거처 Guardrail
+
+# **막집도 맞고, 동굴/바위 그늘도 맞다.**
+
+둘을 경쟁 정답으로 만들지 않는다.
+
+- 막집: 임시로 비바람을 피하는 생활 공간
+- 동굴/바위 그늘: 자연 지형을 이용한 생활 공간
+
+동굴 발견 장면은 다음처럼 설계한다.
+
+```text
+먼저 공간을 발견
+→ 넓이/바닥/바람/어둠/흔적을 살핌
+→ 생활하기 괜찮을 가능성을 판단
+→ 짧게 역사 개념 연결
+```
+
+동굴을 무조건 좋은 새 집 또는 공포 던전으로 만들지 않는다.
+
+---
+
+# 11. 관계와 Emotional Reality
 
 관계는 호감도 점수가 아니라 **함께 겪은 사건의 기억과 이후 반응**이다.
 
@@ -155,19 +227,20 @@ Hunt → Gather → Camp는 세계 안에서 세 날이 아니다.
 - 아쉬움
 - 성취감
 - 안도
+- 새로운 장소에 대한 기대/경계
 
 # **안전 = 감정 제거가 아니다.**
 
 피할 것:
 
 - NPC 모욕/조롱
-- 복합 상황을 학생 인격의 잘못으로 단정
+- 학생 인격을 나쁜 사람으로 판정
 - 죄책감만으로 숨겨진 정답 강요
 - 호감도/도덕 점수
 
 ---
 
-# 9. Choice / Consequence
+# 12. Choice / Consequence
 
 모든 선택이 같은 결과를 가질 필요는 없다.
 
@@ -177,14 +250,12 @@ Hunt → Gather → Camp는 세계 안에서 세 날이 아니다.
 
 - 판단에 필요한 정보가 있었는가?
 - 결과가 앞선 조건과 연결되는가?
-- 불확실성이 있어도 자의적인 벌은 아닌가?
 - 결과가 사람/몸/시간/거리/감정/후속 관점에 남는가?
-
-큰 플롯은 재수렴할 수 있지만 선택 의미를 지우지 않는다.
+- 필수 교과 개념이 선택 하나에만 갇히지 않는가?
 
 ---
 
-# 10. Threat / Horror
+# 13. Threat / Horror
 
 공포게임 같은 순간을 허용한다.
 
@@ -193,6 +264,7 @@ Hunt → Gather → Camp는 세계 안에서 세 날이 아니다.
 - 어둠
 - 시야 밖 소리/움직임
 - 갑작스러운 정지
+- 동굴 안쪽의 미지
 - 가까워지는 위험
 - 짧은 놀람
 - 회피/도주
@@ -200,51 +272,33 @@ Hunt → Gather → Camp는 세계 안에서 세 날이 아니다.
 
 가능.
 
-피할 것:
+동굴을 항상 공포 장소로 고정하지 않는다.
 
-- 고어 자체를 핵심 볼거리로 삼기
-- 의미 없는 jump scare 반복
-- enemy HP / 처치 루프
-- 공포만 남고 역사적 상황이 사라지는 구성
-
-# **무서워도 된다. 왜 무서운지가 역사적 상황과 연결되어야 한다.**
+# **보호 가능성과 위험 가능성이 동시에 있을 수 있다.**
 
 ---
 
-# 11. Screen Treatment
+# 14. Screen Treatment
 
 원칙:
 
 # **Subtle by default. Strong when earned.**
 
-강도:
-
-- `none`
-- `subtle`
-- `accent`
-- `strong-accent` — rare
-
 가능:
 
 - fire warmth
 - dusk shift
+- cave entrance/interior exposure
 - focus/vignette
 - sway/jolt
 - blink/fade
 - 짧은 red/dark accent
 
-금지:
-
-- 위험마다 동일한 빨간 flash
-- HP damage pulse
-- 반복 빠른 flashing
-- 지속 강한 shake/blur/zoom
-
 Reduced Effects에서도 같은 사건·판단·학습이 유지되어야 한다.
 
 ---
 
-# 12. Scene ≠ Beat
+# 15. Scene ≠ Beat
 
 ## Scene
 
@@ -254,7 +308,7 @@ state/reducer에 올릴 가치가 있는 의미 변화:
 - 직접 행동
 - 위치/시간
 - consequence
-- relationship memory
+- relationship/world memory
 
 ## Beat
 
@@ -263,33 +317,34 @@ state/reducer에 올릴 가치가 있는 의미 변화:
 - actor stop
 - gaze
 - sound drop
-- 짧은 dialogue
+- dialogue
 - focus/jolt
 - body shift
+- curriculum terminology reveal
 
-# **모든 연출 beat를 reducer stage/component로 만들지 않는다.**
+# **모든 연출/용어 reveal을 reducer stage로 만들지 않는다.**
 
 ---
 
-# 13. 역할 경계
+# 16. 역할 경계
 
 ## Hunt
 
-거리 / 흔적 / 추적 / 자연 위험 / 공포 / 귀환
+거리 / 흔적 / 주먹도끼 / 추적 / 자연 위험 / 동굴 발견 가능성 / 귀환
 
 ## Gather
 
-가까운 관찰 / 반복 탐색 / 담기 / 공간 기억 / 범위 확대
+가까운 관찰 / 채집 / 도구 재사용 / 반복 탐색 / 공간 기억 / 범위 확대
 
 ## Camp
 
-불 / 생활 유지 / 같은 공간의 시간 변화 / 부재 / 기다림 / 재회
+불 / 막집 / 생활 유지 / 가공 / 같은 공간의 시간 변화 / 기다림 / 재회 / 새 거처 후보 논의
 
 Hunt의 추적/공포 문법을 Gather/Camp에 복제하지 않는다.
 
 ---
 
-# 14. 기술 구조
+# 17. 기술 구조
 
 ```text
 App
@@ -310,26 +365,30 @@ App
 금지:
 
 - 범용 Scene Engine
+- generic Curriculum Engine
 - 범용 NPC AI
 - 대규모 Dialogue Engine
 - procedural narrative
 - FPS/3D 엔진 선행
-- 범용 VFX 엔진
+- generic VFX engine
 - 전역 관계 점수
 
 ---
 
-# 15. Player / Teacher / Debug
-
-기본 앱은 Player surface다.
+# 18. Player / Teacher / Debug
 
 Player에 금지:
 
 - Stage 번호
 - reducer exact state
 - debug evidence
+- 내부 curriculum anchor ID
 - 개발 toolbar
-- legacy version label
+
+Player에 허용:
+
+- 현재 역할 관점의 짧은 표시
+- 짧은 교과 terminology reveal
 
 개발 환경:
 
@@ -339,50 +398,43 @@ Player에 금지:
 
 ---
 
-# 16. 현재 Stage 07 상태
+# 19. 현재 Stage 07 범위
 
-R2 Stage 07 Embodied Experience Skeleton은 **실제 구현됨**.
-
-기본 흐름:
+R2 Stage 07 Skeleton은 다음 proof를 담당한다.
 
 ```text
 사냥 관점
 → 새벽 불
 → 도구 전달
+→ 뗀석기/주먹도끼 짧은 reveal
 → 동행 합류
 → 출발
 → 몸 낮춰 지면 관찰
+→ 동굴/바위 그늘 후보 발견
+→ 공간 살핌 + 짧은 교과 연결
 → 다른 사람 관점 전환 proof
 ```
 
-자동 검증:
+이것은 전체 Hunt가 아니다.
 
-- 8 test files
-- 31 tests
-- typecheck PASS
-- production build PASS
-
-단:
-
-# **Implementation Complete / Automated PASS / Human Immersion QA Pending**
-
-이다.
+Human QA가 남아 있다.
 
 ---
 
-# 17. 현재 다음 공식 Gate
+# 20. 현재 다음 공식 Gate
 
-# **R2 Stage 07 — Teacher Browser Visual/Immersion QA**
-
-Stage 08은 이 human Gate 통과 전 시작하지 않는다.
+# **R2 Stage 07 — Teacher Browser Visual/Immersion/Curriculum QA**
 
 확인:
 
 - 실제 시야 같은가
 - 몸/사람 공간감
 - 도구 전달
-- walking/crouch
-- treatment 강도
+- 주먹도끼 reveal이 몰입을 깨지 않는가
+- 도구 continuity
+- cave가 실제 공간처럼 보이는가
+- cave의 장점/불확실성이 자연스럽게 읽히는가
+- `동굴/바위 그늘` cue가 너무 교과서 카드 같지 않은가
 - reduced effects
 - perspective transition
 - player에 dev info 미노출
@@ -391,9 +443,11 @@ Stage 08은 이 human Gate 통과 전 시작하지 않는다.
 
 - `handoff/R2_EMBODIED_PLAYTEST_PROTOCOL.md`
 
+Stage 08은 이 human Gate 통과 전 시작하지 않는다.
+
 ---
 
-# 18. 저장소 변경 세션 종료 시
+# 21. 저장소 변경 세션 종료 시
 
 필요한 문서 갱신:
 
@@ -410,4 +464,4 @@ Stage 08은 이 human Gate 통과 전 시작하지 않는다.
 - tests
 - production build
 
-자동 CI만으로 Immersion Complete를 선언하지 않는다.
+자동 CI만으로 Immersion Complete 또는 Curriculum Complete를 선언하지 않는다.
