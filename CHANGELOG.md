@@ -1,5 +1,76 @@
 # CHANGELOG.md
 
+## Design Reboot R2 — Subtle Screen Treatment Foundation
+
+### Trigger
+
+추가 방향성 검토에서 대형 애니메이션/이펙트보다 다음과 같은 **작은 화면 변화**도 몰입 설계의 정식 언어로 사용해야 한다는 요구를 반영했다.
+
+- 화면이 따뜻하거나 붉게 물드는 색 변화
+- 새벽/해질녘 명암 변화
+- 자연스러운 blink
+- 짧은 focus/blur 변화
+- 미세 sway
+- 순간적인 motion stop
+
+### Added
+
+- `docs/01C_SUBTLE_SCREEN_TREATMENT_PRINCIPLES.md`
+  - Environment / Body / Event / Transition treatment 구분
+  - red wash / blink / vignette / blur-focus / micro-motion 원칙
+  - `none / subtle / accent` Effect Intensity Budget
+  - reduced-effects 접근성 원칙
+  - 역할별 treatment 예시
+  - CSS/DOM 기반 lightweight implementation 방향
+
+### Revised
+
+- `AGENTS.md`
+  - 01C를 Stage 01 헌법 위계에 추가
+  - Subtle Screen Treatment Guardrail 추가
+  - 범용 VFX 엔진 과설계 금지
+- `docs/01A_EMBODIED_FIRST_PERSON_PRINCIPLES.md` — v2
+  - 몸 상태와 screen treatment 연계
+  - blink 기반 관점 전환 허용
+  - `상황/몸/사람이 먼저 → 효과는 보조` 원칙 추가
+- `docs/07_IMMERSION_NARRATIVE_BIBLE.md` — v3
+  - Perceptual Treatment를 11번째 몰입 층으로 추가
+  - Screen Treatment Gate 추가
+- `docs/06_TECH_BLUEPRINT.md` — v4
+  - `ScreenTreatmentPresentation` 개념
+  - lightweight `ScreenTreatmentLayer`
+  - CSS 기반 color/exposure/vignette/focus/micro-motion/blink
+  - reduced-effects fallback / 테스트 전략
+- `PROJECT_STATUS.md`
+  - R2 Stage 07에 treatment prototype을 정식 범위로 추가
+- `handoff/CURRENT_HANDOFF.md`
+  - 다음 구현 세션의 treatment 요구와 금지사항 반영
+
+### Key decision
+
+화면 효과는 상태 의미를 생성하지 않는다.
+
+```text
+세계/사람/몸에서 상황이 먼저 성립
+→ 작은 화면 treatment가 감각을 보조
+```
+
+따라서 다음은 금지한다.
+
+- 위험마다 진한 전체 화면 red flash
+- HP damage 효과 같은 붉은 펄스
+- 반복 flashing
+- 지속적 강한 shake/blur/zoom
+- 효과 하나에 필수 정보를 의존
+
+### Next
+
+# **R2 Stage 07 — Embodied Experience Skeleton**
+
+기존 몸/인물/시점 skeleton에 최소 screen treatment prototype 2~3개와 reduced-effects fallback을 포함해 브라우저에서 직접 검증한다.
+
+---
+
 ## Design Reboot R2 — Stage 01~06 Embodied First-Person Foundation
 
 ### Trigger
