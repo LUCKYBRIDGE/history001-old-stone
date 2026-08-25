@@ -2,213 +2,139 @@
 
 ## Current responsibility completed
 
-# **Design Reboot R2 — Stage 01~06 Deep Audit**
+# **Design Reboot R2 — Emotional Realism / Horror / Role-True Perspective Refinement**
 
-사용자 요구가 누적되며 다음이 프로젝트 핵심으로 확정됐다.
-
-- 실제 사람 시야처럼 내 신체 일부가 풍경과 함께 보이는 1인칭
-- 실제 주변 인물과 관계
-- 위협/고민이 UI 문항보다 상황으로 먼저 다가옴
-- 선택이 획일적 결론으로 무효화되지 않음
-- 붉은 기운, 명암, blink, focus, micro motion 같은 작은 화면 연출
-
-이번 세션에서는 이 요소들을 **Stage 01부터 다시 감사**해 몰입이 역사 학습·명료성·안전보다 앞서지 않도록 전체 foundation을 보완했다.
+이번 보정의 핵심은 Deep Audit이 안전 쪽으로 과보정될 수 있었던 부분을 다시 현실적인 방향으로 조정한 것이다.
 
 ---
 
-## 가장 중요한 새 결론
+## 최신 핵심 원칙
 
-# **몰입은 목표가 아니라 학습 수단이다.**
+### 1. 죄책감·후회·두려움은 금지하지 않는다
 
-모든 새 구현은 네 축을 동시에 만족한다.
+허용:
 
-1. Historical Integrity
-2. Learner Safety & Accessibility
-3. Learning Clarity
-4. Embodiment & Agency
+- 늦게 돌아와 기다린 사람을 보고 죄책감
+- 무리한 선택 뒤 동행자의 피로를 보고 후회
+- 빈손 귀환의 아쉬움
+- 위험을 함께 피한 뒤 안도
 
-몰입 때문에 다른 세 축을 희생하지 않는다.
+피할 것:
+
+- NPC 모욕/조롱
+- 학생 개인을 도덕적으로 낙인
+- 죄책감만으로 숨겨진 정답 강요
+
+# **현실적인 감정은 허용하고, 심리적 강압은 피한다.**
 
 ---
 
-## Stage 01 canonical
+### 2. 공포게임 같은 순간도 가능
 
-### `docs/01_PROJECT_CORE.md` v6
+Hunt에서 허용:
 
-새 핵심:
+- 어둠
+- 시야 밖 소리
+- 갑작스러운 가까운 움직임
+- 짧은 jump-like scare
+- 짧은 회피/도주
+- 순간적 strong screen accent
+- 사건 뒤 남는 긴장
 
-- Experience → Reflection → Historical Concept
-- Learning Invariants / Narrative Variants
-- Body Identity neutrality
-- Choice Fairness
-- Progressive Scaffolding
-- Primary Attention
-- Threat ceiling
-- Perspective orientation
-- Reduced-effects parity
+금지에 가까운 것:
 
-### `docs/01A_EMBODIED_FIRST_PERSON_PRINCIPLES.md` v3
+- 고어 자체를 볼거리로 삼기
+- 의미 없는 jump scare 반복
+- 적 HP/처치 루프
+- 공포만 남고 역사적 맥락이 사라지는 구성
 
-- 몸이 안 보이는 순간도 허용
-- 몸을 많이 보여주는 것이 목표가 아님
-- 역할 몸의 성/연령 고정관념 금지
-- Embodied Fidelity Ladder
-- uncanny/mismatch QA
-- Primary Attention Target
+---
 
-### `docs/01B_RELATIONSHIP_AGENCY_PRINCIPLES.md` v2
+### 3. Screen Treatment
 
-- Relationship Emotional Safety
-- Choice Fairness Gate
-- Learning Invariant 분기 독립
-- Threat intensity ceiling
-- 재수렴 뒤 의미 차이
+최신 원칙:
 
-### `docs/01C_SUBTLE_SCREEN_TREATMENT_PRINCIPLES.md` v2
+# **Subtle by default. Strong when earned.**
 
-기본 순서:
+강도:
+
+- `none`
+- `subtle`
+- `accent`
+- `strong-accent` — 드문 핵심 순간
+
+짧은 red/dark accent, jolt, strong focus도 상황이 충분히 쌓였다면 사용 가능.
+
+반복적인 HP-style red flash는 사용하지 않는다.
+
+---
+
+### 4. 역할 관점은 단순하고 명확하게
+
+역할 시작 시 학생에게 현재 시점을 알려줄 수 있다.
+
+예:
+
+> 사냥을 나선 사람의 관점
+
+그 뒤에는 반복 설명하지 않는다.
+
+# **Hunt를 플레이하면 Hunt 사람의 눈·몸·지식·걱정으로만 세계를 본다.**
+
+- Camp에서 실제 무슨 일이 벌어지는지 알 수 없음
+- 다른 사람의 속마음을 전지적으로 보여주지 않음
+- 나중에 Camp 관점에서 반대편 사실을 알게 됨
+
+Perspective Bridge는 복잡한 퍼즐일 필요 없음.
+
+`짧은 transition → 현재 역할 표시 → 새 몸/시야`면 충분할 수 있다.
+
+---
+
+### 5. 학습 방향
+
+강제 퀴즈/Reflection을 역할마다 삽입하지 않는다.
+
+최신 목표:
 
 ```text
-World / Actor
-→ Body
-→ Treatment
+Immersion
+→ Historical Imagination
+→ Understanding
+→ Conceptualization
 ```
 
-- flash보다 blink/fade
-- Primary Attention 우선
-- WCAG three-flashes threshold 초과 금지
-- reduced effects parity
-- 의미 중복 금지
+학생이 먼저 자기 경험으로
 
-### `docs/01D_LEARNING_CLARITY_SAFETY_HISTORICAL_INTEGRITY.md` v1 NEW
+- 왜 멀리 가는 것이 부담인지
+- 왜 자연이 무서웠을지
+- 왜 다른 사람이 필요했는지
+- 왜 불과 거처가 중요했는지
+- 왜 이동을 고민했을지
 
-이번 Deep Audit의 핵심 상한선 문서.
+를 상상하고 이해하게 한다.
 
-- Learning Invariants
-- Progressive Scaffold
-- Cognitive Load / Primary Attention
-- Body Identity neutrality
-- Perspective clarity
-- Relationship safety
-- Threat ceiling
-- Screen effect safety
-- Reflection
-- Teacher/Classroom readiness
+교과 개념은 그 경험을 정리하는 단계다.
 
 ---
 
-## Stage 02~06 revised
+## 최신 canonical 문서
 
-### Stage 02 — `docs/02_EXPERIENCE_STRUCTURE.md` v5
-
-추가:
-
-- Learning Invariant coverage
-- Perspective Orientation
-- Micro Reflection
-- Shared Reflection
-- Classroom Session Boundary
-- Historical Concept Bridge
-
-### Stage 03 — `docs/03_HUNT_STORY.md` v5
-
-추가:
-
-- Hunt Learning Invariants
-- first-action scaffold
-- Choice Fairness
-- body identity stereotype guardrail
-- Threat ceiling + recovery
-- 관계 비난 금지
-- Micro Reflection seed
-
-### Stage 04 — `docs/04_HUNT_PLAYFLOW.md` v5
-
-모든 주요 Scene에:
-
-- Primary Attention Target
-- Learning Invariant contribution
-- treatment budget
-- scaffold fallback
-- safety/accessibility note
-
-을 추가.
-
-### Stage 05 — `docs/05_ROLE_EXPERIENCE_MAP.md` v5
-
-역할 차이를 외형보다
-
-- 행동
-- 장소
-- 관계
-- 딜레마
-- 시간 감각
-- 학습 증거
-
-로 만든다.
-
-### Stage 05A — v4
-
-Deep Audit 결과와 남은 리스크 기록.
-
-### Stage 06 — `docs/06_TECH_BLUEPRINT.md` v5
-
-새 지원 대상:
-
-- Learning Evidence
-- AttentionSpec
-- Progressive Scaffold
-- Choice Fairness precondition
-- Threat recovery
-- Reduced Effects
-- Perspective Orientation
-- Reflection/Concept Bridge
-- Player/Teacher/Debug separation
-- Classroom checkpoint
-
-과설계 금지 원칙은 유지한다.
+- `docs/01_PROJECT_CORE.md` v6
+- `docs/01A_EMBODIED_FIRST_PERSON_PRINCIPLES.md` v3
+- `docs/01B_RELATIONSHIP_AGENCY_PRINCIPLES.md` v3
+- `docs/01C_SUBTLE_SCREEN_TREATMENT_PRINCIPLES.md` v3
+- `docs/01D_LEARNING_CLARITY_SAFETY_HISTORICAL_INTEGRITY.md` v2
+- `docs/02_EXPERIENCE_STRUCTURE.md` v6
+- `docs/07_IMMERSION_NARRATIVE_BIBLE.md` v5
 
 ---
 
-## Immersion Bible
+## Legacy runtime
 
-`docs/07_IMMERSION_NARRATIVE_BIBLE.md` v4
+현재 `src/`의 Hunt v0.1은 **Legacy Functional Prototype**이다.
 
-장면 제작 순서:
-
-```text
-Learning Evidence
-→ Situation
-→ Primary Attention
-→ Body / Actor
-→ Action / Decision
-→ Response / Consequence
-→ Treatment
-→ Scaffold
-→ Callback
-→ Safety / Accessibility
-```
-
-효과/대사를 먼저 만들고 의미를 나중에 붙이지 않는다.
-
----
-
-## 현재 코드의 지위
-
-현재 `src/` Hunt v0.1은 삭제하지 않는다.
-
-# **Legacy Functional Prototype**
-
-재사용 가능:
-
-- React/TS/Vite
-- Orchestrator
-- reducer/test 기반
-- qualitative result 철학
-- non-combat guardrail
-- CI
-
-R2 Deep Audit와 충돌하는 player-facing 구조/state detail은 수정 가능.
+이번 세션은 문서/설계 보정이며 runtime 코드는 변경하지 않았다.
 
 ---
 
@@ -216,103 +142,19 @@ R2 Deep Audit와 충돌하는 player-facing 구조/state detail은 수정 가능
 
 # **R2 Stage 07 — Embodied Experience Skeleton**
 
-전체 Hunt를 바로 만들지 않는다.
+우선 구현/검증:
 
-최소 범위:
+1. 역할 진입 시 `Hunt 관점` 명료화
+2. Hunt role-true first-person frame
+3. 내 몸 + R/H1/H2 + 환경
+4. 도구 전달
+5. 걷기/몸 낮추기
+6. 사람 반응
+7. subtle/accent/드문 strong-accent prototype
+8. reduced effects
+9. 짧고 명료한 Perspective Bridge
+10. 브라우저 교사 QA
 
-```text
-Player/Teacher/Debug 분리
-→ Embodied frame
-→ 불 앞 내 손/무릎
-→ R의 도구 전달
-→ first-action scaffold
-→ H1/H2와 출발
-→ walking POV
-→ crouch POV
-→ subtle treatment on/off
-→ 다른 Player Body Identity로 전환
-→ orientation cue
-→ 최소 Learning Evidence
-→ checkpoint
-```
+가장 중요한 질문:
 
----
-
-## Stage 07에서 반드시 함께 검증할 것
-
-### Embodiment
-
-- 내 몸과 사람이 같은 공간처럼 보이는가?
-
-### Clarity
-
-- 첫 행동을 학생이 찾는가?
-
-### Continuity
-
-- 손/도구/사람이 장면 사이에 이어지는가?
-
-### Treatment
-
-- 효과가 보조적이며 과하지 않은가?
-
-### Accessibility
-
-- reduced effects에서도 동일하게 진행되는가?
-
-### Perspective
-
-- 다른 사람의 몸으로 바뀐 것을 이해하는가?
-
-### Learning
-
-- 최소 Learning Evidence가 실제 경험에서 생성되는가?
-
-### Classroom
-
-- teacher/debug 정보가 학생 화면과 분리되는가?
-- 안정된 checkpoint에서 재시작 가능한가?
-
----
-
-## 하지 않을 것
-
-- 전체 Hunt를 한 번에 구현
-- 기존 화면에 손/필터만 추가하고 완료 처리
-- 최종 이미지 대량 제작
-- 자유 3D/FPS
-- NPC AI
-- 범용 Scene/VFX Engine
-- 성별로 역할을 구분
-- 관계를 죄책감 유도로 사용
-- screen effect로 위험/정답을 먼저 알려주기
-- 몰입을 위해 행동 가능성을 숨기기
-
----
-
-## 새 구현 세션 읽기 순서
-
-1. `AGENTS.md`
-2. `PROJECT_STATUS.md`
-3. `docs/00_DEVELOPMENT_WORKFLOW.md`
-4. `handoff/CURRENT_HANDOFF.md`
-5. `docs/01_PROJECT_CORE.md`
-6. `docs/01A_EMBODIED_FIRST_PERSON_PRINCIPLES.md`
-7. `docs/01B_RELATIONSHIP_AGENCY_PRINCIPLES.md`
-8. `docs/01C_SUBTLE_SCREEN_TREATMENT_PRINCIPLES.md`
-9. `docs/01D_LEARNING_CLARITY_SAFETY_HISTORICAL_INTEGRITY.md`
-10. `docs/02_EXPERIENCE_STRUCTURE.md`
-11. `docs/06_TECH_BLUEPRINT.md`
-12. 구현 대상 코드/tests
-
-Hunt 전체 구현 세션에서는 추가로 `03`, `04`, `05`, `07`을 읽는다.
-
----
-
-## 현재 검증 상태
-
-이번 변경은 설계/문서 리비전이다.
-
-Runtime source는 변경하지 않았다.
-
-PR CI로 기존 25 tests/typecheck/build가 깨지지 않았는지 최종 확인한 뒤 main에 반영한다.
+> **사냥하는 사람을 플레이할 때, 정말 그 사람의 눈과 몸과 제한된 정보 안에서 그 시대를 살아가는 느낌이 드는가?**
