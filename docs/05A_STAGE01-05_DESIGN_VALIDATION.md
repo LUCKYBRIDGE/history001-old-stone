@@ -1,334 +1,280 @@
 # 구석기 역사 체험 웹게임
-## Stage 01~05 설계 재검증 v4 / R2 Deep Audit
+## Stage 01~05 설계 재검증 v5 / Curriculum Anchor Audit
 
-> 목적: Embodied First-Person, 관계 기억, 비획일적 결과, 미세 화면 연출이 추가된 뒤 Stage 01부터 다시 검토해 **교육 목표·역사성·명료성·정서/접근성 안전·구현 가능성**이 서로 충돌하지 않는지 재검증한다.
-
----
-
-# 1. 재검증 결론
-
-## **R2의 방향은 유지할 가치가 높다. 다만 `몰입을 강하게 만들수록 좋다`는 암묵적 전제를 제거하고, 몰입을 역사 학습·명료성·안전 안에서 작동하는 수단으로 다시 제한해야 했다.**
-
-이번 감사에서 추가/강화한 것:
-
-- Learning Invariants / Narrative Variants 분리
-- Learning Clarity Gate
-- Progressive Scaffolding
-- Primary Attention Target
-- Player Body Identity의 성/연령 고정관념 방지
-- Perspective Orientation
-- Relationship Emotional Safety
-- Threat Intensity Ceiling
-- Choice Fairness
-- Reflection / Historical Concept Bridge
-- Screen Effect Safety / Reduced Effects parity
-- Classroom checkpoint
-
-새 상위 문서:
-
-- `docs/01D_LEARNING_CLARITY_SAFETY_HISTORICAL_INTEGRITY.md`
+> 목적: Embodied First-Person, 관계·감정·공포·미세 연출 위에 교과서의 구석기 핵심 개념을 추가한 뒤, Stage 01~05가 **몰입·교과 연계·역사적 정확성·분기 설계·구현 가능성**을 동시에 만족하는지 재검증한다.
+>
+> 기준 자료: 사용자가 제공한 5학년 사회 교과서의 구석기 부분. 교과서가 직접 뒷받침하는 사실과 프로젝트가 체험을 위해 재구성한 사건을 구분한다.
 
 ---
 
-# 2. Stage 01 Core 재검증
+# 1. 최종 결론
 
-기존 강점:
+## **PASS AFTER REVISION**
 
-- 설명보다 경험
-- 같은 하루의 세 관점
-- 몸이 있는 1인칭
-- 관계 기억
-- 비획일적 결과
-- 이동은 누적 경험의 결론
+교과서 핵심을 추가하면서 가장 큰 위험은 `몰입형 역사 체험`이 다시 `교과서 내용을 보여주고 문제를 푸는 게임`으로 회귀하는 것이었다.
 
-발견한 결손:
+이를 피하기 위해 다음을 상위 원칙으로 확정했다.
 
-1. 몰입과 역사 정확성이 충돌할 때 우선순위 불명확
-2. 분기에 따라 핵심 역사 학습이 사라질 가능성
-3. 학생이 조작을 찾지 못해 몰입 자체가 깨질 가능성
-4. 몸 외형이 성별 역할 고정관념으로 읽힐 가능성
-5. 관계를 죄책감 유도에 사용할 가능성
-6. 위협/효과 강도의 초등학생 기준 부족
-7. 체험 뒤 성찰·개념화가 상대적으로 약함
+# **Experience → Name → Reuse → Connect**
+
+- 먼저 세계 안에서 만난다.
+- 핵심 용어는 짧고 정확하게 짚는다.
+- 같은 물건/공간/행동을 다시 경험한다.
+- 마지막에 교과 개념·실제 유물/유적과 연결한다.
+
+신규 헌법:
+
+- `docs/01E_CURRICULUM_TEXTBOOK_ANCHORS.md`
+
+---
+
+# 2. 이번 감사에서 보존한 교과서 핵심
+
+전체 체험에서 다음을 Learning Invariant로 본다.
+
+- 뗀석기
+- 주먹도끼
+- 불의 이용
+- 막집
+- 동굴 / 바위 그늘 생활
+- 먹을 것을 찾아 옮겨 다니는 생활
+- 사냥·채집·생활 가공
+
+단, 다음은 역사 사실 자체가 아니라 재구성이다.
+
+- R/H1/H2라는 구체 인물
+- R이 특정 날 주먹도끼를 건네는 사건
+- Hunt 도중 특정 동굴을 발견하는 사건
+- 그날의 대사·감정·선택 결과
+
+판정: **SOURCE / RECONSTRUCTION BOUNDARY PASS**
+
+---
+
+# 3. Stage 01 Core v8 검증
+
+확인한 문제:
+
+1. 기존 Learning Invariant의 `도구` 표현이 너무 추상적이었음.
+2. 막집만 강조하면 동굴/바위 그늘 생활이 약해질 수 있었음.
+3. 교과 용어를 너무 숨기면 체험 기억과 교과서 용어가 연결되지 않을 수 있었음.
+4. 반대로 용어를 많이 넣으면 몰입이 깨질 수 있었음.
 
 보완:
 
-- Project Core v6
-- Historical Integrity / Safety / Clarity / Embodiment 4축
-- Experience → Reflection → Historical Concept
+- 뗀석기/주먹도끼를 명시적 Anchor로 승격.
+- 막집 + 동굴/바위 그늘을 주거 다양성으로 함께 고정.
+- `Experience → Name → Reuse → Connect` 도입.
+- Historical Fact와 Reconstructed Event 구분.
+- 실제 유물/유적은 체험 뒤 evidence connection으로 사용.
 
-판정: **PASS AFTER REVISION**
-
----
-
-# 3. Stage 01A Embodied First-Person 재검증
-
-기존 위험:
-
-- `몸이 많이 보일수록 몰입`으로 오해 가능
-- 사실적 몸이 장면마다 달라지는 uncanny risk
-- 역할 몸이 성 역할을 고정할 위험
-
-보완:
-
-- 몸이 안 보이는 순간도 정상
-- Player Body Identity neutrality
-- Primary Attention Target
-- Embodied Fidelity Ladder
-- Uncanny / Mismatch QA
-- 관점 전환 orientation 허용
-
-판정: **PASS AFTER REVISION**
+판정: **PASS / v8**
 
 ---
 
-# 4. Stage 01B 관계·선택 재검증
+# 4. Stage 01A~01D 재확인
 
-기존 위험:
+기존 원칙과 Curriculum Anchor가 충돌하는지 확인했다.
 
-- 관계 강화가 죄책감/정답 유도로 변질 가능
-- 선택 결과가 복잡해지면서 숨겨진 최적 루트 발생 가능
-- 특정 분기만 핵심 학습을 독점할 가능성
+## Embodied First-Person
 
-보완:
+교과 용어가 들어와도 화면의 중심은 여전히
 
-- Relationship Emotional Safety
-- Choice Fairness Gate
-- Learning Invariants 분기 독립
-- 위협 강도 상한
-- 재수렴의 의미 차이 명시
+```text
+내 몸 + 물건 + 사람 + 공간 + 행동
+```
 
-판정: **PASS AFTER REVISION**
+이다.
+
+`주먹도끼`를 카드로 띄우고 몸에서 사라지게 하면 FAIL.
+
+## Relationship / Agency
+
+R이 도구를 건네는 이유는 `용어를 가르치기 위해서`가 아니라 생활 관계 속 행동이어야 한다.
+
+## Screen Treatment
+
+교과 cue를 강조하기 위해 과한 glow/flash를 사용하지 않는다.
+
+## Learning Clarity / Safety / Historical Integrity
+
+- 핵심 용어는 정확하게.
+- 재구성 장면을 사실처럼 단정하지 않음.
+- 학생이 용어를 모른다고 행동을 막지 않음.
+
+판정: **PASS / NO CONSTITUTIONAL CONFLICT**
 
 ---
 
-# 5. Stage 01C 화면 연출 재검증
+# 5. Stage 01E Curriculum Anchor 검증
 
-기존 강점:
+신규 규칙의 핵심:
 
-- 대형 VFX가 아닌 색/명암/focus/blink/micro motion
-- 효과가 의미를 대신하지 않음
+- `뗀석기/주먹도끼`는 최소 한 번 명확히 짚음.
+- 도구를 받은 뒤 이름을 붙임.
+- 주먹도끼의 다용도성은 이후 실제 사용으로 강화.
+- 막집과 동굴/바위 그늘을 경쟁 정답으로 만들지 않음.
+- 동굴 발견은 장소 평가 event.
+- 실제 전곡리 주먹도끼·동굴 유적은 후속 증거 연결.
+
+판정: **REQUIRED / PASS**
+
+---
+
+# 6. Stage 02 Experience Structure v8 검증
 
 발견한 위험:
 
-- red/focus/sway가 반복되면 게임 HUD 문법이 될 수 있음
-- blur/motion이 초등학생의 조작과 읽기를 방해할 수 있음
-- 효과가 장면의 주의 초점을 빼앗을 수 있음
+- Hunt가 모든 구석기 용어를 설명하면 다른 역할이 약해짐.
+- 동굴 발견을 Hunt의 한 분기에만 두면 필수 개념 coverage가 경로에 따라 사라질 수 있음.
+- 새 동굴 발견이 같은 날 다른 역할의 과거를 소급 변경할 수 있음.
 
 보완:
 
-- World/Actor → Body → Treatment 순서
-- Primary Attention Target 우선
-- WCAG three-flashes threshold 초과 금지
-- flash보다 blink/fade 우선
-- reduced effects parity
-- 의미 중복 금지
+- 교과 Anchor를 세 역할에 분산.
+- 필수 개념은 특정 분기 하나가 독점하지 않음.
+- cave discovery는 후속 표현에만 영향을 주는 cross-role signal 후보.
+- Student Play Order ≠ In-World Time 유지.
+- Common Evening과 later-day에서 개념과 이동 이유를 통합.
 
-판정: **PASS AFTER REVISION**
-
----
-
-# 6. Stage 01D 신규 검증
-
-목적:
-
-몰입·분기·1인칭·효과에 대한 **상한선**을 제공한다.
-
-핵심:
-
-- Historical Integrity
-- Learner Safety & Accessibility
-- Learning Clarity
-- Learning Invariants
-- Progressive Scaffolding
-- Cognitive Load / Primary Attention
-- Body Identity neutrality
-- Perspective clarity
-- Relationship safety
-- Threat ceiling
-- Screen effect safety
-- Reflection
-- Classroom readiness
-
-판정: **REQUIRED / PASS AS CONSTITUTION**
+판정: **PASS / v8**
 
 ---
 
-# 7. Stage 02 Experience Structure 재검증
+# 7. Stage 03 Hunt STORY v7 검증
 
-기존 강점:
-
-- Shared Morning Event
-- Perspective Morning Echo
-- Perspective Recontextualization
-- Common Evening
-
-보완 필요:
-
-- 관점 전환 혼란 방지
-- 모든 경로의 Learning Invariant 보존
-- 역할/공통 reflection 위치
-- 교실용 checkpoint
-
-보완:
-
-- Perspective Orientation Rule
-- Micro Reflection
-- Shared Reflection
-- Historical Concept Bridge 강화
-- Classroom Session Boundary
-
-판정: **PASS AFTER REVISION**
-
----
-
-# 8. Stage 03 Hunt STORY 재검증
-
-유지:
-
-- R/H1/H2 관계
-- 도구 전달
-- 추적 딜레마
-- Threat build-up
-- 다축 결과
-- 귀환/재회
-
-보완:
-
-- Hunt Learning Invariants 명시
-- body identity 고정관념 금지
-- 첫 행동 scaffold
-- Choice Fairness
-- Threat ceiling / recovery beat
-- 관계 비난 금지
-- Micro Reflection seed
-
-판정: **PASS AFTER REVISION**
-
----
-
-# 9. Stage 04 Hunt PLAYFLOW 재검증
-
-기존 Scene 계약에 다음을 추가했다.
-
-- Primary Attention Target
-- Learning Invariant contribution
-- screen treatment budget
-- scaffold fallback
-- safety/accessibility note
-
-Threat는
+강화된 핵심 서사:
 
 ```text
-anomaly
-→ actor reaction
-→ body reaction
-→ player observation
-→ choice
+불 앞의 관계
+→ 주먹도끼 전달
+→ 짧은 명명
+→ 이동
+→ 흔적/추적
+→ 거리와 시간 압박
+→ 동굴/바위 공간 발견 가능
+→ 보호 가능성과 위험 가능성 평가
+→ 위협/결과
+→ 귀환
+→ 재회
 ```
 
-를 요구한다.
+검증 결과:
 
-판정: **PASS AFTER REVISION**
+- 주먹도끼가 설명용 artifact가 아니라 관계/몸의 물건으로 기능함.
+- `주먹도끼 = 무기`로 축소하지 않음.
+- 동굴을 자동 좋은 집으로 만들지 않음.
+- 동굴을 자동 공포 던전으로 만들지 않음.
+- 새 장소 발견이 이동 생활의 장기 씨앗이 됨.
+
+판정: **PASS / v7**
 
 ---
 
-# 10. Stage 05 Role Map 재검증
+# 8. Stage 04 PLAYFLOW v7 검증
 
 핵심 보완:
 
-- 역할 차이를 성별/연령 외형으로 만들지 않음
-- 역할별 Learning Invariants
-- 역할별 dilemma / relationship / body grammar
-- 역할별 screen treatment 차별화
-- 공통 Safety/Clarity Gate
+- terminology reveal을 대부분 Beat로 처리.
+- Tool Handoff 이후에만 `뗀석기 · 주먹도끼` cue.
+- Cave / Natural Shelter Discovery를 의미 있는 Scene으로 추가.
+- 학생이 cave 입구/바닥/안쪽/주변 길을 실제로 살필 수 있게 설계.
+- cave inspection 후에만 `동굴 · 바위 그늘` 교과 연결.
+- Scene state 폭발 방지 원칙 유지.
 
-판정: **PASS AFTER REVISION**
-
----
-
-# 11. 외부 연구/접근성 기준과의 대조
-
-설계 방향은 다음 근거와 정합적이다.
-
-- K–6 몰입형 학습에서는 presence/agency뿐 아니라 reflection/scaffolding이 학습에 중요함
-- serious-game 설계에서는 직관적 navigation과 responsive interface가 불필요한 cognitive load를 줄임
-- body ownership/perspective-taking 연구는 1인칭 embodiment의 가능성을 보여주지만 몸/시점의 congruence가 중요함
-- WCAG 2.2는 flashing과 interaction-triggered motion에 안전 기준을 둠
-
-이 프로젝트는 HMD VR이 아니라 웹 기반 cinematic first-person이므로 연구 결과를 그대로 효과 보장으로 해석하지 않는다.
-
-원칙만 참고하고 실제 효과는 교사/학생 테스트로 검증한다.
+판정: **PASS / v7**
 
 ---
 
-# 12. 남은 핵심 리스크
+# 9. Stage 05 Role Map v7 검증
 
-## A. 실제 화면의 몸 이질감
+역할별 Curriculum Anchor가 고유 플레이 문법과 맞는지 확인했다.
 
-문서로 해결 불가.
+## Hunt
 
-R2 Stage 07 Skeleton에서 실제 브라우저 검증 필요.
+- 주먹도끼 first encounter
+- 이동/위험
+- 동굴 발견 가능
 
-## B. 관점 전환 혼란
+## Gather
 
-학생 테스트에서 `같은 날 다른 사람`을 이해하는지 직접 확인.
+- 뿌리·열매 채집
+- 땅파기·두들기기 같은 생활 도구 사용
+- 가까운 자원 부족
 
-## C. 관계 기억의 과잉 복잡성
+## Camp
 
-초기에는 소수 memory만 구현.
+- 불 유지/음식 익히기
+- 막집 생활/손질
+- 새 동굴 후보의 공동체적 재평가
 
-## D. 분기 폭발
+좋은 점:
 
-중요 변주만 지원하고 재수렴 유지.
+- 같은 주먹도끼가 역할마다 다른 의미를 가질 수 있음.
+- 의·식·주가 Common Evening에서 하나의 생활로 다시 만날 수 있음.
 
-## E. 역사적 재구성 과단정
-
-최종 동물/식생/의복/사회관계 전 역사 Context Bible 필요.
-
-## F. 화면 효과의 신체 불편
-
-reduced effects를 Skeleton부터 함께 검증.
-
-## G. 몰입 후 학습 전이
-
-Reflection/Concept Bridge를 학생 파일럿에서 반드시 검증.
+판정: **PASS / v7**
 
 ---
 
-# 13. Stage 06에 새로 요구하는 기술 조건
+# 10. 오개념 위험 검증
 
-1. Learning Invariant를 테스트 가능하게 표현
-2. Narrative Variant와 학습 핵심 분리
-3. Player Body Identity / continuity
-4. Cast Anchor / relationship memory
-5. Perspective orientation 지원
-6. progressive hint/scaffold 최소 구조
-7. Primary Attention metadata 또는 동등 설계
-8. Threat build-up / recovery
-9. Screen treatment + reduced effects parity
-10. Teacher/debug surface
-11. stable classroom checkpoint
-12. Reflection / Concept Bridge 연결
+명시적으로 막은 오개념:
+
+- `구석기 사람은 모두 동굴에서 살았다.`
+- `구석기 사람의 집은 막집 하나였다.`
+- `주먹도끼는 사냥용 무기였다.`
+- `동굴은 막집보다 발전된 집이다.`
+- `동굴을 발견하면 바로 이사했다.`
+- `게임 속 특정 하루가 실제 전곡리/금굴에서 있었던 사실이다.`
+
+대신 목표 이해:
+
+- 환경과 이동 상황에 따라 다양한 생활 공간을 이용할 수 있었음.
+- 도구는 여러 생활 행동에 사용됨.
+- 이동은 자원·거리·거처·위험을 포함한 생활 조건과 연결됨.
+
+판정: **PASS WITH HUMAN QA REQUIRED**
 
 ---
 
-# 14. 최종 판정
+# 11. 몰입 저하 위험 검증
 
-# **Stage 01~05 R2 Deep Audit: PASS / REVISED**
+새 교과 요소 때문에 발생할 수 있는 UX 위험:
 
-단, 이 PASS는 **설계 정합성**에 대한 판정이다.
+1. 용어 cue가 너무 크거나 오래 남음.
+2. cave cue가 `학습 정답 공개`처럼 보임.
+3. 주먹도끼 이름을 알려준 뒤 행동보다 읽기가 중심이 됨.
+4. cave 설명 텍스트가 공간 자체보다 더 강함.
 
-아직 증명하지 않은 것:
+대응:
 
-- 실제 브라우저에서 몸이 자연스러운가
-- 학생이 첫 행동을 이해하는가
-- 사람을 실제 관계로 기억하는가
-- 관점 전환을 이해하는가
-- 실제로 고민하는가
-- 위협이 적절한 긴장으로 느껴지는가
-- 화면 효과가 불편하지 않은가
-- 선택 변주가 의미 있게 느껴지는가
-- Reflection이 역사 학습 전이로 이어지는가
+- 짧은 terminology cue.
+- 행동 뒤 reveal.
+- Primary Attention은 몸/사람/공간 우선.
+- Stage 07 Human QA에서 실제 체감 검증.
 
-이 항목은 R2 Stage 07 이후 직접 플레이로 검증한다.
+판정: **AUTOMATABLE PART PASS / HUMAN UX PENDING**
+
+---
+
+# 12. Stage 01~05 Final Gate
+
+다음 질문에 모두 YES여야 한다.
+
+- 교과서 핵심 사실이 누락되지 않는가?
+- 핵심 용어를 실제로 한 번은 명확히 짚는가?
+- 교과 설명이 경험보다 먼저 나오지 않는가?
+- 주먹도끼가 몸과 행동 속에 반복되는가?
+- 막집과 동굴/바위 그늘을 모두 다루는가?
+- 동굴 발견이 실제 장소 판단처럼 설계되는가?
+- 교과 개념이 특정 선택 하나에 갇히지 않는가?
+- 역할마다 다른 생활 의미가 있는가?
+- 실제 자료와 재구성 사건을 구분하는가?
+- 몰입/관계/감정/공포 설계가 교과 연계 때문에 약해지지 않는가?
+
+## 최종 판정
+
+# **Stage 01~05: PASS AFTER CURRICULUM ANCHOR REVISION**
+
+다음 책임은 Stage 06 기술 계약과 Stage 07 실제 browser proof다.
