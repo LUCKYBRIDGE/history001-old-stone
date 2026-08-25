@@ -2,11 +2,11 @@
 
 초등학생용 **신체화 1인칭 구석기 역사 체험 웹게임** 프로젝트 저장소다.
 
-GitHub가 기획·코드·테스트·플레이 관찰·아트 맥락·인수인계를 관리하는 Single Source of Truth다.
+GitHub가 기획·코드·테스트·플레이 관찰·교과 연결·아트 맥락·인수인계를 관리하는 Single Source of Truth다.
 
 ## 프로젝트 한 문장
 
-# **학생이 구석기 공동체의 여러 사람의 몸과 눈으로 하루를 살아보고, 실제처럼 관계를 맺고 위험·후회·안도·책임을 느끼며, 각 사람의 제한된 시야에서 같은 시대를 다르게 경험한 뒤 역사적 상상력과 개념 이해로 이어지는 체험**
+# **학생이 구석기 공동체 여러 사람의 몸과 눈으로 같은 시대의 삶을 살아보고, 사람·도구·불·먹을거리·거처·위험·이동을 실제 상황처럼 경험하면서 역사적 상상력과 교과 개념 이해로 이어지는 체험**
 
 을 만든다.
 
@@ -16,19 +16,66 @@ GitHub가 기획·코드·테스트·플레이 관찰·아트 맥락·인수인�
 Immersion
 → Historical Imagination
 → Understanding
-→ Conceptualization
+→ Naming / Conceptualization
 ```
 
-모든 역할 뒤에 강제 reflection을 넣지는 않는다.
+교과 연결 흐름:
 
-## 네 가지 균형축
+# **Experience → Name → Reuse → Connect**
 
-1. **Historical Integrity** — 역사 사실과 재구성을 구분
-2. **Learning Clarity** — 무엇을 보고 무엇을 할 수 있는지 이해 가능
-3. **Emotional & Accessibility Safety** — 감정을 없애지 않되 모욕·강압·접근성 장벽은 피함
-4. **Embodiment, Agency & Historical Imagination** — 그 시대 사람으로 살아보고 가능한 삶을 상상
+핵심 용어를 숨기지 않지만, 먼저 경험하게 한 뒤 짧게 이름을 붙인다.
 
-안전은 감정 제거를 뜻하지 않는다.
+---
+
+## 구석기 Curriculum Anchors
+
+사용자가 제공한 5학년 사회 교과서의 구석기 부분을 현재 교과 기준으로 사용한다.
+
+핵심:
+
+- 뗀석기
+- 주먹도끼
+- 불의 이용
+- 막집
+- 동굴 / 바위 그늘 생활
+- 먹을 것을 찾아 옮겨 다니는 생활
+- 사냥·채집·생활 가공
+
+예:
+
+```text
+R에게 돌도구를 받음
+→ 내 손에 들어온 뒤 '뗀석기 · 주먹도끼'라고 짧게 명명
+→ 계속 손에 들고 이동
+→ 이후 생활 행동에서 재사용
+→ 실제 유물과 연결
+```
+
+교과서 문장을 장문 팝업으로 복제하거나 바로 객관식 문제로 만들지 않는다.
+
+---
+
+## 역사 사실과 재구성
+
+역사/교과 사실:
+
+- 뗀석기 사용
+- 주먹도끼의 다용도성
+- 불 이용
+- 막집
+- 동굴/바위 그늘 생활
+- 이동 생활
+
+프로젝트 재구성:
+
+- R/H1/H2라는 구체 인물
+- R이 특정 아침에 주먹도끼를 건네는 사건
+- Hunt 도중 넓은 동굴을 발견하는 사건
+- 특정 대사·감정·결과
+
+# **역사적 상상력은 사실과 가능한 삶의 조건 위에서 만든 재구성이다.**
+
+---
 
 ## 기본 시각 문법
 
@@ -36,176 +83,157 @@ Immersion
 
 몸은 HUD가 아니다.
 
-- 자세와 행동에 맞는 순간에만 자연스럽게 보인다.
-- 항상 화면 하단에 손을 붙이지 않는다.
+- 자세와 행동에 맞는 순간에 자연스럽게 보인다.
 - 같은 역할 안에서 손/도구/광원 continuity를 유지한다.
+- 핵심 유물은 카드보다 내 몸에 붙은 생활 물건으로 보인다.
+
+---
 
 ## 역할 관점
 
-역할 시작 시 현재 시점을 알려줄 수 있다.
+역할 시작 시 현재 시점을 짧게 알려줄 수 있다.
 
 예:
 
 > **사냥을 나선 사람의 관점**
 
-그 뒤에는 그 사람이 실제로 보고·듣고·알 수 있는 범위에서만 player-facing 이야기가 진행된다.
+그 뒤에는 그 사람이 실제로 보고·듣고·알 수 있는 범위에서만 이야기가 진행된다.
 
-Hunt 중에는 Camp에서 벌어지는 일을 전지적으로 알지 못한다.
+Hunt 중에는 Camp에서 실제로 무슨 일이 일어나는지 전지적으로 알지 못한다.
 
-나중에 Camp를 플레이하면서 같은 사건의 반대편을 새롭게 경험한다.
+---
 
 ## 관계와 감정
 
-- 주변 인물은 반복해서 만나는 실제 관계의 대상
+- 주변 인물은 반복해서 만나는 관계의 대상
 - 관계는 호감도 숫자가 아니라 함께 겪은 사건의 기억
-- 죄책감·후회·걱정·안도·책임감·의견 충돌을 허용
-- 관계가 학생 선택의 무게를 만들 수 있음
-- 모욕·낙인·죄책감으로 숨겨진 정답을 강요하는 구조는 피함
+- 죄책감·후회·걱정·안도·책임감·공포·기대를 허용
+- 학생 인격을 나쁜 사람으로 판정하거나 죄책감으로 숨겨진 정답을 강요하지 않음
 
-학생이 늦게 돌아온 뒤 기다린 사람을 보고 미안함을 느끼는 것은 충분히 가능한 역사 체험이다.
+안전은 감정 제거를 뜻하지 않는다.
+
+---
 
 ## 선택과 결과
 
 모든 선택이 똑같이 좋은 결과를 가질 필요는 없다.
 
-- 더 위험한 선택
-- 더 후회스러운 선택
-- 더 큰 부담을 만드는 선택
-
-도 있을 수 있다.
-
-핵심은 결과가 당시 상황에서 납득 가능해야 한다는 것이다.
-
 # **Choice Fairness = 결과 평등이 아니라 결과의 납득 가능성**
 
-## 공포와 위협
+선택의 흔적은
+
+- 사람 반응
+- 몸 상태
+- 시간/거리
+- 들고 있는 것
+- 위험 경험
+- 새로운 장소 발견
+- 다음 관점
+
+등에 남을 수 있다.
+
+---
+
+## 공포와 Screen Treatment
 
 공포게임 같은 순간도 허용한다.
 
-특히 Hunt에서는
-
-- 어둠
-- 시야 밖 소리
-- 갑작스러운 움직임
-- 짧은 jump-like scare
-- 짧은 회피/도주
-- strong screen/sound accent
-
-를 사용할 수 있다.
-
-다만 고어·반복 jump scare·적 HP/처치 루프보다 **자연 속 인간의 취약함과 불확실성**을 강조한다.
-
-## Screen Treatment
+특히 Hunt에서는 어둠·시야 밖 소리·정체 모를 움직임·짧은 회피/도주·드문 strong accent가 가능하다.
 
 원칙:
 
 # **Subtle by default. Strong when earned.**
 
-강도:
+동굴도 항상 공포 던전으로 만들지 않는다.
 
-- `none`
-- `subtle`
-- `accent`
-- `strong-accent` — 드문 핵심 순간
+- 비바람을 피할 수 있는 보호 가능성
+- 어둠과 다른 동물 흔적의 위험 가능성
 
-사용 가능:
+이 함께 존재할 수 있다.
 
-- 불의 따뜻한 색
-- 시간대별 명암/색온도
-- focus/vignette
-- sway/jolt
-- blink/fade
-- 짧은 red/dark accent
+---
 
-반복적인 HP식 red flash는 피한다.
+## 막집과 동굴
 
-Reduced effects에서도 같은 사건과 판단은 유지한다.
+`구석기 사람의 집 = 하나의 정답`으로 만들지 않는다.
 
-## Historical Imagination
+현재 공동체는 임시 막집을 이용할 수 있고, 이동 중 동굴이나 바위 그늘 같은 자연 공간을 발견·이용할 수도 있다.
 
-학생이 단순히
+동굴 발견 event 예:
 
-> `구석기에는 사냥을 했다.`
+```text
+큰 바위 아래 어두운 공간 발견
+→ 가까이 감
+→ 넓이 / 바닥 / 바람 / 어둠 / 흔적을 살핌
+→ '머물기 괜찮을 수도 있겠다'고 판단
+→ 바로 이사하지 않음
+→ 이후 공동체가 다른 조건과 함께 재평가
+```
 
-라고 외우는 것보다
-
-> `먹을 것을 구하려면 멀리 갈 수도 있고, 위험하고, 돌아갈 시간과 같이 간 사람도 생각해야 했을 것 같다.`
-
-처럼 **조건·감정·관계가 있는 삶을 상상**하게 하는 것이 목표다.
-
-## Learning Invariants
-
-학생마다 다른 경로를 경험해도 다음 핵심 역사 조건은 전체 체험에서 유지한다.
-
-- 도구와 생활 행동
-- 불과 생활 유지
-- 먹을거리 확보의 불확실성
-- 사람들의 상호의존
-- 자연·시간·거리 제약
-- 한 장소 생활의 부담 누적
-- 이동 생활의 맥락
-
-모두가 같은 장면과 같은 감정을 경험할 필요는 없다.
+---
 
 ## 같은 세계, 다른 몸
 
 ```text
-같은 공동체의 같은 시기
-├─ Hunt 사람의 몸과 눈
-├─ Gather 사람의 몸과 눈
-└─ Camp 사람의 몸과 눈
+Same Day 1
+├─ Hunt — 멀어지는 몸 / 주먹도끼 / 위험 / 귀환
+├─ Gather — 가까이 살피는 몸 / 채집 / 도구 재사용
+└─ Camp — 불 / 막집 / 생활 손질 / 기다림
 ```
 
-한 역할에서 본 사람이 다른 역할에서는 `나`가 될 수 있다.
+Student Play Order와 세계 시간은 다르다.
 
-관점 전환 자체는 복잡한 퍼즐일 필요가 없다.
+---
+
+## 현재 Stage 07 Browser Skeleton
+
+기본 `/` 화면은 R2 Stage 07 Curriculum Skeleton이다.
+
+현재 proof:
 
 ```text
-짧은 전환
-→ 현재 역할 표시
-→ 새 몸과 시야
+사냥 관점
+→ 새벽 불
+→ R에게 돌도구 받기
+→ '뗀석기 · 주먹도끼' 짧은 cue
+→ held-item continuity
+→ H1/H2와 출발
+→ crouch observation
+→ 넓은 cave / rock-shelter 발견
+→ 공간 살핌
+→ '동굴 · 바위 그늘' 짧은 cue
+→ 다른 관점 전환
 ```
 
-이면 충분할 수 있다.
-
-## Clarity / Scaffold
-
-몰입은 조작을 숨기는 것이 아니다.
-
-학생이 막힐 때:
-
-1. 사람/환경 cue
-2. 시각/사운드 cue
-3. 짧은 행동 문구
-4. 명확한 hint
-
-순으로 돕는다.
-
-학생이 자연스럽게 이해하면 UI는 뒤로 물러난다.
-
-## 현재 핵심 경험 구조
+package:
 
 ```text
-Embodied Cold Open
-→ 현재 역할 관점 진입
-→ 첫 관점의 하루
-→ 관점 전환
-→ 두 번째 관점
-→ 관점 전환
-→ 세 번째 관점
-→ Common Evening
-→ 며칠 변화
-→ 공동체 고민
-→ 이동
-→ 새 거처
-→ Historical Concept Bridge
+0.0.0-r2-stage07-curriculum
 ```
 
-Reflection은 필요할 때만 배치한다.
+개발 경로:
+
+- `/` — Player
+- `?teacher=1` — Teacher
+- `?debug=1` — Debug
+- `?legacy=1` — Legacy Hunt v0.1
+
+현재 automated baseline:
+
+- 8 test files
+- 33 tests
+- typecheck PASS
+- production build PASS
+
+자동 테스트는 실제 몰입과 교과 기억을 증명하지 않는다.
+
+다음 공식 Gate:
+
+# **R2 Stage 07 Teacher Browser Visual / Immersion / Curriculum QA**
+
+---
 
 ## 반드시 읽을 문서
-
-새 작업 세션:
 
 1. `AGENTS.md`
 2. `PROJECT_STATUS.md`
@@ -216,7 +244,8 @@ Reflection은 필요할 때만 배치한다.
 7. `docs/01B_RELATIONSHIP_AGENCY_PRINCIPLES.md`
 8. `docs/01C_SUBTLE_SCREEN_TREATMENT_PRINCIPLES.md`
 9. `docs/01D_LEARNING_CLARITY_SAFETY_HISTORICAL_INTEGRITY.md`
-10. 해당 Stage 문서
+10. `docs/01E_CURRICULUM_TEXTBOOK_ANCHORS.md`
+11. 해당 Stage 문서
 
 공통 몰입:
 
@@ -226,42 +255,24 @@ Reflection은 필요할 때만 배치한다.
 
 - `docs/06_TECH_BLUEPRINT.md`
 
-## Design Reboot R2
-
-기존 React/Hunt v0.1은 삭제하지 않는다.
-
-하지만 현재는 **Legacy Functional Prototype**이다.
-
-다음 공식 구현 단계:
-
-# **R2 Stage 07 — Embodied Experience Skeleton**
-
-먼저 브라우저에서
-
-- Hunt role-true POV
-- 내 몸 + 사람 + 환경
-- 관계 반응
-- subtle/accent/strong-accent 일부
-- reduced effects
-- 짧은 관점 전환
-
-이 실제로 성립하는지 작은 골격으로 검증한다.
+---
 
 ## 기술 방향
 
-- React + TypeScript + Vite 유지
-- 자유 3D/FPS를 전제하지 않음
-- Cinematic First-Person Interactive Scene
-- 범용 NPC AI 없음
-- 호감도 시스템 없음
-- 대규모 대화 트리 없음
-- 점수/HP/EXP/ranking 없음
-- 범용 VFX 엔진 없음
+유지:
 
-## 완료 정의
+- React + TypeScript + Vite
+- cinematic embodied first-person
+- qualitative state/result
+- Player/Teacher/Debug 분리
 
-- **Functional Complete** — 정상 동작/테스트
-- **Embodied Complete** — 몸과 시야가 자연스럽고 공간 안에 존재함
-- **Relationship/Agency Complete** — 사람·고민·감정·선택 기억이 실제로 느껴짐
-- **Immersion Complete** — 역할의 제한된 관점으로 살아가는 느낌과 역사적 상상력이 확인됨
-- **Production Complete** — 역사 검토, 최종 아트/사운드, 접근성, QA 완료
+사용하지 않음:
+
+- 자유 3D/FPS를 전제한 엔진
+- 범용 NPC AI
+- 호감도 시스템
+- 대규모 대화 트리
+- 점수/HP/EXP/ranking
+- generic VFX engine
+- generic Curriculum Engine
+- 교과서 전체 DB
