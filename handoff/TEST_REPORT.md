@@ -21,25 +21,38 @@ PR:
 
 - PR #8 — `Design Reboot R2: embodied first-person foundation from Stage 01`
 
-변경 범위는 기획/운영 문서이며 현재 검증 시점까지 `src/`, `tests/`, `package.json`은 변경하지 않았다.
+변경 범위는 기획/운영 문서이며 `src/`, `tests/`, `package.json`은 변경하지 않았다.
 
 ---
 
-## First R2 verification
+## Verification run 1
 
 GitHub Actions run:
 
-# **`32798539692`**
+- `32798539692`
 
-Workflow:
+Result: **PASS**
 
-- `Project CI`
+- Install dependencies — PASS
+- Typecheck — PASS
+- Test — PASS
+- Production build — PASS
+
+---
+
+## Final design-branch HEAD verification
+
+검증 HEAD:
+
+- `dce57d62eb303befe4e6da6b948df361fe7a59b8`
+
+GitHub Actions run:
+
+# **`32798599185`**
 
 Result:
 
 # **PASS**
-
-Steps:
 
 - Install dependencies — PASS
 - Typecheck — PASS
@@ -55,7 +68,7 @@ Steps:
 
 ## What this verification proves
 
-- 대규모 Stage 01~06 문서 리비전 후에도 현재 repository가 정상 설치됨
+- 대규모 Stage 01~06 문서 리비전 후에도 repository가 정상 설치됨
 - TypeScript typecheck 통과
 - 기존 Hunt/reducer/storage/orchestrator integration test 기준선 유지
 - production build 생성 가능
@@ -110,6 +123,10 @@ Steps:
 
 현재 구현 전 기술 방향으로 승인 가능한 상태.
 
+### Existing runtime regression: **PASS**
+
+R2 설계 변경은 기존 runtime 기준선을 깨지 않았다.
+
 ### Current runtime as R2 experience: **NOT IMPLEMENTED**
 
 다음 공식 구현:
@@ -128,6 +145,6 @@ Steps:
 
 ---
 
-## Verification note
+## Final note
 
-이 문서를 추가한 최종 branch HEAD는 별도 CI를 한 번 더 실행해 최종 상태 자체의 PASS 여부를 확인한다.
+이 리포트 자체를 추가한 마지막 docs-only commit은 PR CI에서 한 번 더 regression 확인 후 main에 반영한다.
