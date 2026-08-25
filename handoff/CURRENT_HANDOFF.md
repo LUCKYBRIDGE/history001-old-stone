@@ -2,279 +2,272 @@
 
 ## Current responsibility completed
 
-**Stage 09-B — 몰입·내러티브 기반 재설계 문서 작업.**
+# **Design Reboot R2 — 개발 이전 Stage 01~06 전면 리비전**
 
-Stage 09-A 첫 실제 플레이에서 다음 핵심 관찰이 나왔다.
+사용자 방향:
 
-> **“시작부터 몰입을 하게 할 무언가가 부족하다. 내가 정말 해당 상황, 해당 인물이 된 것 같은 느낌이 들게 해야 한다.”**
+- 실제 사람의 시야처럼 눈앞 풍경과 내 신체 일부가 함께 보여야 함
+- 실제 주변 인물과 관계를 맺어야 함
+- 위협과 고민이 UI 문항이 아니라 실제 위협/고민으로 다가와야 함
+- 선택이 하나의 획일적인 결론으로 무효화되지 않아야 함
 
-이를 `HUX-001`로 기록했고 **프로젝트 수준의 높은 심각도 문제**로 판정했다.
-
-결론:
-
-## **Hunt v0.1은 Functional Complete이지만 Immersion Complete가 아니다.**
-
-이 문제 때문에 Hunt 첫 화면만 고치는 대신 프로젝트 상위 문서와 향후 개발 파이프라인 전체를 리비전했다.
+이를 기존 Stage 09 보완이 아니라 **Stage 01부터의 새 canonical foundation**으로 반영했다.
 
 ---
 
-## New canonical immersion documents
+## 가장 중요한 새 정의
 
-### `docs/07_IMMERSION_NARRATIVE_BIBLE.md`
+# Embodied First-Person
 
-모든 역할과 공통 경험이 따라야 하는 공통 기준.
+학생은 카메라를 조종하는 사람이 아니다.
 
-8개 몰입 층:
+학생 화면은:
 
-1. 즉시 상황 진입
-2. 몸과 감각
-3. 관계
-4. 개인적 필요/즉각적 이유
-5. 행동으로 드러나는 정보
-6. 선택의 결과감
-7. 시간·공간 연속성
-8. 감정의 회수
+## **환경 + 내 몸 + 들고 있는 것 + 주변 사람 + 현재 행동**
 
-핵심 Gate:
+의 하나의 물리적 시야다.
 
-> **시작 20~30초 안에 학생이 `나는 지금 이 공동체의 한 사람이다`라고 느낄 수 있는가?**
+예:
 
-### `docs/08_HUNT_IMMERSION_REDESIGN.md`
+- 불 앞: 손 + 무릎 + 불 + 맞은편 사람
+- 도구 전달: 상대 손 + 도구 + 내 손
+- 흔적 관찰: 내 손 + 무릎 + 지면 흔적
+- 걷기: 도구 든 손 + 앞의 동행자
+- 귀환: 피로한 팔/운반 상태 + 멀리 보이는 거처
 
-Stage 09-C Hunt v0.2 구현의 직접 입력.
+---
 
-강화된 플롯:
+## 역할의 새로운 의미
+
+Hunt / Gather / Camp는 같은 사람이 세 일을 하는 것이 아니다.
+
+## **같은 공동체의 같은 하루를 서로 다른 구성원의 몸과 눈으로 경험한다.**
+
+Perspective Bridge는 역할 메뉴가 아니라 사람/몸/공간을 이용한 시점 전환이다.
+
+---
+
+## 관계 모델
+
+관계는 호감도 숫자가 아니다.
+
+### Relationship Memory
+
+- 함께 위험을 피함
+- 부담을 나눔
+- 늦게 귀환
+- 기다리는 사람을 바라봄
+
+같은 질적 기억이 이후 사람의 대사·시선·행동·저녁 장면에 반영된다.
+
+---
+
+## 위협/고민 모델
+
+### 위협
 
 ```text
-불 옆의 새벽
-→ 사람들이 하루를 준비
-→ “같이 가자”
-→ “해가 지기 전에 돌아와.”
-→ 거처가 멀어짐
-→ 흔적 탐색
-→ 발견 전 정적
-→ 발견 / 접근 / 사냥 시도
-→ “조금만 더…”
-→ 추적 판단
-→ 자연 위험 신호
-→ 함께 위험을 피함
-→ 먹을 것 확보 또는 빈손
-→ 귀환
-→ 앞서 본 랜드마크 회수
-→ 아침 말의 의미 변화
-→ 같은 불빛을 다시 봄
-→ 공동체 복귀
-→ Perspective Bridge
+징후
+→ 주변 사람 반응
+→ 내 몸의 긴장
+→ 내가 주변을 봄
+→ 위협을 이해
+→ 판단
 ```
+
+### 고민
+
+선택 전에
+
+- 원하는 것
+- 가능성
+- 시간
+- 거리
+- 피로
+- 다른 사람 상태
+
+가 함께 보여야 한다.
+
+정답/오답 없음.
+
+---
+
+## 결과 모델
+
+# **Bounded Agency + Persistent Consequence + Reconverging Narrative**
+
+큰 이야기에서 같은 장소로 돌아올 수 있다.
+
+하지만 선택은 다음에 흔적을 남긴다.
+
+- 사람 반응
+- 관계 기억
+- 몸 상태
+- 시간
+- 거리
+- 위험 경험
+- 들고 있는 것
+- 다음 역할 시점
+
+같은 저녁이라도 같은 의미가 아니다.
 
 ---
 
 ## Revised canonical docs
 
-- `AGENTS.md` — 몰입 Guardrail을 최상위 규칙으로 승격
-- `README.md` — 역할 몰입형 프로젝트 정체성 반영
-- `docs/00_DEVELOPMENT_WORKFLOW.md` — 개발 로드맵 v2
-- `docs/01_PROJECT_CORE.md` — v4
-- `docs/02_EXPERIENCE_STRUCTURE.md` — v3
-- `docs/03_HUNT_STORY.md` — v3
-- `docs/04_HUNT_PLAYFLOW.md` — v3
-- `docs/05_ROLE_EXPERIENCE_MAP.md` — v3
-- `docs/05A_STAGE01-05_DESIGN_VALIDATION.md` — v2 재검증
-- `docs/06_TECH_BLUEPRINT.md` — v2
+### R2 Stage 01
+
+- `docs/01_PROJECT_CORE.md` v5
+- `docs/01A_EMBODIED_FIRST_PERSON_PRINCIPLES.md` v1
+- `docs/01B_RELATIONSHIP_AGENCY_PRINCIPLES.md` v1
+
+### R2 Stage 02
+
+- `docs/02_EXPERIENCE_STRUCTURE.md` v4
+
+### R2 Stage 03
+
+- `docs/03_HUNT_STORY.md` v4
+
+### R2 Stage 04
+
+- `docs/04_HUNT_PLAYFLOW.md` v4
+
+### R2 Stage 05
+
+- `docs/05_ROLE_EXPERIENCE_MAP.md` v4
+- `docs/05A_STAGE01-05_DESIGN_VALIDATION.md` v3
+
+### R2 Stage 06
+
+- `docs/06_TECH_BLUEPRINT.md` v3
+
+### Supporting canonical
+
+- `docs/07_IMMERSION_NARRATIVE_BIBLE.md` v2
+- `docs/08_HUNT_IMMERSION_REDESIGN.md` v2
+- `docs/00_DEVELOPMENT_WORKFLOW.md` v3
+- `AGENTS.md`
 
 ---
 
-## Major design decisions — preserve
+## Legacy runtime
 
-### 1. 몰입은 장식이 아니다
+현재 `src/`의 Hunt v0.1은 삭제하지 않는다.
 
-STORY/PLAYFLOW/상호작용/UI 단계에서 먼저 검증한다.
+지위:
 
-최종 이미지와 사운드는 기본 몰입을 **증폭**해야지 대신 만들어서는 안 된다.
+# **Legacy Functional Prototype**
 
-### 2. 설명보다 상황과 행동
+재사용 가능:
 
-기본 학습 순서:
+- React/TS/Vite
+- Orchestrator 구조 일부
+- reducer/test 기반
+- non-combat guardrail
+- qualitative completion 철학
+
+재설계 가능:
+
+- Common Morning
+- player-facing UI
+- Hunt Scene presentation
+- result detail
+- relationship data
+- Perspective Bridge
+
+기존 코드가 R2 설계를 제한하면 R2 설계가 우선한다.
+
+---
+
+## 다음 공식 작업
+
+# **R2 Stage 07 — Embodied Experience Skeleton**
+
+전체 Hunt를 바로 만들지 않는다.
+
+먼저 다음 작은 vertical skeleton을 구현/검증한다.
 
 ```text
-상황
-→ 행동
-→ 세계의 반응 / 감각
-→ 다른 관점과 연결
-→ 이유를 생각
-→ 역사 개념화
+Cold Open
+→ 내 손/무릎 + 불
+→ R의 손에서 내 손으로 돌도구 전달
+→ H1/H2와 같은 공간에 서기
+→ 걷는 POV
+→ 잠깐 몸을 낮추는 POV
+→ 짧은 사람 반응
+→ Perspective Bridge prototype
 ```
 
-### 3. 개발 메타 UI는 학생 화면과 분리
+### P0
 
-기본 학생 화면에서 숨길 것:
+- Student / Debug surface 분리
+- Embodied frame
+- body pose preset
+- R/H1/H2 actor continuity 최소 구조
 
-- Stage 번호
-- Vertical Slice
-- RoleEntry
-- internal state key
-- SharedSignal
-- test route
+### P1
 
-필요하면 debug mode에서만 표시.
+- 도구 전달
+- 걷기
+- crouch POV
+- 시선/actor reaction
 
-### 4. Hunt 관계 앵커
+### P2
 
-최소 기능 관계:
-
-- 함께 나가는 사람 A
-- 주변을 함께 살피는 사람 B
-- 거처에 남아 기다리는 사람
-
-구체 이름은 아직 확정하지 않는다.
-
-### 5. Hunt 모티프
-
-> **“해가 지기 전에 돌아와.”**
-
-아침의 가벼운 당부가 귀환에서는 기다리는 사람과 시간의 의미로 바뀐다.
-
-같은 불도 아침의 생활 배경 → 저녁의 돌아갈 장소로 의미가 변한다.
-
-### 6. 역할별 몰입 문법은 다르다
-
-Hunt:
-
-- 멀어짐
-- 추적
-- 위험
-- 귀환
-
-Gather:
-
-- 익숙한 공간
-- 반복 탐색
-- 공간 기억
-- 탐색 범위 확대
-
-Camp:
-
-- 같은 장소
-- 불
-- 시간 변화
-- 빈 자리
-- 기다림
-- 재회
-
-Gather/Camp를 Hunt식 Scene/reducer 루프로 복제하지 않는다.
+- Perspective Bridge
+- 자동 테스트
+- 브라우저 교사 QA
 
 ---
 
-## Existing Hunt v0.1 code — preserve as functional baseline
+## R2 Stage 07 완료 질문
 
-현재 코드의 기능 Guardrail:
+다음에 YES라고 답할 수 있어야 한다.
 
-- Hunt state/reducer는 Hunt 내부
-- Common reducer는 Hunt stage를 모름
-- no generic Scene Engine
-- score / HP / EXP / ranking 없음
-- 자연 위험은 전투가 아님
-- danger response가 성공/실패를 채점하지 않음
-- `food-secured` / `empty-handed` 모두 정상
-- 성공/빈손 모두 귀환
-- firelight 전 RoleCompletion 생성 금지
-- Perspective Bridge 사용
-- Common Evening은 Hunt 전용 엔딩 아님
-- 역할 플레이 순서와 same-day time 분리
+> 화면이 `구석기 배경을 보는 웹`이 아니라 정말 **내 눈앞의 풍경에 내 몸과 다른 사람이 함께 존재하는 장면**처럼 느껴지는가?
 
-Stage 09-C에서 몰입을 강화하더라도 이 계약을 깨지 않는다.
+> 다른 사람의 손과 내 손이 같은 공간에서 물건을 주고받는 것이 자연스러운가?
+
+> 역할이 바뀔 때 `다음 게임`보다 `다른 사람의 몸으로 이동했다`는 느낌이 가능한가?
+
+NO라면 전체 Hunt를 만들지 않고 skeleton부터 수정한다.
 
 ---
 
-## Next task — Stage 09-C
-
-### **Hunt v0.2 immersive functional prototype 구현**
-
-새 개발 세션에서 다음 순서로 읽는다.
+## 구현 시 읽기 순서
 
 1. `AGENTS.md`
 2. `PROJECT_STATUS.md`
 3. `docs/00_DEVELOPMENT_WORKFLOW.md`
 4. `handoff/CURRENT_HANDOFF.md`
 5. `docs/01_PROJECT_CORE.md`
-6. `docs/02_EXPERIENCE_STRUCTURE.md`
-7. `docs/03_HUNT_STORY.md`
-8. `docs/04_HUNT_PLAYFLOW.md`
-9. `docs/05_ROLE_EXPERIENCE_MAP.md`
-10. `docs/06_TECH_BLUEPRINT.md`
-11. `docs/07_IMMERSION_NARRATIVE_BIBLE.md`
-12. `docs/08_HUNT_IMMERSION_REDESIGN.md`
-13. Hunt current code/tests
+6. `docs/01A_EMBODIED_FIRST_PERSON_PRINCIPLES.md`
+7. `docs/01B_RELATIONSHIP_AGENCY_PRINCIPLES.md`
+8. `docs/02_EXPERIENCE_STRUCTURE.md`
+9. `docs/06_TECH_BLUEPRINT.md`
+10. R2 Stage 07 구현 대상 코드/tests
 
-### P0 implementation
-
-1. Player-facing / Debug UI 분리
-2. Common Morning Cold Open
-3. 첫 30초: 불/감각/사람/생활 문제/첫 행동
-4. `같이 가자`
-5. `해가 지기 전에 돌아와`
-6. 거처가 멀어지는 연속성
-
-### P1 implementation
-
-7. 탐색에 환경/동행자 반응
-8. 발견 전 정적/시선
-9. 추적 갈등에서 해·거리·피로
-10. 자연 위험 환경 신호
-11. 결과 → 귀환 전환
-12. 랜드마크 선행 노출/회수
-13. 같은 불의 아침/저녁 회수
-
-### P2 validation
-
-14. 학생 화면 개발 메타 비노출 test
-15. 기존 25 tests 보존/확장
-16. 핵심 E2E 검토
-17. `HUNT_PLAYTEST_NOTES.md` 기준으로 교사 재플레이 준비
+Hunt 전체 구현 세션에서는 추가로 `03`, `04`, `08`을 읽는다.
 
 ---
 
-## After Stage 09-C
+## 금지
 
-### Stage 09-D
-교사 Hunt v0.2 재플레이 / 몰입 QA.
+다음 세션에서 바로 하지 않는다.
 
-### Stage 09-E
-HUX 문제를 분석하고 승인 수정 반영.
-
-### Stage 09-F
-소규모 학생 테스트.
-
-그 뒤 Gather부터는 새로운 pipeline을 사용한다.
-
-```text
-Historical Core
-→ Role Identity
-→ STORY
-→ Immersion Script
-→ PLAYFLOW
-→ Functional Prototype
-→ Teacher Immersion Test
-→ Student Test
-→ Final Art/Sound
-→ Final QA
-```
+- 최종 Hunt 전체를 한 번에 구현
+- 최종 이미지 대량 제작
+- 3D/FPS 엔진 도입
+- NPC AI 프레임워크 구축
+- 호감도/관계 점수
+- Gather/Camp 복제 구현
+- 기존 v0.1 UI에 손 그림만 붙이고 완료 처리
 
 ---
 
-## Assets
+## 현재 검증 상태
 
-이번 Stage 09-B는 기획/문서 재설계다.
+이 handoff 시점의 리비전은 문서/설계 변경이다.
 
-아직 최종 이미지/사운드를 제작하지 않는다.
-
-다만 Stage 09-C 이후 몰입 QA가 통과하면 다음 자산에 높은 우선순위가 생긴다.
-
-- 아침/저녁 같은 거처의 연속성 장면
-- 불
-- 동행자/기다리는 사람
-- 사냥 환경과 귀환 랜드마크
-- 공간 앰비언스
-- 불소리/발걸음/자연 신호
-
-구체 자산 요청은 역사·시각 Context 단계에서 확정한다.
+기존 runtime 기능 기준선은 보존되어 있으며, R2 문서 변경 후 CI를 다시 실행해 기존 build/test가 깨지지 않았는지 확인해야 한다.
