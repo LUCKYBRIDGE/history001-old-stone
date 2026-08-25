@@ -69,13 +69,14 @@ const productionLikePlan: ExperiencePlan = {
 };
 
 describe('ExperienceOrchestrator', () => {
-  it('renders the app shell and initial experience', () => {
+  it('renders the R2 Stage 07 player experience by default', () => {
     render(<App />);
 
     expect(
-      screen.getByRole('heading', { name: '구석기 공동체의 하루' }),
+      screen.getByRole('heading', { name: '사냥을 나선 사람의 관점' }),
     ).toBeTruthy();
-    expect(screen.getByRole('heading', { name: '앱 시작' })).toBeTruthy();
+    expect(document.body.textContent).not.toContain('Stage 08-B');
+    expect(document.body.textContent).not.toContain('현재 단계:');
   });
 
   it('runs common morning once, receives role completions, bridges perspectives, and reaches common evening', async () => {
