@@ -1,7 +1,7 @@
 {
   "name": "history001-old-stone",
   "private": true,
-  "version": "0.0.0-r2-stage07",
+  "version": "0.0.0-r2-stage07-curriculum",
   "type": "module",
   "packageManager": "npm@11.17.0",
   "engines": {
