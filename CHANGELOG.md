@@ -1,5 +1,96 @@
 # CHANGELOG.md
 
+## Design Reboot R2 — Emotional Realism / Horror / Role-True Perspective Refinement
+
+### Trigger
+
+Stage 01~06 Deep Audit 이후 방향을 다시 점검하면서 안전 기준이 지나치게 보수적으로 읽힐 수 있는 부분을 보정했다.
+
+핵심 사용자 방향:
+
+- 죄책감 자체는 나쁜 것이 아님
+- 현실적인 후회·걱정·책임감이 관계에서 생길 수 있어야 함
+- 공포게임 같은 순간도 역사적 상황을 강화한다면 허용 가능
+- 빨간 화면 등 강한 효과도 적절한 위치에 사용 가능
+- 역할 전환 시 현재 누구 관점인지 알려주면 충분
+- 역할에 들어간 뒤에는 그 사람의 시야·몸·지식으로 스토리가 진행되어야 함
+- 몰입이 역사적 개념 이해와 역사적 상상력으로 자연스럽게 이어져야 함
+
+### Revised
+
+- `docs/01B_RELATIONSHIP_AGENCY_PRINCIPLES.md` — v3
+  - Emotional Reality
+  - 죄책감/후회/두려움/안도 허용
+  - `Choice Fairness = 결과 평등` 해석 폐기
+  - 현실적인 더 나쁜 결과 허용
+  - 공포게임 같은 순간 허용
+- `docs/01C_SUBTLE_SCREEN_TREATMENT_PRINCIPLES.md` — v3
+  - `Subtle by default. Strong when earned.`
+  - `strong-accent` 예외적 허용
+  - 짧은 red/dark accent, jolt, jump-like event 지원
+  - 효과 최소화가 아니라 정확한 위치 배치가 목표
+- `docs/01D_LEARNING_CLARITY_SAFETY_HISTORICAL_INTEGRITY.md` — v2
+  - 안전 = 감정 제거가 아님
+  - Historical Imagination을 핵심 학습 목표로 승격
+  - 죄책감/후회의 교육적 허용 기준
+  - 공포/위협 강도의 현실적 허용 범위
+  - 역할 관점은 진입 시 명료화 후 role-true POV 유지
+  - 강제 reflection 완화
+- `docs/02_EXPERIENCE_STRUCTURE.md` — v6
+  - Role-True Perspective
+  - 관점 전환은 짧게 알려줄 수 있음
+  - 역할 내부는 전지적 정보 없이 그 사람의 제한된 시야로 진행
+  - `anchor 2개 이상` 같은 기계적 전환 규칙 완화
+  - `Immersion → Historical Imagination → Understanding → Conceptualization`
+- `docs/07_IMMERSION_NARRATIVE_BIBLE.md` — v5
+  - Emotional Reality Gate
+  - Threat/Horror Gate
+  - 강한 순간 effect 사용 기준
+  - 다른 관점에서 죄책감/후회/이해가 생기는 구조 허용
+- `AGENTS.md`
+  - Role-True Perspective Guardrail
+  - Emotional Reality Guardrail
+  - Horror 허용
+  - `strong-accent` 허용
+- `docs/00_DEVELOPMENT_WORKFLOW.md` — v6
+  - Stage 07에 role-true entry / emotional reaction / strong-accent prototype 검증 추가
+- `PROJECT_STATUS.md`
+- `handoff/CURRENT_HANDOFF.md`
+
+### Key decisions
+
+- **안전 = 감정 제거가 아니다.**
+- 죄책감은 결과를 이해하면서 자연스럽게 생길 수 있다.
+- 학생을 모욕·낙인하거나 죄책감으로 정답을 강요하는 구조만 피한다.
+- 모든 선택이 동일하게 좋은 결과를 가질 필요는 없다.
+- Choice Fairness는 결과 평등이 아니라 **결과의 납득 가능성**이다.
+- Hunt에서 공포게임 같은 강한 순간을 사용할 수 있다.
+- 고어/반복 jump scare/처치 루프보다 불확실성·취약함·판단을 강조한다.
+- 화면 효과는 `none / subtle / accent / strong-accent`를 사용 가능하다.
+- 강한 red/dark accent도 서사적으로 earned된 핵심 순간에는 허용한다.
+- 역할 시작 시 현재 시점을 알려준 뒤에는 그 역할의 제한된 시야와 지식으로 플레이한다.
+- 모든 역할 뒤 강제 reflection을 두지 않는다.
+- 목표 학습 흐름은 **Immersion → Historical Imagination → Understanding → Conceptualization**이다.
+
+### Next
+
+# **R2 Stage 07 — Embodied Experience Skeleton**
+
+먼저 Hunt 관점에서
+
+- role entry
+- 내 몸 + R/H1/H2
+- 도구 전달
+- 걷기/몸 낮추기
+- 관계 반응
+- subtle/accent/드문 strong-accent
+- reduced effects
+- 짧고 명료한 Perspective Bridge
+
+를 브라우저에서 검증한다.
+
+---
+
 ## Design Reboot R2 — Stage 01~06 Deep Audit
 
 ### Trigger
