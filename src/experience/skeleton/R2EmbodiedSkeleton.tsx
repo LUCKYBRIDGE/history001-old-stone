@@ -7,22 +7,41 @@ type SkeletonStep =
   | 'orientation'
   | 'fire'
   | 'receive-tool'
+  | 'tool-reveal'
   | 'join'
   | 'depart'
   | 'crouch-proof'
+  | 'cave-notice'
+  | 'cave-inspect'
   | 'perspective-proof';
 
 type SkeletonTreatmentPreset =
   | 'none'
   | 'fire-warmth'
+  | 'tool-focus'
   | 'standing-shift'
   | 'walking-air'
   | 'crouch-focus'
+  | 'cave-exposure'
   | 'perspective-transition';
 
 type LearningEvidenceId =
-  | 'tool-used-in-context'
-  | 'embodied-observation-performed';
+  | 'tool-received-in-embodied-context'
+  | 'handaxe-term-revealed'
+  | 'embodied-observation-performed'
+  | 'natural-shelter-evaluated'
+  | 'cave-shelter-term-revealed';
+
+type CurriculumAnchorId =
+  | 'paleolithic-chipped-stone'
+  | 'handaxe'
+  | 'cave-or-rock-shelter';
+
+interface CurriculumCueData {
+  anchorId: CurriculumAnchorId;
+  title: string;
+  description: string;
+}
 
 interface SkeletonState {
   step: SkeletonStep;
@@ -35,9 +54,12 @@ type SkeletonEvent =
   | { type: 'BEGIN' }
   | { type: 'NOTICE_R' }
   | { type: 'RECEIVE_TOOL' }
+  | { type: 'CONTINUE_AFTER_TOOL_REVEAL' }
   | { type: 'JOIN_COMPANIONS' }
   | { type: 'DEPART' }
   | { type: 'OBSERVE_GROUND' }
+  | { type: 'NOTICE_CAVE' }
+  | { type: 'CONTINUE_AFTER_CAVE_INSPECTION' }
   | { type: 'RESET' }
   | { type: 'SET_REDUCED_EFFECTS'; value: boolean };
 
@@ -52,9 +74,12 @@ const teacherStepLabels: Readonly<Record<SkeletonStep, string>> = {
   orientation: '관점 진입',
   fire: '새벽 불 앞',
   'receive-tool': '도구 전달',
+  'tool-reveal': '뗀석기·주먹도끼 명명',
   join: '동행자 합류',
   depart: '거처 이탈',
   'crouch-proof': '몸 낮춰 관찰',
+  'cave-notice': '자연 거처 후보 발견',
+  'cave-inspect': '동굴·바위 그늘 살핌',
   'perspective-proof': '다른 관점 진입',
 };
 
@@ -62,17 +87,24 @@ const stepTreatment: Readonly<Record<SkeletonStep, SkeletonTreatmentPreset>> = {
   orientation: 'none',
   fire: 'fire-warmth',
   'receive-tool': 'fire-warmth',
+  'tool-reveal': 'tool-focus',
   join: 'standing-shift',
   depart: 'walking-air',
   'crouch-proof': 'crouch-focus',
+  'cave-notice': 'cave-exposure',
+  'cave-inspect': 'cave-exposure',
   'perspective-proof': 'perspective-transition',
 };
 
 function addEvidence(
   evidence: readonly LearningEvidenceId[],
-  id: LearningEvidenceId,
+  ...ids: readonly LearningEvidenceId[]
 ) {
-  return evidence.includes(id) ? evidence : [...evidence, id];
+  return ids.reduce<readonly LearningEvidenceId[]>(
+    (nextEvidence, id) =>
+      nextEvidence.includes(id) ? nextEvidence : [...nextEvidence, id],
+    evidence,
+  );
 }
 
 function skeletonReducer(
@@ -90,11 +122,18 @@ function skeletonReducer(
       return state.step === 'receive-tool'
         ? {
             ...state,
-            step: 'join',
+            step: 'tool-reveal',
             hasTool: true,
-            evidence: addEvidence(state.evidence, 'tool-used-in-context'),
+            evidence: addEvidence(
+              state.evidence,
+              'tool-received-in-embodied-context',
+              'handaxe-term-revealed',
+            ),
           }
         : state;
+
+    case 'CONTINUE_AFTER_TOOL_REVEAL':
+      return state.step === 'tool-reveal' ? { ...state, step: 'join' } : state;
 
     case 'JOIN_COMPANIONS':
       return state.step === 'join' ? { ...state, step: 'depart' } : state;
@@ -108,10 +147,28 @@ function skeletonReducer(
       return state.step === 'crouch-proof'
         ? {
             ...state,
-            step: 'perspective-proof',
+            step: 'cave-notice',
             evidence: addEvidence(
               state.evidence,
               'embodied-observation-performed',
+            ),
+          }
+        : state;
+
+    case 'NOTICE_CAVE':
+      return state.step === 'cave-notice'
+        ? { ...state, step: 'cave-inspect' }
+        : state;
+
+    case 'CONTINUE_AFTER_CAVE_INSPECTION':
+      return state.step === 'cave-inspect'
+        ? {
+            ...state,
+            step: 'perspective-proof',
+            evidence: addEvidence(
+              state.evidence,
+              'natural-shelter-evaluated',
+              'cave-shelter-term-revealed',
             ),
           }
         : state;
@@ -136,6 +193,7 @@ export function R2EmbodiedSkeleton({
 }: R2EmbodiedSkeletonProps) {
   const [state, dispatch] = useReducer(skeletonReducer, initialState);
   const treatment = stepTreatment[state.step];
+  const curriculumCue = getCurriculumCue(state.step);
 
   if (state.step === 'orientation') {
     return (
@@ -158,6 +216,7 @@ export function R2EmbodiedSkeleton({
         <SkeletonControls
           state={state}
           surfaceMode={surfaceMode}
+          curriculumCue={curriculumCue}
           onReducedEffectsChange={(value) =>
             dispatch({ type: 'SET_REDUCED_EFFECTS', value })
           }
@@ -181,18 +240,21 @@ export function R2EmbodiedSkeleton({
         <div className="r2-world__sky" aria-hidden="true" />
         <div className="r2-world__ground" aria-hidden="true" />
         <Fire step={state.step} />
+        <CaveOpening step={state.step} />
         <Actors step={state.step} />
         <PlayerBody step={state.step} hasTool={state.hasTool} />
         <WorldDetail step={state.step} />
       </section>
 
       <section className="r2-story" aria-live="polite">
+        {curriculumCue ? <CurriculumCue cue={curriculumCue} /> : null}
         <StoryBeat state={state} dispatch={dispatch} />
       </section>
 
       <SkeletonControls
         state={state}
         surfaceMode={surfaceMode}
+        curriculumCue={curriculumCue}
         onReducedEffectsChange={(value) =>
           dispatch({ type: 'SET_REDUCED_EFFECTS', value })
         }
@@ -203,8 +265,16 @@ export function R2EmbodiedSkeleton({
 }
 
 function Fire({ step }: { step: SkeletonStep }) {
-  if (step === 'depart' || step === 'crouch-proof') {
+  if (step === 'depart') {
     return <div className="r2-fire r2-fire--distant" aria-hidden="true" />;
+  }
+
+  if (
+    step === 'crouch-proof' ||
+    step === 'cave-notice' ||
+    step === 'cave-inspect'
+  ) {
+    return null;
   }
 
   if (step === 'perspective-proof') {
@@ -212,6 +282,24 @@ function Fire({ step }: { step: SkeletonStep }) {
   }
 
   return <div className="r2-fire" aria-hidden="true" />;
+}
+
+function CaveOpening({ step }: { step: SkeletonStep }) {
+  if (step !== 'cave-notice' && step !== 'cave-inspect') {
+    return null;
+  }
+
+  return (
+    <div
+      className={`r2-cave ${step === 'cave-inspect' ? 'r2-cave--near' : ''}`}
+      data-testid="cave-opening"
+      aria-hidden="true"
+    >
+      <span className="r2-cave__interior" />
+      <span className="r2-cave__dry-ground" />
+      {step === 'cave-inspect' ? <span className="r2-cave__track" /> : null}
+    </div>
+  );
 }
 
 function Actors({ step }: { step: SkeletonStep }) {
@@ -225,17 +313,26 @@ function Actors({ step }: { step: SkeletonStep }) {
     );
   }
 
+  const showR =
+    step === 'fire' ||
+    step === 'receive-tool' ||
+    step === 'tool-reveal' ||
+    step === 'join' ||
+    step === 'depart';
+
   return (
     <div className="r2-actors" aria-hidden="true">
-      <div className="r2-actor r2-actor--r">
-        <span className="r2-actor__head" />
-        <span className="r2-actor__body" />
-        {step === 'receive-tool' ? (
-          <span className="r2-actor__offering-hand">
-            <span className="r2-tool r2-tool--offered" />
-          </span>
-        ) : null}
-      </div>
+      {showR ? (
+        <div className="r2-actor r2-actor--r">
+          <span className="r2-actor__head" />
+          <span className="r2-actor__body" />
+          {step === 'receive-tool' ? (
+            <span className="r2-actor__offering-hand">
+              <span className="r2-tool r2-tool--offered" />
+            </span>
+          ) : null}
+        </div>
+      ) : null}
       <div className="r2-actor r2-actor--h1">
         <span className="r2-actor__head" />
         <span className="r2-actor__body" />
@@ -270,7 +367,7 @@ function PlayerBody({
           <span className="r2-tool r2-tool--held" data-testid="held-tool" />
         ) : null}
       </span>
-      {step === 'fire' || step === 'receive-tool' ? (
+      {step === 'fire' || step === 'receive-tool' || step === 'tool-reveal' ? (
         <>
           <span className="r2-body__knee r2-body__knee--left" />
           <span className="r2-body__knee r2-body__knee--right" />
@@ -292,6 +389,20 @@ function WorldDetail({ step }: { step: SkeletonStep }) {
   }
 
   return null;
+}
+
+function CurriculumCue({ cue }: { cue: CurriculumCueData }) {
+  return (
+    <aside
+      className="r2-curriculum-cue"
+      data-testid="curriculum-cue"
+      data-anchor-id={cue.anchorId}
+      aria-label="교과 개념 연결"
+    >
+      <strong>{cue.title}</strong>
+      <span>{cue.description}</span>
+    </aside>
+  );
 }
 
 function StoryBeat({
@@ -320,7 +431,8 @@ function StoryBeat({
       return (
         <>
           <p className="r2-dialogue">
-            그 사람이 거친 돌도구를 네 쪽으로 내민다.
+            그 사람이 한쪽은 손에 잡히고 다른 쪽은 날카롭게 깨진 돌도구를
+            네 쪽으로 내민다.
           </p>
           <button
             className="r2-action"
@@ -328,6 +440,23 @@ function StoryBeat({
             onClick={() => dispatch({ type: 'RECEIVE_TOOL' })}
           >
             돌도구를 받는다
+          </button>
+        </>
+      );
+
+    case 'tool-reveal':
+      return (
+        <>
+          <p>
+            거친 돌의 무게가 손에 느껴진다. 이 도구는 이제 화면 속 설명이
+            아니라 네가 들고 움직이는 물건이다.
+          </p>
+          <button
+            className="r2-action"
+            type="button"
+            onClick={() => dispatch({ type: 'CONTINUE_AFTER_TOOL_REVEAL' })}
+          >
+            주먹도끼를 쥐고 일어난다
           </button>
         </>
       );
@@ -342,7 +471,7 @@ function StoryBeat({
             type="button"
             onClick={() => dispatch({ type: 'JOIN_COMPANIONS' })}
           >
-            사람들과 함께 일어난다
+            사람들과 함께 나갈 준비를 한다
           </button>
         </>
       );
@@ -378,6 +507,46 @@ function StoryBeat({
         </>
       );
 
+    case 'cave-notice':
+      return (
+        <>
+          <p>
+            다시 일어서자 앞쪽 큰 바위 아래에 검은 틈이 보인다. 생각보다
+            입구가 넓다. H2도 그쪽을 보고 멈춘다.
+          </p>
+          <button
+            className="r2-action"
+            type="button"
+            onClick={() => dispatch({ type: 'NOTICE_CAVE' })}
+          >
+            바위 아래 공간으로 가까이 간다
+          </button>
+        </>
+      );
+
+    case 'cave-inspect':
+      return (
+        <>
+          <p className="r2-dialogue">“안이 꽤 넓어.”</p>
+          <p>
+            바닥 한쪽은 비교적 말라 있고 위는 단단한 바위가 덮고 있다.
+            하지만 안쪽은 어둡고, 다른 동물이 이곳을 이용했는지는 더 살펴야
+            한다.
+          </p>
+          <p>
+            비나 바람을 피하기에는 괜찮아 보이지만, 물과 먹을거리까지의
+            거리도 아직 모른다.
+          </p>
+          <button
+            className="r2-action"
+            type="button"
+            onClick={() => dispatch({ type: 'CONTINUE_AFTER_CAVE_INSPECTION' })}
+          >
+            이 장소와 돌아가는 길을 기억해 둔다
+          </button>
+        </>
+      );
+
     case 'perspective-proof':
       return (
         <>
@@ -385,7 +554,7 @@ function StoryBeat({
           <h1>거처에 남아 생활을 이어가는 사람의 관점</h1>
           <p>
             불은 바로 앞에서 타고 있다. 조금 전 밖으로 나간 사람들의 모습이
-            멀어져 간다.
+            멀어져 간다. 그들이 어디에서 무엇을 보게 될지는 아직 알 수 없다.
           </p>
         </>
       );
@@ -398,11 +567,13 @@ function StoryBeat({
 function SkeletonControls({
   state,
   surfaceMode,
+  curriculumCue,
   onReducedEffectsChange,
   onReset,
 }: {
   state: SkeletonState;
   surfaceMode: SkeletonSurfaceMode;
+  curriculumCue: CurriculumCueData | null;
   onReducedEffectsChange: (value: boolean) => void;
   onReset: () => void;
 }) {
@@ -415,6 +586,7 @@ function SkeletonControls({
       <aside className="r2-surface-panel" aria-label="교사용 제어">
         <strong>교사용 제어</strong>
         <span>현재 구간: {teacherStepLabels[state.step]}</span>
+        {curriculumCue ? <span>교과 연결: {curriculumCue.title}</span> : null}
         <label>
           <input
             type="checkbox"
@@ -439,6 +611,7 @@ function SkeletonControls({
           hasTool: state.hasTool,
           reducedEffects: state.reducedEffects,
           treatment: stepTreatment[state.step],
+          curriculumAnchor: curriculumCue?.anchorId ?? null,
           evidence: state.evidence,
         })}
       </code>
@@ -449,18 +622,46 @@ function SkeletonControls({
   );
 }
 
+function getCurriculumCue(step: SkeletonStep): CurriculumCueData | null {
+  if (step === 'tool-reveal') {
+    return {
+      anchorId: 'handaxe',
+      title: '뗀석기 · 주먹도끼',
+      description:
+        '돌을 깨뜨리거나 떼어 만든 대표적인 구석기 도구로, 손에 쥐고 여러 생활 행동에 사용할 수 있다.',
+    };
+  }
+
+  if (step === 'cave-inspect') {
+    return {
+      anchorId: 'cave-or-rock-shelter',
+      title: '동굴 · 바위 그늘',
+      description:
+        '구석기 사람들은 막집뿐 아니라 동굴이나 바위 그늘도 생활 공간으로 이용했다.',
+    };
+  }
+
+  return null;
+}
+
 function getBodyPose(step: SkeletonStep) {
   switch (step) {
     case 'fire':
       return 'fire-rest';
     case 'receive-tool':
       return 'receive-tool';
+    case 'tool-reveal':
+      return 'tool-inspect';
     case 'join':
       return 'standing-with-tool';
     case 'depart':
       return 'walking-with-tool';
     case 'crouch-proof':
       return 'crouch-observe';
+    case 'cave-notice':
+      return 'standing-with-tool';
+    case 'cave-inspect':
+      return 'cave-inspect';
     case 'perspective-proof':
       return 'camp-fire-rest';
     default:
@@ -474,12 +675,18 @@ function getWorldAriaLabel(step: SkeletonStep) {
       return '새벽 불 앞. 가까운 사람들과 내 손과 무릎이 보이는 시야';
     case 'receive-tool':
       return '익숙한 사람이 돌도구를 내밀고 내 손이 향하는 시야';
+    case 'tool-reveal':
+      return '내 손에 주먹도끼를 받아 쥔 채 형태를 살피는 시야';
     case 'join':
-      return '돌도구를 든 채 함께 나갈 사람들 곁에서 일어나는 시야';
+      return '주먹도끼를 든 채 함께 나갈 사람들 곁에서 일어나는 시야';
     case 'depart':
-      return '돌도구를 들고 사람들과 거처를 떠나는 시야';
+      return '주먹도끼를 들고 사람들과 거처를 떠나는 시야';
     case 'crouch-proof':
       return '몸을 낮춰 내 손과 무릎 너머의 눌린 풀을 살피는 시야';
+    case 'cave-notice':
+      return '멀리 큰 바위 아래 넓어 보이는 어두운 공간을 발견한 시야';
+    case 'cave-inspect':
+      return '주먹도끼를 든 채 넓은 동굴 입구와 마른 바닥, 어두운 안쪽을 살피는 시야';
     case 'perspective-proof':
       return '같은 날 거처 불 가까이에서 밖으로 나간 사람들을 보는 다른 사람의 시야';
     default:
