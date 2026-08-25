@@ -2,57 +2,48 @@
 
 ## Current phase
 
-# **Design Reboot R2 — Stage 01~06 Deep Audit + Emotional Realism Refinement 완료. 다음 공식 단계는 R2 Stage 07 — Embodied Experience Skeleton.**
+# **R2 Stage 01~07 Sequential Audit 완료 / Stage 07 구현·자동검증 완료 / 실제 브라우저 교사 시각 QA 대기**
 
-기존 Hunt v0.1은 기능적으로 동작하지만 새 설계의 최종 기준이 아니다.
+Stage 01부터 최근 변경을 의존 순서대로 다시 점검했고 Stage 01~06 canonical 문서를 재정렬했다. Stage 07 Embodied Experience Skeleton은 실제 코드로 구현됐다.
 
-현재 판정:
+단, **자동 테스트 PASS = 몰입 완성**은 아니다.
 
-- Legacy Hunt v0.1: **Functional Prototype / preserved**
-- R2 Stage 01~06 latest design: **canonical design baseline**
-- Embodied First-Person runtime: **not yet implemented**
-- Role-True Perspective runtime: **not yet implemented**
-- Relationship / emotional consequence runtime: **not yet implemented**
-- Screen Treatment runtime: **not yet implemented**
+현재 다음 Gate:
+
+# **R2 Stage 07 — Teacher Browser Visual/Immersion QA**
+
+이 Gate를 통과하기 전에는 Stage 08 Hunt Embodied Vertical Slice 전체 구현을 시작하지 않는다.
 
 ---
 
-## 최신 방향 보정
+## 현재 판정
 
-Deep Audit 이후 추가 논의를 통해 안전 기준이 지나치게 보수적으로 읽힐 수 있는 부분을 다시 조정했다.
+- Stage 01 Project foundation: **PASS / REVISED**
+- Stage 02 Same-Day Experience Structure: **PASS / REVISED**
+- Stage 03 Hunt Story: **PASS / REVISED**
+- Stage 04 Hunt Playflow: **PASS / REVISED**
+- Stage 05 Role Experience Map: **PASS / REVISED**
+- Stage 06 Technical Blueprint: **PASS / REBUILT**
+- Stage 07 Skeleton implementation: **IMPLEMENTED**
+- Stage 07 automated verification: **PASS**
+- Stage 07 human visual/immersion QA: **NOT YET PERFORMED**
+- Legacy Hunt v0.1: **preserved for development comparison**
 
-### 유지
+상세 감사:
 
-- 초등학생용 역사 체험
-- Embodied First-Person
-- 관계 기억
-- 비획일적 결과
-- 역사적 정확성과 재구성 구분
-- 접근성/reduced effects
+- `docs/R2_STAGE01_07_SEQUENTIAL_AUDIT.md`
 
-### 보정
+---
 
-1. **죄책감·후회·걱정은 금지하지 않음**
-   - 역사적 상황과 관계 결과에서 자연스럽게 생길 수 있음
-   - 모욕/낙인/숨겨진 도덕 시험만 피함
+# Stage 01 최신 기준
 
-2. **공포게임 같은 순간 허용**
-   - Hunt에서 어둠, 시야 밖 움직임, 순간적 놀람, 짧은 회피/도주, 강한 accent 가능
-   - 공포가 역사적 자연 위험과 인간의 취약성을 강화해야 함
+- `docs/01_PROJECT_CORE.md` — v7
+- `docs/01A_EMBODIED_FIRST_PERSON_PRINCIPLES.md` — **v4**
+- `docs/01B_RELATIONSHIP_AGENCY_PRINCIPLES.md` — v3
+- `docs/01C_SUBTLE_SCREEN_TREATMENT_PRINCIPLES.md` — v3
+- `docs/01D_LEARNING_CLARITY_SAFETY_HISTORICAL_INTEGRITY.md` — v2
 
-3. **강한 화면 효과를 완전히 금지하지 않음**
-   - `Subtle by default. Strong when earned.`
-   - 한 번의 red/dark accent, jolt, strong focus 등을 핵심 순간에 사용 가능
-   - 반복/남용/HP-style feedback은 피함
-
-4. **관점 전환은 단순하게 명료화 가능**
-   - 역할 시작 시 `사냥을 나선 사람의 관점`처럼 알려줄 수 있음
-   - 역할 안에서는 그 사람이 실제로 보고 알고 걱정하는 범위로만 진행
-   - anchor 규칙을 기계적으로 강제하지 않음
-
-5. **학습은 몰입에서 자연스럽게 이어지게 함**
-   - 모든 역할 뒤 강제 reflection/quiz 불필요
-   - 목표 흐름:
+핵심:
 
 ```text
 Immersion
@@ -61,190 +52,255 @@ Immersion
 → Conceptualization
 ```
 
----
-
-## 최신 Stage 01 문서
-
-- `docs/01_PROJECT_CORE.md` — **v7 Role-True Emotional Historical Experience**
-- `docs/01A_EMBODIED_FIRST_PERSON_PRINCIPLES.md` — v3
-- `docs/01B_RELATIONSHIP_AGENCY_PRINCIPLES.md` — **v3 Emotional Reality**
-- `docs/01C_SUBTLE_SCREEN_TREATMENT_PRINCIPLES.md` — **v3 Strong When Earned**
-- `docs/01D_LEARNING_CLARITY_SAFETY_HISTORICAL_INTEGRITY.md` — **v2 Emotional Safety / Historical Imagination**
+- 역할 시작 시 현재 관점을 명료하게 알려줄 수 있음
+- 역할 내부는 그 인물이 보고/듣고/아는 범위만 사용
+- 죄책감·후회·두려움·안도 등 현실적 감정 허용
+- Choice Fairness = 결과 평등이 아니라 인과의 납득 가능성
+- `Subtle by default. Strong when earned.`
 
 ---
 
-## Stage 02
+# Stage 02 — v7 Same-Day Role-True Perspective
 
-`docs/02_EXPERIENCE_STRUCTURE.md` — **v6 Role-True Embodied Perspective**
+핵심 추가:
+
+# **Student Play Order ≠ In-World Time**
+
+Hunt → Gather → Camp 순서로 플레이해도 세 개의 다른 날이 아니다.
+
+- 같은 공동체의 같은 Day 1
+- 역할 완료는 학생의 관점 진행 상태
+- 역할 완료가 세계 시간을 하루씩 전진시키지 않음
+- cross-role signal은 다른 역할의 과거를 소급 변경하지 않음
+- Common Evening은 세 관점 뒤 한 번
+- multi-day 변화는 그 뒤에만 진행
+
+runtime `SharedDayContext`에도 `dayId: 'day-1'`을 추가했다.
+
+---
+
+# Stage 03 — Hunt Story v6
+
+강화:
+
+- Hunt Role-True limited POV
+- R/H1/H2 반복 관계
+- 추적 욕구와 귀환 부담 충돌
+- 공포게임 같은 짧은 강한 순간 허용
+- 죄책감/후회/성취/안도 허용
+- strong-accent 가능
+- multi-axis result
+- Hunt 종료에서 Camp 내부 사실을 미리 설명하지 않음
+
+---
+
+# Stage 04 — Hunt Playflow v6
+
+가장 중요한 구조 수정:
+
+# **Scene ≠ Beat**
+
+- Scene: 목표/행동/state/location/consequence의 의미 단위
+- Beat: 같은 Scene 안의 actor stop/gaze/sound/focus/jolt/dialogue 변화
+
+모든 연출을 reducer stage/component로 만들지 않는다.
+
+Stage 07 범위도 전체 Hunt와 분리했다.
+
+---
+
+# Stage 05 — Role Experience Map v6
+
+세 역할 문법을 다시 분리했다.
+
+## Hunt
+
+거리 / 추적 / 위험 / 공포 / 귀환
+
+## Gather
+
+가까운 관찰 / 반복 탐색 / 공간 기억 / 탐색 범위 확대
+
+## Camp
+
+불 / 생활 유지 / 같은 공간의 시간 변화 / 부재 / 기다림 / 재회
+
+Hunt의 위협/추적 climax를 Gather/Camp에 복제하지 않는다.
+
+---
+
+# Stage 06 — Technical Blueprint v6
+
+기술 기준:
+
+```text
+App
+→ Experience Orchestrator
+→ Same-Day World / Integration
+→ Common Experience / Role Features
+→ Embodied Presentation
+```
 
 핵심:
 
-- 역할 전환 시 현재 관점은 짧게 명시 가능
-- 역할 진입 후에는 그 사람의 제한된 시야와 지식으로만 플레이
-- Hunt 중 Camp의 내부 상황을 전지적으로 알지 않음
-- 다른 역할에서 이전 사건의 반대편을 나중에 알게 됨
-- Micro Reflection은 선택 사항
-- 몰입이 역사적 상상력으로 이어지는 구조
+- session progress / world time 분리
+- 기존 단순 RoleCompletion 보존
+- Scene state / cinematic Beat 분리
+- Stage 07 Skeleton은 작은 local state
+- `strong-accent` 지원
+- reduced-effects parity
+- Player / Teacher / Debug 분리
+- generic Scene/NPC/VFX engine 금지
 
 ---
 
-## 관계/감정 원칙
+# Stage 07 — 실제 구현 상태
 
-허용 가능한 감정:
+새 구현:
 
-- 두려움
-- 긴장
-- 죄책감
-- 후회
-- 걱정
-- 책임감
-- 안도
-- 애착
-- 의견 충돌
-- 성취감
+- `src/experience/skeleton/R2EmbodiedSkeleton.tsx`
+- `src/experience/skeleton/r2EmbodiedSkeleton.css`
 
-핵심 구분:
-
-# **현실적 감정은 허용 / 모욕·낙인·심리적 강압은 피함**
-
-모든 선택이 동일하게 좋은 결과를 가질 필요는 없다.
-
-Choice Fairness는 `결과 평등`이 아니라 **결과가 당시 상황에서 납득 가능한가**다.
-
----
-
-## Threat / Horror 방향
-
-Hunt는 가장 넓은 감정/연출 범위를 가질 수 있다.
-
-허용:
-
-- 어둠
-- 시야 밖 소리
-- 갑작스러운 가까운 움직임
-- 짧은 jump-like scare
-- 짧은 회피/도주
-- strong screen accent
-- 사건 뒤 남는 긴장
-
-피할 것:
-
-- 고어를 핵심 볼거리로 삼기
-- 의미 없는 반복 jump scare
-- 적 HP/처치 루프
-- 공포만 남고 역사적 맥락이 사라지는 구성
-
----
-
-## Screen Treatment 방향
-
-기본:
+기본 앱 흐름:
 
 ```text
-none
-subtle
-accent
-strong-accent (rare)
+사냥을 나선 사람의 관점
+→ 눈을 뜬다
+→ 새벽 불
+→ 익숙한 사람 R
+→ 돌도구를 받는다
+→ H1/H2와 합류
+→ “해가 지기 전에 돌아와.”
+→ 거처를 떠남
+→ 몸을 낮춰 지면 관찰
+→ 같은 날 다른 사람 관점으로 전환
 ```
 
-원칙:
+현재는 최종 이미지가 아닌 **CSS/DOM embodied layout proof**다.
 
-# **Subtle by default. Strong when earned.**
+검증하는 것:
 
-가능:
-
-- warm color
-- dusk shift
-- vignette/focus
-- blink/fade
-- sway/jolt
-- 짧은 red/dark accent
-
-접근성:
-
-- 반복 빠른 flashing 금지
-- reduced effects 지원
-- 효과를 줄여도 사건/판단/학습은 유지
+- body pose 변화
+- 손/도구 continuity
+- 사람과 몸의 같은 viewport 공간감
+- fire-warmth
+- standing/walking/crouch treatment
+- perspective transition
+- reduced effects
+- Learning Evidence
 
 ---
 
-## Historical Imagination
+# Player / Teacher / Debug 분리
 
-학생이 플레이 후 단순히
+기본 앱:
 
-> `구석기에는 사냥을 했다.`
+- **Player surface**
+- Stage 번호/내부 state/debug toolbar 노출 없음
 
-라고 기억하는 것보다
+개발 환경 비교 경로:
 
-> `먹을 것을 구하려면 멀리 갈 수도 있고, 위험하고, 돌아갈 시간과 같이 간 사람도 생각해야 했을 것 같다.`
+- `?legacy=1` — 기존 Hunt v0.1
+- `?teacher=1` — teacher controls
+- `?debug=1` — exact internal debug
 
-처럼 **조건과 감정이 있는 삶을 상상**하게 하는 것이 목표다.
+기존 AppShell의
 
-개념 설명은 그 경험에 이름을 붙이는 역할을 한다.
+- `Stage 08-B · Hunt Vertical Slice v0.1`
+- prototype footer
 
----
-
-## Legacy runtime baseline
-
-현재 `src/`의 Hunt는 기존 v0.1이다.
-
-보존 가치:
-
-- React + TypeScript + Vite
-- Experience Orchestrator
-- reducer/tests
-- qualitative RoleCompletion
-- non-score 구조
-- CI baseline
-
-기존 자동 검증 기준:
-
-- 7 test files
-- 25 tests
-- typecheck PASS
-- production build PASS
-
-새 설계를 아직 runtime이 구현한 것은 아니다.
+를 기본 player 화면에서 제거했다.
 
 ---
 
-## Next official task — R2 Stage 07
+# 자동 검증
 
-# **Embodied Experience Skeleton**
+첫 CI에서는 새 `SharedDayContext.dayId` 계약에 Legacy Hunt test fixture 한 곳이 누락되어 typecheck가 실패했다.
 
-Stage 07에서 우선 검증할 것:
+원인:
 
-1. 역할 시작 시 현재 시점 명료화
-2. Hunt role-true first-person frame
-3. 내 손/몸 + R/H1/H2가 같은 공간에 존재
+```text
+HuntFeature.test.tsx fixture
+→ dayId 누락
+```
+
+수정 후 검증:
+
+- Node: 24.19.0
+- npm: 11.17.0
+- install: PASS
+- typecheck: PASS
+- test files: **8 / 8 PASS**
+- tests: **31 / 31 PASS**
+- production build: PASS
+
+성공 run:
+
+- `32822273986`
+
+---
+
+# Stage 07에서 아직 증명하지 않은 것
+
+자동 테스트는 다음을 증명하지 않는다.
+
+- CSS placeholder가 실제 사람 시야처럼 자연스러운가
+- 손/팔 위치와 비율이 사람 눈에 어색하지 않은가
+- R/H1/H2가 실제 주변 사람처럼 느껴지는가
+- 도구 전달이 관계 형성 순간으로 체감되는가
+- 걷기/crouch 움직임이 과하거나 어색하지 않은가
+- perspective label이 몰입을 깨지 않는가
+- 실제 브라우저에서 treatment 강도가 적절한가
+- 초등학생에게 역사적 상상력이 생기는가
+
+따라서 현재 Stage 07은:
+
+# **Implementation Complete / Automated PASS / Human Immersion QA Pending**
+
+이다.
+
+---
+
+# 다음 작업
+
+## 바로 다음
+
+**R2 Stage 07 Teacher Browser Visual/Immersion QA**
+
+확인:
+
+1. 첫 화면 몰입
+2. 손/몸 위치
+3. R/H1/H2 공간감
 4. 도구 전달
-5. 걷기/몸 낮추기 POV
-6. 관계 반응
-7. screen treatment `subtle/accent/strong-accent` 일부 prototype
-8. reduced effects
-9. 짧은 Perspective Bridge
-10. 실제 브라우저 교사 QA
+5. 걷기/몸 낮추기
+6. treatment 강도
+7. reduced effects
+8. 관점 전환 명료성
+9. 개발 메타데이터 미노출
 
-완료 질문:
+## 그 다음
 
-> **사냥하는 사람을 플레이하면 정말 그 사람의 눈과 몸과 제한된 정보로 하루를 살아가는 느낌이 드는가?**
+QA 통과 시:
 
-이 Gate를 통과한 뒤 Stage 08 Hunt Embodied Vertical Slice 전체를 구현한다.
+# **R2 Stage 08 — Hunt Embodied Vertical Slice**
+
+아직 시작하지 않는다.
 
 ---
 
-## Current unfinished work
+# 이후 미완료
 
-- R2 Stage 07 Embodied Experience Skeleton
-- R2 Stage 08 Hunt Embodied Vertical Slice
-- R2 Stage 09 Teacher Immersion QA
-- R2 Stage 10 Student Pilot
-- R2 Stage 11 Gather
-- R2 Stage 12 Camp
-- R2 Stage 13 Three-Perspective Integration
-- R2 Stage 14 Multi-day Change
-- R2 Stage 15 Migration / New Home
-- R2 Stage 16 Historical Concept Bridge
-- Player Body Continuity Sheets
-- Cast Continuity Sheets
+- Stage 07 human QA
+- Stage 08 Hunt Embodied Vertical Slice
+- Stage 09 Teacher Immersion QA
+- Stage 10 Student Pilot
+- Stage 11 Gather
+- Stage 12 Camp
+- Stage 13 Three-Perspective Integration
+- Stage 14 Multi-day Change
+- Stage 15 Migration / New Home
+- Stage 16 Historical Conceptualization
+- Player Body Continuity Sheet
+- Cast Continuity Sheet
 - final visual/audio production
