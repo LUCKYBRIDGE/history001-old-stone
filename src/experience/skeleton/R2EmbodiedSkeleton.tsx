@@ -2,6 +2,7 @@ import { useReducer } from 'react';
 import './r2EmbodiedSkeleton.css';
 import './currentShelter.css';
 import './stage07RelationshipProof.css';
+import './stage07ActorIdentityClarity.css';
 
 export type SkeletonSurfaceMode = 'player' | 'teacher' | 'debug';
 
@@ -92,7 +93,7 @@ const teacherStepLabels: Readonly<Record<SkeletonStep, string>> = {
   fire: '새벽 불 앞 / R 첫 인식',
   'receive-tool': 'R 도구 전달',
   'tool-reveal': '뗀석기 → 주먹도끼 명명',
-  join: '동행자 합류',
+  join: 'H1 합류 요청 / H2 바깥 관찰',
   depart: 'R 귀환 모티프 / 현재 거처 이탈',
   'crouch-proof': 'H1과 함께 지면 관찰',
   travel: '동행 이동 연속성',
@@ -315,6 +316,7 @@ export function R2EmbodiedSkeleton({
         <Fire step={state.step} />
         <CaveOpening step={state.step} />
         <Actors step={state.step} />
+        <ActorDialogueLayer step={state.step} />
         <PlayerBody step={state.step} hasTool={state.hasTool} />
         <WorldDetail step={state.step} />
       </section>
@@ -429,12 +431,17 @@ function Actors({ step }: { step: SkeletonStep }) {
     step === 'join' ||
     step === 'depart';
   const h1SharedObservation = step === 'crouch-proof' || step === 'travel';
+  const h1Invite = step === 'join';
   const h2GazeCue = step === 'h2-notice' || step === 'cave-notice';
+  const h2Scanning = step === 'join' || step === 'h2-notice';
 
   return (
     <div className="r2-actors" aria-hidden="true">
       {showR ? (
-        <div className="r2-actor r2-actor--r" data-testid="r-actor">
+        <div
+          className={`r2-actor r2-actor--r ${step === 'depart' ? 'r2-actor--farewell' : ''}`}
+          data-testid="r-actor"
+        >
           <span className="r2-actor__head" />
           <span className="r2-actor__body" />
           {step === 'receive-tool' ? (
@@ -442,28 +449,112 @@ function Actors({ step }: { step: SkeletonStep }) {
               <span className="r2-tool r2-tool--offered" />
             </span>
           ) : null}
+          {step === 'depart' ? (
+            <span className="r2-actor__gesture r2-actor__gesture--farewell" />
+          ) : null}
         </div>
       ) : null}
       <div
-        className={`r2-actor r2-actor--h1 ${h1SharedObservation ? 'r2-actor--relationship-active' : ''}`}
+        className={`r2-actor r2-actor--h1 ${h1SharedObservation ? 'r2-actor--relationship-active' : ''} ${h1Invite ? 'r2-actor--invite' : ''}`}
         data-testid="h1-actor"
         data-relationship-beat={
-          h1SharedObservation ? 'h1-shared-ground-observation' : undefined
+          h1SharedObservation
+            ? 'h1-shared-ground-observation'
+            : h1Invite
+              ? 'h1-invites-player'
+              : undefined
         }
       >
         <span className="r2-actor__head" />
         <span className="r2-actor__body" />
+        {h1Invite ? (
+          <span className="r2-actor__gesture r2-actor__gesture--invite" />
+        ) : null}
       </div>
       <div
-        className={`r2-actor r2-actor--h2 ${h2GazeCue ? 'r2-actor--relationship-active' : ''}`}
+        className={`r2-actor r2-actor--h2 ${h2GazeCue ? 'r2-actor--relationship-active' : ''} ${h2Scanning ? 'r2-actor--scanning' : ''}`}
         data-testid="h2-actor"
-        data-relationship-beat={h2GazeCue ? 'h2-gaze-cue' : undefined}
+        data-relationship-beat={
+          h2GazeCue
+            ? 'h2-gaze-cue'
+            : h2Scanning
+              ? 'h2-scans-outward'
+              : undefined
+        }
       >
         <span className="r2-actor__head" />
         <span className="r2-actor__body" />
+        {h2Scanning ? <span className="r2-actor__gaze" /> : null}
       </div>
     </div>
   );
+}
+
+function ActorDialogueLayer({ step }: { step: SkeletonStep }) {
+  if (step === 'join') {
+    return (
+      <div className="r2-actor-dialogue-layer">
+        <p
+          className="r2-actor-dialogue r2-actor-dialogue--h1-join"
+          data-testid="h1-dialogue"
+          aria-label="곁에서 기다리던 동행자가 말한다: 같이 가자"
+        >
+          “같이 가자.”
+        </p>
+      </div>
+    );
+  }
+
+  if (step === 'depart') {
+    return (
+      <div className="r2-actor-dialogue-layer">
+        <p
+          className="r2-actor-dialogue r2-actor-dialogue--r-depart"
+          data-testid="r-dialogue"
+          aria-label="불가에 남은 익숙한 사람이 말한다: 해가 지기 전에 돌아와"
+        >
+          “해가 지기 전에 돌아와.”
+        </p>
+      </div>
+    );
+  }
+
+  if (step === 'h2-notice') {
+    return (
+      <div className="r2-actor-dialogue-layer">
+        <p
+          className="r2-actor-dialogue r2-actor-dialogue--h2-notice"
+          data-testid="h2-dialogue"
+          aria-label="앞을 살피던 동행자가 말한다: 저기"
+        >
+          “저기.”
+        </p>
+      </div>
+    );
+  }
+
+  if (step === 'cave-inspect') {
+    return (
+      <div className="r2-actor-dialogue-layer">
+        <p
+          className="r2-actor-dialogue r2-actor-dialogue--h2-cave"
+          data-testid="h2-dialogue"
+          aria-label="먼저 바위 아래 공간을 발견한 동행자가 말한다: 안이 꽤 넓어"
+        >
+          “안이 꽤 넓어.”
+        </p>
+        <p
+          className="r2-actor-dialogue r2-actor-dialogue--h1-cave"
+          data-testid="h1-dialogue"
+          aria-label="곁에서 함께 걸어온 동행자가 말한다: 안쪽은 먼저 봐야 해"
+        >
+          “안쪽은 먼저 봐야 해.”
+        </p>
+      </div>
+    );
+  }
+
+  return null;
 }
 
 function PlayerBody({
@@ -537,21 +628,18 @@ function StoryBeat({
     case 'fire':
       return (
         <>
-          <p className="r2-dialogue">불 너머의 익숙한 사람이 먼저 네 쪽을 본다.</p>
-          <p>
-            오늘도 먹을 것을 찾아 멀리 나가야 한다. 불 곁에 남을 사람과 함께
-            나갈 두 사람이 각자 하루를 준비하고 있다.
+          <p className="r2-dialogue">
+            불 가까이에 앉아 있던 익숙한 얼굴이 네가 눈을 뜨자 바로 시선을 맞춘다.
           </p>
           <p>
-            불 옆에는 사람들이 비바람을 피하려고 세워 둔 임시 거처가 생활의
-            흔적과 함께 이어져 있다.
+            불 주변에서는 오늘 먹을 것을 찾아 나설 준비가 조용히 이어지고 있다.
           </p>
           <button
             className="r2-action r2-action--quiet"
             type="button"
             onClick={() => dispatch({ type: 'NOTICE_R' })}
           >
-            그 사람을 바라본다
+            불가의 익숙한 얼굴을 바라본다
           </button>
         </>
       );
@@ -560,8 +648,8 @@ function StoryBeat({
       return (
         <>
           <p className="r2-dialogue">
-            눈이 마주친 그 사람이 한쪽은 손에 잡히고 다른 쪽은 날카롭게 깨진
-            돌도구를 네 오른손 쪽으로 내민다.
+            불가에서 눈을 맞춘 익숙한 얼굴이 한쪽은 손에 잡히고 다른 쪽은
+            날카롭게 깨진 돌도구를 네 오른손 쪽으로 내민다.
           </p>
           <button
             className="r2-action"
@@ -577,7 +665,7 @@ function StoryBeat({
       return (
         <>
           <p>
-            그 사람의 손이 물러나고 같은 돌이 네 오른손에 남는다. 거친 무게와
+            돌을 건넨 손이 물러나고 같은 돌이 네 오른손에 남는다. 거친 무게와
             깨진 날이 손 안에서 분명하게 느껴진다.
           </p>
           <button
@@ -593,17 +681,16 @@ function StoryBeat({
     case 'join':
       return (
         <>
-          <p className="r2-dialogue">“같이 가자.”</p>
           <p>
-            한 사람은 네가 일어날 때까지 잠깐 기다린다. 다른 한 사람은 이미
-            거처 바깥쪽과 먼 지형을 살피고 있다.
+            주먹도끼를 쥐고 일어서자 가까운 발걸음이 멈춘다. 네 쪽으로 몸을
+            돌린 동행자가 그대로 기다리고 있다.
           </p>
           <button
             className="r2-action"
             type="button"
             onClick={() => dispatch({ type: 'JOIN_COMPANIONS' })}
           >
-            두 사람 곁으로 간다
+            목소리가 난 동행자 곁으로 간다
           </button>
         </>
       );
@@ -611,17 +698,17 @@ function StoryBeat({
     case 'depart':
       return (
         <>
-          <p className="r2-dialogue">“해가 지기 전에 돌아와.”</p>
           <p>
-            뒤돌아보면 방금 말한 사람과 불, 나뭇가지와 덮개로 세운 임시 거처가
-            같은 자리에서 조금씩 작아진다. 네 옆에는 함께 나선 두 사람이 있다.
+            불가 쪽에서 익숙한 목소리가 들린다. 잠깐 뒤를 돌아보면 불과 임시
+            거처가 같은 자리에 남아 있고, 곁의 두 동행자는 네가 움직이기를
+            기다린다.
           </p>
           <button
             className="r2-action"
             type="button"
             onClick={() => dispatch({ type: 'DEPART' })}
           >
-            사람들과 거처를 나선다
+            고개를 끄덕이고 두 동행자와 나선다
           </button>
         </>
       );
@@ -630,15 +717,15 @@ function StoryBeat({
       return (
         <>
           <p>
-            곁에서 걷던 사람이 속도를 늦추고 네가 따라오기를 기다린다. 그 사람이
-            몸을 낮춘 자리 앞, 풀 한쪽이 낮게 눌려 있다.
+            바로 곁을 걷던 동행자가 갑자기 속도를 늦추고 몸을 낮춘다. 그 앞의
+            풀 한쪽이 낮게 눌려 있다.
           </p>
           <button
             className="r2-action"
             type="button"
             onClick={() => dispatch({ type: 'OBSERVE_GROUND' })}
           >
-            그 사람 곁에 몸을 낮춰 함께 살핀다
+            바로 옆에 몸을 낮춰 함께 살핀다
           </button>
         </>
       );
@@ -647,15 +734,15 @@ function StoryBeat({
       return (
         <>
           <p>
-            둘이 다시 일어선다. 앞사람은 네가 일어날 때까지 한 걸음 늦추고,
-            셋은 다시 걸음을 맞춘다. 불과 거처는 이제 보이지 않는다.
+            둘이 다시 일어나자 셋의 발걸음이 이어진다. 불과 거처는 이제 보이지
+            않는다.
           </p>
           <button
             className="r2-action"
             type="button"
             onClick={() => dispatch({ type: 'CONTINUE_TRAVEL' })}
           >
-            사람들과 계속 걷는다
+            두 동행자와 계속 걷는다
           </button>
         </>
       );
@@ -664,16 +751,15 @@ function StoryBeat({
       return (
         <>
           <p>
-            한동안 더 걸은 뒤, 계속 주변을 살피던 다른 사람이 갑자기 멈춘다.
-            고개와 시선이 앞쪽 큰 바위 방향에 고정된다. 아직 네 시야에는 무엇을
-            본 것인지 분명하지 않다.
+            한동안 더 걷자 앞쪽의 발소리가 갑자기 멈춘다. 조금 앞서 걷던
+            동행자의 몸이 큰 바위 쪽으로 돌아간다.
           </p>
           <button
             className="r2-action"
             type="button"
             onClick={() => dispatch({ type: 'FOLLOW_H2_GAZE' })}
           >
-            그 사람이 보는 방향을 바라본다
+            멈춘 동행자의 시선을 따라본다
           </button>
         </>
       );
@@ -682,15 +768,15 @@ function StoryBeat({
       return (
         <>
           <p>
-            그 사람의 시선을 따라 고개를 돌리자 큰 바위 아래에 어두운 공간이
-            드러난다. 생각보다 입구가 넓어 보인다.
+            고개를 돌리자 큰 바위 아래에 어두운 공간이 드러난다. 생각보다 입구가
+            넓어 보인다.
           </p>
           <button
             className="r2-action"
             type="button"
             onClick={() => dispatch({ type: 'APPROACH_CAVE' })}
           >
-            사람들과 바위 아래 공간으로 가까이 간다
+            두 동행자와 바위 아래 공간으로 가까이 간다
           </button>
         </>
       );
@@ -698,8 +784,6 @@ function StoryBeat({
     case 'cave-inspect':
       return (
         <>
-          <p className="r2-dialogue">먼저 발견한 사람이 말한다. “안이 꽤 넓어.”</p>
-          <p className="r2-dialogue">곁의 다른 사람이 어두운 안쪽을 보며 말한다. “안쪽은 먼저 봐야 해.”</p>
           <p>
             바닥 한쪽은 비교적 말라 있고 머리 위로 두꺼운 바위가 이어진다.
             비나 바람을 피하기에는 괜찮아 보인다.
@@ -721,8 +805,8 @@ function StoryBeat({
     case 'perspective-proof':
       return (
         <>
-          <p className="r2-orientation__eyebrow">같은 날, 아까 그 사람의 자리</p>
-          <h1>아침에 도구를 건넨 사람의 관점</h1>
+          <p className="r2-orientation__eyebrow">같은 날, 불가에 남은 자리</p>
+          <h1>아침에 네게 도구를 건넨 사람의 관점</h1>
           <p>
             같은 Day 1의 같은 아침이다. 불은 바로 앞에서 타고 있다. 조금 전
             내가 돌도구를 건넨 사람이 그 도구를 오른손에 들고 두 동행자와 함께
@@ -885,25 +969,25 @@ function getBodyPose(step: SkeletonStep) {
 function getWorldAriaLabel(step: SkeletonStep) {
   switch (step) {
     case 'fire':
-      return '새벽 불 앞. 가까운 사람들과 내 손과 무릎, 임시 거처가 보이는 시야';
+      return '새벽 불 앞. 불 가까이 앉아 있던 익숙한 얼굴과 두 동행자, 내 손과 무릎, 임시 거처가 보이는 시야';
     case 'receive-tool':
-      return '눈이 마주친 익숙한 사람이 돌도구를 내밀고 내 오른손이 향하는 시야';
+      return '불가에서 눈을 맞춘 익숙한 얼굴이 돌도구를 내밀고 내 오른손이 향하는 시야';
     case 'tool-reveal':
       return '내 오른손에 대표적인 뗀석기인 주먹도끼를 받아 쥔 채 형태를 살피는 시야';
     case 'join':
-      return '주먹도끼를 든 채 기다리는 한 사람과 주변을 살피는 다른 사람 곁에서 일어나는 시야';
+      return '주먹도끼를 든 채 내 쪽으로 돌아서 기다리는 동행자와 바깥을 향해 서서 먼 곳을 살피는 동행자가 보이는 시야';
     case 'depart':
-      return '주먹도끼를 들고 두 사람과 현재 임시 거처를 떠나며 불과 기다리는 사람을 뒤돌아보는 시야';
+      return '주먹도끼를 들고 두 동행자와 떠나기 전 불가에 남은 익숙한 얼굴과 현재 임시 거처를 돌아보는 시야';
     case 'crouch-proof':
-      return '동행자 한 사람 곁에 몸을 낮춰 내 손과 무릎 너머의 눌린 풀을 함께 살피는 시야';
+      return '바로 곁을 걷던 동행자와 몸을 낮춰 내 손과 무릎 너머의 눌린 풀을 함께 살피는 시야';
     case 'travel':
       return '지면을 함께 살핀 뒤 두 동행자와 다시 걸음을 맞추는 시야';
     case 'h2-notice':
-      return '한동안 이동한 뒤 주변을 살피던 동행자가 갑자기 멈추고 한 방향을 바라보는 시야';
+      return '한동안 이동한 뒤 앞을 살피던 동행자가 갑자기 멈추고 큰 바위 방향을 바라보는 시야';
     case 'cave-notice':
-      return '동행자의 시선을 따라 본 뒤 멀리 큰 바위 아래 넓어 보이는 어두운 공간이 드러난 시야';
+      return '멈춘 동행자의 시선을 따라 본 뒤 멀리 큰 바위 아래 넓어 보이는 어두운 공간이 드러난 시야';
     case 'cave-inspect':
-      return '주먹도끼를 든 채 동행자들과 넓은 자연 공간의 입구와 마른 바닥, 어두운 안쪽을 살피는 시야';
+      return '주먹도끼를 든 채 두 동행자와 넓은 자연 공간의 입구와 마른 바닥, 어두운 안쪽을 살피는 시야';
     case 'perspective-proof':
       return '같은 Day 1 아침, 도구를 건넨 사람의 자리에서 주먹도끼를 든 사람과 두 동행자가 멀어지는 모습을 보는 시야';
     default:
