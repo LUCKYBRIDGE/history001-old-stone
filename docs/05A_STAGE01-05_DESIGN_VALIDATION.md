@@ -1,280 +1,223 @@
 # 구석기 역사 체험 웹게임
-## Stage 01~05 설계 재검증 v5 / Curriculum Anchor Audit
+## Stage 01~05 설계 재검증 v6 / Canonical Consistency Audit
 
-> 목적: Embodied First-Person, 관계·감정·공포·미세 연출 위에 교과서의 구석기 핵심 개념을 추가한 뒤, Stage 01~05가 **몰입·교과 연계·역사적 정확성·분기 설계·구현 가능성**을 동시에 만족하는지 재검증한다.
+> 목적: Stage 01~05가 최신 canonical baseline과 일치하는지 검증한다.
 >
-> 기준 자료: 사용자가 제공한 5학년 사회 교과서의 구석기 부분. 교과서가 직접 뒷받침하는 사실과 프로젝트가 체험을 위해 재구성한 사건을 구분한다.
+> 기준선: `docs/00_CANONICAL_BASELINE.md`
 
 ---
 
-# 1. 최종 결론
+# 1. 최종 판정
 
-## **PASS AFTER REVISION**
+# **PASS AFTER CANONICAL UNIFICATION**
 
-교과서 핵심을 추가하면서 가장 큰 위험은 `몰입형 역사 체험`이 다시 `교과서 내용을 보여주고 문제를 푸는 게임`으로 회귀하는 것이었다.
-
-이를 피하기 위해 다음을 상위 원칙으로 확정했다.
-
-# **Experience → Name → Reuse → Connect**
-
-- 먼저 세계 안에서 만난다.
-- 핵심 용어는 짧고 정확하게 짚는다.
-- 같은 물건/공간/행동을 다시 경험한다.
-- 마지막에 교과 개념·실제 유물/유적과 연결한다.
-
-신규 헌법:
-
-- `docs/01E_CURRICULUM_TEXTBOOK_ANCHORS.md`
+이번 검증에서 핵심은 새 기능 추가가 아니라 **용어·위계·역할 경계·사실/재구성·완료 범위의 통일**이다.
 
 ---
 
-# 2. 이번 감사에서 보존한 교과서 핵심
+# 2. 공통 판정 기준
 
-전체 체험에서 다음을 Learning Invariant로 본다.
+각 Stage가 다음을 만족해야 한다.
+
+- Role-True limited POV
+- Embodied First-Person
+- Emotional Reality
+- Choice Fairness = causal plausibility
+- Student Play Order ≠ In-World Time
+- Experience → Name → Reuse → Connect
+- `뗀석기 → 대표적인 예: 주먹도끼` 위계
+- current temporary shelter / 막집 / 동굴·바위 그늘 용어 분리
+- Historical Fact / Reconstructed Event 분리
+- 필수 교과 개념의 분기 독점 방지
+- 관계·공포·죄책감 등을 역사적 상황과 연결
+- generic engine 과설계 방지
+
+---
+
+# 3. Stage 01 판정
+
+최신 Core는 다음을 명확히 소유한다.
+
+- 프로젝트 정체성
+- 학습 흐름
+- 교과 Anchor
+- 사실/재구성
+- 역할 제한 시점
+- same-day rule
+- body/relationship/emotion/choice/threat/treatment
+- 거처와 도구 용어
+
+판정:
+
+# **PASS**
+
+---
+
+# 4. Stage 01E 판정
+
+핵심 교과 Anchor:
 
 - 뗀석기
 - 주먹도끼
-- 불의 이용
+- 불
 - 막집
-- 동굴 / 바위 그늘 생활
-- 먹을 것을 찾아 옮겨 다니는 생활
-- 사냥·채집·생활 가공
+- 동굴/바위 그늘
+- 이동 생활
+- 사냥·채집·가공
 
-단, 다음은 역사 사실 자체가 아니라 재구성이다.
+최신 오개념 Guardrail:
 
-- R/H1/H2라는 구체 인물
-- R이 특정 날 주먹도끼를 건네는 사건
-- Hunt 도중 특정 동굴을 발견하는 사건
-- 그날의 대사·감정·선택 결과
+- 모든 뗀석기 = 주먹도끼 아님
+- 주먹도끼 = 사냥 무기 전용 아님
+- 동굴 = 유일한 집 아님
+- 막집 = 유일한 집 아님
+- 동굴 발견 = 자동 이사 아님
+- 재구성 인물/사건 = 실제 기록된 개별 사실 아님
 
-판정: **SOURCE / RECONSTRUCTION BOUNDARY PASS**
+판정:
 
----
-
-# 3. Stage 01 Core v8 검증
-
-확인한 문제:
-
-1. 기존 Learning Invariant의 `도구` 표현이 너무 추상적이었음.
-2. 막집만 강조하면 동굴/바위 그늘 생활이 약해질 수 있었음.
-3. 교과 용어를 너무 숨기면 체험 기억과 교과서 용어가 연결되지 않을 수 있었음.
-4. 반대로 용어를 많이 넣으면 몰입이 깨질 수 있었음.
-
-보완:
-
-- 뗀석기/주먹도끼를 명시적 Anchor로 승격.
-- 막집 + 동굴/바위 그늘을 주거 다양성으로 함께 고정.
-- `Experience → Name → Reuse → Connect` 도입.
-- Historical Fact와 Reconstructed Event 구분.
-- 실제 유물/유적은 체험 뒤 evidence connection으로 사용.
-
-판정: **PASS / v8**
+# **PASS**
 
 ---
 
-# 4. Stage 01A~01D 재확인
+# 5. Stage 02 판정
 
-기존 원칙과 Curriculum Anchor가 충돌하는지 확인했다.
+검증:
 
-## Embodied First-Person
+- 세 역할은 같은 Day 1
+- role order와 world time 분리
+- Curriculum Anchor 역할 분산
+- cross-role signal의 비소급성
+- Common Evening 통합
+- Learning Invariant와 Narrative Variant 분리
 
-교과 용어가 들어와도 화면의 중심은 여전히
+판정:
+
+# **PASS**
+
+---
+
+# 6. Stage 03 Hunt STORY 판정
+
+최신 흐름:
 
 ```text
-내 몸 + 물건 + 사람 + 공간 + 행동
-```
-
-이다.
-
-`주먹도끼`를 카드로 띄우고 몸에서 사라지게 하면 FAIL.
-
-## Relationship / Agency
-
-R이 도구를 건네는 이유는 `용어를 가르치기 위해서`가 아니라 생활 관계 속 행동이어야 한다.
-
-## Screen Treatment
-
-교과 cue를 강조하기 위해 과한 glow/flash를 사용하지 않는다.
-
-## Learning Clarity / Safety / Historical Integrity
-
-- 핵심 용어는 정확하게.
-- 재구성 장면을 사실처럼 단정하지 않음.
-- 학생이 용어를 모른다고 행동을 막지 않음.
-
-판정: **PASS / NO CONSTITUTIONAL CONFLICT**
-
----
-
-# 5. Stage 01E Curriculum Anchor 검증
-
-신규 규칙의 핵심:
-
-- `뗀석기/주먹도끼`는 최소 한 번 명확히 짚음.
-- 도구를 받은 뒤 이름을 붙임.
-- 주먹도끼의 다용도성은 이후 실제 사용으로 강화.
-- 막집과 동굴/바위 그늘을 경쟁 정답으로 만들지 않음.
-- 동굴 발견은 장소 평가 event.
-- 실제 전곡리 주먹도끼·동굴 유적은 후속 증거 연결.
-
-판정: **REQUIRED / PASS**
-
----
-
-# 6. Stage 02 Experience Structure v8 검증
-
-발견한 위험:
-
-- Hunt가 모든 구석기 용어를 설명하면 다른 역할이 약해짐.
-- 동굴 발견을 Hunt의 한 분기에만 두면 필수 개념 coverage가 경로에 따라 사라질 수 있음.
-- 새 동굴 발견이 같은 날 다른 역할의 과거를 소급 변경할 수 있음.
-
-보완:
-
-- 교과 Anchor를 세 역할에 분산.
-- 필수 개념은 특정 분기 하나가 독점하지 않음.
-- cave discovery는 후속 표현에만 영향을 주는 cross-role signal 후보.
-- Student Play Order ≠ In-World Time 유지.
-- Common Evening과 later-day에서 개념과 이동 이유를 통합.
-
-판정: **PASS / v8**
-
----
-
-# 7. Stage 03 Hunt STORY v7 검증
-
-강화된 핵심 서사:
-
-```text
-불 앞의 관계
-→ 주먹도끼 전달
-→ 짧은 명명
-→ 이동
+새벽 불 + 현재 임시 거처
+→ R의 돌도구 전달
+→ 뗀석기 상위 개념 + 주먹도끼 대표 예
+→ 출발
 → 흔적/추적
-→ 거리와 시간 압박
-→ 동굴/바위 공간 발견 가능
-→ 보호 가능성과 위험 가능성 평가
-→ 위협/결과
-→ 귀환
-→ 재회
+→ 거리·시간 딜레마
+→ 자연 거처 후보 발견 가능
+→ 위험/공포
+→ 다축 결과
+→ 귀환/재회
 ```
 
-검증 결과:
+확인:
 
-- 주먹도끼가 설명용 artifact가 아니라 관계/몸의 물건으로 기능함.
-- `주먹도끼 = 무기`로 축소하지 않음.
-- 동굴을 자동 좋은 집으로 만들지 않음.
-- 동굴을 자동 공포 던전으로 만들지 않음.
-- 새 장소 발견이 이동 생활의 장기 씨앗이 됨.
+- 도구는 몸/관계의 물건
+- 자연 거처 후보는 자동 정답이 아님
+- 공포와 보호 가능성 공존
+- 죄책감/후회도 상황에서 자연스럽게 가능
 
-판정: **PASS / v7**
+판정:
 
----
-
-# 8. Stage 04 PLAYFLOW v7 검증
-
-핵심 보완:
-
-- terminology reveal을 대부분 Beat로 처리.
-- Tool Handoff 이후에만 `뗀석기 · 주먹도끼` cue.
-- Cave / Natural Shelter Discovery를 의미 있는 Scene으로 추가.
-- 학생이 cave 입구/바닥/안쪽/주변 길을 실제로 살필 수 있게 설계.
-- cave inspection 후에만 `동굴 · 바위 그늘` 교과 연결.
-- Scene state 폭발 방지 원칙 유지.
-
-판정: **PASS / v7**
+# **PASS**
 
 ---
 
-# 9. Stage 05 Role Map v7 검증
+# 7. Stage 04 PLAYFLOW 판정
 
-역할별 Curriculum Anchor가 고유 플레이 문법과 맞는지 확인했다.
+검증:
+
+- Scene ≠ Beat
+- terminology reveal은 Beat
+- 실제 기능 사용 evidence를 Stage 07에서 과장하지 않음
+- natural shelter discovery는 직접 관찰/판단 Scene
+- fact/reconstruction 관리 정보는 Player에 노출하지 않음
+
+판정:
+
+# **PASS**
+
+---
+
+# 8. Stage 05 Role Map 판정
 
 ## Hunt
 
-- 주먹도끼 first encounter
-- 이동/위험
-- 동굴 발견 가능
+거리 / 흔적 / 도구 / 위험 / 새 장소 / 귀환
 
 ## Gather
 
-- 뿌리·열매 채집
-- 땅파기·두들기기 같은 생활 도구 사용
-- 가까운 자원 부족
+채집 / 가공 / 도구 재사용 / 공간 기억 / 범위 확대
 
 ## Camp
 
-- 불 유지/음식 익히기
-- 막집 생활/손질
-- 새 동굴 후보의 공동체적 재평가
+불 / 현재 거처 / 막집 / 생활 유지 / 기다림 / 재회 / 새 장소 재평가
 
-좋은 점:
+역할마다 다른 몸·감정·시간 문법을 유지한다.
 
-- 같은 주먹도끼가 역할마다 다른 의미를 가질 수 있음.
-- 의·식·주가 Common Evening에서 하나의 생활로 다시 만날 수 있음.
+판정:
 
-판정: **PASS / v7**
+# **PASS**
 
 ---
 
-# 10. 오개념 위험 검증
+# 9. 주요 통일 결과
 
-명시적으로 막은 오개념:
+## 도구
 
-- `구석기 사람은 모두 동굴에서 살았다.`
-- `구석기 사람의 집은 막집 하나였다.`
-- `주먹도끼는 사냥용 무기였다.`
-- `동굴은 막집보다 발전된 집이다.`
-- `동굴을 발견하면 바로 이사했다.`
-- `게임 속 특정 하루가 실제 전곡리/금굴에서 있었던 사실이다.`
+```text
+뗀석기
+└─ 대표적인 예: 주먹도끼
+```
 
-대신 목표 이해:
+## 거처
 
-- 환경과 이동 상황에 따라 다양한 생활 공간을 이용할 수 있었음.
-- 도구는 여러 생활 행동에 사용됨.
-- 이동은 자원·거리·거처·위험을 포함한 생활 조건과 연결됨.
+```text
+현재 임시 거처
+→ Camp 실제 생활/손질 뒤 '막집' 명명
 
-판정: **PASS WITH HUMAN QA REQUIRED**
+자연 거처 후보
+→ 살핀 뒤 '동굴 / 바위 그늘' 연결
+```
 
----
+## Fact / Reconstruction
 
-# 11. 몰입 저하 위험 검증
+```text
+교과서·유물·유적이 뒷받침
+→ Historical / Curriculum Fact
 
-새 교과 요소 때문에 발생할 수 있는 UX 위험:
-
-1. 용어 cue가 너무 크거나 오래 남음.
-2. cave cue가 `학습 정답 공개`처럼 보임.
-3. 주먹도끼 이름을 알려준 뒤 행동보다 읽기가 중심이 됨.
-4. cave 설명 텍스트가 공간 자체보다 더 강함.
-
-대응:
-
-- 짧은 terminology cue.
-- 행동 뒤 reveal.
-- Primary Attention은 몸/사람/공간 우선.
-- Stage 07 Human QA에서 실제 체감 검증.
-
-판정: **AUTOMATABLE PART PASS / HUMAN UX PENDING**
+구체 인물·하루 사건·대사·감정
+→ Reconstructed Event
+```
 
 ---
 
-# 12. Stage 01~05 Final Gate
+# 10. 아직 설계 PASS가 구현 완료를 뜻하지 않는 부분
 
-다음 질문에 모두 YES여야 한다.
+- 주먹도끼 다용도 interaction
+- 막집 생활/손질 및 명명
+- 불의 여러 기능 실제 상호작용
+- Hunt 전체 공포/선택/결과/귀환
+- 학생 오개념 검증
 
-- 교과서 핵심 사실이 누락되지 않는가?
-- 핵심 용어를 실제로 한 번은 명확히 짚는가?
-- 교과 설명이 경험보다 먼저 나오지 않는가?
-- 주먹도끼가 몸과 행동 속에 반복되는가?
-- 막집과 동굴/바위 그늘을 모두 다루는가?
-- 동굴 발견이 실제 장소 판단처럼 설계되는가?
-- 교과 개념이 특정 선택 하나에 갇히지 않는가?
-- 역할마다 다른 생활 의미가 있는가?
-- 실제 자료와 재구성 사건을 구분하는가?
-- 몰입/관계/감정/공포 설계가 교과 연계 때문에 약해지지 않는가?
+이 부분은 후속 Stage 책임이다.
 
-## 최종 판정
+---
 
-# **Stage 01~05: PASS AFTER CURRICULUM ANCHOR REVISION**
+# 11. Stage 01~05 Final Gate
 
-다음 책임은 Stage 06 기술 계약과 Stage 07 실제 browser proof다.
+- 상위 문서 간 공식 용어가 하나로 통일됐는가?
+- 구형 `뗀석기 · 주먹도끼` 병렬 표현을 canonical 예시로 쓰지 않는가?
+- 현재 임시 거처와 막집을 섞지 않는가?
+- 동굴/바위 그늘을 자동 새 집으로 만들지 않는가?
+- 사실/재구성이 구분되는가?
+- Stage 07 proof를 전체 학습 완료로 과장하지 않는가?
+- 역할별 문법이 서로 다른가?
+
+현재 판정:
+
+# **PASS**
