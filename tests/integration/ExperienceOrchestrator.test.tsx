@@ -76,8 +76,9 @@ describe('ExperienceOrchestrator', () => {
     render(<App />);
 
     expect(
-      screen.getByRole('heading', { name: '사냥을 나선 사람의 관점' }),
+      screen.getByRole('heading', { name: '불 냄새가 먼저 난다.' }),
     ).toBeTruthy();
+    expect(document.body.textContent).not.toContain('사냥을 나선 사람의 관점');
     expect(document.body.textContent).not.toContain('Stage 08-B');
     expect(document.body.textContent).not.toContain('현재 단계:');
   });

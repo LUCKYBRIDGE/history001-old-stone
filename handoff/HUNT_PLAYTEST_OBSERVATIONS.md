@@ -170,7 +170,7 @@ H2: 주변을 살핀다 → 먼저 멈춘다 → 플레이어가 그 시선을 �
 
 상태:
 
-- first remediation replay failed / **second remediation in progress**
+- second remediation replay still failed broader immersion / **third remediation candidate pending human re-check**
 
 ---
 
@@ -223,7 +223,7 @@ Root cause category:
 
 상태:
 
-- first remediation replay failed / **second remediation in progress**
+- second remediation replay still failed broader immersion / **third remediation candidate pending human re-check**
 
 ---
 
@@ -402,7 +402,95 @@ Root cause category:
 
 상태:
 
-- second remediation implemented candidate / **Human re-check pending**
+- speaker-source remediation candidate remains / **broader immersion failed again; Human re-check pending**
+
+---
+
+# Stage 07.5 follow-up Human QA after PR #23
+
+프로젝트 오너가 PR #23 병합본을 다시 플레이한 뒤 다음을 직접 지적했다.
+
+> **“너무 각 인물의 입장이 너무 역할 중심으로 서술되어 이입 전혀 안돼.”**
+
+이 관찰은 화자 위치를 명확히 하는 것만으로는 Relationship Presence와 Role Embodiment가 성립하지 않음을 확인한다.
+
+---
+
+## R2UX-007 — Functional-role narration blocks identification
+
+위치:
+
+- 시작 orientation
+- 사람 합류 / 출발 / 흔적 관찰 / 자연 거처 발견
+- Perspective Proof
+
+관찰 사실:
+
+- `사냥을 나선 사람의 관점`, `아침에 도구를 건넨 사람의 관점`처럼 현재 인물을 기능으로 먼저 정의함
+- Player가 인물을 `같이 살아가는 사람`보다 `도구 전달 담당`, `함께 이동 담당`, `주변 관찰 담당` 같은 제작 역할로 해석하게 됨
+- PR #23에서 화자 위치와 pose는 더 명확해졌지만 Player prose와 버튼이 여전히 `동행자`, 역할별 행동 설명을 반복함
+- 관계를 기억하기보다 각 인물의 기능을 읽고 따라가는 느낌이 남음
+
+학생/교사 반응:
+
+- 프로젝트 오너가 실제 플레이에서 **역할 중심 서술 때문에 전혀 이입되지 않는다**고 명시적으로 보고
+
+심각도:
+
+- **P1**
+
+재현 여부:
+
+- PR #23 main 병합본에서 재현 확인
+
+Root cause category:
+
+- Narrative problem
+- Relationship problem
+- Perspective problem
+- Interaction problem
+
+해석:
+
+- R/H1/H2라는 내부 역할 모델 자체가 문제는 아님
+- 문제는 authoring metadata가 Player-facing 문장으로 번역되어 인물을 사람보다 기능으로 먼저 이해하게 만드는 것
+- 이름을 추가하거나 역할 설명을 더 자세히 하는 방식은 오히려 문제를 악화할 수 있음
+- 관점 역시 제목으로 선언하기보다 몸·물건·공간·방금 전 사건의 continuity로 알아차리게 해야 함
+
+최소 수정 가설:
+
+- Player orientation에서 역할/관점 제목 제거
+- `동행자`, `도구를 건넨 사람`, `주변을 살피는 사람` 같은 기능명 중심 표현 제거
+- 현재 몸에서 들리는 소리, 보이는 손/얼굴, 거리, 방향, 이전 공유 사건으로 인물을 이어감
+- 버튼도 역할 대상으로 명령하지 않고 `그쪽을 본다`, `옆에 쪼그려 앉는다`, `다시 걷는다`처럼 즉시 행동으로 작성
+- Perspective Proof는 새 역할 제목 없이 `빈 손 → 멀리 있는 같은 돌 → 불 → 방금 한 말`로 새 자리임을 깨닫게 함
+- 내부 Teacher/Debug에서는 R/H1/H2와 reconstruction metadata를 그대로 유지
+
+회귀 위험:
+
+- 역할 설명을 없애면서 실제 화자/행동 주체 식별까지 다시 모호해질 위험
+- 감각 문장이 과도해져 문학적 장문으로 흐를 위험
+- 관점 전환이 너무 암시적이면 일부 학생이 새 몸을 알아차리지 못할 위험
+
+교과/역사/관점 영향:
+
+- 교과 개념 순서와 `뗀석기 → 주먹도끼` 위계는 변경하지 않음
+- R/H1/H2는 계속 Historical Reconstruction / internal authoring metadata임
+- Player가 제작 역할을 외우는 것이 학습 목표가 아님
+- 관점 전환은 전지적 정보 공유가 아니라 같은 사건을 다른 몸에서 다시 지각하는 proof로 유지
+
+수정 후 다시 사람이 확인할 항목:
+
+- 첫 화면에서 역할을 읽는 대신 실제 그 자리에서 눈을 뜨는 느낌이 드는가
+- `동행자` 같은 기능 단어 없이도 주변 사람이 자연스럽게 이어지는가
+- 인물을 `무슨 역할을 하는 사람`보다 `아까 눈이 마주쳤던 사람 / 같이 걸었던 사람`처럼 사건으로 기억하는가
+- 버튼이 사람의 기능을 설명하지 않고 내 즉시 행동처럼 느껴지는가
+- Perspective Proof에서 제목을 읽지 않아도 손·돌·불·발소리로 자리 변화가 이해되는가
+- 설명이 줄었는데도 누가 말하고 무엇이 일어나는지는 오히려 더 자연스럽게 알 수 있는가
+
+상태:
+
+- third remediation implemented candidate / **Human re-check pending**
 
 ---
 
@@ -412,9 +500,9 @@ Root cause category:
 
 - R handoff 뒤 terminology
 - held-item continuity
-- H1 invitation dialogue가 H1 spatial cue에 연결됨
+- H1 invitation dialogue가 world spatial cue에 연결됨
 - H1/H2가 join에서 서로 다른 pose/relationship marker를 가짐
-- R return motif가 R spatial cue에서 나옴
+- R return motif가 fire-side spatial cue에서 나옴
 - H1 shared observation ordering
 - H2 stop/gaze ordering
 - H2 gaze-follow 전 cave 미노출
@@ -423,15 +511,20 @@ Root cause category:
 - cave inspection 뒤 terminology
 - same-day perspective callback 구조
 - Player / Teacher / Debug 정보 경계
+- Player orientation에 역할/관점 제목이 없음
+- Player 주요 flow에 `동행자`, R/H1/H2 같은 제작 역할어가 노출되지 않음
+- Perspective Proof가 역할 제목이 아니라 body/object continuity를 사용함
 
 사람만 판정할 것:
 
-- R/H1/H2가 실제 서로 다른 사람처럼 느껴지는가
+- 주변 인물이 실제 서로 다른 사람처럼 느껴지는가
 - 누가 말하는지 설명 없이 알 수 있는가
-- 관계가 설명문이 아니라 행동으로 느껴지는가
+- 관계가 기능 설명이 아니라 함께 겪은 사건으로 기억되는가
+- 역할명을 읽지 않아도 지금 이 몸과 상황에 들어간 느낌이 드는가
+- 관점 전환을 제목 없이도 자연스럽게 이해할 수 있는가
 - 팔/손/도구가 자연스러운가
 - current shelter가 생활 공간처럼 느껴지는가
 - terminology가 몰입을 끊는가
 - Perspective Proof가 실제 관계 callback으로 작동하는가
 
-# **실제 재플레이 전에는 R2UX-001~006을 RESOLVED로 표시하지 않는다.**
+# **실제 재플레이 전에는 R2UX-001~007을 RESOLVED로 표시하지 않는다.**
