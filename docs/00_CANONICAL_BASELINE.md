@@ -1,5 +1,5 @@
 # 구석기 역사 체험 웹게임
-## Canonical Baseline v1 — R2 Stage 07 Curriculum-Hardened Baseline
+## Canonical Baseline v2 — R2 Stage 07 Curriculum-Hardened Baseline
 
 이 문서는 프로젝트의 **현재 기준선, 문서 위계, 공식 용어, 완료/미완료 경계**를 한곳에 고정한다.
 
@@ -43,6 +43,8 @@
 12. `docs/07_IMMERSION_NARRATIVE_BIBLE.md`
 13. `docs/00_DEVELOPMENT_WORKFLOW.md`
 14. `PROJECT_STATUS.md` / `handoff/CURRENT_HANDOFF.md`
+
+`docs/06_TECH_BLUEPRINT.md`가 **유일한 기술 SSOT**다. 과도기 보정 문서였던 `06A`는 v8에 흡수되어 삭제됐으며 다시 canonical 문서로 사용하지 않는다.
 
 다음은 **기록/전환 참고 문서**이며 canonical 설계를 덮지 않는다.
 
@@ -140,11 +142,11 @@ Immersion
 
 - R/H1/H2라는 인물
 - R이 특정 아침에 주먹도끼를 건네는 사건
+- 이 Day 1 공동체의 구체 거처 배치
 - Hunt 중 특정 동굴 후보를 발견하는 사건
 - 구체 대사·감정·선택 결과
 
-Player flow를 매번 `[재구성]` 라벨로 끊지 않는다.
-Teacher/Debug에서는 사실/재구성 경계를 확인할 수 있어야 한다.
+Player flow를 매번 `[재구성]` 라벨로 끊지 않는다. Teacher/Debug에서는 사실/재구성 경계를 확인할 수 있어야 한다.
 
 ---
 
@@ -240,8 +242,7 @@ Stage 07이 아직 증명하지 않은 것:
 
 ## Curriculum Anchor
 
-교과 핵심 개념과 구현/QA를 연결하는 안정 ID.
-학생에게 internal ID는 노출하지 않는다.
+교과 핵심 개념과 구현/QA를 연결하는 안정 ID. 학생에게 internal ID는 노출하지 않는다.
 
 ## Terminology Reveal
 
@@ -279,14 +280,63 @@ Stage 07이 아직 증명하지 않은 것:
 
 ---
 
-# 12. 변경 규칙
+# 12. 운영 상태 소유권
+
+문서가 서로 다른 시점의 상태를 말하지 않도록 역할을 분리한다.
+
+## Canonical docs
+
+- 장기 원칙
+- 설계 계약
+- Acceptance Gate
+- 공식 용어
+
+최신 SHA/run/test count 같은 변동 정보는 가능한 한 소유하지 않는다.
+
+## `PROJECT_STATUS.md`
+
+- 현재 phase
+- 현재 완료/미완료 판정
+- 다음 공식 Gate
+- 현재 통합 baseline의 요약
+
+## `handoff/CURRENT_HANDOFF.md`
+
+- 새 세션이 지금 무엇을 해야 하는지
+- 무엇을 다시 하지 말아야 하는지
+- 현재 개발/QA 진입점
+
+## `handoff/TEST_REPORT.md`
+
+- 가장 최근에 main에 통합되어 검증된 baseline SHA
+- CI run
+- test count
+- 자동검증 범위와 한계
+
+# **이미 main에 통합된 작업을 운영 문서에서 미래형으로 쓰지 않는다.**
+
+예:
+
+금지:
+
+> 최종 CI 뒤 main에 통합한다.
+
+이미 통합됐다면:
+
+> main 통합 완료 / main push CI PASS.
+
+---
+
+# 13. 변경 규칙
 
 새 리비전에서 반드시 확인한다.
 
 - 한 개념에 서로 다른 공식 용어가 생기지 않았는가?
 - 구형 버전 예시가 최신 계약보다 앞서 읽히지 않는가?
 - Audit/Legacy 문서가 canonical 문서를 덮지 않는가?
+- 삭제/흡수된 보정 문서를 다시 canonical로 참조하지 않는가?
 - 문서의 테스트 수/현재 Gate/버전이 실제 저장소와 일치하는가?
+- 운영 문서가 이미 끝난 병합을 미래형으로 말하지 않는가?
 - 학생 화면과 Teacher/Debug 관리 정보가 분리되는가?
 - 구현했다고 학습 완료로 과장하지 않는가?
 
