@@ -12,9 +12,10 @@
 
 - `docs/00_CANONICAL_BASELINE.md`
 
-시각 제작 보완 계약:
+시각 제작 계약:
 
-- `docs/07A_FIRST_PERSON_VISUAL_ASSET_BIBLE.md`
+- `docs/07A_FIRST_PERSON_VISUAL_ASSET_BIBLE.md` — 원칙/아트 프로덕션 계약
+- `docs/07B_FIRST_PERSON_VISUAL_PRODUCTION_SPEC.md` — Stage 08 직전 구체 실행 규격
 
 교과 연결 문법:
 
@@ -35,13 +36,14 @@
 - Stage 06 Technical Blueprint: **PASS / v8 / SINGLE TECH SSOT**
 - Stage 06A supplement: **REMOVED / absorbed into Stage 06 v8**
 - Immersion Narrative Bible: **PASS / v7**
-- First-Person Visual Asset Bible: **PLANNING CONTRACT ADDED / Stage 08 production not started**
+- First-Person Visual Asset Bible: **PLANNING CONTRACT ADDED**
+- First-Person Visual Production Spec: **HARDENED / production not started**
 - Legacy Hunt transition brief: **NON-CANONICAL / refreshed**
 - Audit reports: **NON-CANONICAL historical records**
 - Stage 07 Skeleton: **IMPLEMENTATION COMPLETE**
 - Stage 07 automated verification: **PASS**
 - Stage 07 human QA: **PENDING**
-- Stage 08 Hunt Embodied Vertical Slice: **BLOCKED until Human Gate PASS**
+- Stage 08 Hunt Embodied Vertical Slice: **BLOCKED until Human Gate PASS + Visual Production Readiness**
 
 ---
 
@@ -88,6 +90,7 @@
 - 이 Day 1의 구체 거처 배치
 - Hunt 중 특정 자연 거처 후보 발견
 - 구체 대사·감정·선택 결과
+- Hunt Player의 dominant hand 같은 production continuity attribute
 
 Player에는 reconstruction 관리 metadata를 노출하지 않는다.
 Teacher/Debug에서 확인한다.
@@ -131,11 +134,39 @@ Teacher/Debug의 reconstruction note는 다음 범위를 일관되게 구분한�
 
 ---
 
-# First-Person Visual / Image Production 계획
+# First-Person Visual / Image Production 현재 확정안
 
-새 `docs/07A_FIRST_PERSON_VISUAL_ASSET_BIBLE.md`는 공개 1인칭 게임/오픈소스/박물관·연구기관 자료에서 검증 가능한 원칙을 프로젝트의 2D 웹 구조로 번역한다.
+`07A`가 시각 제작 원칙을 소유하고, `07B`가 Stage 08 직전 실행 규격을 구체화한다.
 
-핵심 방향:
+## 확정 Style
+
+# **Grounded Illustrative Realism**
+
+- 현실적인 신체/도구/공간 비율
+- 자연스러운 재질과 광원
+- 약한 회화적 질감 허용
+- hyper-photoreal uncanny / fantasy barbarian / cartoon / textbook diagram 느낌 금지
+
+## 확정 Render Strategy
+
+```text
+Mode A: Layered Reusable Composite
+Mode B: Unified Contact Keyframe
+Mode C: Locked-Keyframe Variation
+```
+
+핵심 contact 장면은 손/NPC/도구를 따로 생성해 억지로 합치지 않고 **통합 contact keyframe을 먼저 확정**한다.
+
+같은 Scene의 다음 Beat는 독립 text-to-image 반복보다:
+
+- approved reference anchor
+- reference-conditioned variation
+- pose/depth control
+- inpaint/outpaint
+
+을 우선한다.
+
+## Embodied Composite
 
 ```text
 World Plate
@@ -148,32 +179,77 @@ World Plate
 + Minimal Player UI
 ```
 
-생성형 이미지 제작 전 먼저 고정할 것:
+## Camera / Responsive
 
-- Player Body Continuity / Camera Profile
-- R/H1/H2 Cast Anchor Sheet
-- canonical handaxe visual identity
-- current temporary shelter visual guardrail
-- terrain / cave / fire Scene Family
-- contact / grip / occlusion anchor
-- historical reference provenance
+- logical master composition: **1600 × 900 / 16:9**
+- mandatory QA: **4:3 / 16:10 / 16:9**
+- normalized body/grip/contact anchors
+- scene-specific crop/focus position
+- contact zone를 UI가 가리지 않음
 
-Stage 01~07은 다시 갈아엎지 않는다. 다만 visual-production 관점에서 필요한 보완 해석은 07A가 다음처럼 연결한다.
+## Handaxe morphology reference
 
-- Stage 01A: body continuity + camera/contact/occlusion
-- Stage 01C: physical-looking light 뒤 perceptual treatment
+Day 1 handaxe는 한국 구석기 실물 자료에 근거한 **fictional canonical object**다.
+
+우선 reference:
+
+- 국립중앙박물관 `신수19143` — 파주, 17.8 × 10.2 × 6.4cm
+- 국립중앙박물관 `신수18710` — 연천, 화강암, 16.5 × 12.0 × 7.4cm
+
+실물 한 점을 이야기 속 실제 도구로 주장하지 않는다.
+
+## Hunt Player production continuity
+
+- Stage 08 Hunt Player v1 dominant hand: **right**
+- 이는 역사 사실이 아니라 reconstructed production attribute
+- 성별/세부 외형/복식은 reference review 전 과도하게 확정하지 않음
+
+## Web serving / soft budget
+
+- initial critical world visual은 `<img>/<picture>` 계열 우선 검토
+- responsive `srcset/sizes`, scene-specific crop, modern image formats 활용
+- first meaningful scene critical image payload 목표 **1.2MB 이하**, 경고선 **1.8MB**
+- world plate 목표 **500KB 이하**, alpha foreground 목표 **250KB 이하**
+- 수치는 Stage 08 실제 측정 뒤 조정 가능
+
+---
+
+# Stage 01~07 시각 보완 확정
+
+Stage 01~07을 다시 갈아엎지 않는다.
+
+후속 개발 책임으로 다음을 확정한다.
+
+- Stage 01A: body visibility = action information / camera / dominant hand / contact / occlusion continuity
+- Stage 01C: physical-looking lighting first / perceptual treatment second
 - Stage 02: same-day shared visual anchors
-- Stage 03: Hunt visual continuity checkpoints
-- Stage 04: Scene별 Visual Asset checklist
-- Stage 05/05A: 역할별 body vocabulary + Visual Production Readiness
-- Stage 06: Stage 08 구현 시 최소 visual manifest/anchor 타입을 Technical SSOT에 정식 흡수
-- Stage 07: placeholder composition이 production asset으로 치환 가능한지 Human QA에서 추가 확인
+- Stage 03: handaxe / distance / sun / fatigue / dirt-wear / return-firelight continuity checkpoints
+- Stage 04: scene별 camera/world/body/actor/item/contact/occlusion/light/crop checklist
+- Stage 05/05A: 역할별 body vocabulary + 별도 `Visual Production Ready` 판정
+- Stage 06: Stage 08 구현 시 필요한 최소 visual runtime 계약만 v9로 정식화
+- Stage 07: placeholder production-replaceability / crop / floating-hand risk Human QA 추가
 
-중요:
+---
 
-- 아직 실제 production image를 생성한 상태가 아니다.
-- Visual planning 문서 추가는 Stage 07 Human QA PASS가 아니다.
-- Stage 08 구현/아트 production은 Human Gate PASS 뒤 시작한다.
+# Visual Production Readiness Gate
+
+Stage 07 Human Gate PASS 뒤에도 곧바로 이미지 대량 생성/Stage 08 코드 확장을 하지 않는다.
+
+먼저:
+
+1. Historical Reference Ready
+2. Identity Ready
+3. Composition Ready
+4. Scene Family Ready
+5. Technical Handoff Ready
+
+를 확인한다.
+
+구체 기준은:
+
+- `docs/07B_FIRST_PERSON_VISUAL_PRODUCTION_SPEC.md`
+
+가 소유한다.
 
 ---
 
@@ -208,6 +284,7 @@ Canonical/runtime 통합 내용은 PR #15에서 검증됐다.
 - production asset의 body/cast/tool identity continuity
 - contact/grip/occlusion의 물리적 자연스러움
 - responsive viewport에서 crop/scale/contact가 유지되는지
+- 실제 production asset payload가 교실 환경에서 체험을 끊지 않는지
 
 이 항목은 Human Gate와 후속 Visual QA 책임이다.
 
@@ -228,12 +305,16 @@ Human Gate PASS 전 Stage 08 전체 Hunt 구현 금지.
 # Human Gate PASS 직후 Stage 08 진입 순서
 
 ```text
-Visual Reference Pack
+Visual Production Readiness Gate
+→ Historical / Visual Reference Pack
 → Canonical Anchor Sheets
 → Camera / Composition Profiles
+→ contact keyframe roughs
+→ Scene Family anchors
+→ Stage 06 v9 minimal visual runtime contract
 → Hunt minimum coherent production asset set
 → Embodied Composite browser integration
-→ Visual Continuity QA
+→ Visual Continuity / Responsive / Performance QA
 → Hunt interaction / pursuit / threat / result / return 확장
 ```
 
