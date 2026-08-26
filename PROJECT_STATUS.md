@@ -2,338 +2,319 @@
 
 ## Current phase
 
-# **R2 Stage 01~07 Canonical Unification 통합 완료 / Stage 07 Automated PASS / Human QA 대기**
+# **R2 Stage 07.5 Relationship / Narrative Human-Gate Remediation**
 
-현재 공식 기준선:
+현재 공식 기준선은 여전히:
 
 # **Design Reboot R2 / Stage 07 Curriculum-Hardened Baseline**
 
-기준 문서:
+이다.
 
-- `docs/00_CANONICAL_BASELINE.md`
+다만 Stage 07의 최초 실제 Human QA가 수행되었고, 자동검증과 달리 사람의 실제 플레이에서는 P1 blocker가 확인됐다.
 
-시각 제작 계약:
+따라서 현재 상태는:
 
-- `docs/07A_FIRST_PERSON_VISUAL_ASSET_BIBLE.md` — 원칙/아트 프로덕션 계약
-- `docs/07B_FIRST_PERSON_VISUAL_PRODUCTION_SPEC.md` — Stage 08 직전 구체 실행 규격
+# **Stage 07 Automated PASS / Human Gate FAIL / Remediation In Progress**
 
-교과 연결 문법:
+이다.
 
-# **Experience → Name → Reuse → Connect**
+`Stage 07.5`는 새로운 대형 production Stage가 아니라 **Stage 07 Human Gate를 통과하기 위한 작은 relationship/narrative/embodied remediation substage**다.
 
----
-
-# 현재 판정
-
-- Canonical baseline/index: **PASS**
-- Stage 01 Project Core: **PASS / v9**
-- Stage 01E Curriculum/Textbook Anchors: **PASS / v3**
-- Stage 02 Experience Structure: **PASS / v9**
-- Stage 03 Hunt Story: **PASS / v8**
-- Stage 04 Hunt Playflow: **PASS / v8**
-- Stage 05 Role Experience Map: **PASS / v8**
-- Stage 05A Design Validation: **PASS / v6**
-- Stage 06 Technical Blueprint: **PASS / v8 / SINGLE TECH SSOT**
-- Stage 06A supplement: **REMOVED / absorbed into Stage 06 v8**
-- Immersion Narrative Bible: **PASS / v7**
-- First-Person Visual Asset Bible: **PLANNING CONTRACT ADDED**
-- First-Person Visual Production Spec: **HARDENED / production not started**
-- Legacy Hunt transition brief: **NON-CANONICAL / refreshed**
-- Audit reports: **NON-CANONICAL historical records**
-- Stage 07 Skeleton: **IMPLEMENTATION COMPLETE**
-- Stage 07 automated verification: **PASS**
-- Stage 07 human QA: **PENDING**
-- Stage 08 Hunt Embodied Vertical Slice: **BLOCKED until Human Gate PASS + Visual Production Readiness**
+Stage 08 Hunt Embodied Vertical Slice는 계속 BLOCKED다.
 
 ---
 
-# 공식 용어 통일
+# 1. GitHub 기준선
 
-## 도구
+이 문서에 SHA/run 번호를 계속 갱신해 docs-only CI loop를 만들지 않는다.
+
+최신 exact `main`, PR, branch, Actions 상태는 GitHub가 최종 진실 공급원이다.
+
+이 remediation 작업은 최신 main에서 분기한:
+
+```text
+r2-stage07-5-relationship-narrative-proof
+```
+
+에서 진행한다.
+
+기존 실험 branch:
+
+```text
+r2-human-qa-visual-composition-fix
+```
+
+는 merge하지 않고 reference/frozen experiment로 보존한다.
+
+---
+
+# 2. Human QA 실제 판정
+
+초기 Stage 07 실제 Player 플레이에서 다음 P1 문제가 확인됐다.
+
+## R2UX-001 — Embodied spatial problem / P1
+
+- 팔/손이 자연스러운 몸보다 화면 중앙 HUD/도형처럼 읽힘
+- 주먹도끼 grip/contact가 약함
+- production replaceability에 직접 영향
+
+## R2UX-002 — Relationship problem / P1
+
+- R/H1/H2가 사람 관계보다 기능 silhouette로 읽힘
+- 누가 도구를 건네고, 누가 함께 움직이고, 누가 무엇을 먼저 보는지가 약함
+
+## R2UX-003 — Narrative causality problem / P1
+
+- `왜 나가는가 → 누구와 움직이는가 → 함께 무엇을 발견하는가 → 이후 무엇이 남는가`의 causal spine이 runtime에서 약해짐
+- canonical STORY/PLAYFLOW의 관계/감정 구조가 skeleton 구현에서 손실됨
+
+## R2UX-004 — Curriculum presentation problem / P1
+
+- `뗀석기 → 대표적인 예: 주먹도끼` 내용은 정확함
+- 다만 naming cue가 별도 학습 카드처럼 보여 Experience → Name 흐름의 몰입을 끊음
+
+## R2UX-005 — Visual composition / misconception risk / P1
+
+- 사람 silhouette, current shelter icon-like 위험, depth/occlusion 부족
+- final art 문제가 아니라 current proof 구조에서 먼저 줄여야 하는 blocker 존재
+
+현재 확인된 P0는 없다.
+
+# **P0/P1 미해결이므로 Human Gate PASS를 선언하지 않는다.**
+
+---
+
+# 3. Root-cause 판단
+
+현재 문제는 canonical STORY가 빈약해서가 아니다.
+
+`docs/01B_RELATIONSHIP_AGENCY_PRINCIPLES.md`, `docs/03_HUNT_STORY.md`, `docs/04_HUNT_PLAYFLOW.md`, `docs/07_IMMERSION_NARRATIVE_BIBLE.md`에는 이미 다음 관계 기능이 존재한다.
+
+- R — 시작 관계 anchor / 도구 전달 / 귀환 모티프
+- H1 — 함께 이동 / 피로 / 협력 / 위험
+- H2 — 흔적·랜드마크 관찰 / 자연 거처 후보 반응 / 다른 판단 가능성
+
+핵심 문제는:
+
+# **Canonical → Runtime semantic loss**
+
+다.
+
+따라서 canonical을 대규모로 다시 쓰지 않고, 현재 Stage 07 runtime이 이미 존재하는 관계/인과를 실제 행동과 시선으로 proof하도록 수정한다.
+
+---
+
+# 4. Stage 07.5 Relationship Spine
+
+캐릭터 설정집이나 호감도 시스템을 만들지 않는다.
+
+최소 관계 spine:
+
+```text
+R
+첫 인식: 불 가까이에서 먼저 나를 봄
+공유 사건: 직접 돌도구를 건넴
+callback: “해가 지기 전에 돌아와.” + 같은 아침을 R 쪽 자리에서 다시 봄
+
+H1
+첫 인식: 함께 나갈 준비 / 나를 기다림
+공유 사건: 같이 이동하고 같은 지면 흔적을 살핌
+callback seed: 이후 Hunt 위험/피로/운반에서 함께 겪은 사람
+
+H2
+첫 인식: 출발 전부터 주변을 살핌
+공유 사건: 무언가를 먼저 보고 멈춤 → 플레이어가 그 시선을 따라봄
+callback seed: 새 공간 판단과 다른 판단 가능성
+```
+
+관계는 점수가 아니라 사건 기억과 후속 의미다.
+
+---
+
+# 5. Stage 07.5 runtime proof 범위
+
+```text
+S0 Role Orientation
+→ S1 Fire / R first recognition / 생활 Need
+→ S2 R handoff
+→ Experience 뒤 뗀석기 → 주먹도끼 naming
+→ S3 H1/H2와 합류
+→ R: “해가 지기 전에 돌아와.”
+→ 불 + R + current shelter가 함께 멀어짐
+→ S4 H1과 함께 지면 관찰
+→ travel continuity
+→ H2가 먼저 멈추고 한 방향을 봄
+→ 플레이어가 그 시선을 따라봄
+→ 그 뒤에만 자연 거처 후보가 보임
+→ 사람들과 가까이 가서 장점/불확실성 확인
+→ 동굴 / 바위 그늘 naming
+→ Perspective Proof: 같은 Day 1 아침을 도구를 건넨 사람 쪽 자리에서 재해석
+```
+
+Perspective Proof는 Camp 역할의 정체성을 R로 영구 확정하는 결정이 아니다.
+
+---
+
+# 6. Stage 08에 남기는 것
+
+Stage 07.5에서 다음을 구현하지 않는다.
+
+- 실제 사냥감 Discovery / Approach 전체
+- Pursuit Dilemma
+- 본격 피로 누적
+- Threat / Horror
+- Hunt result
+- 실제 Return / Reunion
+- 늦은 귀환/빈손/성공 variation
+- 죄책감/후회/성취 payoff
+- 주먹도끼 실제 다용도 interaction
+- cave discovery의 장기 consequence
+
+즉 Stage 07.5는 전체 Hunt가 아니라 관계와 인과가 실제 browser experience로 성립하는지 확인하는 proof다.
+
+---
+
+# 7. Curriculum / Historical Guardrail
+
+교과 문법은 유지한다.
+
+```text
+Immersion
+→ Historical Imagination
+→ Understanding
+→ Naming / Conceptualization
+```
+
+```text
+Experience → Name → Reuse → Connect
+```
+
+도구 위계:
 
 ```text
 뗀석기
 └─ 대표적인 예: 주먹도끼
 ```
 
+- `뗀석기 = 주먹도끼` 금지
+- current temporary shelter를 Stage 07에서 바로 `막집`으로 단정하지 않음
+- 동굴 / 바위 그늘을 유일한 집이나 자동 새 집으로 만들지 않음
+- R/H1/H2 및 구체 사건은 Historical Reconstruction
+
+---
+
+# 8. Runtime architecture 원칙
+
+기술 SSOT는 계속 `docs/06_TECH_BLUEPRINT.md` 하나다.
+
+Stage 07.5에서는 generic engine을 만들지 않는다.
+
 금지:
 
-- `뗀석기 = 주먹도끼`
-- 관계 설명 없는 `뗀석기 · 주먹도끼` 병렬 표현
-- 주먹도끼를 사냥 전용 무기로 축소
+- Relationship Engine
+- Dialogue Engine
+- NPC AI
+- 호감도/성격 점수
+- generic Scene DSL
 
-## 거처
+허용:
 
-- **현재 임시 거처** — Stage 07 초기 중립적 player-facing 표현
-- **막집** — Camp에서 실제 생활/손질 뒤 명명할 핵심 교과 용어
-- **동굴 / 바위 그늘** — 자연 지형을 이용한 생활 공간
+- 기존 `useReducer`에 필요한 최소 scene state 추가
+- 관계 사건을 Debug/QA용 qualitative signal로만 기록
+- actor stop/gaze 같은 Beat는 불필요하게 reducer state로 승격하지 않음
+- world visibility가 실제로 달라지는 causal boundary는 명시적 state로 표현
 
-막집과 동굴/바위 그늘을 경쟁 정답으로 만들지 않는다.
+현재 핵심 invariant:
 
----
-
-# Fact / Reconstruction 통일
-
-## Historical / Curriculum Fact
-
-- 뗀석기 사용
-- 주먹도끼의 대표성/다용도성
-- 이동 생활
-- 막집
-- 동굴/바위 그늘 생활
-- 불의 이용
-
-## Reconstructed Event
-
-- R/H1/H2라는 구체 인물
-- 특정 아침의 도구 전달
-- 이 Day 1의 구체 거처 배치
-- Hunt 중 특정 자연 거처 후보 발견
-- 구체 대사·감정·선택 결과
-- Hunt Player의 dominant hand 같은 production continuity attribute
-
-Player에는 reconstruction 관리 metadata를 노출하지 않는다.
-Teacher/Debug에서 확인한다.
+# **H2가 먼저 멈추고 플레이어가 그 방향을 직접 보기 전에는 자연 거처 후보를 렌더링하지 않는다.**
 
 ---
 
-# Stage 07 현재 Browser proof
+# 9. Visual remediation 원칙
 
-package:
+기존 `r2-human-qa-visual-composition-fix`를 merge하지 않는다.
+
+그 branch에서 검토 가치가 있던 방향만 현재 narrative 구조 위에 최소 선택 이식한다.
+
+- world와 story의 시각적 분리 완화
+- beige textbook-card 느낌 축소
+- 팔을 중앙 HUD/X 형태가 아니라 frame edge에서 들어오는 foreground geometry로 완화
+- handaxe silhouette/readability 보완
+- actor-specific relationship beat의 시각적 차이
+- current shelter의 tent/house icon 위험 완화
+
+이것은 final art가 아니다.
+
+Production image 생성은 계속 금지한다.
+
+---
+
+# 10. 자동검증
+
+자동 테스트는 다음만 검증한다.
+
+- R을 보기 전 도구 handoff 진행 불가
+- handoff 뒤에만 terminology reveal
+- 같은 handaxe continuity
+- H1 shared-observation causal order
+- H2 stop/gaze 이전 cave 미노출
+- 플레이어가 H2 시선을 따라본 뒤 cave 노출
+- cave inspection 뒤 curriculum reveal
+- perspective proof에서 Hunt handaxe가 새 POV body에 잘못 붙지 않음
+- Player에 reconstruction/relationship internal ID 미노출
+- Debug에 필요한 qualitative relationship signal 노출
+
+자동 테스트가 다음을 PASS 선언하지 않는다.
+
+- R이 정말 익숙한 사람처럼 느껴지는가
+- H1/H2가 실제 동행자처럼 느껴지는가
+- 몸/도구가 실제로 자연스러운가
+- 몰입되는가
+
+이 항목은 Human QA 책임이다.
+
+---
+
+# 11. 다음 Gate
+
+현재 순서:
 
 ```text
-0.0.0-r2-stage07-curriculum-hardened
+Stage 07.5 runtime + tests
+→ PR exact-head CI
+→ merge
+→ main CI
+→ Player 자연 재플레이
+→ Teacher 확인
+→ 4:3 / 16:10 / 16:9 Human QA
+→ unresolved R2UX 재판정
 ```
 
-Player 흐름:
+Human Gate PASS 여부는 실제 사용자 확인 기반이다.
+
+PASS 전에는:
+
+- Stage 08 전체 Hunt 구현 금지
+- production image 대량 생성 금지
+- Visual Production Readiness 완료로 간주 금지
+
+---
+
+# 12. Human Gate PASS 이후
+
+PASS 이후에도 바로 Stage 08 production으로 점프하지 않는다.
 
 ```text
-사냥 관점
-→ 새벽 불 + 현재 임시 거처
-→ R의 돌도구 전달
-→ 뗀석기 상위 개념 명명
-→ 지금 손의 대표적인 예 = 주먹도끼
-→ held-item continuity
-→ H1/H2와 출발
-→ 불/사람/current shelter가 멀어짐
-→ crouch observation
-→ 한동안 이동
-→ 동굴/바위 그늘 후보 발견
-→ 장점/불확실성 평가
-→ 짧은 동굴/바위 그늘 연결
-→ 다른 사람 관점 proof
-```
-
-current shelter placeholder는 단순 house-like pentagon 대신 **비대칭 덮개/지지대형 임시 구조물 proof**로 바뀌었다.
-
-Teacher/Debug의 reconstruction note는 다음 범위를 일관되게 구분한다.
-
-- 구체 공동체 인물/거처 배치
-- 특정 아침 도구 전달
-- 특정 자연 거처 후보 발견
-
----
-
-# First-Person Visual / Image Production 현재 확정안
-
-`07A`가 시각 제작 원칙을 소유하고, `07B`가 Stage 08 직전 실행 규격을 구체화한다.
-
-## 확정 Style
-
-# **Grounded Illustrative Realism**
-
-- 현실적인 신체/도구/공간 비율
-- 자연스러운 재질과 광원
-- 약한 회화적 질감 허용
-- hyper-photoreal uncanny / fantasy barbarian / cartoon / textbook diagram 느낌 금지
-
-## 확정 Render Strategy
-
-```text
-Mode A: Layered Reusable Composite
-Mode B: Unified Contact Keyframe
-Mode C: Locked-Keyframe Variation
-```
-
-핵심 contact 장면은 손/NPC/도구를 따로 생성해 억지로 합치지 않고 **통합 contact keyframe을 먼저 확정**한다.
-
-같은 Scene의 다음 Beat는 독립 text-to-image 반복보다:
-
-- approved reference anchor
-- reference-conditioned variation
-- pose/depth control
-- inpaint/outpaint
-
-을 우선한다.
-
-## Embodied Composite
-
-```text
-World Plate
-+ Spatial / Occlusion
-+ Actor
-+ Embodied Body
-+ Held / Contact Item
-+ Environmental Light
-+ Perceptual Treatment
-+ Minimal Player UI
-```
-
-## Camera / Responsive
-
-- logical master composition: **1600 × 900 / 16:9**
-- mandatory QA: **4:3 / 16:10 / 16:9**
-- normalized body/grip/contact anchors
-- scene-specific crop/focus position
-- contact zone를 UI가 가리지 않음
-
-## Handaxe morphology reference
-
-Day 1 handaxe는 한국 구석기 실물 자료에 근거한 **fictional canonical object**다.
-
-우선 reference:
-
-- 국립중앙박물관 `신수19143` — 파주, 17.8 × 10.2 × 6.4cm
-- 국립중앙박물관 `신수18710` — 연천, 화강암, 16.5 × 12.0 × 7.4cm
-
-실물 한 점을 이야기 속 실제 도구로 주장하지 않는다.
-
-## Hunt Player production continuity
-
-- Stage 08 Hunt Player v1 dominant hand: **right**
-- 이는 역사 사실이 아니라 reconstructed production attribute
-- 성별/세부 외형/복식은 reference review 전 과도하게 확정하지 않음
-
-## Web serving / soft budget
-
-- initial critical world visual은 `<img>/<picture>` 계열 우선 검토
-- responsive `srcset/sizes`, scene-specific crop, modern image formats 활용
-- first meaningful scene critical image payload 목표 **1.2MB 이하**, 경고선 **1.8MB**
-- world plate 목표 **500KB 이하**, alpha foreground 목표 **250KB 이하**
-- 수치는 Stage 08 실제 측정 뒤 조정 가능
-
----
-
-# Stage 01~07 시각 보완 확정
-
-Stage 01~07을 다시 갈아엎지 않는다.
-
-후속 개발 책임으로 다음을 확정한다.
-
-- Stage 01A: body visibility = action information / camera / dominant hand / contact / occlusion continuity
-- Stage 01C: physical-looking lighting first / perceptual treatment second
-- Stage 02: same-day shared visual anchors
-- Stage 03: handaxe / distance / sun / fatigue / dirt-wear / return-firelight continuity checkpoints
-- Stage 04: scene별 camera/world/body/actor/item/contact/occlusion/light/crop checklist
-- Stage 05/05A: 역할별 body vocabulary + 별도 `Visual Production Ready` 판정
-- Stage 06: Stage 08 구현 시 필요한 최소 visual runtime 계약만 v9로 정식화
-- Stage 07: placeholder production-replaceability / crop / floating-hand risk Human QA 추가
-
----
-
-# Visual Production Readiness Gate
-
-Stage 07 Human Gate PASS 뒤에도 곧바로 이미지 대량 생성/Stage 08 코드 확장을 하지 않는다.
-
-먼저:
-
-1. Historical Reference Ready
-2. Identity Ready
-3. Composition Ready
-4. Scene Family Ready
-5. Technical Handoff Ready
-
-를 확인한다.
-
-구체 기준은:
-
-- `docs/07B_FIRST_PERSON_VISUAL_PRODUCTION_SPEC.md`
-
-가 소유한다.
-
----
-
-# 자동 검증 기준선
-
-Canonical/runtime 통합 내용은 PR #15에서 검증됐다.
-
-- canonical/runtime content head: `e40208b0d6e8fbf3a2949af2ef1fbaf6704b6849`
-- initial consolidated CI: `32926349166` — PASS
-- exact PR-head CI: `32926520525` — PASS
-- Node: **24.19.0**
-- npm: **11.17.0**
-- test files: **8 / 8 PASS**
-- tests: **35 / 35 PASS**
-- Stage 07 Skeleton integration tests: **10 PASS**
-- production build: PASS
-- Vite modules transformed: **41**
-
-상태 문서 자체의 최종화 커밋도 저장소 CI를 통과한 뒤 main에 반영하는 운영 규칙을 유지한다. 최신 exact main SHA/run은 GitHub Actions 상태를 기준으로 확인하며, 그 값을 다시 문서에 써서 끝없는 docs-only CI 루프를 만들지 않는다.
-
----
-
-# 자동검증이 아직 증명하지 않는 것
-
-- 손/팔/주먹도끼 비율이 실제 1인칭처럼 자연스러운가
-- current shelter가 실제로 현대 집/텐트 아이콘처럼 보이지 않는가
-- `뗀석기 → 주먹도끼` 관계를 학생이 실제로 이해하는가
-- terminology reveal이 몰입을 얼마나 끊는가
-- cave가 넓고 보호 가능한 실제 공간처럼 느껴지는가
-- 학생이 동굴/막집을 단일 정답 거처로 오해하지 않는가
-- Teacher가 Fact / Reconstruction을 실제로 충분히 구분하는가
-- production asset의 body/cast/tool identity continuity
-- contact/grip/occlusion의 물리적 자연스러움
-- responsive viewport에서 crop/scale/contact가 유지되는지
-- 실제 production asset payload가 교실 환경에서 체험을 끊지 않는지
-
-이 항목은 Human Gate와 후속 Visual QA 책임이다.
-
----
-
-# 다음 공식 Gate
-
-# **Stage 07 Teacher Browser Visual / Immersion / Curriculum / Misconception QA**
-
-기록:
-
-- `handoff/R2_EMBODIED_PLAYTEST_PROTOCOL.md`
-
-Human Gate PASS 전 Stage 08 전체 Hunt 구현 금지.
-
----
-
-# Human Gate PASS 직후 Stage 08 진입 순서
-
-```text
-Visual Production Readiness Gate
+Human Gate PASS
+→ Visual Production Readiness Gate
 → Historical / Visual Reference Pack
-→ Canonical Anchor Sheets
+→ Player Body / R/H1/H2 / Handaxe anchors
 → Camera / Composition Profiles
 → contact keyframe roughs
-→ Scene Family anchors
-→ Stage 06 v9 minimal visual runtime contract
-→ Hunt minimum coherent production asset set
-→ Embodied Composite browser integration
-→ Visual Continuity / Responsive / Performance QA
-→ Hunt interaction / pursuit / threat / result / return 확장
+→ responsive crop proof
+→ 필요한 최소 Stage 06 visual runtime contract
+→ Minimum Coherent Production Asset Set
+→ Stage 08
 ```
 
-아름다운 최종 이미지부터 대량 생성하지 않는다.
-
-먼저 같은 몸·같은 도구·같은 사람·같은 세계가 이어지는 최소 세트를 검증한다.
-
----
-
-# 의도적으로 아직 미완성인 것
-
-- 주먹도끼 실제 땅파기/두들기기/자르기·손질 interaction
-- 반복 사용으로 다용도성 체감
-- Camp에서 현재 임시 거처 생활/손질 뒤 `막집` 명명
-- 불의 여러 기능 실제 상호작용
-- 완성 Hunt 추적/위협/결과/귀환
-- cave discovery의 실제 consequence
-- Camp의 cave recontextualization
-- 학생 파일럿
-- Gather / Camp / Three-Perspective integration
-- Multi-day Change / Migration / Historical Conceptualization
-- final Player Body / Cast / visual / audio production
+최종 목표는 웹페이지를 읽는 것이 아니라 같은 하루를 사람·몸·물건·공간의 관계 속에서 기억하게 만드는 것이다.
