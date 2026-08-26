@@ -2,60 +2,58 @@
 
 ## Current scope
 
-# **R2 Canonical Unification + Stage 07 curriculum-hardened browser proof verification**
+# **R2 Canonical Baseline + Stage 07 Curriculum-Hardened Browser Proof Verification**
 
-PR:
+Canonical Unification PR:
 
 - PR #15 — `Unify R2 canonical baseline and Stage 07 contracts`
+- status: **MERGED**
+- integrated SHA: `e40208b0d6e8fbf3a2949af2ef1fbaf6704b6849`
 
 ---
 
-# 1. 변경 범위
+# 1. Canonical / Runtime 범위
 
 ## Canonical
 
-- `docs/00_CANONICAL_BASELINE.md` NEW
-- AGENTS / README / workflow 기준 통일
+- `docs/00_CANONICAL_BASELINE.md` 기준선
 - Stage 01 Project Core v9
-- Stage 01E v3
+- Stage 01E Curriculum Anchors v3
 - Stage 02 v9
 - Stage 03 v8
 - Stage 04 v8
 - Stage 05 v8
 - Stage 05A v6
-- Stage 06 v8 단일 기술 SSOT
-- `06A` supplement 삭제 / Stage 06 v8에 흡수
+- Stage 06 v8 — **single tech SSOT**
+- 이전 `06A` supplement는 Stage 06 v8에 흡수 후 삭제
 - Immersion Bible v7
-- Legacy/Audit 문서 non-canonical 지위 명확화
+- Legacy/Audit 문서는 non-canonical
 
 ## Runtime
 
 - package `0.0.0-r2-stage07-curriculum-hardened`
-- current shelter를 비대칭 임시 구조물 CSS proof로 변경
-- Teacher reconstruction note 범위 통일
-- Player reconstruction metadata 미노출 유지
-
-## Tests
-
-- current shelter primitive 구조 검증
-- current shelter distance class 검증
-- Player reconstruction metadata 미노출 검증
-- Teacher가 current community/tool handoff/cave discovery 재구성 경계를 확인하는지 검증
-- 기존 curriculum hierarchy / same-day / legacy regression 유지
+- embodied first-person Stage 07 skeleton
+- current temporary shelter primitive
+- `뗀석기 → 대표적인 예: 주먹도끼` terminology hierarchy
+- held-item continuity
+- cave / rock-shelter discovery and inspection proof
+- Player / Teacher / Debug separation
+- Teacher/Debug reconstruction metadata
+- reduced-effects path
 
 ---
 
-# 2. 첫 consolidated-head verification
+# 2. 최종 통합 검증
+
+`main` exact SHA:
+
+```text
+e40208b0d6e8fbf3a2949af2ef1fbaf6704b6849
+```
 
 GitHub Actions:
 
-# **run `32926349166` — PASS**
-
-검증한 PR head:
-
-```text
-5b69c5858a6a5d4b6a989eacddce18d25f962673
-```
+# **run `32926565326` — completed / success**
 
 환경:
 
@@ -99,11 +97,11 @@ Production build:
 1. Player role-true entry / no dev chrome.
 2. Player에 reconstruction management metadata 없음.
 3. cave 전 current temporary shelter 존재.
-4. shelter가 `r2-current-shelter` 비대칭 구조 primitive를 사용.
+4. current shelter가 비대칭 임시 구조 primitive를 사용.
 5. 도구 handoff 뒤에만 terminology reveal.
 6. `뗀석기` = 상위 개념 / `주먹도끼` = 대표적인 예.
 7. 두 curriculum anchor 내부 연결.
-8. chipped-stone/handaxe evidence 분리.
+8. chipped-stone / handaxe evidence 분리.
 9. handaxe held-item continuity.
 10. departure에서 current shelter가 distant state로 전환.
 11. embodied observation 뒤 natural shelter discovery.
@@ -122,9 +120,7 @@ Production build:
 
 # 4. Same-Day regression
 
-기존 계약 유지:
-
-- Student Play Order ≠ In-World Time
+- **Student Play Order ≠ In-World Time**
 - Hunt/Gather/Camp 동일 `dayId`
 - Common Morning once
 - Perspective Bridge
@@ -134,7 +130,7 @@ Production build:
 
 # 5. Legacy regression
 
-기존 Hunt v0.1 기준선 유지:
+Legacy Hunt v0.1 기준선도 유지된다.
 
 - Hunt reducer front/back contracts
 - food-secured / empty-handed completion
@@ -181,9 +177,9 @@ Production build:
 
 # 8. Current verdict
 
-### Canonical unification
+### Canonical baseline
 
-# **PASS / IMPLEMENTED**
+# **INTEGRATED / PASS**
 
 ### Stage 07 implementation
 
@@ -191,7 +187,7 @@ Production build:
 
 ### Automated verification
 
-# **PASS — initial consolidated head run 32926349166 / 8 files / 35 tests**
+# **PASS — main run 32926565326 / 8 files / 35 tests**
 
 ### Human visual / immersion / curriculum / misconception QA
 
@@ -203,15 +199,7 @@ Production build:
 
 ---
 
-# 9. 최종 통합 규칙
-
-이 TEST_REPORT 변경으로 PR HEAD가 이동하므로, **현재 exact PR HEAD를 다시 install → typecheck → tests → production build 검증한 뒤에만 main으로 fast-forward**한다.
-
-최종 exact-head/main push CI run은 이 정적 보고서를 다시 수정해 CI 루프를 만들지 않고 GitHub 실행 결과와 최종 응답에서 확인한다.
-
----
-
-# 10. 의도적으로 아직 미완료
+# 9. 의도적으로 아직 미완료
 
 - 주먹도끼 실제 땅파기/두들기기/자르기·손질 interaction
 - `handaxe-multiple-uses-experienced`
@@ -220,3 +208,11 @@ Production build:
 - 전체 Hunt embodied vertical slice
 - cave consequence / Camp recontextualization
 - Student Pilot
+
+---
+
+# 10. 보고서 유지 규칙
+
+이 파일은 **가장 최근에 main에 통합되어 검증된 안정 baseline**을 기록한다.
+
+문서 자체를 갱신하면 새 SHA가 생기므로, 갱신 커밋의 exact-head CI와 이후 main push CI는 GitHub 실행 결과와 최종 작업 응답에서 확인한다. 다음 기능 변경 시에는 그 기능 baseline이 main에 통합된 뒤 이 보고서를 교체한다.
