@@ -1,9 +1,10 @@
 # 구석기 역사 체험 웹게임
-## Stage 04 — Hunt PLAYFLOW v7 / Scene-State + Curriculum Anchor Beats
+## Stage 04 — Hunt PLAYFLOW v8 / Scene-State + Curriculum Beats
 
-> 목적: Hunt STORY v7을 실제 브라우저 상호작용으로 변환한다. `Scene`을 무조건 페이지/컴포넌트로 만들지 않고 **상태·행동의 의미 단위**로 정의하며, 시선·정적·대사·용어 reveal·화면 효과는 같은 Scene 안의 `Beat`로 처리한다.
+> 목적: Hunt STORY v8을 실제 브라우저 상호작용으로 변환한다.
 >
 > 상위 기준:
+> - `docs/00_CANONICAL_BASELINE.md`
 > - `docs/03_HUNT_STORY.md`
 > - `docs/01E_CURRICULUM_TEXTBOOK_ANCHORS.md`
 
@@ -15,47 +16,39 @@
 
 Reducer/state에 올릴 가치가 있는 의미 단위.
 
-Scene이 바뀌는 기준:
+Scene 변경 기준:
 
 - 목표가 달라짐
 - 직접 행동 가능성이 달라짐
-- 위치가 의미 있게 달라짐
-- 결과/관계/거리/시간이 달라짐
-- 후속 분기에 필요한 상태가 생김
+- 위치/시간/결과/관계가 의미 있게 달라짐
+- 후속 signal이 필요함
 
 ## Beat
 
-같은 Scene 안에서 일어나는 표현 변화.
+같은 Scene 안의 표현 변화.
 
-예:
-
-- R이 나를 봄
-- 손이 올라옴
-- 주먹도끼가 화면 중앙에 들어옴
-- 짧은 `뗀석기 / 주먹도끼` terminology reveal
-- H1이 멈춤
-- 소리가 줄어듦
-- cave 입구가 보임
-- vignette / jolt
+- actor stop / gaze
+- sound drop
+- 손 transition
 - 대사 한 줄
+- 짧은 terminology reveal
+- focus/jolt/exposure
 
-# **교과 용어 reveal도 무조건 별도 Scene으로 만들지 않는다.**
+# **교과 용어 reveal을 무조건 별도 Scene으로 만들지 않는다.**
 
 ---
 
 # 2. 주요 Scene 흐름
 
-권장 의미 흐름:
-
 ```text
 S0 Role Orientation
-S1 Fire / Morning Presence
+S1 Fire / Current Shelter Presence
 S2 Tool Handoff
 S3 Departure
 S4 Search / Observation
 S5 Discovery / Approach
 S6 Pursuit Dilemma
-S7 Cave / Shelter Discovery
+S7 Natural Shelter Discovery
 S8 Threat Build-up
 S9 Threat Response
 S10 Hunt Result
@@ -64,15 +57,15 @@ S12 Firelight / Reunion
 S13 Role Completion
 ```
 
-이 번호는 스토리 의미를 위한 기획 ID이며 학생에게 노출하지 않는다.
+학생에게 Scene ID는 노출하지 않는다.
 
-Stage 07 Skeleton은 이 전체를 구현하지 않고 **S0~S4 + S7의 작은 proof**를 선택적으로 검증한다.
+Stage 07 Skeleton은 전체 Hunt가 아니라 S0~S4와 S7의 작은 proof다.
 
 ---
 
 # 3. 공통 Scene Spec
 
-각 주요 Scene은 최소한 다음을 정의한다.
+각 주요 Scene은 최소 다음을 정의한다.
 
 ```text
 Scene ID
@@ -92,12 +85,11 @@ Learning Evidence
 Screen Treatment
 Scaffold fallback
 Accessibility / reduced-effects
+Historical Fact / Reconstruction note
 Callback
 ```
 
-모든 항목을 복잡한 데이터 DSL로 만들라는 뜻은 아니다.
-
-문서/테스트에서 의미를 놓치지 않기 위한 체크다.
+이 목록을 generic DSL로 만들 필요는 없다.
 
 ---
 
@@ -105,14 +97,12 @@ Callback
 
 목표:
 
-- 현재 누구의 관점인지 명료하게 알림
-- 장문의 시대 설명 없이 시작
+- 현재 관점 명료화
+- 긴 시대 설명 없이 시작
 
-Player text 예:
+Player text:
 
 > **사냥을 나선 사람의 관점**
-
-> 아직 완전히 밝지 않다.
 
 행동:
 
@@ -120,19 +110,19 @@ Player text 예:
 
 Curriculum Anchor:
 
-- 없음. 시작부터 용어 목록을 띄우지 않는다.
+- 없음
 
 ---
 
-# 5. S1 — Fire / Morning Presence
+# 5. S1 — Fire / Current Shelter Presence
 
 Location:
 
-- 현재 공동체 거처
+- 현재 공동체 생활 거점
 
 POV:
 
-- 불 가까이에 앉거나 웅크린 1인칭
+- 불 가까이 앉거나 웅크린 1인칭
 
 Visible body:
 
@@ -142,7 +132,7 @@ Visible body:
 World:
 
 - 불
-- 임시 덮개/막집 흔적
+- 현재 임시 거처
 - 주변 사람
 
 Primary Attention:
@@ -151,30 +141,27 @@ Primary Attention:
 
 Beat:
 
-1. 불의 따뜻한 색
-2. R이 학생을 봄
-3. 주변에서 사람들이 하루를 준비
+1. fire warmth
+2. 현재 임시 거처가 생활 공간으로 보임
+3. R이 학생을 봄
+4. 주변 사람들이 하루를 준비
 
 Curriculum Anchor:
 
 - 불
-- 임시 거처의 성격
+- 임시 거처의 생활 성격
 
 Terminology Reveal:
 
-- 아직 `막집`을 강제하지 않아도 됨.
+- Stage 07에서는 아직 `막집`을 강제하지 않음
 
-Learning Evidence 후보:
+Historical Reconstruction:
 
-- `fire-experienced-as-living-center`
+- 이 구체 거처 배치와 R/H1/H2는 재구성
 
 ---
 
 # 6. S2 — Tool Handoff
-
-Location:
-
-- 같은 불 앞
 
 Primary Attention:
 
@@ -188,34 +175,33 @@ Direct Action:
 
 Immediate Response:
 
-- 도구가 상대 손에서 사라짐
-- 내 오른손/몸에 같은 도구가 유지됨
+- 상대 손에서 도구가 사라짐
+- 내 몸에 같은 도구가 유지됨
 
-Curriculum Anchor:
+Curriculum Anchors:
 
-- 뗀석기
-- 주먹도끼
+```text
+paleolithic-chipped-stone
+handaxe
+```
 
 Terminology Beat:
 
-도구를 **받은 뒤** 짧게 표시.
-
-예:
-
-> **뗀석기 · 주먹도끼**
-> 돌을 깨뜨리거나 떼어 만든 대표적인 도구
-
-규칙:
-
-- 전체 화면 모달 금지
-- 1~2문장
-- 수초 뒤 사라지거나 다음 행동과 공존
-- 즉시 퀴즈 금지
+> **뗀석기**  
+> 돌을 깨뜨리거나 떼어 만든 도구를 뗀석기라고 한다. 지금 손에 든 것은 그 대표적인 예인 **주먹도끼**다.
 
 Learning Evidence:
 
 - `tool-received-in-embodied-context`
+- `chipped-stone-term-revealed`
 - `handaxe-term-revealed`
+
+규칙:
+
+- 전체 화면 modal 금지
+- 1~2문장
+- 행동 뒤 명명
+- 즉시 퀴즈 금지
 
 ---
 
@@ -223,8 +209,8 @@ Learning Evidence:
 
 Goal:
 
-- 사람들과 출발
-- 거처와 거리 생김
+- H1/H2와 출발
+- 현재 거처와 거리 생김
 
 Body:
 
@@ -235,12 +221,7 @@ Beat:
 
 - H1/H2 합류
 - R의 “해가 지기 전에 돌아와.”
-- 불이 점점 작아짐
-
-Curriculum Anchor:
-
-- 이동 생활의 몸 감각
-- 불/거처가 귀환 기준이 되는 경험
+- 불·사람·현재 임시 거처가 점점 작아짐
 
 Learning Evidence:
 
@@ -265,20 +246,11 @@ Direct Actions 후보:
 - 눌린 풀 보기
 - 흙 만지기
 - 가지 치우기
-- 도구 끝으로 지면 주변을 살피기
+- 도구 끝으로 주변 살피기
 
-Curriculum Anchor:
+Stage 07은 embodied observation proof만 담당한다.
 
-- 주먹도끼가 전시 유물이 아니라 실제 행동 도구임
-
-Terminology:
-
-- 이미 명명했으므로 반복 카드 불필요
-
-Learning Evidence:
-
-- `embodied-observation-performed`
-- `tool-reused-in-living-action` — 실제 기능 행동을 구현한 뒤 사용
+`tool-reused-in-living-action`은 실제 기능 행동이 구현된 Stage 08 이후에만 기록한다.
 
 ---
 
@@ -286,7 +258,7 @@ Learning Evidence:
 
 Goal:
 
-- 사람의 반응을 따라 사냥감/흔적 발견
+- 사람의 반응을 따라 흔적/대상 발견
 
 Beat:
 
@@ -295,19 +267,13 @@ Beat:
 - 소리 감소
 - 학생이 직접 방향 확인
 
-Curriculum Anchor:
-
-- 사냥은 단순 공격이 아니라 관찰과 협력의 과정
+발견은 시스템 카드보다 사람/환경 반응으로 시작한다.
 
 ---
 
 # 10. S6 — Pursuit Dilemma
 
-Goal:
-
-- 더 갈지 돌아갈지 실제 고민
-
-반드시 먼저 보이는 정보:
+반드시 선택 전에 보이는 정보:
 
 - 낮아진 해
 - 거처가 보이지 않음
@@ -316,108 +282,84 @@ Goal:
 - 손에 들린 도구
 - 아침 모티프
 
-Choice Fairness:
-
-- 선택 결과는 같을 필요 없음
-- 선택 전에 판단 근거가 충분히 보여야 함
+# **Choice Fairness = 결과 평등이 아니라 인과의 납득 가능성**
 
 ---
 
-# 11. S7 — Cave / Shelter Discovery
+# 11. S7 — Natural Shelter Discovery
 
-이 Scene은 **동굴 생활 교과 개념을 자연스럽게 체험하는 핵심 이벤트**다.
+이 Scene은 자연 거처 생활을 설명 카드가 아니라 장소 판단으로 경험하는 이벤트다.
 
-Trigger 후보:
-
-- 더 멀리 추적함
-- 주변 확인 선택
-- 특정 route/랜드마크
-
-단, 한 경로만 필수 역사 개념을 독점하지 않도록 다른 경로에서도 동굴/바위 그늘 개념은 후속 역할 또는 다른 장면에서 보장한다.
-
-## Entry Beat
+Entry:
 
 ```text
-바위 면
-→ 그 아래 검은 틈
+한동안 이동
+→ 큰 바위 아래 어두운 공간
 → H2가 멈춤
-→ 학생이 가까이 봄
+→ 학생이 직접 봄
+→ 가까이 감
 ```
 
-시작부터 `동굴` label을 크게 띄우지 않는다.
+Inspection:
 
-## Inspection Actions
+- 입구
+- 바닥
+- 안쪽
+- 바람
+- 주변 길
 
-- `입구를 살핀다`
-- `바닥을 살핀다`
-- `안쪽을 본다`
-- `주변 길을 돌아본다`
-
-## Information
-
-학생이 직접 확인할 수 있는 것:
+정보:
 
 - 넓이
 - 비/바람을 피할 가능성
 - 마른 바닥 일부
 - 어두운 안쪽
-- 동물 흔적 가능성
-- 물/식량과의 거리 미확인
+- 다른 동물 이용 가능성
+- 물/식량 거리 미확인
 
-## Relationship Beat
-
-H1/H2가 서로 다른 부분을 본다.
-
-예:
+Relationship Beat:
 
 > “안이 꽤 넓어.”
 
 > “안쪽은 먼저 봐야 해.”
 
-## Curriculum Reveal
+Curriculum Reveal:
 
-탐색 후 짧게:
+> **동굴 / 바위 그늘**  
+> 구석기 사람들은 이런 자연 공간도 생활 공간으로 이용했다.
 
-> **구석기 사람들은 동굴이나 바위 그늘도 생활 공간으로 이용했다.**
+이 시점에 `막집` 비교 설명을 끌어오지 않는다.
 
-이 문구는 `여기가 새 집이다`라는 판정이 아니다.
+Historical Reconstruction:
 
-## Consequence Memory
+- 이 날 Hunt 인물들이 이 특정 공간을 발견하는 사건은 재구성
 
-- `cave-shelter-noticed`
-- `cave-shelter-inspected`
-- `cave-shelter-seemed-useful`
-- `cave-animal-sign-seen`
-
-## Learning Evidence
+Learning Evidence:
 
 - `natural-shelter-evaluated`
+- `cave-shelter-term-revealed`
 
 ---
 
 # 12. S8 — Threat Build-up
-
-위험은 다음 순서로 만든다.
 
 ```text
 이상 징후
 → 주변 사람 반응
 → 내 몸 정지
 → 직접 확인
-→ 화면/소리 accent
+→ screen/sound accent
 ```
 
-동굴 안 또는 바깥 모두 가능하지만 동굴을 항상 공포 장소로 고정하지 않는다.
+동굴 안/밖 모두 가능.
 
-Curriculum Anchor:
-
-- 불/거처/협력이 왜 중요했는지를 후속적으로 강화할 수 있음
+동굴을 항상 공포 장소로 고정하지 않는다.
 
 ---
 
 # 13. S9 — Threat Response
 
-Direct Actions 후보:
+행동 후보:
 
 - 같이 붙어 움직임
 - 조용히 거리 만듦
@@ -425,19 +367,19 @@ Direct Actions 후보:
 
 결과:
 
-- 성공/실패 점수 없음
+- 점수 없음
 - 거리/피로/관계/시간 변화 가능
 
 Screen Treatment:
 
 - 상황이 충분하면 accent/strong-accent 허용
-- 반복 red damage flash 금지
+- 반복 damage flash 금지
 
 ---
 
 # 14. S10 — Hunt Result
 
-다축 결과:
+다축 결과 예:
 
 ```text
 foodOutcome
@@ -447,41 +389,18 @@ relationshipMemory
 shelterDiscovery
 ```
 
-예:
-
-- food-secured
-- empty-handed
-- returned-late
-- tracked-far
-- cave-shelter-inspected
-- stayed-close-under-danger
-
 학생에게 내부 ID를 노출하지 않는다.
 
 ---
 
 # 15. S11 — Return
 
-Goal:
-
-- 랜드마크와 기억으로 거처 복귀
-
-Body:
-
+- 랜드마크와 기억으로 복귀
 - 피로한 팔
-- 동일한 주먹도끼 continuity
-
-Callback:
-
-- R의 말
-- 새 동굴 기억
-- 불빛
-
-Curriculum Anchor:
-
-- 이동 거리
-- 거처의 중요성
-- 불
+- 주먹도끼 continuity
+- R의 말 callback
+- 새 장소 기억 가능
+- 멀리 보이는 불
 
 ---
 
@@ -489,34 +408,23 @@ Curriculum Anchor:
 
 Goal:
 
-- `사냥 결과`보다 `사람들에게 돌아옴`을 감정적으로 회수
+- 사냥 결과보다 `사람들에게 돌아옴`을 감정적으로 회수
 
-가능한 variation:
+Variation:
 
 - food secured / empty-handed
 - late / earlier
-- cave discovered / not discovered
+- shelter candidate discovered / not discovered
 - risk intensity
+- relationship memory
 
-동굴 memory가 있으면:
-
-> “오는 길에 큰 바위 아래 넓은 곳이 있었어.”
-
-후속 질문:
-
-- 물은 가까운가?
-- 바닥은 어땠는가?
-- 위험 흔적은 없었는가?
-
-즉시 이사 결정 금지.
+새 장소 정보는 질문/대화의 씨앗이 되지만 즉시 이사 결론을 내리지 않는다.
 
 ---
 
 # 17. S13 — Role Completion
 
-RoleCompletion은 qualitative signal만 전달한다.
-
-예:
+qualitative signal 예:
 
 ```text
 hunt-food-secured
@@ -532,126 +440,59 @@ hunt-returned-to-community
 
 ---
 
-# 18. Curriculum Anchor가 분기를 독점하지 않게 한다
+# 18. Curriculum Anchor 분기 독점 방지
 
-동굴 발견이 선택 분기라면 모든 학생이 그 장면을 보지 않을 수 있다.
+Hunt에서 자연 거처 후보를 못 본 학생도 전체 체험에서 `동굴/바위 그늘 생활` 개념을 만날 수 있어야 한다.
 
-따라서 `동굴/바위 그늘 생활`이라는 핵심 개념은 전체 경험에서 다른 경로로도 보장한다.
+대체 경로:
 
-예:
-
-- Hunt에서 직접 발견
-- Gather에서 바위 그늘을 잠시 이용
-- Camp/Common Evening에서 다른 사람이 발견한 장소를 이야기
-
-# **필수 개념은 분기 하나에 가두지 않는다.**
+- Gather에서 바위 그늘 이용
+- Camp에서 다른 사람의 발견 이야기
+- Common Evening/Conceptualization
 
 ---
 
-# 19. Terminology Timing 원칙
+# 19. Terminology Timing
 
-명확히 짚을 용어:
+공식 규칙:
 
-- 뗀석기
-- 주먹도끼
-- 막집
-- 동굴/바위 그늘 생활
+- 경험 뒤 명명
+- 한 순간 한 개념 묶음
+- 1~2문장
+- 중요한 감정/위협 peak와 겹치지 않음
+- 반복 설명 금지
 
-단, 한 Scene에 몰아서 설명하지 않는다.
-
-`막집`은 Camp/통합에서 더 자연스럽게 명명할 수 있다.
+도구는 상위/하위 관계를 함께 명확히 한다.
 
 ---
 
-# 20. Scaffold
+# 20. Stage 07 Proof Boundary
 
-학생이 행동을 못 찾으면:
+Stage 07 실제 구현:
 
 ```text
-사람의 시선/손짓
-→ 환경 cue
-→ 약한 hotspot
-→ 짧은 행동 문구
-→ 명확한 hint
+S0 Orientation
+→ S1 Fire + Current Shelter
+→ S2 Tool Handoff + Terminology Beat
+→ S3 Departure
+→ S4 Crouch Observation
+→ S7 Natural Shelter Notice/Inspection + Terminology Beat
+→ Perspective Proof
 ```
 
-동굴 Scene에서도 `동굴을 클릭하세요`보다
-
-- H2 시선
-- 입구의 밝기 차
-- 바닥 흔적
-
-같은 세계 cue를 우선한다.
+Stage 05/06/08~13은 Stage 08 책임이다.
 
 ---
 
-# 21. Reduced Effects
+# 21. Stage 04 Acceptance Gate
 
-Reduced Effects에서도 유지해야 하는 것:
-
-- 인물 위치
-- 도구 continuity
-- curriculum reveal text
-- cave 입구/안쪽 정보
-- 위험 원인
-- 선택과 결과
-
-줄일 수 있는 것:
-
-- sway
-- jolt
-- focus
-- transition animation
-
----
-
-# 22. Stage 07 Skeleton Boundary — Revised
-
-Stage 07에서 전체 Hunt를 구현하지 않는다.
-
-다만 새 Curriculum Anchor 설계가 실제 브라우저에서 자연스러운지 검증하기 위해 다음 proof를 포함한다.
-
-```text
-Role Orientation
-→ Fire
-→ Tool Handoff
-→ 짧은 뗀석기/주먹도끼 reveal
-→ Join / Departure
-→ Crouch Observation
-→ Cave / Natural Shelter Discovery proof
-→ Perspective Transition proof
-```
-
-Stage 07에서 증명할 것:
-
-- 용어 reveal이 몰입을 깨지 않는가?
-- 주먹도끼가 몸에 계속 붙어 있는가?
-- cave가 카드가 아니라 실제 공간처럼 읽히는가?
-- “살기 괜찮아 보인다”는 판단이 설명 없이 생길 수 있는가?
-
-Stage 07에서 아직 증명하지 않을 것:
-
-- 전체 사냥 분기
-- 실제 threat/horror climax
-- 최종 주먹도끼 사용 애니메이션
-- 실제 이사 결정
-
----
-
-# 23. Stage 04 Acceptance Gate
-
-- Scene과 Beat가 구분되는가?
-- terminology reveal을 별도 거대 state로 만들지 않는가?
-- 주먹도끼가 receive 이후 held item으로 유지되는가?
-- `뗀석기/주먹도끼`를 짧고 정확하게 명명하는가?
-- 사냥 전 관찰이 직접 행동인가?
-- 동굴 발견이 공간 탐색 Scene으로 존재하는가?
-- 학생이 동굴의 장점/불확실성을 직접 확인하는가?
-- 동굴이 자동 정답 거처가 아닌가?
-- 분기가 핵심 교과 개념을 독점하지 않는가?
-- 위험과 screen treatment가 세계 사건 뒤에 오는가?
-- 결과가 다축 qualitative state인가?
-- 귀환과 공동체가 끝까지 남는가?
-- Stage 07 범위가 전체 Hunt로 팽창하지 않는가?
-
-이 Gate를 통과한 PLAYFLOW만 Stage 05~07의 입력으로 사용한다.
+- Scene/Beat가 구분되는가?
+- `뗀석기 → 주먹도끼` 관계가 정확한가?
+- current shelter가 cave보다 먼저 존재하는가?
+- 실제 기능 사용 evidence를 너무 일찍 기록하지 않는가?
+- natural shelter discovery가 설명보다 탐색/판단인가?
+- cave cue에서 막집을 조기 비교하지 않는가?
+- fact/reconstruction을 Teacher/Debug에서 구분 가능한가?
+- threat가 world→actor→body→treatment 순서인가?
+- 필수 Anchor가 한 분기에 갇히지 않는가?
+- Player에 내부 ID/Stage가 노출되지 않는가?
