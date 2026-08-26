@@ -2,86 +2,133 @@
 
 ## Current phase
 
-# **R2 Stage 01~07 Curriculum Anchor Revision 완료 / Stage 07 자동검증 PASS / Teacher Browser Visual·Immersion·Curriculum QA 대기**
+# **R2 Stage 01~07 Curriculum Hardening 완료 / 34 tests PASS / Teacher Browser Immersion·Curriculum·Misconception QA 대기**
 
-이번 리비전은 사용자가 제공한 5학년 사회 교과서의 구석기 내용을 바탕으로 `뗀석기·주먹도끼·불·막집·동굴/바위 그늘·이동 생활`을 기존 몰입형 설계에 자연스럽게 통합한 작업이다.
+이번 세션은 PR #13 이후 남은 교과 의미 오류와 proof 빈칸을 보완했다.
 
----
-
-# 1. 새 세션이 가장 먼저 알아야 할 것
-
-프로젝트의 교과 연계 핵심 문법:
+핵심 교과 문법:
 
 # **Experience → Name → Reuse → Connect**
 
-교과 개념을 먼저 강의하지 않는다.
+추가 정확성 규칙:
 
-예:
+# **Category → Representative Example**
 
 ```text
-R에게 돌도구를 받음
-→ 내 손에 들어옴
-→ '뗀석기 · 주먹도끼'를 짧게 명명
-→ 이후 손에 계속 남음
-→ 실제 생활 행동에 재사용
-→ 후속 개념화에서 실제 유물과 연결
+뗀석기
+└─ 대표적인 예: 주먹도끼
 ```
 
----
-
-# 2. 최신 canonical 문서
-
-- `docs/01_PROJECT_CORE.md` — **v8**
-- `docs/01A_EMBODIED_FIRST_PERSON_PRINCIPLES.md` — v4
-- `docs/01B_RELATIONSHIP_AGENCY_PRINCIPLES.md` — v3
-- `docs/01C_SUBTLE_SCREEN_TREATMENT_PRINCIPLES.md` — v3
-- `docs/01D_LEARNING_CLARITY_SAFETY_HISTORICAL_INTEGRITY.md` — v2
-- `docs/01E_CURRICULUM_TEXTBOOK_ANCHORS.md` — **v1 NEW**
-- `docs/02_EXPERIENCE_STRUCTURE.md` — **v8**
-- `docs/03_HUNT_STORY.md` — **v7**
-- `docs/04_HUNT_PLAYFLOW.md` — **v7**
-- `docs/05_ROLE_EXPERIENCE_MAP.md` — **v7**
-- `docs/06_TECH_BLUEPRINT.md` — **v7**
-- `docs/07_IMMERSION_NARRATIVE_BIBLE.md` — **v6**
+`뗀석기`와 `주먹도끼`를 동의어처럼 병렬 표시하지 않는다.
 
 ---
 
-# 3. 교과서 기반 구석기 Anchor
+# 1. 가장 먼저 읽을 최신 문서
 
-공식적으로 보존:
-
-- 뗀석기
-- 주먹도끼
-- 불의 이용
-- 막집
-- 동굴 / 바위 그늘 생활
-- 먹을 것을 찾아 옮겨 다니는 생활
-- 사냥·채집·생활 가공
-
-주의:
-
-- R/H1/H2는 교과서 사실이 아니라 재구성 인물.
-- 특정 날 동굴을 발견하는 사건도 재구성.
-- 체험을 실제 특정 유적의 사건이라고 주장하지 않음.
+1. `AGENTS.md`
+2. `PROJECT_STATUS.md`
+3. `docs/01_PROJECT_CORE.md`
+4. `docs/01E_CURRICULUM_TEXTBOOK_ANCHORS.md` — **v2**
+5. `docs/06_TECH_BLUEPRINT.md` — v7
+6. `docs/06A_CURRICULUM_RUNTIME_CONTRACT.md` — **v1 NEW / 06 v7 curriculum 예시 보완**
+7. `handoff/R2_EMBODIED_PLAYTEST_PROTOCOL.md`
+8. 해당 Stage STORY/PLAYFLOW
 
 ---
 
-# 4. Stage 07 현재 기본 Player 흐름
+# 2. 이번에 발견/수정한 핵심 문제
+
+## A. 뗀석기 / 주먹도끼 관계
+
+이전:
+
+```text
+뗀석기 · 주먹도끼
+```
+
+문제:
+
+두 용어가 같은 말처럼 읽힐 수 있음.
+
+현재:
+
+```text
+뗀석기
+돌을 깨뜨리거나 떼어 만든 도구.
+지금 손에 든 것은 그 대표적인 예인 주먹도끼.
+```
+
+Debug evidence도 분리:
+
+- `chipped-stone-term-revealed`
+- `handaxe-term-revealed`
+
+## B. 현재 거처 존재감
+
+이전 Stage 07은 cave가 강하게 보이지만 현재 공동체 거처의 시각 존재감이 약했다.
+
+현재:
+
+- 새벽 불 근처에 current temporary shelter proof
+- 출발 때 불/사람/임시 거처가 함께 멀어짐
+- cave 발견 전에 이미 다른 생활 공간이 존재함을 체감
+
+목적:
+
+`구석기 사람 = 동굴 생활만 함` 오개념 방지.
+
+## C. Cave cue
+
+이전:
+
+cave cue에서 아직 직접 배우지 않은 `막집`을 비교 설명.
+
+현재:
+
+```text
+동굴 / 바위 그늘
+구석기 사람들은 이런 자연 공간도 생활 공간으로 이용했다.
+```
+
+`막집`은 Camp에서 실제 임시 거처를 보고/손질한 뒤 명명하는 것을 우선.
+
+## D. 사실 / 재구성
+
+교과서가 뒷받침:
+
+- 동굴/바위 그늘 생활.
+
+프로젝트 재구성:
+
+- 오늘 H1/H2와 이동하다 특정 거처 후보를 발견한 사건.
+
+Teacher/Debug에서:
+
+```text
+역사적 재구성: 이 날 이 사람들이 이 거처 후보를 발견하는 구체 사건
+```
+
+을 확인 가능.
+
+---
+
+# 3. Stage 07 현재 Player flow
 
 ```text
 사냥을 나선 사람의 관점
-→ 새벽 불
-→ R이 돌도구를 내밂
-→ 학생이 받음
-→ '뗀석기 · 주먹도끼' 짧은 cue
-→ 주먹도끼를 내 손에 유지
+→ 새벽 불 + 현재 임시 거처
+→ R에게 돌도구를 받음
+→ 뗀석기 명명
+→ 지금 손의 대표적 예 = 주먹도끼
+→ held-tool continuity
 → H1/H2와 출발
-→ 몸을 낮춰 지면 관찰
-→ 앞쪽 큰 바위 아래 어두운 공간 발견
-→ 가까이 감
-→ 넓은 입구 / 마른 바닥 일부 / 어두운 안쪽 / 위험 가능성 확인
-→ '동굴 · 바위 그늘' 짧은 교과 cue
-→ 장소와 길을 기억
+→ 현재 거처가 멀어짐
+→ 몸 낮춰 지면 관찰
+→ 한동안 더 이동
+→ 큰 바위 아래 자연 공간 발견
+→ 가까이 가 입구/바닥/어둠/불확실성 확인
+→ 동굴 / 바위 그늘 명명
+→ 장소와 길 기억
 → 같은 날 다른 사람 관점 proof
 ```
 
@@ -89,154 +136,84 @@ Stage 07은 전체 Hunt가 아니다.
 
 ---
 
-# 5. 동굴 Event 설계 의도
+# 4. 자동 검증
 
-동굴을 다음처럼 만들지 않는다.
+PR #14 implementation head run:
 
-- `동굴 발견!` 보상 카드
-- 무조건 좋은 새 집
-- 무조건 무서운 던전
-- 막집과 경쟁하는 정답 문제
-
-학생은 먼저:
-
-- 넓은가
-- 바닥은 어떤가
-- 비/바람을 피할 수 있나
-- 안쪽은 얼마나 어두운가
-- 다른 동물 흔적 가능성은 있나
-- 물/먹을거리와 거리는 어떤가
-
-를 생각한다.
-
-그 뒤 짧게 `동굴/바위 그늘도 생활 공간으로 이용` 개념을 연결한다.
-
----
-
-# 6. 역할별 교과 연결
-
-## Hunt
-
-- 주먹도끼 첫 만남/명명
-- 이동 거리
-- 동굴/바위 그늘 발견
-
-## Gather
-
-- 뿌리/열매 채집
-- 땅파기/두들기기 등 도구 재사용
-- 가까운 자원 한계
-
-## Camp
-
-- 불 유지 / 음식 익히기
-- 막집 생활/손질
-- 동굴 등 새 거처 후보를 공동체 문제로 재평가
-
----
-
-# 7. 자동검증
-
-implementation head run:
-
-# **32841962496 — PASS**
-
-환경:
+# **32913702140 — PASS**
 
 - Node 24.19.0
 - npm 11.17.0
-
-결과:
-
 - install PASS
 - typecheck PASS
-- **8 test files / 33 tests PASS**
+- **8 test files / 34 tests PASS**
 - production build PASS
 
-Stage 07 Skeleton tests는 8개다.
+`R2EmbodiedSkeleton.test.tsx`: **9 tests**
 
-새로 직접 검증하는 것:
+추가 coverage:
 
-- 도구를 받기 전에는 terminology cue 없음
-- 받은 뒤 `뗀석기 · 주먹도끼` cue
-- held-tool continuity
-- crouch observation
-- cave notice / inspection
-- cave가 정답 문제로 변하지 않음
-- `동굴 · 바위 그늘` cue timing
-- Teacher reduced effects에서도 교과 정보 유지
-- Debug evidence 분리
+- current temporary shelter before cave
+- chipped-stone category / handaxe example hierarchy
+- dual internal curriculum anchors
+- no premature `막집` in cave cue
+- Teacher reconstruction marker
+- Debug curriculum/reconstruction evidence
 
 ---
 
-# 8. 개발 비교 URL
-
-개발 서버 기준:
+# 5. 개발 URL
 
 - Player: `http://localhost:5173/`
-- Legacy Hunt: `http://localhost:5173/?legacy=1`
 - Teacher: `http://localhost:5173/?teacher=1`
 - Debug: `http://localhost:5173/?debug=1`
-
-query 기반 개발 경로는 production product UI가 아니다.
-
----
-
-# 9. package
-
-```text
-0.0.0-r2-stage07-curriculum
-```
+- Legacy Hunt: `http://localhost:5173/?legacy=1`
 
 ---
 
-# 10. 아직 증명하지 않은 것
+# 6. 다음 공식 작업
 
-자동 테스트는 다음을 증명하지 않는다.
+# **Stage 07 Human Visual / Immersion / Curriculum / Misconception QA**
 
-- 용어 cue가 실제로 몰입을 덜 깨는가
-- 손/주먹도끼 비율이 자연스러운가
-- cave가 진짜 넓고 튼튼한 공간처럼 느껴지는가
-- cave의 장점/불확실성이 시각적으로 읽히는가
-- 학생이 `내가 발견한 곳`으로 기억하는가
-- 주먹도끼 개념이 체험 기억과 실제로 연결되는가
+반드시 확인:
 
----
+- 현재 임시 거처가 `집 아이콘`처럼 보이지 않고 생활 공간 proof로 읽히는가
+- 손/도구/NPC 공간감
+- `뗀석기 → 주먹도끼`가 실제 학생에게 이해되는가
+- terminology cue가 몰입을 과하게 깨지 않는가
+- cave가 설명 카드가 아니라 발견한 공간처럼 보이는가
+- 동굴을 유일한 거처로 오해하지 않는가
+- Teacher가 fact/reconstruction을 구분할 수 있는가
+- reduced-effects parity
 
-# 11. 다음 공식 작업
-
-# **R2 Stage 07 Teacher Browser Visual / Immersion / Curriculum QA**
-
-확인:
-
-1. 시작부터 웹페이지보다 실제 시야처럼 느껴지는가?
-2. 주먹도끼를 건네는 장면이 사람과의 상호작용처럼 느껴지는가?
-3. `뗀석기 · 주먹도끼` cue가 너무 교과서 카드처럼 튀지 않는가?
-4. cue 뒤에도 같은 도구가 내 손의 물건처럼 유지되는가?
-5. cave 발견이 설명보다 장소 발견처럼 느껴지는가?
-6. cave가 넓음/보호 가능성/어둠/불확실성을 함께 전달하는가?
-7. `동굴 · 바위 그늘` cue가 탐색 뒤 자연스럽게 붙는가?
-8. reduced effects에서도 정보가 유지되는가?
-9. 다른 관점 전환이 명료한가?
-
-관찰 기록:
+프로토콜:
 
 - `handoff/R2_EMBODIED_PLAYTEST_PROTOCOL.md`
 
-Stage 07 human Gate 통과 전 Stage 08을 시작하지 않는다.
+---
+
+# 7. 의도적으로 Stage 07에서 완료하지 않은 것
+
+다음을 아직 완료라고 부르지 않는다.
+
+- 주먹도끼 실제 땅파기/두들기기/자르기
+- 반복 사용으로 다용도성 체감
+- 막집 정식 명명/거처 손질
+- 불의 여러 기능 실제 체험
+- cave discovery의 실제 consequence
+- Camp의 cave 재평가
+- 전체 Hunt embodied vertical slice
+
+이 항목은 Stage 08 이후 책임이다.
 
 ---
 
-# 12. Stage 08에서 이어갈 것
+# 8. 다음 개발 Guardrail
 
-- 주먹도끼의 실제 기능적 사용
-- 사냥 흔적 탐색
-- 발견/접근
-- 추적 딜레마
-- Threat/Horror
-- cave 발견이 실제 분기/후속 signal로 이어지는 구조
-- 다축 결과
-- 귀환/죄책감/안도
-- 재회
-
-Legacy Hunt v0.1은 비교/회귀 기준으로 계속 보존한다.
+- `주먹도끼 = 사냥 무기`로 축소 금지.
+- `뗀석기 = 주먹도끼` 동의어 처리 금지.
+- `동굴 = 구석기의 집` 단일 정답화 금지.
+- cave 발견 즉시 이사 확정 금지.
+- 구체 R/H1/H2 사건을 실제 기록으로 표현 금지.
+- curriculum cue를 위협/감정 climax 위에 덮지 않음.
+- generic curriculum/item/shelter engine을 만들지 않음.
