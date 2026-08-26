@@ -272,11 +272,11 @@ export function R2EmbodiedSkeleton({
     return (
       <div className="r2-skeleton">
         <section className="r2-orientation" aria-labelledby="r2-orientation-title">
-          <p className="r2-orientation__eyebrow">같은 하루, 첫 번째 관점</p>
-          <h1 id="r2-orientation-title">사냥을 나선 사람의 관점</h1>
+          <p className="r2-orientation__eyebrow">새벽</p>
+          <h1 id="r2-orientation-title">불 냄새가 먼저 난다.</h1>
           <p>
-            아직 완전히 밝지 않다. 가까운 곳에서 불 타는 소리와 사람들이
-            하루를 준비하는 기척이 들린다.
+            눈꺼풀 너머로 붉은 빛이 번진다. 손끝은 아직 따뜻하고, 가까운 곳에서
+            장작이 내려앉는 소리와 낮은 발소리가 들린다.
           </p>
           <button
             className="r2-action"
@@ -497,7 +497,7 @@ function ActorDialogueLayer({ step }: { step: SkeletonStep }) {
         <p
           className="r2-actor-dialogue r2-actor-dialogue--h1-join"
           data-testid="h1-dialogue"
-          aria-label="곁에서 기다리던 동행자가 말한다: 같이 가자"
+          aria-label="바로 곁에서 목소리가 난다: 같이 가자"
         >
           “같이 가자.”
         </p>
@@ -511,7 +511,7 @@ function ActorDialogueLayer({ step }: { step: SkeletonStep }) {
         <p
           className="r2-actor-dialogue r2-actor-dialogue--r-depart"
           data-testid="r-dialogue"
-          aria-label="불가에 남은 익숙한 사람이 말한다: 해가 지기 전에 돌아와"
+          aria-label="뒤쪽 불가에서 익숙한 목소리가 들린다: 해가 지기 전에 돌아와"
         >
           “해가 지기 전에 돌아와.”
         </p>
@@ -525,7 +525,7 @@ function ActorDialogueLayer({ step }: { step: SkeletonStep }) {
         <p
           className="r2-actor-dialogue r2-actor-dialogue--h2-notice"
           data-testid="h2-dialogue"
-          aria-label="앞을 살피던 동행자가 말한다: 저기"
+          aria-label="조금 앞쪽에서 짧은 목소리가 난다: 저기"
         >
           “저기.”
         </p>
@@ -539,14 +539,14 @@ function ActorDialogueLayer({ step }: { step: SkeletonStep }) {
         <p
           className="r2-actor-dialogue r2-actor-dialogue--h2-cave"
           data-testid="h2-dialogue"
-          aria-label="먼저 바위 아래 공간을 발견한 동행자가 말한다: 안이 꽤 넓어"
+          aria-label="바위 아래 가까운 곳에서 목소리가 난다: 안이 꽤 넓어"
         >
           “안이 꽤 넓어.”
         </p>
         <p
           className="r2-actor-dialogue r2-actor-dialogue--h1-cave"
           data-testid="h1-dialogue"
-          aria-label="곁에서 함께 걸어온 동행자가 말한다: 안쪽은 먼저 봐야 해"
+          aria-label="바로 옆에서 다른 목소리가 난다: 안쪽은 먼저 봐야 해"
         >
           “안쪽은 먼저 봐야 해.”
         </p>
@@ -629,17 +629,18 @@ function StoryBeat({
       return (
         <>
           <p className="r2-dialogue">
-            불 가까이에 앉아 있던 익숙한 얼굴이 네가 눈을 뜨자 바로 시선을 맞춘다.
+            눈을 뜨자 불빛이 먼저 번진다. 불 너머의 익숙한 얼굴과 눈이 마주친다.
           </p>
           <p>
-            불 주변에서는 오늘 먹을 것을 찾아 나설 준비가 조용히 이어지고 있다.
+            입안은 마르고 배는 비어 있다. 주변에서는 말없이 짐을 챙기는 소리가
+            난다.
           </p>
           <button
             className="r2-action r2-action--quiet"
             type="button"
             onClick={() => dispatch({ type: 'NOTICE_R' })}
           >
-            불가의 익숙한 얼굴을 바라본다
+            눈이 마주친 얼굴을 바라본다
           </button>
         </>
       );
@@ -648,8 +649,8 @@ function StoryBeat({
       return (
         <>
           <p className="r2-dialogue">
-            불가에서 눈을 맞춘 익숙한 얼굴이 한쪽은 손에 잡히고 다른 쪽은
-            날카롭게 깨진 돌도구를 네 오른손 쪽으로 내민다.
+            눈앞의 손이 불 옆에 놓인 돌을 집어 들어 네 오른손 쪽으로 내민다.
+            한쪽은 손에 잡히고 다른 쪽은 날카롭게 깨져 있다.
           </p>
           <button
             className="r2-action"
@@ -682,15 +683,15 @@ function StoryBeat({
       return (
         <>
           <p>
-            주먹도끼를 쥐고 일어서자 가까운 발걸음이 멈춘다. 네 쪽으로 몸을
-            돌린 동행자가 그대로 기다리고 있다.
+            일어서자 바로 곁의 발소리가 멎는다. 누군가 몸을 돌려 너를 본다.
+            조금 앞쪽의 사람은 나무 사이를 바라보고 있다.
           </p>
           <button
             className="r2-action"
             type="button"
             onClick={() => dispatch({ type: 'JOIN_COMPANIONS' })}
           >
-            목소리가 난 동행자 곁으로 간다
+            목소리 쪽으로 한 걸음 다가간다
           </button>
         </>
       );
@@ -699,16 +700,15 @@ function StoryBeat({
       return (
         <>
           <p>
-            불가 쪽에서 익숙한 목소리가 들린다. 잠깐 뒤를 돌아보면 불과 임시
-            거처가 같은 자리에 남아 있고, 곁의 두 동행자는 네가 움직이기를
-            기다린다.
+            뒤쪽 불가에서 익숙한 목소리가 들린다. 돌아보면 아까 돌을 내민 손이
+            가볍게 들려 있다. 불과 임시 거처는 그 자리에 남아 있다.
           </p>
           <button
             className="r2-action"
             type="button"
             onClick={() => dispatch({ type: 'DEPART' })}
           >
-            고개를 끄덕이고 두 동행자와 나선다
+            한번 돌아보고 걷기 시작한다
           </button>
         </>
       );
@@ -717,15 +717,15 @@ function StoryBeat({
       return (
         <>
           <p>
-            바로 곁을 걷던 동행자가 갑자기 속도를 늦추고 몸을 낮춘다. 그 앞의
-            풀 한쪽이 낮게 눌려 있다.
+            몇 걸음 못 가 옆의 발소리가 느려진다. 곁의 사람이 쪼그려 앉는다.
+            그 앞의 풀 한쪽이 낮게 눌려 있다.
           </p>
           <button
             className="r2-action"
             type="button"
             onClick={() => dispatch({ type: 'OBSERVE_GROUND' })}
           >
-            바로 옆에 몸을 낮춰 함께 살핀다
+            옆에 쪼그려 앉는다
           </button>
         </>
       );
@@ -742,7 +742,7 @@ function StoryBeat({
             type="button"
             onClick={() => dispatch({ type: 'CONTINUE_TRAVEL' })}
           >
-            두 동행자와 계속 걷는다
+            다시 걷는다
           </button>
         </>
       );
@@ -751,15 +751,15 @@ function StoryBeat({
       return (
         <>
           <p>
-            한동안 더 걷자 앞쪽의 발소리가 갑자기 멈춘다. 조금 앞서 걷던
-            동행자의 몸이 큰 바위 쪽으로 돌아간다.
+            한동안 더 걷자 앞서 가던 사람이 갑자기 멈춘다. 몸이 큰 바위 쪽으로
+            돌아간다.
           </p>
           <button
             className="r2-action"
             type="button"
             onClick={() => dispatch({ type: 'FOLLOW_H2_GAZE' })}
           >
-            멈춘 동행자의 시선을 따라본다
+            그쪽을 본다
           </button>
         </>
       );
@@ -776,7 +776,7 @@ function StoryBeat({
             type="button"
             onClick={() => dispatch({ type: 'APPROACH_CAVE' })}
           >
-            두 동행자와 바위 아래 공간으로 가까이 간다
+            바위 아래로 가까이 가 본다
           </button>
         </>
       );
@@ -797,7 +797,7 @@ function StoryBeat({
             type="button"
             onClick={() => dispatch({ type: 'CONTINUE_AFTER_CAVE_INSPECTION' })}
           >
-            이 장소와 돌아가는 길을 기억해 둔다
+            돌아갈 길을 눈에 담는다
           </button>
         </>
       );
@@ -805,16 +805,15 @@ function StoryBeat({
     case 'perspective-proof':
       return (
         <>
-          <p className="r2-orientation__eyebrow">같은 날, 불가에 남은 자리</p>
-          <h1>아침에 네게 도구를 건넨 사람의 관점</h1>
+          <p className="r2-orientation__eyebrow">같은 아침</p>
+          <h1>불이 바로 앞에서 타고 있다.</h1>
           <p>
-            같은 Day 1의 같은 아침이다. 불은 바로 앞에서 타고 있다. 조금 전
-            내가 돌도구를 건넨 사람이 그 도구를 오른손에 들고 두 동행자와 함께
-            멀어져 간다.
+            손이 비어 있다. 조금 전까지 손에 있던 돌은 이제 저 멀리, 세 사람
+            가운데 한 사람의 오른손에 들려 있다. 불 냄새는 그대로인데 발소리는
+            점점 멀어진다.
           </p>
           <p className="r2-dialogue">
-            “해가 지기 전에 돌아와.” 방금 건넨 말 뒤로 세 사람의 모습과 발소리가
-            조금씩 작아진다.
+            입 밖으로 방금 한 말이 아직 남아 있다. “해가 지기 전에 돌아와.”
           </p>
         </>
       );
@@ -969,27 +968,27 @@ function getBodyPose(step: SkeletonStep) {
 function getWorldAriaLabel(step: SkeletonStep) {
   switch (step) {
     case 'fire':
-      return '새벽 불 앞. 불 가까이 앉아 있던 익숙한 얼굴과 두 동행자, 내 손과 무릎, 임시 거처가 보이는 시야';
+      return '새벽 불 앞. 불 너머의 익숙한 얼굴과 주변 사람들, 내 손과 무릎, 임시 거처가 보이는 시야';
     case 'receive-tool':
-      return '불가에서 눈을 맞춘 익숙한 얼굴이 돌도구를 내밀고 내 오른손이 향하는 시야';
+      return '눈앞의 손이 돌도구를 집어 들어 내 오른손 쪽으로 내미는 시야';
     case 'tool-reveal':
       return '내 오른손에 대표적인 뗀석기인 주먹도끼를 받아 쥔 채 형태를 살피는 시야';
     case 'join':
-      return '주먹도끼를 든 채 내 쪽으로 돌아서 기다리는 동행자와 바깥을 향해 서서 먼 곳을 살피는 동행자가 보이는 시야';
+      return '주먹도끼를 든 채 내 쪽으로 돌아서 기다리는 사람과 조금 앞에서 나무 사이를 바라보는 사람이 보이는 시야';
     case 'depart':
-      return '주먹도끼를 들고 두 동행자와 떠나기 전 불가에 남은 익숙한 얼굴과 현재 임시 거처를 돌아보는 시야';
+      return '주먹도끼를 들고 걷기 전 불가에서 아까 돌을 내민 손과 현재 임시 거처를 돌아보는 시야';
     case 'crouch-proof':
-      return '바로 곁을 걷던 동행자와 몸을 낮춰 내 손과 무릎 너머의 눌린 풀을 함께 살피는 시야';
+      return '곁의 사람과 몸을 낮춰 내 손과 무릎 너머의 눌린 풀을 함께 살피는 시야';
     case 'travel':
-      return '지면을 함께 살핀 뒤 두 동행자와 다시 걸음을 맞추는 시야';
+      return '지면을 함께 살핀 뒤 세 사람이 다시 걸음을 맞추는 시야';
     case 'h2-notice':
-      return '한동안 이동한 뒤 앞을 살피던 동행자가 갑자기 멈추고 큰 바위 방향을 바라보는 시야';
+      return '한동안 이동한 뒤 앞서 가던 사람이 갑자기 멈추고 큰 바위 방향을 바라보는 시야';
     case 'cave-notice':
-      return '멈춘 동행자의 시선을 따라 본 뒤 멀리 큰 바위 아래 넓어 보이는 어두운 공간이 드러난 시야';
+      return '앞서 가던 사람이 멈춘 방향을 본 뒤 큰 바위 아래 넓어 보이는 어두운 공간이 드러난 시야';
     case 'cave-inspect':
-      return '주먹도끼를 든 채 두 동행자와 넓은 자연 공간의 입구와 마른 바닥, 어두운 안쪽을 살피는 시야';
+      return '주먹도끼를 든 채 함께 온 사람들과 넓은 자연 공간의 입구와 마른 바닥, 어두운 안쪽을 살피는 시야';
     case 'perspective-proof':
-      return '같은 Day 1 아침, 도구를 건넨 사람의 자리에서 주먹도끼를 든 사람과 두 동행자가 멀어지는 모습을 보는 시야';
+      return '같은 아침 불 바로 앞. 내 손은 비어 있고 조금 전 내 손을 떠난 돌도구를 든 사람과 두 사람이 멀어지는 모습을 보는 시야';
     default:
       return '구석기 공동체의 시야';
   }
