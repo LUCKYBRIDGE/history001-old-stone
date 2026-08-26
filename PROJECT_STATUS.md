@@ -2,7 +2,7 @@
 
 ## Current phase
 
-# **R2 Stage 01~07 Canonical Unification 완료 / Stage 07 자동검증 PASS / Human QA 대기**
+# **R2 Stage 01~07 Canonical Unification 통합 완료 / Stage 07 Automated PASS / Human QA 대기**
 
 현재 공식 기준선:
 
@@ -20,7 +20,7 @@
 
 # 현재 판정
 
-- Canonical baseline/index: **NEW / PASS**
+- Canonical baseline/index: **PASS**
 - Stage 01 Project Core: **PASS / v9**
 - Stage 01E Curriculum/Textbook Anchors: **PASS / v3**
 - Stage 02 Experience Structure: **PASS / v9**
@@ -116,35 +116,32 @@ Player 흐름:
 → 다른 사람 관점 proof
 ```
 
-이번 통일에서 current shelter placeholder도 현대 집 아이콘보다 **비대칭 덮개/지지대형 임시 구조물 proof**에 가깝게 수정했다.
+current shelter placeholder는 단순 house-like pentagon 대신 **비대칭 덮개/지지대형 임시 구조물 proof**로 바뀌었다.
 
-Teacher/Debug의 reconstruction note도:
+Teacher/Debug의 reconstruction note는 다음 범위를 일관되게 구분한다.
 
 - 구체 공동체 인물/거처 배치
 - 특정 아침 도구 전달
 - 특정 자연 거처 후보 발견
 
-범위로 통일했다.
-
 ---
 
-# 첫 통합 검증
+# 자동 검증 기준선
 
-PR #15 implementation/canonical-unification head:
+Canonical/runtime 통합 내용은 PR #15에서 검증됐다.
 
-- SHA: `5b69c5858a6a5d4b6a989eacddce18d25f962673`
-- CI run: **32926349166 — PASS**
+- canonical/runtime content head: `e40208b0d6e8fbf3a2949af2ef1fbaf6704b6849`
+- initial consolidated CI: `32926349166` — PASS
+- exact PR-head CI: `32926520525` — PASS
 - Node: **24.19.0**
 - npm: **11.17.0**
-- install: PASS
-- typecheck: PASS
 - test files: **8 / 8 PASS**
 - tests: **35 / 35 PASS**
 - Stage 07 Skeleton integration tests: **10 PASS**
 - production build: PASS
 - Vite modules transformed: **41**
 
-최종 상태/handoff 기록을 포함한 PR HEAD는 별도 CI로 다시 검증한 뒤 main에 통합한다.
+상태 문서 자체의 최종화 커밋도 저장소 CI를 통과한 뒤 main에 반영하는 운영 규칙을 유지한다. 최신 exact main SHA/run은 GitHub Actions 상태를 기준으로 확인하며, 그 값을 다시 문서에 써서 끝없는 docs-only CI 루프를 만들지 않는다.
 
 ---
 
