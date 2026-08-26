@@ -1,5 +1,5 @@
 # 구석기 역사 체험 웹게임
-## Canonical Baseline v2 — R2 Stage 07 Curriculum-Hardened Baseline
+## Canonical Baseline v3 — R2 Stage 07 Curriculum-Hardened + Visual Production Contract
 
 이 문서는 프로젝트의 **현재 기준선, 문서 위계, 공식 용어, 완료/미완료 경계**를 한곳에 고정한다.
 
@@ -17,6 +17,8 @@
 - Stage 07 Embodied Curriculum Skeleton 구현 완료
 - 자동 검증 완료
 - Teacher Browser Human QA는 아직 미실시
+- first-person visual/image production 계약은 `docs/07A_FIRST_PERSON_VISUAL_ASSET_BIBLE.md`에 추가됨
+- 실제 production image / Stage 08 Hunt visual integration은 아직 시작하지 않음
 - Stage 08 Hunt Embodied Vertical Slice는 Human Gate 통과 전 시작 금지
 
 공식 다음 Gate:
@@ -41,10 +43,13 @@
 10. 역할별 `*_PLAYFLOW.md`
 11. `docs/06_TECH_BLUEPRINT.md`
 12. `docs/07_IMMERSION_NARRATIVE_BIBLE.md`
-13. `docs/00_DEVELOPMENT_WORKFLOW.md`
-14. `PROJECT_STATUS.md` / `handoff/CURRENT_HANDOFF.md`
+13. `docs/07A_FIRST_PERSON_VISUAL_ASSET_BIBLE.md`
+14. `docs/00_DEVELOPMENT_WORKFLOW.md`
+15. `PROJECT_STATUS.md` / `handoff/CURRENT_HANDOFF.md`
 
 `docs/06_TECH_BLUEPRINT.md`가 **유일한 기술 SSOT**다. 과도기 보정 문서였던 `06A`는 v8에 흡수되어 삭제됐으며 다시 canonical 문서로 사용하지 않는다.
+
+`docs/07A_FIRST_PERSON_VISUAL_ASSET_BIBLE.md`는 **시각 자산 제작/생성/합성/QA 계약**이다. React/TypeScript runtime 타입과 구현 구조를 별도 기술 SSOT처럼 소유하지 않는다. Stage 08에서 실제 visual manifest/anchor 구조가 필요해지면 `docs/06_TECH_BLUEPRINT.md`의 정식 후속 버전에 흡수한다.
 
 다음은 **기록/전환 참고 문서**이며 canonical 설계를 덮지 않는다.
 
@@ -165,6 +170,8 @@ Same Day 1
 - 역할 완료마다 세계 시간이 하루씩 증가하지 않는다.
 - 역할 순서가 달라도 동일 `dayId`를 공유한다.
 - 한 역할의 결과가 다른 역할에서 이미 일어난 과거를 소급 변경하지 않는다.
+- 같은 하루의 R/H1/H2, 현재 거처, 불 주변 배치, 도구 같은 **shared visual anchor의 정체성도 역할마다 모순되지 않아야 한다.**
+- 다른 POV이므로 구도와 보이는 범위는 달라도 되지만 같은 사람/장소/물건이 다른 세계의 자산처럼 바뀌면 안 된다.
 
 ---
 
@@ -174,15 +181,40 @@ Same Day 1
 
 거리 / 흔적 / 주먹도끼 / 추적 / 불확실성 / 자연 위험 / 새 장소 / 귀환
 
+시각 몸 문법:
+
+- 멀어짐
+- carry
+- crouch
+- alert
+- fatigue
+- return
+
 ## Gather
 
 가까운 관찰 / 채집 / 도구 재사용 / 가공 / 반복 / 공간 기억 / 범위 확대
+
+시각 몸 문법:
+
+- close hand work
+- repeated reach
+- sorting
+- processing
+- small-resource carry
 
 ## Camp
 
 불 / 현재 임시 거처와 막집 / 생활 유지 / 가공 / 시간 / 빈자리 / 기다림 / 재회 / 새 거처 후보 재평가
 
-세 역할은 같은 미니게임 문법을 복제하지 않는다.
+시각 몸 문법:
+
+- fire tending
+- shelter repair
+- food processing
+- resting/waiting
+- departure/return observation
+
+세 역할은 같은 미니게임 문법이나 같은 손 pose 세트를 복제하지 않는다.
 
 ---
 
@@ -191,6 +223,30 @@ Same Day 1
 Embodied First-Person:
 
 > **환경 + 자연스럽게 보이는 내 몸 + 들고 있는 것 + 주변 사람 + 현재 행동 + 빛/소리**
+
+Production visual composition:
+
+```text
+World Plate
++ Spatial / Occlusion
++ Actor
++ Embodied Body
++ Held / Contact Item
++ Environmental Light
++ Perceptual Treatment
++ Minimal Player UI
+```
+
+이 레이어 분리는 제작과 placement를 위한 것이며 학생에게는 **하나의 물리적 시야**처럼 보여야 한다.
+
+핵심:
+
+- 몸은 HUD가 아니다.
+- 매 Beat마다 새 완성 이미지를 갈아끼우는 slideshow를 기본 구조로 삼지 않는다.
+- 손/도구는 세계와 접촉해야 한다.
+- 동일 역할의 camera/body/tool identity와 광원 continuity를 유지한다.
+- physical-looking light를 먼저 맞춘 뒤 screen treatment를 적용한다.
+- occlusion은 depth 정보를 전달하는 핵심 수단으로 본다.
 
 Screen Treatment:
 
@@ -235,10 +291,37 @@ Stage 07이 아직 증명하지 않은 것:
 - 완성된 Hunt 추적/공포/결과/귀환
 - 실제 학생의 개념 이해
 - 실제 시각 몰입 품질
+- production-quality body/cast/tool/environment identity continuity
+- 실제 생성 자산의 grip/contact/occlusion/lighting 자연스러움
+- responsive viewport에서 production composition 안정성
+
+Stage 07 Human QA에서는 기존 질문에 더해 **현재 placeholder 구도가 production asset으로 치환 가능한지**를 확인한다.
 
 ---
 
-# 10. 기술 용어
+# 10. Visual Production Readiness
+
+Design PASS와 별도다.
+
+Stage 08에서 production visual을 만들기 전에 최소 다음이 있어야 한다.
+
+- Historical / Visual Reference Pack
+- Player Body Continuity Sheet
+- Camera / Composition Profiles
+- R/H1/H2 Cast Anchor Sheets
+- canonical Handaxe Anchor Sheet
+- Current Shelter / Terrain / Cave / Fire Scene Families
+- contact / grip / occlusion anchor plan
+- crop-safe / responsive composition plan
+- historical reference provenance / asset license 구분
+
+# **Visual Production Ready ≠ Human QA PASS ≠ Stage Complete**
+
+Stage 07 Human Gate가 먼저다.
+
+---
+
+# 11. 기술 용어
 
 ## Curriculum Anchor
 
@@ -262,14 +345,19 @@ Stage 07이 아직 증명하지 않은 것:
 
 # **Scene ≠ Beat**
 
+## Embodied Composite
+
+분리된 world/body/actor/item/treatment 자산을 같은 시야·광원·접촉·깊이 논리로 합성하여 하나의 1인칭 세계처럼 보이게 하는 visual production 문법.
+
 ---
 
-# 11. 완료 판정 용어
+# 12. 완료 판정 용어
 
 - **Design PASS**: 설계 문서 계약이 정리됨.
 - **Implementation Complete**: 해당 범위 코드가 존재함.
 - **Automated PASS**: install/typecheck/tests/build 통과.
 - **Human QA PASS**: 실제 브라우저 플레이로 시각·몰입·교과·오개념 Gate 통과.
+- **Visual Production Ready**: 생성/제작을 위한 reference, anchor, camera, continuity, provenance 계약이 준비됨.
 - **Stage Complete**: 그 Stage가 요구하는 Design/Implementation/Automated/Human Gate가 모두 충족됨.
 
 현재 Stage 07은:
@@ -280,7 +368,7 @@ Stage 07이 아직 증명하지 않은 것:
 
 ---
 
-# 12. 운영 상태 소유권
+# 13. 운영 상태 소유권
 
 문서가 서로 다른 시점의 상태를 말하지 않도록 역할을 분리한다.
 
@@ -319,7 +407,7 @@ Stage 07이 아직 증명하지 않은 것:
 
 ---
 
-# 13. 변경 규칙
+# 14. 변경 규칙
 
 새 리비전에서 반드시 확인한다.
 
@@ -331,5 +419,7 @@ Stage 07이 아직 증명하지 않은 것:
 - 운영 문서가 이미 끝난 병합을 미래형으로 말하지 않는가?
 - 학생 화면과 Teacher/Debug 관리 정보가 분리되는가?
 - 구현했다고 학습 완료로 과장하지 않는가?
+- visual asset이 아름답다는 이유로 body/contact/continuity 문제를 덮지 않는가?
+- 외부 reference의 라이선스와 실제 프로젝트 asset 사용 권리를 구분하는가?
 
 이 문서는 그 판정을 위한 프로젝트 기준선이다.
