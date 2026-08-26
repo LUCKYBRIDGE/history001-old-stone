@@ -1,13 +1,15 @@
-# 구석기 역사 체험 웹게임 — 개발 워크플로우 v7
-## Design Reboot R2 / Curriculum-Aware Stage 01~07
+# 구석기 역사 체험 웹게임 — 개발 워크플로우 v8
+## Design Reboot R2 / Stage 07 Curriculum-Hardened Baseline
 
 이 문서는 **역사·교과 근거 → 몰입형 설계 → 작은 browser proof → 자동 검증 → 사람 QA → 다음 Vertical Slice** 순서를 관리한다.
 
-기존 Hunt v0.1은 삭제하지 않고 Legacy Functional Prototype으로 보존한다.
+현재 기준선과 공식 용어는 `docs/00_CANONICAL_BASELINE.md`를 따른다.
+
+기존 Hunt v0.1은 Legacy Functional Prototype으로 보존한다.
 
 ---
 
-# 1. 개발 원칙
+# 1. 전체 개발 루프
 
 ```text
 Historical / Curriculum Fact
@@ -17,39 +19,56 @@ Historical / Curriculum Fact
 → Technical Contract
 → Small Browser Proof
 → Automated Verification
-→ Teacher Visual / Immersion / Curriculum QA
+→ Teacher Human QA
 → Larger Vertical Slice
+→ Teacher QA
 → Student Pilot
 ```
 
 구분:
 
-- 문서 PASS ≠ runtime PASS
-- runtime PASS ≠ human immersion PASS
+- Design PASS ≠ runtime PASS
+- Implementation Complete ≠ Human QA PASS
 - terminology rendering PASS ≠ 실제 개념 이해 PASS
+- 자동 CI PASS ≠ Stage Complete
 
-교과 연계의 기본 문법:
+교과 연결 문법:
 
 # **Experience → Name → Reuse → Connect**
 
 ---
 
-# 2. Stage 01 — Project Constitution
+# 2. 문서 변경 원칙
 
-상태:
+안정적인 canonical 문서에는 가능한 한 다음을 하드코딩하지 않는다.
 
-# **PASS / REVISED**
+- 최신 CI run ID
+- 최신 test count
+- 현재 branch SHA
 
-최신:
+이런 변동 정보는 다음 두 파일이 소유한다.
 
-- Project Core **v8**
-- Embodied First-Person v4
-- Relationship/Agency v3
-- Screen Treatment v3
-- Learning/Safety/Historical Integrity v2
-- Curriculum/Textbook Anchors **v1**
+- `PROJECT_STATUS.md`
+- `handoff/TEST_REPORT.md`
 
-핵심:
+canonical 문서는 원칙·계약·Acceptance Gate를 소유한다.
+
+---
+
+# 3. Stage 01 — Project Constitution
+
+상태 판단은 `PROJECT_STATUS.md`를 따른다.
+
+핵심 문서:
+
+- Project Core
+- Embodied First-Person
+- Relationship/Agency
+- Screen Treatment
+- Learning/Safety/Historical Integrity
+- Curriculum/Textbook Anchors
+
+핵심 계약:
 
 - Role-True limited POV
 - Emotional Reality
@@ -58,16 +77,12 @@ Historical / Curriculum Fact
 - `Subtle by default. Strong when earned.`
 - Choice Fairness = causal plausibility
 - Historical Fact / Reconstructed Event 분리
+- `뗀석기 → 대표적인 예: 주먹도끼` 계층
+- 현재 임시 거처 / 막집 / 동굴·바위 그늘 용어 분리
 
 ---
 
-# 3. Stage 02 — Same-Day Experience Structure
-
-상태:
-
-# **PASS / REVISED**
-
-최신: **v8**
+# 4. Stage 02 — Same-Day Experience Structure
 
 핵심:
 
@@ -78,26 +93,22 @@ Historical / Curriculum Fact
 - 동일 `dayId`
 - cross-role signal이 과거를 소급 변경하지 않음
 - Common Evening은 세 관점 뒤 한 번
-- 교과 Anchor를 역할에 분산
+- Curriculum Anchor를 역할에 분산
 - 필수 교과 개념을 한 분기가 독점하지 않음
 
 ---
 
-# 4. Stage 03 — Hunt STORY
-
-상태:
-
-# **PASS / REVISED**
-
-최신: **v7**
+# 5. Stage 03 — Hunt STORY
 
 핵심:
 
 - R/H1/H2 관계
-- 주먹도끼 전달 → 짧은 용어 명명 → continuity
+- 돌도구 전달
+- 경험 뒤 `뗀석기 → 주먹도끼` 짧은 명명
+- held-item continuity
 - 흔적/추적
 - 시간/거리/사람 딜레마
-- 동굴/바위 그늘 발견 가능
+- 동굴/바위 그늘 후보 발견 가능
 - 공간의 장점과 불확실성 평가
 - Threat/Horror
 - multi-axis result
@@ -105,61 +116,57 @@ Historical / Curriculum Fact
 
 ---
 
-# 5. Stage 04 — Hunt PLAYFLOW
-
-상태:
-
-# **PASS / REVISED**
-
-최신: **v7**
-
-핵심:
+# 6. Stage 04 — Hunt PLAYFLOW
 
 # **Scene ≠ Beat**
 
-Terminology Reveal은 대부분 Beat다.
+Scene:
+
+- 목표·직접 행동·위치·결과·world/relationship memory가 의미 있게 달라지는 상태 단위
+
+Beat:
+
+- gaze
+- dialogue
+- body shift
+- terminology reveal
+- focus/jolt 등 짧은 표현 변화
 
 Stage 07 proof 범위:
 
 ```text
 Role Orientation
-→ Fire
+→ Fire + Current Temporary Shelter
 → Tool Handoff
-→ 뗀석기/주먹도끼 cue
+→ 뗀석기 → 주먹도끼 Terminology Beat
 → Join / Departure
 → Crouch Observation
-→ Cave / Natural Shelter Discovery
-→ 동굴/바위 그늘 cue
+→ Natural Shelter Discovery / Inspection
+→ 동굴/바위 그늘 Terminology Beat
 → Perspective Transition
 ```
 
 ---
 
-# 6. Stage 05 — Three Role Map
+# 7. Stage 05 — Three Role Map
 
-상태:
-
-# **PASS / REVISED**
-
-최신: **v7**
-
-역할 고유 문법:
-
-- Hunt — 거리/주먹도끼/추적/위험/동굴 발견/귀환
-- Gather — 가까운 관찰/채집/도구 재사용/공간 기억/범위 확대
-- Camp — 불/막집/생활 손질/시간/부재/재회/새 거처 후보 논의
+- Hunt — 거리/주먹도끼/추적/위험/새 장소/귀환
+- Gather — 가까운 관찰/채집/도구 재사용/가공/공간 기억/범위 확대
+- Camp — 불/현재 임시 거처/막집/생활 손질/시간/부재/재회/새 거처 후보 재평가
 
 교과 핵심을 Hunt 설명에 몰지 않는다.
 
 ---
 
-# 7. Stage 06 — Technical Blueprint
+# 8. Stage 06 — Technical Blueprint
 
-상태:
+기술 SSOT는:
 
-# **PASS / REVISED**
+# **`docs/06_TECH_BLUEPRINT.md` 하나**
 
-최신: **v7**
+만 사용한다.
+
+별도 보정 문서가 생기면 다음 정식 Stage 06 버전업에서 반드시 본문에 흡수하고 보정 문서는 제거한다.
 
 구조:
 
@@ -171,80 +178,74 @@ App
 → Embodied Presentation
 ```
 
-추가 최소 계약:
+핵심 최소 계약:
 
-- CurriculumAnchorId
-- local TerminologyReveal
-- receive evidence vs functional-use evidence 구분
-- cave/natural-shelter presentation
-- cave exposure treatment
+- `SharedDayContext`
+- qualitative `RoleCompletion`
+- `CurriculumAnchorId`
+- local `TerminologyReveal`
+- `LearningEvidence`
+- body/held-item continuity
+- natural-shelter presentation
+- relationship/world memory
+- screen treatment / reduced effects
+- Player / Teacher / Debug 분리
 
 금지:
 
 - generic Curriculum Engine
+- generic Scene/NPC/VFX engine
 - 교과서 DB
 - 3D cave engine
-- generic Scene/NPC/VFX engine
+- item stats/inventory system
 
 ---
 
-# 8. Stage 07 — Embodied Curriculum Skeleton
+# 9. Stage 07 — Embodied Curriculum Skeleton
 
-## 구현 상태
-
-# **Implementation Complete / Automated PASS / Human QA Pending**
-
-package:
-
-```text
-0.0.0-r2-stage07-curriculum
-```
-
-기본 앱 흐름:
+현재 구현 범위:
 
 ```text
 사냥 관점
-→ 새벽 불
-→ R에게 돌도구 받기
-→ 뗀석기/주먹도끼 cue
-→ 주먹도끼 continuity
+→ 새벽 불 + 현재 임시 거처
+→ R의 도구 전달
+→ 뗀석기 상위 개념 + 주먹도끼 대표 예
+→ held-item continuity
 → 동행 합류/출발
+→ 현재 거처가 멀어짐
 → crouch observation
-→ cave / rock-shelter 발견
-→ 공간 살핌
-→ 동굴/바위 그늘 cue
-→ perspective transition proof
+→ 한동안 이동
+→ 동굴/바위 그늘 후보 발견
+→ 공간 장점/불확실성 평가
+→ 짧은 용어 연결
+→ 다른 관점 전환 proof
 ```
 
-자동 검증 implementation baseline:
-
-- 8 test files
-- **33 tests**
-- typecheck PASS
-- production build PASS
-- CI `32841962496`
+현재 자동검증의 정확한 test count/run ID는 `handoff/TEST_REPORT.md`가 소유한다.
 
 ---
 
-# 9. Stage 07 Human Gate
+# 10. Stage 07 Human Gate
 
-다음 공식 작업이다.
+다음 공식 Gate:
 
-# **Teacher Browser Visual / Immersion / Curriculum QA**
+# **Teacher Browser Visual / Immersion / Curriculum / Misconception QA**
 
 확인:
 
 - first-person body placement
 - R/H1/H2 공간감과 관계
-- handaxe handoff
-- `뗀석기 · 주먹도끼` cue가 경험 뒤 자연스럽게 붙는가
+- current temporary shelter가 현대 집/텐트 아이콘처럼 보이지 않는지
+- `뗀석기 → 대표적인 예: 주먹도끼` 관계가 이해되는지
+- terminology cue가 몰입을 과도하게 끊지 않는지
 - held-item continuity
-- cave가 실제 공간처럼 보이는가
-- cave의 보호 가능성과 불확실성이 함께 읽히는가
-- `동굴 · 바위 그늘` cue timing
+- cave/rock-shelter가 실제 공간처럼 보이는지
+- 보호 가능성과 불확실성이 함께 읽히는지
+- fact / reconstruction 경계
 - treatment / reduced effects
 - perspective transition
 - dev chrome 미노출
+- 핵심 오개념 없음
 
 기록:
 
@@ -254,11 +255,9 @@ package:
 
 ---
 
-# 10. Stage 08 — Hunt Embodied Vertical Slice
+# 11. Stage 08 — Hunt Embodied Vertical Slice
 
-상태:
-
-# **NOT STARTED / BLOCKED BY STAGE 07 HUMAN GATE**
+Human Gate 통과 뒤 시작한다.
 
 예정 범위:
 
@@ -266,36 +265,34 @@ package:
 - 흔적 탐색
 - 발견/접근/시도
 - 추적 딜레마
-- Cave discovery의 실제 분기/후속 signal
+- cave discovery의 실제 consequence
 - Threat/Horror
 - multi-axis result
 - 귀환
 - emotional callbacks
 - 재회
 
-Stage 07의 `도구 받기`를 실제 `다용도 사용 경험`으로 확장한다.
+Stage 07의 `도구 받기/명명`을 Stage 08의 `실제 다용도 사용 경험`으로 확장한다.
 
 ---
 
-# 11. Stage 09 — Teacher Immersion / Curriculum QA
+# 12. Stage 09 — Teacher Hunt QA
 
-Stage 08 Hunt 전체를 교사가 플레이하며:
+Stage 08 Hunt 전체를 교사가 플레이하며 검증:
 
 - 역할 빙의
 - 관계
 - 공포/죄책감의 자연스러움
-- 교과 terminology timing
+- terminology timing
 - 주먹도끼의 다용도성 이해
-- 막집/동굴 생활 오개념 여부
+- 주거 형태 오개념 여부
 - 결과 변주
 - 귀환
 - historical imagination
 
-을 검증한다.
-
 ---
 
-# 12. Stage 10 — Student Pilot
+# 13. Stage 10 — Student Pilot
 
 초등학생 소규모 파일럿.
 
@@ -307,13 +304,13 @@ Stage 08 Hunt 전체를 교사가 플레이하며:
 - 선택 이유
 - 기억되는 사람
 - 기억되는 도구/거처
-- `뗀석기`, `주먹도끼`, `막집`, `동굴/바위 그늘`의 개념 연결
+- `뗀석기`, `주먹도끼`, `막집`, `동굴/바위 그늘` 개념 연결
 - 역사적 상상력
 - 오개념
 
 ---
 
-# 13. Stage 11 — Gather
+# 14. Stage 11 — Gather
 
 고유 문법:
 
@@ -324,52 +321,47 @@ Stage 08 Hunt 전체를 교사가 플레이하며:
 - 가까운 자원 한계
 - 공간 기억
 
-STORY → PLAYFLOW → proof → QA 순서 진행.
+STORY → PLAYFLOW → proof → QA 순서.
 
 ---
 
-# 14. Stage 12 — Camp
+# 15. Stage 12 — Camp
 
 고유 문법:
 
 - fire / cooking
-- 막집 생활/손질
+- 현재 임시 거처를 직접 다룸
+- 경험 뒤 `막집` 명명
 - 같은 공간의 시간 변화
 - absence / waiting / reunion
 - 새 동굴 후보를 다른 관점에서 평가
 
-으로 구현/QA.
-
 ---
 
-# 15. Stage 13 — Three-Perspective Integration
+# 16. Stage 13 — Three-Perspective Integration
 
 - cross-role signals
 - perspective recontextualization
 - Common Evening
 - 도구/먹을거리/불/거처를 하나의 공동체 생활로 결합
 
-검증.
-
 ---
 
-# 16. Stage 14 — Multi-Day Change
+# 17. Stage 14 — Multi-Day Change
 
 여러 날에 걸쳐:
 
 - 가까운 자원 감소
 - 사냥/채집 거리 증가
-- 막집 유지 부담
+- 현재 거처 유지 부담
 - 새 shelter candidate
 - 물/먹을거리/위험 조건
 
-을 누적한다.
+누적.
 
 ---
 
-# 17. Stage 15 — Migration / New Home
-
-이동을 교과 문장으로 알려주기보다 앞선 경험의 결론으로 만든다.
+# 18. Stage 15 — Migration / New Home
 
 ```text
 자원 부담
@@ -380,22 +372,21 @@ STORY → PLAYFLOW → proof → QA 순서 진행.
 → 이동 결정
 ```
 
-동굴을 자동 정답 목적지로 고정하지 않는다.
+동굴을 자동 목적지로 고정하지 않는다.
 
 ---
 
-# 18. Stage 16 — Historical Conceptualization
+# 19. Stage 16 — Historical Conceptualization
 
-체험에서 이미 겪은 것을 정확한 교과 개념과 실제 자료로 연결한다.
-
-예:
+이미 체험한 것을 정확한 교과 개념과 실제 자료로 연결한다.
 
 ```text
-내가 받았던 도구
-→ 뗀석기 / 주먹도끼
+내가 사용한 도구
+→ 뗀석기
+→ 대표적인 예: 주먹도끼
 → 실제 주먹도끼 유물
 
-내가 생활했던 임시 거처
+내가 생활/손질한 임시 거처
 → 막집
 
 내가 살핀 자연 공간
@@ -405,11 +396,11 @@ STORY → PLAYFLOW → proof → QA 순서 진행.
 → 먹을 것을 찾아 옮겨 다니는 생활
 ```
 
-# **이 단계가 처음으로 개념을 가르치는 곳은 아니다. 이미 경험한 개념을 정리하고 실제 증거에 연결하는 단계다.**
+이 단계가 처음으로 개념을 가르치는 곳은 아니다.
 
 ---
 
-# 19. 각 코드 세션 종료 Gate
+# 20. 각 코드 세션 종료 Gate
 
 최소 자동 검증:
 
@@ -418,6 +409,11 @@ STORY → PLAYFLOW → proof → QA 순서 진행.
 3. tests
 4. production build
 
-그리고 구현 범위가 몰입/교과 cue를 포함하면 반드시 별도 human QA 상태를 기록한다.
+그리고:
+
+5. 해당 Human Gate 상태를 정확히 기록
+6. `PROJECT_STATUS.md` 업데이트
+7. `handoff/CURRENT_HANDOFF.md` 업데이트
+8. `handoff/TEST_REPORT.md`에 exact SHA/run 기록
 
 # **자동 CI로 Immersion Complete / Curriculum Complete를 선언하지 않는다.**
