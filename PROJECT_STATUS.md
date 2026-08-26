@@ -12,6 +12,10 @@
 
 - `docs/00_CANONICAL_BASELINE.md`
 
+시각 제작 보완 계약:
+
+- `docs/07A_FIRST_PERSON_VISUAL_ASSET_BIBLE.md`
+
 교과 연결 문법:
 
 # **Experience → Name → Reuse → Connect**
@@ -31,6 +35,7 @@
 - Stage 06 Technical Blueprint: **PASS / v8 / SINGLE TECH SSOT**
 - Stage 06A supplement: **REMOVED / absorbed into Stage 06 v8**
 - Immersion Narrative Bible: **PASS / v7**
+- First-Person Visual Asset Bible: **PLANNING CONTRACT ADDED / Stage 08 production not started**
 - Legacy Hunt transition brief: **NON-CANONICAL / refreshed**
 - Audit reports: **NON-CANONICAL historical records**
 - Stage 07 Skeleton: **IMPLEMENTATION COMPLETE**
@@ -126,6 +131,52 @@ Teacher/Debug의 reconstruction note는 다음 범위를 일관되게 구분한�
 
 ---
 
+# First-Person Visual / Image Production 계획
+
+새 `docs/07A_FIRST_PERSON_VISUAL_ASSET_BIBLE.md`는 공개 1인칭 게임/오픈소스/박물관·연구기관 자료에서 검증 가능한 원칙을 프로젝트의 2D 웹 구조로 번역한다.
+
+핵심 방향:
+
+```text
+World Plate
++ Spatial / Occlusion
++ Actor
++ Embodied Body
++ Held / Contact Item
++ Environmental Light
++ Perceptual Treatment
++ Minimal Player UI
+```
+
+생성형 이미지 제작 전 먼저 고정할 것:
+
+- Player Body Continuity / Camera Profile
+- R/H1/H2 Cast Anchor Sheet
+- canonical handaxe visual identity
+- current temporary shelter visual guardrail
+- terrain / cave / fire Scene Family
+- contact / grip / occlusion anchor
+- historical reference provenance
+
+Stage 01~07은 다시 갈아엎지 않는다. 다만 visual-production 관점에서 필요한 보완 해석은 07A가 다음처럼 연결한다.
+
+- Stage 01A: body continuity + camera/contact/occlusion
+- Stage 01C: physical-looking light 뒤 perceptual treatment
+- Stage 02: same-day shared visual anchors
+- Stage 03: Hunt visual continuity checkpoints
+- Stage 04: Scene별 Visual Asset checklist
+- Stage 05/05A: 역할별 body vocabulary + Visual Production Readiness
+- Stage 06: Stage 08 구현 시 최소 visual manifest/anchor 타입을 Technical SSOT에 정식 흡수
+- Stage 07: placeholder composition이 production asset으로 치환 가능한지 Human QA에서 추가 확인
+
+중요:
+
+- 아직 실제 production image를 생성한 상태가 아니다.
+- Visual planning 문서 추가는 Stage 07 Human QA PASS가 아니다.
+- Stage 08 구현/아트 production은 Human Gate PASS 뒤 시작한다.
+
+---
+
 # 자동 검증 기준선
 
 Canonical/runtime 통합 내용은 PR #15에서 검증됐다.
@@ -154,8 +205,11 @@ Canonical/runtime 통합 내용은 PR #15에서 검증됐다.
 - cave가 넓고 보호 가능한 실제 공간처럼 느껴지는가
 - 학생이 동굴/막집을 단일 정답 거처로 오해하지 않는가
 - Teacher가 Fact / Reconstruction을 실제로 충분히 구분하는가
+- production asset의 body/cast/tool identity continuity
+- contact/grip/occlusion의 물리적 자연스러움
+- responsive viewport에서 crop/scale/contact가 유지되는지
 
-이 항목은 Human Gate 책임이다.
+이 항목은 Human Gate와 후속 Visual QA 책임이다.
 
 ---
 
@@ -168,6 +222,24 @@ Canonical/runtime 통합 내용은 PR #15에서 검증됐다.
 - `handoff/R2_EMBODIED_PLAYTEST_PROTOCOL.md`
 
 Human Gate PASS 전 Stage 08 전체 Hunt 구현 금지.
+
+---
+
+# Human Gate PASS 직후 Stage 08 진입 순서
+
+```text
+Visual Reference Pack
+→ Canonical Anchor Sheets
+→ Camera / Composition Profiles
+→ Hunt minimum coherent production asset set
+→ Embodied Composite browser integration
+→ Visual Continuity QA
+→ Hunt interaction / pursuit / threat / result / return 확장
+```
+
+아름다운 최종 이미지부터 대량 생성하지 않는다.
+
+먼저 같은 몸·같은 도구·같은 사람·같은 세계가 이어지는 최소 세트를 검증한다.
 
 ---
 
