@@ -1,5 +1,6 @@
 import { useReducer } from 'react';
 import './r2EmbodiedSkeleton.css';
+import './currentShelter.css';
 
 export type SkeletonSurfaceMode = 'player' | 'teacher' | 'debug';
 
@@ -285,21 +286,16 @@ function CurrentShelter({ step }: { step: SkeletonStep }) {
 
   return (
     <div
+      className={`r2-current-shelter ${distant ? 'r2-current-shelter--distant' : ''}`}
       data-testid="current-shelter"
       aria-hidden="true"
-      style={{
-        position: 'absolute',
-        left: distant ? '4%' : '5%',
-        bottom: distant ? '48%' : '31%',
-        zIndex: 2,
-        width: distant ? '9%' : '22%',
-        height: distant ? '8%' : '19%',
-        opacity: distant ? 0.45 : 0.72,
-        clipPath: 'polygon(50% 0, 100% 40%, 88% 100%, 12% 100%, 0 40%)',
-        background:
-          'linear-gradient(145deg, rgba(82, 61, 42, 0.88), rgba(45, 35, 28, 0.96))',
-      }}
-    />
+    >
+      <span className="r2-current-shelter__cover" />
+      <span className="r2-current-shelter__pole r2-current-shelter__pole--left" />
+      <span className="r2-current-shelter__pole r2-current-shelter__pole--right" />
+      <span className="r2-current-shelter__crossbar" />
+      <span className="r2-current-shelter__opening" />
+    </div>
   );
 }
 
@@ -456,7 +452,9 @@ function StoryBeat({
       return (
         <>
           <p className="r2-dialogue">불 너머의 익숙한 사람이 네 쪽을 본다.</p>
-          <p>불 옆에는 사람들이 비바람을 피하려고 세워 둔 임시 거처가 보인다.</p>
+          <p>
+            불 옆에는 사람들이 비바람을 피하려고 세워 둔 임시 거처가 보인다.
+          </p>
           <button
             className="r2-action r2-action--quiet"
             type="button"
@@ -623,17 +621,16 @@ function SkeletonControls({
     return null;
   }
 
-  const reconstructionNote =
-    state.step === 'cave-notice' || state.step === 'cave-inspect'
-      ? '역사적 재구성: 이 날 이 사람들이 이 거처 후보를 발견하는 구체 사건'
-      : null;
+  const reconstructionNote = getReconstructionNote(state.step);
 
   if (surfaceMode === 'teacher') {
     return (
       <aside className="r2-surface-panel" aria-label="교사용 제어">
         <strong>교사용 제어</strong>
         <span>현재 구간: {teacherStepLabels[state.step]}</span>
-        {curriculumCue ? <span>교과 연결: {curriculumCue.teacherSummary}</span> : null}
+        {curriculumCue ? (
+          <span>교과 연결: {curriculumCue.teacherSummary}</span>
+        ) : null}
         {reconstructionNote ? (
           <span data-testid="reconstruction-note">{reconstructionNote}</span>
         ) : null}
@@ -695,6 +692,24 @@ function getCurriculumCue(step: SkeletonStep): CurriculumCueData | null {
   }
 
   return null;
+}
+
+function getReconstructionNote(step: SkeletonStep): string | null {
+  switch (step) {
+    case 'fire':
+    case 'join':
+    case 'depart':
+    case 'perspective-proof':
+      return '역사적 재구성: 이 Day 1 공동체의 구체 인물과 거처 배치';
+    case 'receive-tool':
+    case 'tool-reveal':
+      return '역사적 재구성: R이 이 아침에 플레이어에게 이 도구를 건네는 구체 사건';
+    case 'cave-notice':
+    case 'cave-inspect':
+      return '역사적 재구성: 이 날 이 사람들이 이 자연 거처 후보를 발견하는 구체 사건';
+    default:
+      return null;
+  }
 }
 
 function getBodyPose(step: SkeletonStep) {
