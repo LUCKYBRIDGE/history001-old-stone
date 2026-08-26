@@ -52,16 +52,32 @@ describe('R2EmbodiedSkeleton', () => {
     expect(screen.queryByLabelText('디버그 정보')).toBeNull();
   });
 
-  it('reveals the chipped-stone and handaxe terms only after the embodied handoff', async () => {
+  it('shows the current temporary shelter before the later natural-shelter discovery', async () => {
+    render(<R2EmbodiedSkeleton />);
+    const user = userEvent.setup();
+
+    await user.click(screen.getByRole('button', { name: '눈을 뜬다' }));
+
+    expect(screen.getByTestId('current-shelter')).toBeTruthy();
+    expect(document.body.textContent).toContain('임시 거처');
+    expect(screen.queryByTestId('cave-opening')).toBeNull();
+  });
+
+  it('reveals chipped-stone as the category and handaxe as a representative example only after the embodied handoff', async () => {
     render(<R2EmbodiedSkeleton />);
 
-    expect(screen.queryByText('뗀석기 · 주먹도끼')).toBeNull();
+    expect(screen.queryByText('뗀석기')).toBeNull();
 
     await receiveHandaxe();
 
     const cue = screen.getByTestId('curriculum-cue');
-    expect(cue.getAttribute('data-anchor-id')).toBe('handaxe');
-    expect(screen.getByText('뗀석기 · 주먹도끼')).toBeTruthy();
+    expect(cue.getAttribute('data-anchor-ids')).toBe(
+      'paleolithic-chipped-stone,handaxe',
+    );
+    expect(screen.getByText('뗀석기')).toBeTruthy();
+    expect(document.body.textContent).toContain(
+      '지금 손에 든 것은 그 대표적인 예인 주먹도끼다.',
+    );
     expect(screen.getByTestId('held-tool')).toBeTruthy();
     expect(screen.getByTestId('player-body').getAttribute('data-body-pose')).toBe(
       'tool-inspect',
@@ -90,6 +106,7 @@ describe('R2EmbodiedSkeleton', () => {
     await reachCaveNotice();
 
     expect(screen.getByTestId('cave-opening')).toBeTruthy();
+    expect(document.body.textContent).toContain('한동안 더 걸은 뒤');
     expect(
       screen.getByRole('button', { name: '바위 아래 공간으로 가까이 간다' }),
     ).toBeTruthy();
@@ -97,23 +114,24 @@ describe('R2EmbodiedSkeleton', () => {
     expect(document.body.textContent).not.toContain('다음 중');
   });
 
-  it('lets the player inspect the cave before explicitly connecting it to cave and rock-shelter living', async () => {
+  it('lets the player inspect the cave before naming cave or rock-shelter living and does not introduce the unexperienced makjip term there', async () => {
     render(<R2EmbodiedSkeleton />);
     const user = await reachCaveNotice();
 
-    expect(screen.queryByText('동굴 · 바위 그늘')).toBeNull();
+    expect(screen.queryByText('동굴 / 바위 그늘')).toBeNull();
 
     await user.click(
       screen.getByRole('button', { name: '바위 아래 공간으로 가까이 간다' }),
     );
 
     expect(screen.getByTestId('cave-opening')).toBeTruthy();
-    expect(screen.getByText('동굴 · 바위 그늘')).toBeTruthy();
-    expect(screen.getByTestId('curriculum-cue').getAttribute('data-anchor-id')).toBe(
+    expect(screen.getByText('동굴 / 바위 그늘')).toBeTruthy();
+    expect(screen.getByTestId('curriculum-cue').getAttribute('data-anchor-ids')).toBe(
       'cave-or-rock-shelter',
     );
-    expect(document.body.textContent).toContain('비나 바람을 피하기에는 괜찮아 보이지만');
-    expect(document.body.textContent).toContain('다른 동물이 이곳을 이용했는지는');
+    expect(document.body.textContent).toContain('비나 바람을 피하기에는 괜찮아 보인다');
+    expect(document.body.textContent).toContain('다른 동물이 이곳을 이용했는지');
+    expect(document.body.textContent).not.toContain('막집');
   });
 
   it('opens a clearly identified second perspective after evaluating the shelter candidate', async () => {
@@ -138,9 +156,10 @@ describe('R2EmbodiedSkeleton', () => {
       'camp-fire-rest',
     );
     expect(screen.queryByTestId('held-tool')).toBeNull();
+    expect(screen.getByTestId('current-shelter')).toBeTruthy();
   });
 
-  it('exposes reduced-effects controls only on the teacher surface while preserving curriculum content', async () => {
+  it('keeps reduced-effects and curriculum information on the teacher surface and labels the specific cave discovery as reconstruction', async () => {
     const user = userEvent.setup();
     const { container } = render(
       <R2EmbodiedSkeleton surfaceMode="teacher" />,
@@ -159,17 +178,36 @@ describe('R2EmbodiedSkeleton', () => {
     await user.click(screen.getByRole('button', { name: '돌도구를 받는다' }));
 
     expect(container.querySelector('.r2-skeleton--reduced')).toBeTruthy();
-    expect(screen.getByText('뗀석기 · 주먹도끼')).toBeTruthy();
-    expect(document.body.textContent).toContain('교과 연결: 뗀석기 · 주먹도끼');
+    expect(screen.getByText('뗀석기')).toBeTruthy();
+    expect(document.body.textContent).toContain(
+      '교과 연결: 뗀석기 → 대표적인 예: 주먹도끼',
+    );
+
+    await user.click(
+      screen.getByRole('button', { name: '주먹도끼를 쥐고 일어난다' }),
+    );
+    await user.click(
+      screen.getByRole('button', { name: '사람들과 함께 나갈 준비를 한다' }),
+    );
+    await user.click(screen.getByRole('button', { name: '거처를 나선다' }));
+    await user.click(
+      screen.getByRole('button', { name: '몸을 낮춰 지면을 살핀다' }),
+    );
+
+    expect(screen.getByTestId('reconstruction-note').textContent).toContain(
+      '역사적 재구성',
+    );
   });
 
-  it('exposes internal evidence only in debug mode and records curriculum and shelter evidence', async () => {
+  it('exposes internal evidence only in debug mode and records both curriculum hierarchy and shelter evidence', async () => {
     render(<R2EmbodiedSkeleton surfaceMode="debug" />);
     const user = await receiveHandaxe();
 
     let debugText = screen.getByTestId('r2-debug-state').textContent ?? '';
     expect(debugText).toContain('tool-received-in-embodied-context');
+    expect(debugText).toContain('chipped-stone-term-revealed');
     expect(debugText).toContain('handaxe-term-revealed');
+    expect(debugText).toContain('paleolithic-chipped-stone');
     expect(debugText).toContain('handaxe');
 
     await user.click(
@@ -185,6 +223,10 @@ describe('R2EmbodiedSkeleton', () => {
     await user.click(
       screen.getByRole('button', { name: '바위 아래 공간으로 가까이 간다' }),
     );
+
+    debugText = screen.getByTestId('r2-debug-state').textContent ?? '';
+    expect(debugText).toContain('역사적 재구성');
+
     await user.click(
       screen.getByRole('button', {
         name: '이 장소와 돌아가는 길을 기억해 둔다',
