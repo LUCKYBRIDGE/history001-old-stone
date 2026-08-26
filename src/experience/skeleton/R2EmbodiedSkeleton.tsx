@@ -27,6 +27,7 @@ type SkeletonTreatmentPreset =
 
 type LearningEvidenceId =
   | 'tool-received-in-embodied-context'
+  | 'chipped-stone-term-revealed'
   | 'handaxe-term-revealed'
   | 'embodied-observation-performed'
   | 'natural-shelter-evaluated'
@@ -38,9 +39,10 @@ type CurriculumAnchorId =
   | 'cave-or-rock-shelter';
 
 interface CurriculumCueData {
-  anchorId: CurriculumAnchorId;
+  anchorIds: readonly CurriculumAnchorId[];
   title: string;
   description: string;
+  teacherSummary: string;
 }
 
 interface SkeletonState {
@@ -74,9 +76,9 @@ const teacherStepLabels: Readonly<Record<SkeletonStep, string>> = {
   orientation: '관점 진입',
   fire: '새벽 불 앞',
   'receive-tool': '도구 전달',
-  'tool-reveal': '뗀석기·주먹도끼 명명',
+  'tool-reveal': '뗀석기 → 주먹도끼 명명',
   join: '동행자 합류',
-  depart: '거처 이탈',
+  depart: '현재 거처 이탈',
   'crouch-proof': '몸 낮춰 관찰',
   'cave-notice': '자연 거처 후보 발견',
   'cave-inspect': '동굴·바위 그늘 살핌',
@@ -127,6 +129,7 @@ function skeletonReducer(
             evidence: addEvidence(
               state.evidence,
               'tool-received-in-embodied-context',
+              'chipped-stone-term-revealed',
               'handaxe-term-revealed',
             ),
           }
@@ -239,6 +242,7 @@ export function R2EmbodiedSkeleton({
       >
         <div className="r2-world__sky" aria-hidden="true" />
         <div className="r2-world__ground" aria-hidden="true" />
+        <CurrentShelter step={state.step} />
         <Fire step={state.step} />
         <CaveOpening step={state.step} />
         <Actors step={state.step} />
@@ -261,6 +265,41 @@ export function R2EmbodiedSkeleton({
         onReset={() => dispatch({ type: 'RESET' })}
       />
     </div>
+  );
+}
+
+function CurrentShelter({ step }: { step: SkeletonStep }) {
+  const visible =
+    step === 'fire' ||
+    step === 'receive-tool' ||
+    step === 'tool-reveal' ||
+    step === 'join' ||
+    step === 'depart' ||
+    step === 'perspective-proof';
+
+  if (!visible) {
+    return null;
+  }
+
+  const distant = step === 'depart';
+
+  return (
+    <div
+      data-testid="current-shelter"
+      aria-hidden="true"
+      style={{
+        position: 'absolute',
+        left: distant ? '4%' : '5%',
+        bottom: distant ? '48%' : '31%',
+        zIndex: 2,
+        width: distant ? '9%' : '22%',
+        height: distant ? '8%' : '19%',
+        opacity: distant ? 0.45 : 0.72,
+        clipPath: 'polygon(50% 0, 100% 40%, 88% 100%, 12% 100%, 0 40%)',
+        background:
+          'linear-gradient(145deg, rgba(82, 61, 42, 0.88), rgba(45, 35, 28, 0.96))',
+      }}
+    />
   );
 }
 
@@ -396,7 +435,7 @@ function CurriculumCue({ cue }: { cue: CurriculumCueData }) {
     <aside
       className="r2-curriculum-cue"
       data-testid="curriculum-cue"
-      data-anchor-id={cue.anchorId}
+      data-anchor-ids={cue.anchorIds.join(',')}
       aria-label="교과 개념 연결"
     >
       <strong>{cue.title}</strong>
@@ -417,6 +456,7 @@ function StoryBeat({
       return (
         <>
           <p className="r2-dialogue">불 너머의 익숙한 사람이 네 쪽을 본다.</p>
+          <p>불 옆에는 사람들이 비바람을 피하려고 세워 둔 임시 거처가 보인다.</p>
           <button
             className="r2-action r2-action--quiet"
             type="button"
@@ -448,8 +488,8 @@ function StoryBeat({
       return (
         <>
           <p>
-            거친 돌의 무게가 손에 느껴진다. 이 도구는 이제 화면 속 설명이
-            아니라 네가 들고 움직이는 물건이다.
+            거친 돌의 무게가 손에 느껴진다. 이름을 알게 된 뒤에도 이 물건은
+            화면 속 설명이 아니라 네가 들고 움직이는 도구로 남아 있다.
           </p>
           <button
             className="r2-action"
@@ -480,7 +520,10 @@ function StoryBeat({
       return (
         <>
           <p className="r2-dialogue">“해가 지기 전에 돌아와.”</p>
-          <p>불빛과 사람들의 소리가 등 뒤에서 조금씩 멀어진다.</p>
+          <p>
+            불빛과 사람들의 소리, 나뭇가지와 덮개로 세운 임시 거처가 등
+            뒤에서 조금씩 멀어진다.
+          </p>
           <button
             className="r2-action"
             type="button"
@@ -511,8 +554,8 @@ function StoryBeat({
       return (
         <>
           <p>
-            다시 일어서자 앞쪽 큰 바위 아래에 검은 틈이 보인다. 생각보다
-            입구가 넓다. H2도 그쪽을 보고 멈춘다.
+            한동안 더 걸은 뒤 다시 일어서자, 앞쪽 큰 바위 아래에 검은 틈이
+            보인다. 생각보다 입구가 넓다. H2도 그쪽을 보고 멈춘다.
           </p>
           <button
             className="r2-action"
@@ -529,13 +572,12 @@ function StoryBeat({
         <>
           <p className="r2-dialogue">“안이 꽤 넓어.”</p>
           <p>
-            바닥 한쪽은 비교적 말라 있고 위는 단단한 바위가 덮고 있다.
-            하지만 안쪽은 어둡고, 다른 동물이 이곳을 이용했는지는 더 살펴야
-            한다.
+            바닥 한쪽은 비교적 말라 있고 머리 위로 두꺼운 바위가 이어진다.
+            비나 바람을 피하기에는 괜찮아 보인다.
           </p>
           <p>
-            비나 바람을 피하기에는 괜찮아 보이지만, 물과 먹을거리까지의
-            거리도 아직 모른다.
+            하지만 안쪽은 어둡다. 다른 동물이 이곳을 이용했는지, 물과
+            먹을거리까지 얼마나 먼지도 아직 모른다.
           </p>
           <button
             className="r2-action"
@@ -581,12 +623,20 @@ function SkeletonControls({
     return null;
   }
 
+  const reconstructionNote =
+    state.step === 'cave-notice' || state.step === 'cave-inspect'
+      ? '역사적 재구성: 이 날 이 사람들이 이 거처 후보를 발견하는 구체 사건'
+      : null;
+
   if (surfaceMode === 'teacher') {
     return (
       <aside className="r2-surface-panel" aria-label="교사용 제어">
         <strong>교사용 제어</strong>
         <span>현재 구간: {teacherStepLabels[state.step]}</span>
-        {curriculumCue ? <span>교과 연결: {curriculumCue.title}</span> : null}
+        {curriculumCue ? <span>교과 연결: {curriculumCue.teacherSummary}</span> : null}
+        {reconstructionNote ? (
+          <span data-testid="reconstruction-note">{reconstructionNote}</span>
+        ) : null}
         <label>
           <input
             type="checkbox"
@@ -611,7 +661,8 @@ function SkeletonControls({
           hasTool: state.hasTool,
           reducedEffects: state.reducedEffects,
           treatment: stepTreatment[state.step],
-          curriculumAnchor: curriculumCue?.anchorId ?? null,
+          curriculumAnchors: curriculumCue?.anchorIds ?? [],
+          reconstruction: reconstructionNote,
           evidence: state.evidence,
         })}
       </code>
@@ -625,19 +676,21 @@ function SkeletonControls({
 function getCurriculumCue(step: SkeletonStep): CurriculumCueData | null {
   if (step === 'tool-reveal') {
     return {
-      anchorId: 'handaxe',
-      title: '뗀석기 · 주먹도끼',
+      anchorIds: ['paleolithic-chipped-stone', 'handaxe'],
+      title: '뗀석기',
       description:
-        '돌을 깨뜨리거나 떼어 만든 대표적인 구석기 도구로, 손에 쥐고 여러 생활 행동에 사용할 수 있다.',
+        '돌을 깨뜨리거나 떼어 만든 도구를 뗀석기라고 한다. 지금 손에 든 것은 그 대표적인 예인 주먹도끼다.',
+      teacherSummary: '뗀석기 → 대표적인 예: 주먹도끼',
     };
   }
 
   if (step === 'cave-inspect') {
     return {
-      anchorId: 'cave-or-rock-shelter',
-      title: '동굴 · 바위 그늘',
+      anchorIds: ['cave-or-rock-shelter'],
+      title: '동굴 / 바위 그늘',
       description:
-        '구석기 사람들은 막집뿐 아니라 동굴이나 바위 그늘도 생활 공간으로 이용했다.',
+        '구석기 사람들은 이런 자연 공간도 생활 공간으로 이용했다.',
+      teacherSummary: '동굴·바위 그늘도 생활 공간으로 이용',
     };
   }
 
@@ -672,23 +725,23 @@ function getBodyPose(step: SkeletonStep) {
 function getWorldAriaLabel(step: SkeletonStep) {
   switch (step) {
     case 'fire':
-      return '새벽 불 앞. 가까운 사람들과 내 손과 무릎이 보이는 시야';
+      return '새벽 불 앞. 가까운 사람들과 내 손과 무릎, 임시 거처가 보이는 시야';
     case 'receive-tool':
       return '익숙한 사람이 돌도구를 내밀고 내 손이 향하는 시야';
     case 'tool-reveal':
-      return '내 손에 주먹도끼를 받아 쥔 채 형태를 살피는 시야';
+      return '내 손에 대표적인 뗀석기인 주먹도끼를 받아 쥔 채 형태를 살피는 시야';
     case 'join':
       return '주먹도끼를 든 채 함께 나갈 사람들 곁에서 일어나는 시야';
     case 'depart':
-      return '주먹도끼를 들고 사람들과 거처를 떠나는 시야';
+      return '주먹도끼를 들고 사람들과 현재 임시 거처를 떠나는 시야';
     case 'crouch-proof':
       return '몸을 낮춰 내 손과 무릎 너머의 눌린 풀을 살피는 시야';
     case 'cave-notice':
-      return '멀리 큰 바위 아래 넓어 보이는 어두운 공간을 발견한 시야';
+      return '한동안 이동한 뒤 멀리 큰 바위 아래 넓어 보이는 어두운 공간을 발견한 시야';
     case 'cave-inspect':
-      return '주먹도끼를 든 채 넓은 동굴 입구와 마른 바닥, 어두운 안쪽을 살피는 시야';
+      return '주먹도끼를 든 채 넓은 자연 공간의 입구와 마른 바닥, 어두운 안쪽을 살피는 시야';
     case 'perspective-proof':
-      return '같은 날 거처 불 가까이에서 밖으로 나간 사람들을 보는 다른 사람의 시야';
+      return '같은 날 현재 거처의 불 가까이에서 밖으로 나간 사람들을 보는 다른 사람의 시야';
     default:
       return '구석기 공동체의 시야';
   }
