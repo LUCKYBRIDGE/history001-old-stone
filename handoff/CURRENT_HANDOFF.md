@@ -2,7 +2,7 @@
 
 ## Current phase
 
-# **R2 Stage 01~07 Canonical Unification 완료 / Automated PASS / Human QA 대기**
+# **R2 Stage 01~07 Canonical Unification 통합 완료 / Automated PASS / Human QA 대기**
 
 공식 기준선:
 
@@ -31,7 +31,7 @@
 6. Stage 01~07 해당 canonical 문서
 7. 관련 코드/tests
 
-다음은 non-canonical 기록/전환 문서:
+Non-canonical 기록/전환 문서:
 
 - `docs/R2_STAGE01_07_SEQUENTIAL_AUDIT.md`
 - `docs/R2_STAGE01_DEEP_AUDIT_REPORT.md`
@@ -42,10 +42,6 @@
 # 2. 최신 canonical 버전
 
 - `docs/01_PROJECT_CORE.md` — **v9**
-- `docs/01A_EMBODIED_FIRST_PERSON_PRINCIPLES.md`
-- `docs/01B_RELATIONSHIP_AGENCY_PRINCIPLES.md`
-- `docs/01C_SUBTLE_SCREEN_TREATMENT_PRINCIPLES.md`
-- `docs/01D_LEARNING_CLARITY_SAFETY_HISTORICAL_INTEGRITY.md`
 - `docs/01E_CURRICULUM_TEXTBOOK_ANCHORS.md` — **v3**
 - `docs/02_EXPERIENCE_STRUCTURE.md` — **v9**
 - `docs/03_HUNT_STORY.md` — **v8**
@@ -66,21 +62,11 @@
 - `뗀석기` = 상위 개념
 - `주먹도끼` = 대표적인 구체 예
 
-Student cue:
-
-```text
-뗀석기
-돌을 깨뜨리거나 떼어 만든 도구를 뗀석기라고 한다.
-지금 손에 든 것은 그 대표적인 예인 주먹도끼다.
-```
-
 ## 거처
 
-- `현재 임시 거처` = Stage 07 초기 중립적 player-facing 표현
-- `막집` = Camp에서 실제 거처 생활/손질 뒤 명명
+- `현재 임시 거처` = Stage 07 초기 중립적 표현
+- `막집` = Camp에서 실제 생활/손질 뒤 명명
 - `동굴 / 바위 그늘` = 자연 지형 생활 공간
-
-경쟁 정답으로 만들지 않는다.
 
 ---
 
@@ -100,10 +86,10 @@ Reconstruction:
 - R/H1/H2
 - 특정 아침 도구 전달
 - 이 Day 1의 구체 거처 배치
-- Hunt 중 특정 자연 거처 후보 발견
+- 특정 자연 거처 후보 발견
 - 구체 대사/감정/선택 결과
 
-Player에는 reconstruction 관리 metadata를 노출하지 않는다.
+Player에는 관리 metadata를 노출하지 않는다.
 Teacher/Debug에서만 확인한다.
 
 ---
@@ -128,7 +114,7 @@ package:
 → crouch observation
 → 한동안 이동
 → 자연 거처 후보 발견
-→ 입구/바닥/어둠/불확실성 평가
+→ 장점/불확실성 평가
 → 동굴 / 바위 그늘 짧은 연결
 → 같은 날 다른 사람 관점 proof
 ```
@@ -137,36 +123,37 @@ Stage 07은 전체 Hunt가 아니다.
 
 ---
 
-# 6. 이번 canonical unification의 코드 보완
+# 6. Canonical unification에서 실제로 바뀐 것
 
-- current shelter를 단순 house-like pentagon에서 비대칭 cover/poles/opening primitive로 변경
-- `currentShelter.css`로 presentation 분리
-- current shelter는 아직 `막집`으로 player-facing 확정하지 않음
-- Teacher reconstruction note 범위를 다음으로 통일:
-  - 이 Day 1 공동체의 구체 인물/거처 배치
-  - 특정 아침 R의 도구 전달
+- `docs/00_CANONICAL_BASELINE.md` 신설
+- 문서 우선순위/완료 판정/공식 용어 통일
+- Stage 06A 보정 문서를 Stage 06 v8에 흡수 후 삭제
+- Audit/Legacy 문서를 non-canonical로 명시
+- current shelter를 비대칭 cover/poles/opening primitive로 변경
+- Teacher reconstruction note 범위를:
+  - 공동체 인물/거처 배치
+  - 특정 아침 도구 전달
   - 특정 자연 거처 후보 발견
-- Player에는 `역사적 재구성` 관리 문구가 보이지 않음
-- Debug에는 exact anchor/evidence/reconstruction metadata 유지
+  로 통일
+- Player reconstruction metadata 미노출 테스트 추가
+- package baseline을 `curriculum-hardened`로 통일
 
 ---
 
-# 7. 첫 자동 검증
+# 7. 자동검증 기준선
 
-PR #15 initial consolidated head:
+PR #15 canonical/runtime content:
 
-- SHA: `5b69c5858a6a5d4b6a989eacddce18d25f962673`
-- CI run: **32926349166 — PASS**
+- content head: `e40208b0d6e8fbf3a2949af2ef1fbaf6704b6849`
+- CI `32926349166` — PASS
+- exact PR-head CI `32926520525` — PASS
 - Node 24.19.0
 - npm 11.17.0
-- install PASS
-- typecheck PASS
 - **8 test files / 35 tests PASS**
-- `R2EmbodiedSkeleton.test.tsx`: **10 tests**
+- Stage 07 Skeleton integration tests: **10**
 - production build PASS
-- 41 modules transformed
 
-상태/handoff/test report 커밋까지 포함한 exact PR HEAD를 다시 CI 검증한 뒤 main에 통합한다.
+정적 handoff 파일은 최신 main CI 번호를 다시 써서 CI 루프를 만들지 않는다. 최신 exact repository HEAD/CI는 GitHub 상태가 최종 기준이다.
 
 ---
 
@@ -187,7 +174,7 @@ PR #15 initial consolidated head:
 
 - `handoff/R2_EMBODIED_PLAYTEST_PROTOCOL.md`
 
-필수 확인:
+반드시 확인:
 
 - 역할 진입
 - body/tool spatial relation
