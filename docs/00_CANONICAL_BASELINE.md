@@ -17,9 +17,10 @@
 - Stage 07 Embodied Curriculum Skeleton 구현 완료
 - 자동 검증 완료
 - Teacher Browser Human QA는 아직 미실시
-- first-person visual/image production 계약은 `docs/07A_FIRST_PERSON_VISUAL_ASSET_BIBLE.md`에 추가됨
+- first-person visual/image production 원칙은 `docs/07A_FIRST_PERSON_VISUAL_ASSET_BIBLE.md`가 소유
+- Stage 08 직전의 구체 visual production 실행 규격은 `docs/07B_FIRST_PERSON_VISUAL_PRODUCTION_SPEC.md`가 소유
 - 실제 production image / Stage 08 Hunt visual integration은 아직 시작하지 않음
-- Stage 08 Hunt Embodied Vertical Slice는 Human Gate 통과 전 시작 금지
+- Stage 08 Hunt Embodied Vertical Slice는 Human Gate PASS + Visual Production Readiness 전 시작 금지
 
 공식 다음 Gate:
 
@@ -44,12 +45,16 @@
 11. `docs/06_TECH_BLUEPRINT.md`
 12. `docs/07_IMMERSION_NARRATIVE_BIBLE.md`
 13. `docs/07A_FIRST_PERSON_VISUAL_ASSET_BIBLE.md`
-14. `docs/00_DEVELOPMENT_WORKFLOW.md`
-15. `PROJECT_STATUS.md` / `handoff/CURRENT_HANDOFF.md`
+14. `docs/07B_FIRST_PERSON_VISUAL_PRODUCTION_SPEC.md`
+15. `docs/00_DEVELOPMENT_WORKFLOW.md`
+16. `PROJECT_STATUS.md` / `handoff/CURRENT_HANDOFF.md`
 
 `docs/06_TECH_BLUEPRINT.md`가 **유일한 기술 SSOT**다. 과도기 보정 문서였던 `06A`는 v8에 흡수되어 삭제됐으며 다시 canonical 문서로 사용하지 않는다.
 
-`docs/07A_FIRST_PERSON_VISUAL_ASSET_BIBLE.md`는 **시각 자산 제작/생성/합성/QA 계약**이다. React/TypeScript runtime 타입과 구현 구조를 별도 기술 SSOT처럼 소유하지 않는다. Stage 08에서 실제 visual manifest/anchor 구조가 필요해지면 `docs/06_TECH_BLUEPRINT.md`의 정식 후속 버전에 흡수한다.
+`docs/07A_FIRST_PERSON_VISUAL_ASSET_BIBLE.md`는 **시각 자산 제작/생성/합성/QA 원칙 계약**이다.
+`docs/07B_FIRST_PERSON_VISUAL_PRODUCTION_SPEC.md`는 그 원칙을 Stage 08 직전 실행 가능한 reference/anchor/contact/responsive/performance/readiness 규격으로 좁힌다.
+
+07A/07B 어느 쪽도 React/TypeScript runtime 타입과 구현 구조를 별도 기술 SSOT처럼 소유하지 않는다. Stage 08에서 실제 visual manifest/anchor 구조가 필요해지면 `docs/06_TECH_BLUEPRINT.md`의 정식 후속 버전에 흡수한다.
 
 다음은 **기록/전환 참고 문서**이며 canonical 설계를 덮지 않는다.
 
@@ -297,6 +302,9 @@ Stage 07이 아직 증명하지 않은 것:
 
 Stage 07 Human QA에서는 기존 질문에 더해 **현재 placeholder 구도가 production asset으로 치환 가능한지**를 확인한다.
 
+Stage 07 Human Gate는 교사/프로젝트 오너의 proxy QA이며 실제 학생 학습 검증을 대체하지 않는다.
+실제 학생의 이해·전이·불편·조작성은 후속 Student Pilot에서 검증한다.
+
 ---
 
 # 10. Visual Production Readiness
@@ -314,6 +322,12 @@ Stage 08에서 production visual을 만들기 전에 최소 다음이 있어야 
 - contact / grip / occlusion anchor plan
 - crop-safe / responsive composition plan
 - historical reference provenance / asset license 구분
+
+구체 실행/판정 규격은:
+
+- `docs/07B_FIRST_PERSON_VISUAL_PRODUCTION_SPEC.md`
+
+가 소유한다.
 
 # **Visual Production Ready ≠ Human QA PASS ≠ Stage Complete**
 
@@ -365,6 +379,8 @@ Stage 07 Human Gate가 먼저다.
 # **Implementation Complete / Automated PASS / Human QA Pending**
 
 따라서 전체 Stage 07을 `완료`라고 부르지 않는다.
+
+Human QA PASS 역시 Student Pilot PASS를 의미하지 않는다.
 
 ---
 
@@ -421,5 +437,7 @@ Stage 07 Human Gate가 먼저다.
 - 구현했다고 학습 완료로 과장하지 않는가?
 - visual asset이 아름답다는 이유로 body/contact/continuity 문제를 덮지 않는가?
 - 외부 reference의 라이선스와 실제 프로젝트 asset 사용 권리를 구분하는가?
+- Human QA PASS를 Student Pilot PASS로 과장하지 않는가?
+- 07A 원칙과 07B 실행 규격의 역할이 뒤섞이지 않는가?
 
 이 문서는 그 판정을 위한 프로젝트 기준선이다.
