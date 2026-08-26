@@ -40,7 +40,7 @@ async function reachCaveNotice() {
 }
 
 describe('R2EmbodiedSkeleton', () => {
-  it('starts as a role-true player perspective without development chrome', () => {
+  it('starts as a role-true player perspective without development or reconstruction chrome', () => {
     render(<R2EmbodiedSkeleton />);
 
     expect(
@@ -48,17 +48,22 @@ describe('R2EmbodiedSkeleton', () => {
     ).toBeTruthy();
     expect(document.body.textContent).not.toContain('Stage 08-B');
     expect(document.body.textContent).not.toContain('현재 단계:');
+    expect(document.body.textContent).not.toContain('역사적 재구성');
     expect(screen.queryByLabelText('교사용 제어')).toBeNull();
     expect(screen.queryByLabelText('디버그 정보')).toBeNull();
   });
 
-  it('shows the current temporary shelter before the later natural-shelter discovery', async () => {
+  it('shows an irregular current temporary shelter before the later natural-shelter discovery', async () => {
     render(<R2EmbodiedSkeleton />);
     const user = userEvent.setup();
 
     await user.click(screen.getByRole('button', { name: '눈을 뜬다' }));
 
-    expect(screen.getByTestId('current-shelter')).toBeTruthy();
+    const shelter = screen.getByTestId('current-shelter');
+    expect(shelter).toBeTruthy();
+    expect(shelter.classList.contains('r2-current-shelter')).toBe(true);
+    expect(shelter.querySelector('.r2-current-shelter__cover')).toBeTruthy();
+    expect(shelter.querySelectorAll('.r2-current-shelter__pole').length).toBe(2);
     expect(document.body.textContent).toContain('임시 거처');
     expect(screen.queryByTestId('cave-opening')).toBeNull();
   });
@@ -91,6 +96,9 @@ describe('R2EmbodiedSkeleton', () => {
     expect(screen.getByTestId('held-tool')).toBeTruthy();
     expect(screen.getByTestId('player-body').getAttribute('data-body-pose')).toBe(
       'walking-with-tool',
+    );
+    expect(screen.getByTestId('current-shelter').classList.contains('r2-current-shelter--distant')).toBe(
+      true,
     );
 
     await user.click(screen.getByRole('button', { name: '거처를 나선다' }));
@@ -159,6 +167,30 @@ describe('R2EmbodiedSkeleton', () => {
     expect(screen.getByTestId('current-shelter')).toBeTruthy();
   });
 
+  it('keeps reconstruction metadata off the player surface while exposing the relevant event boundary to teachers', async () => {
+    const playerUser = userEvent.setup();
+    const player = render(<R2EmbodiedSkeleton />);
+
+    await playerUser.click(screen.getByRole('button', { name: '눈을 뜬다' }));
+    expect(document.body.textContent).not.toContain('역사적 재구성');
+    player.unmount();
+
+    const teacherUser = userEvent.setup();
+    render(<R2EmbodiedSkeleton surfaceMode="teacher" />);
+
+    await teacherUser.click(screen.getByRole('button', { name: '눈을 뜬다' }));
+    expect(screen.getByTestId('reconstruction-note').textContent).toContain(
+      '공동체의 구체 인물과 거처 배치',
+    );
+
+    await teacherUser.click(
+      screen.getByRole('button', { name: '그 사람을 바라본다' }),
+    );
+    expect(screen.getByTestId('reconstruction-note').textContent).toContain(
+      '이 도구를 건네는 구체 사건',
+    );
+  });
+
   it('keeps reduced-effects and curriculum information on the teacher surface and labels the specific cave discovery as reconstruction', async () => {
     const user = userEvent.setup();
     const { container } = render(
@@ -195,7 +227,7 @@ describe('R2EmbodiedSkeleton', () => {
     );
 
     expect(screen.getByTestId('reconstruction-note').textContent).toContain(
-      '역사적 재구성',
+      '자연 거처 후보를 발견하는 구체 사건',
     );
   });
 
@@ -209,6 +241,7 @@ describe('R2EmbodiedSkeleton', () => {
     expect(debugText).toContain('handaxe-term-revealed');
     expect(debugText).toContain('paleolithic-chipped-stone');
     expect(debugText).toContain('handaxe');
+    expect(debugText).toContain('이 도구를 건네는 구체 사건');
 
     await user.click(
       screen.getByRole('button', { name: '주먹도끼를 쥐고 일어난다' }),
@@ -225,7 +258,7 @@ describe('R2EmbodiedSkeleton', () => {
     );
 
     debugText = screen.getByTestId('r2-debug-state').textContent ?? '';
-    expect(debugText).toContain('역사적 재구성');
+    expect(debugText).toContain('자연 거처 후보를 발견하는 구체 사건');
 
     await user.click(
       screen.getByRole('button', {
