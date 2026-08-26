@@ -170,7 +170,7 @@ H2: 주변을 살핀다 → 먼저 멈춘다 → 플레이어가 그 시선을 �
 
 상태:
 
-- remediation implemented candidate / **Human re-check pending**
+- first remediation replay failed / **second remediation in progress**
 
 ---
 
@@ -223,7 +223,7 @@ Root cause category:
 
 상태:
 
-- remediation implemented candidate / **Human re-check pending**
+- first remediation replay failed / **second remediation in progress**
 
 ---
 
@@ -318,26 +318,120 @@ Root cause category:
 
 ---
 
+# Stage 07.5 follow-up Human QA after PR #22
+
+프로젝트 오너가 PR #22 병합본을 다시 플레이한 뒤 다음을 직접 지적했다.
+
+> **“자꾸 그 사람 그 사람 하는데 누구 얘기하는지도 모르겠고, 몰입도 안돼.”**
+
+이 관찰은 R2UX-002/003이 첫 remediation으로 해결되지 않았음을 확인한다.
+
+---
+
+## R2UX-006 — Speaker / referent identity ambiguity
+
+위치:
+
+- Tool Handoff 이후 동행자 합류
+- `“같이 가자.”` 장면
+- 출발 / H1 shared observation / H2 gaze-led discovery
+
+관찰 사실:
+
+- 화면에 세 인물이 있지만 서로 충분히 구별되지 않음
+- `“같이 가자.”`가 화면 아래 서사 overlay에만 있어 어느 인물이 말하는지 공간적으로 알 수 없음
+- 이어지는 문장이 `한 사람`, `다른 한 사람`, `그 사람`을 반복해 앞 장면의 인물과 현재 지칭을 추적하기 어려움
+- 내부 R/H1/H2 구분은 존재하지만 Player 경험에는 실제 화자/행동 주체 구분으로 번역되지 않음
+
+학생/교사 반응:
+
+- 프로젝트 오너가 실제 화면에서 **누구를 가리키는지 모르겠다**고 명시적으로 보고
+- 동시에 **몰입되지 않는다**고 재확인
+
+심각도:
+
+- **P1**
+
+재현 여부:
+
+- PR #22 main 병합본에서 재현 확인
+
+Root cause category:
+
+- Relationship problem
+- Narrative problem
+- Interaction problem
+- Embodied spatial problem
+
+해석:
+
+- 고유 이름 부재 자체가 핵심 문제가 아님
+- 문제는 화자와 행동 주체가 world 안의 위치·몸짓·시선·반복 행동으로 식별되지 않고 설명문이 대신한다는 것
+- 근거 없는 선사시대 고유 이름을 붙여 해결하면 역사적 재구성 비용만 늘고 embodied relationship 문제는 남는다
+
+최소 수정 가설:
+
+- `같이 가자`는 실제 H1 위치에 dialogue cue로 배치
+- H1은 Player 쪽으로 몸을 돌리고 기다리는 pose/gesture를 가짐
+- H2는 같은 순간 바깥을 향해 서서 scanning pose를 유지
+- `해가 지기 전에 돌아와`는 불가에 남은 R 위치에 직접 배치
+- H2의 발견 시작은 H2 위치의 짧은 `저기.` + 시선/몸 방향으로 전달
+- cave inspection의 두 판단도 각각 H1/H2 위치에서 나오게 함
+- Player prose에서는 `한 사람 / 다른 한 사람 / 그 사람` 연쇄 지칭을 제거하고 world event만 보조 설명
+
+회귀 위험:
+
+- dialogue bubble이 UI 카드처럼 과도하게 보일 위험
+- 좁은 화면에서 actor/contact/curriculum cue와 겹칠 위험
+- 시각적 화자 구분을 최종 character art처럼 과잉 확정할 위험
+
+교과/역사/관점 영향:
+
+- R/H1/H2의 구체 인물·대사·행동은 Historical Reconstruction임
+- Player에는 reconstruction 관리 라벨을 노출하지 않음
+- 교과 개념이나 `뗀석기 → 주먹도끼` 위계는 변경하지 않음
+
+수정 후 다시 사람이 확인할 항목:
+
+- `같이 가자`를 누가 말했는지 설명을 읽지 않아도 바로 알 수 있는가
+- 불가의 `해가 지기 전에 돌아와`가 아침에 도구를 건넨 동일 인물의 말처럼 이어지는가
+- 가까이 함께 걷는 동행자와 앞을 살피는 동행자를 행동으로 구분할 수 있는가
+- `저기` 이후 누구의 시선을 따라보는지 자연스럽게 이해되는가
+- 설명문을 읽어서 인물을 추적하는 느낌이 줄었는가
+- 여전히 `웹페이지 속 검은 사람 세 명`으로 느껴지는가
+
+상태:
+
+- second remediation implemented candidate / **Human re-check pending**
+
+---
+
 # Stage 07.5 remediation acceptance
 
 자동 검증으로 확인할 수 있는 것:
 
 - R handoff 뒤 terminology
 - held-item continuity
+- H1 invitation dialogue가 H1 spatial cue에 연결됨
+- H1/H2가 join에서 서로 다른 pose/relationship marker를 가짐
+- R return motif가 R spatial cue에서 나옴
 - H1 shared observation ordering
 - H2 stop/gaze ordering
 - H2 gaze-follow 전 cave 미노출
 - gaze-follow 뒤 cave 노출
+- cave inspection의 두 판단이 actor-linked dialogue로 분리됨
 - cave inspection 뒤 terminology
 - same-day perspective callback 구조
 - Player / Teacher / Debug 정보 경계
 
 사람만 판정할 것:
 
-- R/H1/H2가 실제 사람처럼 느껴지는가
+- R/H1/H2가 실제 서로 다른 사람처럼 느껴지는가
+- 누가 말하는지 설명 없이 알 수 있는가
+- 관계가 설명문이 아니라 행동으로 느껴지는가
 - 팔/손/도구가 자연스러운가
 - current shelter가 생활 공간처럼 느껴지는가
 - terminology가 몰입을 끊는가
 - Perspective Proof가 실제 관계 callback으로 작동하는가
 
-# **실제 재플레이 전에는 R2UX-001~005를 RESOLVED로 표시하지 않는다.**
+# **실제 재플레이 전에는 R2UX-001~006을 RESOLVED로 표시하지 않는다.**
