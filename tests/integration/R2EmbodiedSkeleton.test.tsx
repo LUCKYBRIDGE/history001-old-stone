@@ -21,19 +21,32 @@ async function reachDeparture() {
   await user.click(
     screen.getByRole('button', { name: '주먹도끼를 쥐고 일어난다' }),
   );
+  await user.click(screen.getByRole('button', { name: '두 사람 곁으로 간다' }));
+
+  return user;
+}
+
+async function reachH2Notice() {
+  const user = await reachDeparture();
+
   await user.click(
-    screen.getByRole('button', { name: '사람들과 함께 나갈 준비를 한다' }),
+    screen.getByRole('button', { name: '사람들과 거처를 나선다' }),
+  );
+  await user.click(
+    screen.getByRole('button', { name: '그 사람 곁에 몸을 낮춰 함께 살핀다' }),
+  );
+  await user.click(
+    screen.getByRole('button', { name: '사람들과 계속 걷는다' }),
   );
 
   return user;
 }
 
 async function reachCaveNotice() {
-  const user = await reachDeparture();
+  const user = await reachH2Notice();
 
-  await user.click(screen.getByRole('button', { name: '거처를 나선다' }));
   await user.click(
-    screen.getByRole('button', { name: '몸을 낮춰 지면을 살핀다' }),
+    screen.getByRole('button', { name: '그 사람이 보는 방향을 바라본다' }),
   );
 
   return user;
@@ -53,7 +66,7 @@ describe('R2EmbodiedSkeleton', () => {
     expect(screen.queryByLabelText('디버그 정보')).toBeNull();
   });
 
-  it('shows an irregular current temporary shelter before the later natural-shelter discovery', async () => {
+  it('shows the current temporary shelter and a relational need before the later natural-shelter discovery', async () => {
     render(<R2EmbodiedSkeleton />);
     const user = userEvent.setup();
 
@@ -61,14 +74,13 @@ describe('R2EmbodiedSkeleton', () => {
 
     const shelter = screen.getByTestId('current-shelter');
     expect(shelter).toBeTruthy();
-    expect(shelter.classList.contains('r2-current-shelter')).toBe(true);
     expect(shelter.querySelector('.r2-current-shelter__cover')).toBeTruthy();
-    expect(shelter.querySelectorAll('.r2-current-shelter__pole').length).toBe(2);
-    expect(document.body.textContent).toContain('임시 거처');
+    expect(document.body.textContent).toContain('먹을 것을 찾아 멀리 나가야 한다');
+    expect(document.body.textContent).toContain('먼저 네 쪽을 본다');
     expect(screen.queryByTestId('cave-opening')).toBeNull();
   });
 
-  it('reveals chipped-stone as the category and handaxe as a representative example only after the embodied handoff', async () => {
+  it('reveals chipped-stone as the category and handaxe as a representative example only after the embodied R handoff', async () => {
     render(<R2EmbodiedSkeleton />);
 
     expect(screen.queryByText('뗀석기')).toBeNull();
@@ -83,25 +95,23 @@ describe('R2EmbodiedSkeleton', () => {
     expect(document.body.textContent).toContain(
       '지금 손에 든 것은 그 대표적인 예인 주먹도끼다.',
     );
+    expect(document.body.textContent).toContain('그 사람의 손이 물러나고 같은 돌이 네 오른손에 남는다');
     expect(screen.getByTestId('held-tool')).toBeTruthy();
-    expect(screen.getByTestId('player-body').getAttribute('data-body-pose')).toBe(
-      'tool-inspect',
-    );
   });
 
-  it('keeps the same handaxe attached to the player body after naming and departure', async () => {
+  it('keeps the same handaxe and R return motif through departure', async () => {
     render(<R2EmbodiedSkeleton />);
     const user = await reachDeparture();
 
     expect(screen.getByTestId('held-tool')).toBeTruthy();
-    expect(screen.getByTestId('player-body').getAttribute('data-body-pose')).toBe(
-      'walking-with-tool',
-    );
+    expect(document.body.textContent).toContain('해가 지기 전에 돌아와');
     expect(screen.getByTestId('current-shelter').classList.contains('r2-current-shelter--distant')).toBe(
       true,
     );
 
-    await user.click(screen.getByRole('button', { name: '거처를 나선다' }));
+    await user.click(
+      screen.getByRole('button', { name: '사람들과 거처를 나선다' }),
+    );
 
     expect(screen.getByTestId('held-tool')).toBeTruthy();
     expect(screen.getByTestId('player-body').getAttribute('data-body-pose')).toBe(
@@ -109,27 +119,55 @@ describe('R2EmbodiedSkeleton', () => {
     );
   });
 
-  it('moves from embodied ground observation into a natural shelter discovery instead of a textbook question', async () => {
+  it('makes H1 part of the shared ground-observation event instead of a generic silhouette', async () => {
     render(<R2EmbodiedSkeleton />);
-    await reachCaveNotice();
+    const user = await reachDeparture();
 
-    expect(screen.getByTestId('cave-opening')).toBeTruthy();
-    expect(document.body.textContent).toContain('한동안 더 걸은 뒤');
-    expect(
-      screen.getByRole('button', { name: '바위 아래 공간으로 가까이 간다' }),
-    ).toBeTruthy();
-    expect(document.body.textContent).not.toContain('정답');
-    expect(document.body.textContent).not.toContain('다음 중');
+    await user.click(
+      screen.getByRole('button', { name: '사람들과 거처를 나선다' }),
+    );
+
+    expect(screen.getByTestId('h1-actor').getAttribute('data-relationship-beat')).toBe(
+      'h1-shared-ground-observation',
+    );
+    expect(document.body.textContent).toContain('네가 따라오기를 기다린다');
+
+    await user.click(
+      screen.getByRole('button', { name: '그 사람 곁에 몸을 낮춰 함께 살핀다' }),
+    );
+
+    expect(document.body.textContent).toContain('셋은 다시 걸음을 맞춘다');
   });
 
-  it('lets the player inspect the cave before naming cave or rock-shelter living and does not introduce the unexperienced makjip term there', async () => {
+  it('keeps the cave hidden until H2 stops first and the player follows that gaze', async () => {
+    render(<R2EmbodiedSkeleton />);
+    const user = await reachH2Notice();
+
+    expect(screen.queryByTestId('cave-opening')).toBeNull();
+    expect(screen.getByTestId('h2-actor').getAttribute('data-relationship-beat')).toBe(
+      'h2-gaze-cue',
+    );
+    expect(document.body.textContent).toContain('갑자기 멈춘다');
+    expect(document.body.textContent).toContain('아직 네 시야에는 무엇을 본 것인지 분명하지 않다');
+
+    await user.click(
+      screen.getByRole('button', { name: '그 사람이 보는 방향을 바라본다' }),
+    );
+
+    expect(screen.getByTestId('cave-opening')).toBeTruthy();
+    expect(document.body.textContent).toContain('그 사람의 시선을 따라 고개를 돌리자');
+  });
+
+  it('lets the player inspect the cave with both companion judgments before naming cave or rock-shelter living', async () => {
     render(<R2EmbodiedSkeleton />);
     const user = await reachCaveNotice();
 
     expect(screen.queryByText('동굴 / 바위 그늘')).toBeNull();
 
     await user.click(
-      screen.getByRole('button', { name: '바위 아래 공간으로 가까이 간다' }),
+      screen.getByRole('button', {
+        name: '사람들과 바위 아래 공간으로 가까이 간다',
+      }),
     );
 
     expect(screen.getByTestId('cave-opening')).toBeTruthy();
@@ -137,17 +175,19 @@ describe('R2EmbodiedSkeleton', () => {
     expect(screen.getByTestId('curriculum-cue').getAttribute('data-anchor-ids')).toBe(
       'cave-or-rock-shelter',
     );
-    expect(document.body.textContent).toContain('비나 바람을 피하기에는 괜찮아 보인다');
-    expect(document.body.textContent).toContain('다른 동물이 이곳을 이용했는지');
+    expect(document.body.textContent).toContain('안이 꽤 넓어');
+    expect(document.body.textContent).toContain('안쪽은 먼저 봐야 해');
     expect(document.body.textContent).not.toContain('막집');
   });
 
-  it('opens a clearly identified second perspective after evaluating the shelter candidate', async () => {
+  it('reinterprets the same departure from the morning handoff person without transferring the Hunt handaxe to the new body', async () => {
     render(<R2EmbodiedSkeleton />);
     const user = await reachCaveNotice();
 
     await user.click(
-      screen.getByRole('button', { name: '바위 아래 공간으로 가까이 간다' }),
+      screen.getByRole('button', {
+        name: '사람들과 바위 아래 공간으로 가까이 간다',
+      }),
     );
     await user.click(
       screen.getByRole('button', {
@@ -156,18 +196,17 @@ describe('R2EmbodiedSkeleton', () => {
     );
 
     expect(
-      screen.getByRole('heading', {
-        name: '거처에 남아 생활을 이어가는 사람의 관점',
-      }),
+      screen.getByRole('heading', { name: '아침에 도구를 건넨 사람의 관점' }),
     ).toBeTruthy();
-    expect(screen.getByTestId('player-body').getAttribute('data-body-pose')).toBe(
-      'camp-fire-rest',
-    );
+    expect(document.body.textContent).toContain('같은 Day 1의 같은 아침');
+    expect(document.body.textContent).toContain('내가 돌도구를 건넨 사람');
+    expect(document.body.textContent).toContain('해가 지기 전에 돌아와');
+    expect(screen.getByTestId('departing-group')).toBeTruthy();
     expect(screen.queryByTestId('held-tool')).toBeNull();
     expect(screen.getByTestId('current-shelter')).toBeTruthy();
   });
 
-  it('keeps reconstruction metadata off the player surface while exposing the relevant event boundary to teachers', async () => {
+  it('keeps reconstruction metadata off the player surface while exposing relationship event boundaries to teachers', async () => {
     const playerUser = userEvent.setup();
     const player = render(<R2EmbodiedSkeleton />);
 
@@ -179,97 +218,56 @@ describe('R2EmbodiedSkeleton', () => {
     render(<R2EmbodiedSkeleton surfaceMode="teacher" />);
 
     await teacherUser.click(screen.getByRole('button', { name: '눈을 뜬다' }));
-    expect(screen.getByTestId('reconstruction-note').textContent).toContain(
-      '공동체의 구체 인물과 거처 배치',
-    );
-
     await teacherUser.click(
       screen.getByRole('button', { name: '그 사람을 바라본다' }),
     );
     expect(screen.getByTestId('reconstruction-note').textContent).toContain(
       '이 도구를 건네는 구체 사건',
     );
-  });
 
-  it('keeps reduced-effects and curriculum information on the teacher surface and labels the specific cave discovery as reconstruction', async () => {
-    const user = userEvent.setup();
-    const { container } = render(
-      <R2EmbodiedSkeleton surfaceMode="teacher" />,
-    );
-
-    expect(screen.getByLabelText('교사용 제어')).toBeTruthy();
-    const reducedEffects = screen.getByRole('checkbox', {
-      name: '화면 움직임 줄이기',
-    });
-
-    await user.click(reducedEffects);
-    await user.click(screen.getByRole('button', { name: '눈을 뜬다' }));
-    await user.click(
-      screen.getByRole('button', { name: '그 사람을 바라본다' }),
-    );
-    await user.click(screen.getByRole('button', { name: '돌도구를 받는다' }));
-
-    expect(container.querySelector('.r2-skeleton--reduced')).toBeTruthy();
-    expect(screen.getByText('뗀석기')).toBeTruthy();
-    expect(document.body.textContent).toContain(
-      '교과 연결: 뗀석기 → 대표적인 예: 주먹도끼',
-    );
-
-    await user.click(
+    await teacherUser.click(screen.getByRole('button', { name: '돌도구를 받는다' }));
+    await teacherUser.click(
       screen.getByRole('button', { name: '주먹도끼를 쥐고 일어난다' }),
     );
-    await user.click(
-      screen.getByRole('button', { name: '사람들과 함께 나갈 준비를 한다' }),
+    await teacherUser.click(screen.getByRole('button', { name: '두 사람 곁으로 간다' }));
+    await teacherUser.click(
+      screen.getByRole('button', { name: '사람들과 거처를 나선다' }),
     );
-    await user.click(screen.getByRole('button', { name: '거처를 나선다' }));
-    await user.click(
-      screen.getByRole('button', { name: '몸을 낮춰 지면을 살핀다' }),
-    );
-
     expect(screen.getByTestId('reconstruction-note').textContent).toContain(
-      '자연 거처 후보를 발견하는 구체 사건',
+      'H1과 함께 이동하고 같은 흔적을 살피는 관계 사건',
     );
   });
 
-  it('exposes internal evidence only in debug mode and records both curriculum hierarchy and shelter evidence', async () => {
+  it('records relationship signals only in debug mode alongside curriculum evidence', async () => {
     render(<R2EmbodiedSkeleton surfaceMode="debug" />);
     const user = await receiveHandaxe();
 
     let debugText = screen.getByTestId('r2-debug-state').textContent ?? '';
+    expect(debugText).toContain('r-recognized');
+    expect(debugText).toContain('r-tool-handoff-shared');
     expect(debugText).toContain('tool-received-in-embodied-context');
-    expect(debugText).toContain('chipped-stone-term-revealed');
-    expect(debugText).toContain('handaxe-term-revealed');
-    expect(debugText).toContain('paleolithic-chipped-stone');
-    expect(debugText).toContain('handaxe');
-    expect(debugText).toContain('이 도구를 건네는 구체 사건');
 
     await user.click(
       screen.getByRole('button', { name: '주먹도끼를 쥐고 일어난다' }),
     );
+    await user.click(screen.getByRole('button', { name: '두 사람 곁으로 간다' }));
     await user.click(
-      screen.getByRole('button', { name: '사람들과 함께 나갈 준비를 한다' }),
-    );
-    await user.click(screen.getByRole('button', { name: '거처를 나선다' }));
-    await user.click(
-      screen.getByRole('button', { name: '몸을 낮춰 지면을 살핀다' }),
+      screen.getByRole('button', { name: '사람들과 거처를 나선다' }),
     );
     await user.click(
-      screen.getByRole('button', { name: '바위 아래 공간으로 가까이 간다' }),
+      screen.getByRole('button', { name: '그 사람 곁에 몸을 낮춰 함께 살핀다' }),
     );
-
-    debugText = screen.getByTestId('r2-debug-state').textContent ?? '';
-    expect(debugText).toContain('자연 거처 후보를 발견하는 구체 사건');
-
     await user.click(
-      screen.getByRole('button', {
-        name: '이 장소와 돌아가는 길을 기억해 둔다',
-      }),
+      screen.getByRole('button', { name: '사람들과 계속 걷는다' }),
+    );
+    await user.click(
+      screen.getByRole('button', { name: '그 사람이 보는 방향을 바라본다' }),
     );
 
     debugText = screen.getByTestId('r2-debug-state').textContent ?? '';
+    expect(debugText).toContain('r-return-motif-heard');
+    expect(debugText).toContain('h1-shared-ground-observation');
+    expect(debugText).toContain('h2-gaze-followed');
     expect(debugText).toContain('embodied-observation-performed');
-    expect(debugText).toContain('natural-shelter-evaluated');
-    expect(debugText).toContain('cave-shelter-term-revealed');
-    expect(debugText).toContain('perspective-proof');
   });
 });
