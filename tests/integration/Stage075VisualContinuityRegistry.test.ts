@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { STAGE075_RASTER_MANIFEST } from '../../src/experience/production/stage075RasterManifest';
+import { STAGE075_STYLE_ANCHOR } from '../../src/experience/production/stage075StyleAnchor';
 import {
   STAGE075_VISUAL_CONTINUITY_ANCHORS,
   getStage075VisualAnchor,
@@ -13,6 +14,8 @@ describe('Stage 07.5 visual continuity registry', () => {
 
   it('requires every raster manifest anchor dependency to resolve to a registered anchor', () => {
     for (const record of STAGE075_RASTER_MANIFEST) {
+      expect(record.requiredStyleAnchorId).toBe('STYLE-GIR-V1');
+
       for (const anchorId of record.requiredAnchorIds) {
         expect(getStage075VisualAnchor(anchorId), `${record.assetId} -> ${anchorId}`).toBeTruthy();
       }
@@ -24,6 +27,9 @@ describe('Stage 07.5 visual continuity registry', () => {
       expect(anchor.immutableTraits.length, anchor.id).toBeGreaterThan(0);
       expect(anchor.forbiddenDrift.length, anchor.id).toBeGreaterThan(0);
     }
+
+    expect(STAGE075_STYLE_ANCHOR.immutableTraits.length).toBeGreaterThan(0);
+    expect(STAGE075_STYLE_ANCHOR.forbiddenDrift.length).toBeGreaterThan(0);
   });
 
   it('does not mark an anchor approved without approved reference paths', () => {
@@ -32,9 +38,16 @@ describe('Stage 07.5 visual continuity registry', () => {
         expect(anchor.approvedReferencePaths?.length, anchor.id).toBeGreaterThan(0);
       }
     }
+
+    if (STAGE075_STYLE_ANCHOR.status === 'anchor-approved') {
+      expect(STAGE075_STYLE_ANCHOR.approvedReferencePaths?.length).toBeGreaterThan(0);
+    }
   });
 
-  it('keeps critical identity/world/object anchors pending until actual masters exist', () => {
+  it('keeps critical style/identity/world/object anchors pending until actual masters exist', () => {
+    expect(STAGE075_STYLE_ANCHOR.status).toBe('reference-pending');
+    expect(STAGE075_STYLE_ANCHOR.approvedReferencePaths).toBeUndefined();
+
     const criticalIds = [
       'ARU-IDENTITY-V1',
       'DAMU-IDENTITY-V1',
