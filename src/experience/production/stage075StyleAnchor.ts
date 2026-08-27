@@ -2,6 +2,7 @@ import {
   getStage075AnchorBundleApprovedPaths,
   getStage075AnchorReviewBundle,
   isStage075AnchorReviewBundleComplete,
+  type Stage075AnchorReviewBundle,
 } from './stage075AnchorReviewBundle';
 
 export type Stage075StyleAnchorId = 'STYLE-GIR-V1';
@@ -39,10 +40,11 @@ export const STAGE075_STYLE_ANCHOR: Stage075StyleAnchor = {
   ],
 };
 
-export function isStage075StyleAnchorApproved(anchor: Stage075StyleAnchor = STAGE075_STYLE_ANCHOR) {
-  const bundle = getStage075AnchorReviewBundle(anchor.id);
-
-  if (!bundle || anchor.status !== 'anchor-approved' || !isStage075AnchorReviewBundleComplete(bundle)) {
+export function isStage075StyleAnchorApproved(
+  anchor: Stage075StyleAnchor = STAGE075_STYLE_ANCHOR,
+  bundle: Stage075AnchorReviewBundle | null = getStage075AnchorReviewBundle(anchor.id),
+) {
+  if (!bundle || bundle.anchorId !== anchor.id || anchor.status !== 'anchor-approved' || !isStage075AnchorReviewBundleComplete(bundle)) {
     return false;
   }
 
