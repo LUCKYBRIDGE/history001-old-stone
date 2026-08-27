@@ -1,5 +1,5 @@
 # 구석기 역사 체험 웹게임
-## Canonical Baseline v5 — R2 Stage 07.5 Scene Composition Review
+## Canonical Baseline v6 — R2 Stage 07.5 Visual Anatomy Reference Lock
 
 이 문서는 프로젝트의 **현재 기준선, 문서 위계, 공식 용어, 완료/미완료 경계**를 고정한다.
 
@@ -15,7 +15,7 @@
 
 현재 운영 상태:
 
-# **Stage 07.5 Social Runtime Integrated / Automated PASS / Human Gate FAIL / Scene Composition Bible v2 Consolidated / Project-owner Scene Review Corrections Prepared / Implementation Frozen**
+# **Stage 07.5 Social Runtime Integrated / Automated PASS / Human Gate FAIL / Scene Composition Bible v2.1 Project-owner Approved / Responsive Raster + Visual Continuity + Anatomy/Contact Gates Integrated / Visual Anchor Review Board Integrated / Approved Raster Assets 0 / Stage 08 BLOCKED**
 
 현재 의미:
 
@@ -26,24 +26,36 @@
 - Human QA에서 embodied/social/visual composition P1 blocker 확인
 - 역할 기능 중심 Player 서술 제거 remediation main 반영 완료
 - Social Immersion / Day 1 Character canonical main 반영 완료
-- Day 1 Community + Hunt First-Five social runtime main 통합 완료
-- first-five causal/state automated verification PASS
+- Day 1 Community + Hunt social runtime main 통합 완료
+- causal/state automated verification PASS
 - Historical Visual Reference Review v1 완료
-- Scene Composition Bible v2 통합 완료
-- Project-owner Scene Review용 보정안 작성 완료
-- Project-owner confirmation / Previsual Approval은 아직 아님
-- production image / Stage 08 visual integration은 아직 시작하지 않음
+- Scene Composition Bible v2.1 통합 및 Project-owner 확인 PASS
+- responsive L/TP/PP production contract 준비 완료
+- raster media adapter 통합 완료
+- visual continuity registry 통합 완료
+- anatomy/proportion/contact geometry registry와 runtime gate 통합 완료
+- dev-only Visual Anchor Review Board(`?anchors=1`) 통합 완료
+- first reference bundle slots가 machine-readable하게 정의됨
+- approved style/anatomy/raster asset은 아직 0개
+- Human Gate는 FAIL 유지
+- Stage 08은 BLOCKED 유지
 
 현재 다음 Gate:
 
-# **Project-owner Scene Composition Confirmation**
+# **Visual Anatomy Reference Lock**
 
-검토 문서:
+즉 장면 이미지를 늘리는 것이 아니라 다음 upstream master를 먼저 실제로 잠근다.
 
-- `handoff/STAGE07_5_FIRST_PERSON_SCENE_COMPOSITION_BIBLE_V2.md`
-- `handoff/STAGE07_5_PROJECT_OWNER_SCENE_REVIEW.md`
-
-Project-owner confirmation 뒤에만 Bible v2.x consolidation과 Previsual Approval로 간다.
+```text
+0. STYLE-GIR-V1
+1. DAY1-HANDAXE-V1
+2. PLAYER-HUNT-BODY-V1
+3. PLAYER-HUNT-BODY-PROP-V1
+4. ARU-IDENTITY-V1
+5. ARU-PROP-V1
+6. SC02-HANDOFF-GEO-V1
+7. 그 뒤에만 SC02 unified-contact L/TP/PP candidate
+```
 
 Stage 08은 계속 BLOCKED다.
 
@@ -73,8 +85,10 @@ Stage 08은 계속 BLOCKED다.
 `docs/06_TECH_BLUEPRINT.md`가 **유일한 Technical SSOT**다.
 
 - 07A = visual asset / composition / QA 원칙
-- 07B = Stage 08 직전 production execution/readiness 규격
-- Scene Composition Bible v2와 Review 문서는 previsual implementation contract이며 Technical SSOT가 아님
+- 07B = production execution/readiness 규격
+- `STAGE07_5_FIRST_PERSON_SCENE_COMPOSITION_BIBLE_V2_1.md` = Project-owner approved scene composition contract
+- `STAGE07_5_VISUAL_CONTINUITY_INDEX.md`와 anatomy/contact handoff 문서는 Stage 07.5 art-production contract이며 Technical SSOT가 아님
+- `handoff/NEXT_SESSION_START_HERE.md` = 새 세션 bootstrap 문서이며 canonical을 덮지 않음
 
 Audit/Legacy/handoff 기록은 canonical을 덮지 않는다.
 
@@ -290,6 +304,12 @@ World Plate
 - 매 Beat마다 새 full-frame image를 갈아끼우는 slideshow 금지
 - action affordance도 fixed HUD/footer가 되어서는 안 됨
 
+Final visual direction:
+
+# **raster-first Hybrid Embodied Composite + Anchor-conditioned Continuity + Anatomy-locked Derivation**
+
+Grounded Illustrative Realism을 사용하되 hyper-photoreal, cartoon/chibi, fantasy-barbarian, AAA poster 방향으로 드리프트하지 않는다.
+
 Screen Treatment:
 
 # **Subtle by default. Strong when earned.**
@@ -347,6 +367,8 @@ ambient community life
 - terminology relation
 - held-item logical continuity
 - Same-Day regressions
+- raster upstream approval gate integrity
+- visual/anatomy registry consistency
 
 자동 테스트가 증명하지 않는 것:
 
@@ -363,21 +385,22 @@ ambient community life
 
 주 문서:
 
-- `handoff/STAGE07_5_FIRST_PERSON_SCENE_COMPOSITION_BIBLE_V2.md`
+- `handoff/STAGE07_5_FIRST_PERSON_SCENE_COMPOSITION_BIBLE_V2_1.md`
 
-Review:
+상태:
 
-- `handoff/STAGE07_5_PROJECT_OWNER_SCENE_REVIEW.md`
+# **Project-owner Approved / Design PASS**
 
-현재 review에서 확인된 주요 보정 대상:
+이미 lock된 주요 보정:
 
-- SC05 departure physical geometry
-- SC03→04 curriculum/world-action timing
-- SC08~10 off-frame handaxe continuity
-- SC11 same-moment temporal synchronization
-- action affordance fixed-HUD risk
+- SC03→04 terminology와 world movement 동시 진행
+- SC05 physically plausible diagonal departure geometry
+- SC08~10 handaxe continuous off-frame/re-entry
+- SC11 SC05 same-moment temporal sync
+- action affordance fixed-HUD 금지
+- responsive composition families L/TP/PP
 
-설계 보정 방향은 review 문서에 lock되어 있으나 **Project-owner confirmation은 아직**이다.
+현재 작업은 Scene Bible 재설계가 아니다.
 
 ---
 
@@ -396,33 +419,43 @@ Review:
 - terminology card 느낌
 - current shelter / actor / body production-replaceability 문제
 - action/scene legibility 부족
+- SVG/CSS proof의 최종 시각 품질 한계
 
 Human Gate는 프로젝트 오너/교사의 실제 브라우저 proxy QA다.
 Student Pilot을 대체하지 않는다.
 
-# **자동 PASS, Design PASS, Previsual PASS는 Human QA PASS가 아니다.**
+# **자동 PASS, Design PASS, Anchor PASS, Previsual PASS는 Human QA PASS가 아니다.**
 
 ---
 
-# 14. Visual Production Readiness
+# 14. Visual Production Readiness / Anatomy Lock
 
-Human Gate와 별도이며 production 시작 직전 필요한 실행 준비다.
+현재 production 준비는 문서 수준을 넘어 runtime gate와 review tooling까지 통합돼 있다.
 
-최소:
+현재 준비 완료:
 
-- Historical / Visual Reference Pack
-- Player Body Continuity Sheet
-- Camera / Composition Profiles
-- core cast anchor sheets
-- canonical Handaxe Anchor Sheet
-- Current Shelter / Terrain / Cave / Fire Scene Families
-- contact / grip / occlusion anchor plan
-- crop-safe responsive plan
-- provenance / license 구분
+- Scene Composition Bible v2.1
+- Historical / Visual Reference Review
+- responsive L/TP/PP contract
+- Raster Media Adapter
+- Visual Continuity Registry
+- Anatomy / Contact Registry
+- machine-readable Raster Manifest
+- Visual Anchor Review Board (`?anchors=1`)
+- first Anchor Review Bundle slot definitions
 
-세부는 `docs/07B_FIRST_PERSON_VISUAL_PRODUCTION_SPEC.md`가 소유한다.
+아직 미완료:
 
-현재는 Project-owner Scene Review가 먼저다.
+- STYLE-GIR-V1 실제 approved packet
+- DAY1-HANDAXE-V1 실제 approved morphology/scale packet
+- PLAYER-HUNT-BODY-V1 실제 approved body/hand packet
+- Player measured anatomy contract
+- ARU-IDENTITY-V1 actual turnaround packet
+- Aru measured anatomy contract
+- SC02 contact geometry actual master
+- coherent SC02 L/TP/PP production candidate
+
+즉 현재 Gate는 **Visual Anatomy Reference Lock**이다.
 
 ---
 
@@ -436,6 +469,9 @@ Human Gate와 별도이며 production 시작 직전 필요한 실행 준비다.
 - **Scene**: 목표/직접 행동/위치/결과/world memory가 의미 있게 변하는 상태
 - **Beat**: Scene 내부의 대사/시선/손/용어/효과 변화
 - **Embodied Composite**: world/body/actor/item/treatment를 동일 공간 논리로 합성하는 production 문법
+- **Visual Anchor**: 반복되는 style/character/body/world/object identity를 잠그는 upstream master
+- **Anatomy Contract**: 승인된 body master에서 측정·고정하는 production proportion contract
+- **Contact Geometry Contract**: 손/도구/지면/바위/상대의 물리적 접촉 관계 contract
 
 완료 판정:
 
@@ -443,6 +479,7 @@ Human Gate와 별도이며 production 시작 직전 필요한 실행 준비다.
 - Implementation Complete
 - Automated PASS
 - Project-owner Scene Confirmation
+- Visual Anchor Reference Lock
 - Previsual Approval
 - Human QA PASS
 - Visual Production Ready
@@ -456,10 +493,15 @@ Stage 07 automated baseline = PASS
 Stage 07.5 social runtime = integrated
 Stage 07.5 automated verification = PASS
 Historical Visual Reference Review v1 = complete
-Scene Composition Bible v2 = consolidated
-Project-owner Scene Review corrections = prepared
-Project-owner confirmation = PENDING
-Previsual Approval = NOT YET
+Scene Composition Bible v2.1 = project-owner approved
+Responsive Raster Contract = ready
+Raster Media Adapter = integrated
+Visual Continuity Registry = integrated
+Anatomy / Contact Registry = integrated
+Visual Anchor Review Board = integrated
+Approved Style Anchors = 0
+Approved Anatomy Contracts = 0
+Approved Raster Assets = 0
 Human Gate = FAIL
 Stage 08 = BLOCKED
 ```
@@ -486,6 +528,12 @@ Canonical docs:
 - 다음 세션이 즉시 해야 할 일
 - 다시 하지 말아야 할 일
 
+`handoff/NEXT_SESSION_START_HERE.md`:
+
+- 새 세션용 현재 작업 bootstrap
+- current Gate를 빠르게 복구하기 위한 operational summary
+- canonical을 덮지 않음
+
 `handoff/TEST_REPORT.md`:
 
 - 자동검증 범위와 한계
@@ -505,5 +553,7 @@ Canonical docs:
 - World Truth와 Character Knowledge가 섞이지 않는가
 - historical reference의 chronology/site specificity를 무시하지 않는가
 - visual quality가 body/contact/continuity 문제를 덮지 않는가
+- 같은 캐릭터/body/world/object가 독립 생성으로 drift하지 않는가
+- portrait 대응을 anatomy 변형으로 해결하지 않는가
 
-# **현재 다음 Gate는 Project-owner Scene Composition Confirmation이며, 확인 전 implementation freeze를 유지한다.**
+# **현재 다음 Gate는 Visual Anatomy Reference Lock이며, Stage 08은 BLOCKED다.**
