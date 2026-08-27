@@ -1,5 +1,5 @@
 # 구석기 역사 체험 웹게임
-## Canonical Baseline v3 — R2 Stage 07 Curriculum-Hardened + Visual Production Contract
+## Canonical Baseline v4 — R2 Stage 07 Human-Gate Remediation + Social Immersion Contract
 
 이 문서는 프로젝트의 **현재 기준선, 문서 위계, 공식 용어, 완료/미완료 경계**를 한곳에 고정한다.
 
@@ -9,22 +9,42 @@
 
 # 1. 현재 공식 기준선
 
+장기 기준선은 계속:
+
 # **Design Reboot R2 / Stage 07 Curriculum-Hardened Baseline**
+
+이다.
+
+그러나 최초 실제 Player Human QA가 이미 수행되었고, 자동검증과 달리 사람의 실제 플레이에서 관계·서사·신체화·시각 구성 관련 **P1 blocker**가 확인됐다.
+
+따라서 현재 운영 상태는:
+
+# **Stage 07 Automated PASS / Human Gate FAIL / Stage 07.5 Social Immersion Remediation In Progress**
+
+이다.
+
+`Stage 07.5`는 새 대형 production Stage가 아니다. Stage 07 Human Gate를 통과하기 위해 relationship / narrative / embodied / social continuity를 보완하는 remediation substage다.
 
 현재 의미:
 
-- Stage 01~06 설계 계약 정리 완료
+- Stage 01~06 기본 설계 계약 정리 완료
 - Stage 07 Embodied Curriculum Skeleton 구현 완료
-- 자동 검증 완료
-- Teacher Browser Human QA는 아직 미실시
+- 원래 Stage 07 자동 검증 완료
+- 실제 Player Human QA 수행 완료
+- Human QA에서 P1 blocker 확인
+- 역할 중심 Player 서술 제거 remediation은 main 반영됨
+- Social Immersion / Day 1 Character canonical 계약은 main 반영됨
+- 다음 구현 대상은 **Day 1 Community + Hunt First Five Minutes Stage 07.5 vertical proof**
 - first-person visual/image production 원칙은 `docs/07A_FIRST_PERSON_VISUAL_ASSET_BIBLE.md`가 소유
-- Stage 08 직전의 구체 visual production 실행 규격은 `docs/07B_FIRST_PERSON_VISUAL_PRODUCTION_SPEC.md`가 소유
+- Stage 08 직전 구체 visual production 실행 규격은 `docs/07B_FIRST_PERSON_VISUAL_PRODUCTION_SPEC.md`가 소유
 - 실제 production image / Stage 08 Hunt visual integration은 아직 시작하지 않음
 - Stage 08 Hunt Embodied Vertical Slice는 Human Gate PASS + Visual Production Readiness 전 시작 금지
 
-공식 다음 Gate:
+현재 다음 Gate:
 
-# **Stage 07 Teacher Browser Visual / Immersion / Curriculum / Misconception QA**
+# **Stage 07.5 Player Human Re-check — Social Identification / Embodiment / Spatial Continuity / Curriculum / Misconception**
+
+단, 이 재검증은 first-five runtime proof가 구현·CI 통과된 뒤 수행한다.
 
 ---
 
@@ -61,6 +81,8 @@
 - `docs/R2_STAGE01_07_SEQUENTIAL_AUDIT.md`
 - `docs/R2_STAGE01_DEEP_AUDIT_REPORT.md`
 - `docs/08_HUNT_IMMERSION_REDESIGN.md`
+- `handoff/STAGE07_5_SOCIAL_IMMERSION_CANON_PLAN.md`
+- `handoff/DAY1_COMMUNITY_HUNT_FIRST5_SCREENPLAY.md`
 - 과거 playtest/handoff 기록
 
 ---
@@ -114,7 +136,7 @@ Immersion
 
 ## 현재 임시 거처
 
-- Stage 07에서 학생이 처음 보는 현재 생활 공간을 가리키는 **비교적 중립적인 player-facing 표현**.
+- Stage 07에서 학생이 처음 보는 현재 생활 공간을 가리키는 비교적 중립적인 player-facing 표현.
 - 구체 형태가 충분히 경험·검증되기 전에 자동으로 `막집`이라고 단정하지 않는다.
 
 ## 막집
@@ -150,13 +172,24 @@ Immersion
 
 예:
 
-- R/H1/H2라는 인물
-- R이 특정 아침에 주먹도끼를 건네는 사건
-- 이 Day 1 공동체의 구체 거처 배치
-- Hunt 중 특정 동굴 후보를 발견하는 사건
+- R/H1/H2라는 authoring identity와 fictional cast
+- Stage 07.5에서 사용하는 provisional call-name `아루 / 다무 / 누아`
+- 특정 아침 아루가 주먹도끼를 건네는 사건
+- 이 Day 1 공동체의 구체 거처/사람 배치
+- Hunt 중 특정 자연 거처 후보를 발견하는 사건
 - 구체 대사·감정·선택 결과
 
 Player flow를 매번 `[재구성]` 라벨로 끊지 않는다. Teacher/Debug에서는 사실/재구성 경계를 확인할 수 있어야 한다.
+
+## Language Convention
+
+Player에게 들리는 한국어 대사는 실제 선사 언어 복원이 아니다.
+
+# **학생이 당시 장면의 의미를 이해할 수 있도록 현대 한국어로 번역해 표현하는 convention**
+
+으로 취급한다.
+
+`우가우가`식 pseudo-primitive speech나 괴성+괄호 번역으로 구석기인의 언어 능력을 희화화하지 않는다.
 
 ---
 
@@ -175,12 +208,51 @@ Same Day 1
 - 역할 완료마다 세계 시간이 하루씩 증가하지 않는다.
 - 역할 순서가 달라도 동일 `dayId`를 공유한다.
 - 한 역할의 결과가 다른 역할에서 이미 일어난 과거를 소급 변경하지 않는다.
-- 같은 하루의 R/H1/H2, 현재 거처, 불 주변 배치, 도구 같은 **shared visual anchor의 정체성도 역할마다 모순되지 않아야 한다.**
+- 같은 하루의 핵심 cast, 현재 거처, 불 주변 배치, 도구 같은 shared visual anchor의 정체성도 역할마다 모순되지 않아야 한다.
 - 다른 POV이므로 구도와 보이는 범위는 달라도 되지만 같은 사람/장소/물건이 다른 세계의 자산처럼 바뀌면 안 된다.
+
+## Limited Knowledge
+
+# **World Truth ≠ Character Knowledge**
+
+- 직접 본 것
+- 함께 겪은 것
+- 다른 사람에게 나중에 들은 것
+
+을 구분한다.
+
+한 관점에서 일어난 사건을 다른 관점 캐릭터가 자동으로 전지적으로 알지 않는다.
 
 ---
 
-# 7. 역할별 공식 문법
+# 7. Social Immersion 공식 기준
+
+Player는 구석기 세계에 처음 떨어진 현대 관광객이 아니다.
+
+# **그 공동체에서 Day 1 이전부터 살아오던 사람의 몸과 제한된 기억을 이어받는다.**
+
+따라서:
+
+- 핵심 인물은 역할 기능 설명보다 이름·습관·shared event·callback으로 기억됨
+- R/H1/H2는 authoring ID이며 Player character label이 아님
+- NPC는 Player가 없어도 자기 행동과 서로의 대화를 가질 수 있음
+- 모두가 Player를 동시에 바라보거나 Player 입력만 기다리지 않음
+- Player는 아는 세계를 설명받기보다 학생이 그 세계를 플레이를 통해 따라잡게 함
+- 관계는 호감도 숫자가 아니라 Shared Memory와 후속 반응으로 유지됨
+
+Stage 07.5 provisional call-name:
+
+```text
+R  → 아루
+H1 → 다무
+H2 → 누아
+```
+
+이는 production final naming lock이 아니다.
+
+---
+
+# 8. 역할별 공식 문법
 
 ## Hunt
 
@@ -223,7 +295,7 @@ Same Day 1
 
 ---
 
-# 8. 화면·감정 공식 기준
+# 9. 화면·감정 공식 기준
 
 Embodied First-Person:
 
@@ -268,46 +340,86 @@ Choice Fairness:
 
 ---
 
-# 9. Stage 07 현재 구현 경계
+# 10. Stage 07 / 07.5 구현 경계
 
-현재 Browser Skeleton은 다음을 proof 한다.
+현재 main Browser Skeleton은 원래 Stage 07 proof와 여러 Human-Gate remediation을 포함한다.
+
+현재 구현되어 있는 핵심 범위:
 
 ```text
-사냥 관점
+감각적 orientation
 → 새벽 불 + 현재 임시 거처
-→ R의 돌도구 전달
+→ 도구 전달
 → 뗀석기 상위 개념 + 주먹도끼 대표 예 명명
 → held-item continuity
-→ H1/H2와 출발
+→ 합류/출발
 → 현재 거처가 멀어짐
 → 몸 낮춰 지면 관찰
 → 한동안 이동
-→ 동굴/바위 그늘 후보 발견
+→ 자연 거처 후보 발견
 → 장점/불확실성 살핌
 → 동굴/바위 그늘 용어 연결
-→ 다른 사람 관점 전환 proof
+→ 다른 자리 Perspective Proof
 ```
 
-Stage 07이 아직 증명하지 않은 것:
+이미 remediation된 것:
+
+- 역할/관점 제목을 Player에서 제거
+- 주요 대사를 actor 위치와 연결
+- Player-facing 기능 역할 설명 축소
+
+그러나 아직 **구현되지 않은 다음 Stage 07.5 proof**:
+
+```text
+눈뜨기 전 ambient community life
+→ background NPC autonomy
+→ 생활 속 fictional name acquisition
+→ 아루/다무/누아 social identification
+→ action-first first five minutes
+→ 다무와 shared ground observation 강화
+→ 누아 attention seed의 자연스러운 causal staging
+```
+
+이 first-five proof가 구현되기 전 Social Immersion canonical을 `runtime 완료`라고 부르지 않는다.
+
+Stage 07/07.5가 아직 증명하지 않은 것:
 
 - 주먹도끼의 실제 다용도 interaction
 - 막집 정식 명명과 거처 손질
 - 불의 여러 기능을 행동으로 충분히 체험
 - 완성된 Hunt 추적/공포/결과/귀환
 - 실제 학생의 개념 이해
-- 실제 시각 몰입 품질
 - production-quality body/cast/tool/environment identity continuity
 - 실제 생성 자산의 grip/contact/occlusion/lighting 자연스러움
 - responsive viewport에서 production composition 안정성
 
-Stage 07 Human QA에서는 기존 질문에 더해 **현재 placeholder 구도가 production asset으로 치환 가능한지**를 확인한다.
+---
 
-Stage 07 Human Gate는 교사/프로젝트 오너의 proxy QA이며 실제 학생 학습 검증을 대체하지 않는다.
-실제 학생의 이해·전이·불편·조작성은 후속 Student Pilot에서 검증한다.
+# 11. Human QA 판정
+
+최초 실제 Player Human QA에서 확인된 주요 P1 범주:
+
+- body/arm이 HUD처럼 읽히는 embodied spatial 문제
+- handaxe grip/contact 약함
+- 핵심 인물이 사람보다 기능 silhouette처럼 읽힘
+- 관계/서사 causal spine 약함
+- terminology cue가 학습 카드처럼 보이는 문제
+- current shelter / actor / body composition의 production-replaceability 문제
+- 역할 기능 중심 서술이 identification을 막는 문제
+
+따라서 현재 Human Gate는:
+
+# **FAIL / P1 remediation in progress**
+
+이다.
+
+Human Gate는 프로젝트 오너/교사의 실제 브라우저 proxy QA이며 Student Pilot을 대체하지 않는다.
+
+다음 Human re-check는 first-five runtime proof 구현·자동검증 후 수행한다.
 
 ---
 
-# 10. Visual Production Readiness
+# 12. Visual Production Readiness
 
 Design PASS와 별도다.
 
@@ -316,7 +428,7 @@ Stage 08에서 production visual을 만들기 전에 최소 다음이 있어야 
 - Historical / Visual Reference Pack
 - Player Body Continuity Sheet
 - Camera / Composition Profiles
-- R/H1/H2 Cast Anchor Sheets
+- core cast anchor sheets
 - canonical Handaxe Anchor Sheet
 - Current Shelter / Terrain / Cave / Fire Scene Families
 - contact / grip / occlusion anchor plan
@@ -335,7 +447,7 @@ Stage 07 Human Gate가 먼저다.
 
 ---
 
-# 11. 기술 용어
+# 13. 기술 용어
 
 ## Curriculum Anchor
 
@@ -348,6 +460,14 @@ Stage 07 Human Gate가 먼저다.
 ## Learning Evidence
 
 학생 점수가 아니라 자동검증/QA를 위한 내부 증거.
+
+## Shared Day Event
+
+같은 Day 1에서 실제로 일어난 질적 사건. participant / witness / knowledge를 구분할 수 있다.
+
+## Perspective Knowledge
+
+현재 캐릭터가 직접 보거나 함께 겪거나 전달받아 알 수 있는 정보 범위.
 
 ## Scene
 
@@ -365,7 +485,7 @@ Stage 07 Human Gate가 먼저다.
 
 ---
 
-# 12. 완료 판정 용어
+# 14. 완료 판정 용어
 
 - **Design PASS**: 설계 문서 계약이 정리됨.
 - **Implementation Complete**: 해당 범위 코드가 존재함.
@@ -374,19 +494,22 @@ Stage 07 Human Gate가 먼저다.
 - **Visual Production Ready**: 생성/제작을 위한 reference, anchor, camera, continuity, provenance 계약이 준비됨.
 - **Stage Complete**: 그 Stage가 요구하는 Design/Implementation/Automated/Human Gate가 모두 충족됨.
 
-현재 Stage 07은:
+현재:
 
-# **Implementation Complete / Automated PASS / Human QA Pending**
-
-따라서 전체 Stage 07을 `완료`라고 부르지 않는다.
+```text
+Original Stage 07 implementation: complete
+Original automated baseline: PASS
+Social Immersion canonical design: PASS
+Stage 07 Human Gate: FAIL
+First-five social runtime proof: NOT YET IMPLEMENTED
+Stage 08: BLOCKED
+```
 
 Human QA PASS 역시 Student Pilot PASS를 의미하지 않는다.
 
 ---
 
-# 13. 운영 상태 소유권
-
-문서가 서로 다른 시점의 상태를 말하지 않도록 역할을 분리한다.
+# 15. 운영 상태 소유권
 
 ## Canonical docs
 
@@ -417,13 +540,13 @@ Human QA PASS 역시 Student Pilot PASS를 의미하지 않는다.
 - test count
 - 자동검증 범위와 한계
 
-최신 docs-only 상태 정리 commit의 SHA/run을 다시 문서에 쓰기 위해 반복 commit하는 **recursive verification loop를 만들지 않는다.** 최신 exact repository HEAD와 CI는 GitHub repository/Actions 상태를 최종 기준으로 확인한다.
+최신 docs-only 상태 정리 commit의 SHA/run을 다시 문서에 쓰기 위해 반복 commit하는 recursive verification loop를 만들지 않는다. 최신 exact repository HEAD와 CI는 GitHub repository/Actions 상태를 최종 기준으로 확인한다.
 
 # **이미 main에 통합된 작업을 운영 문서에서 미래형으로 쓰지 않는다.**
 
 ---
 
-# 14. 변경 규칙
+# 16. 변경 규칙
 
 새 리비전에서 반드시 확인한다.
 
@@ -431,7 +554,7 @@ Human QA PASS 역시 Student Pilot PASS를 의미하지 않는다.
 - 구형 버전 예시가 최신 계약보다 앞서 읽히지 않는가?
 - Audit/Legacy 문서가 canonical 문서를 덮지 않는가?
 - 삭제/흡수된 보정 문서를 다시 canonical로 참조하지 않는가?
-- 문서의 테스트 수/현재 Gate/버전이 실제 저장소와 일치하는가?
+- 문서의 현재 Gate/버전이 실제 저장소와 일치하는가?
 - 운영 문서가 이미 끝난 병합을 미래형으로 말하지 않는가?
 - 학생 화면과 Teacher/Debug 관리 정보가 분리되는가?
 - 구현했다고 학습 완료로 과장하지 않는가?
@@ -439,5 +562,7 @@ Human QA PASS 역시 Student Pilot PASS를 의미하지 않는다.
 - 외부 reference의 라이선스와 실제 프로젝트 asset 사용 권리를 구분하는가?
 - Human QA PASS를 Student Pilot PASS로 과장하지 않는가?
 - 07A 원칙과 07B 실행 규격의 역할이 뒤섞이지 않는가?
+- authoring identity가 Player-facing 역할 설명으로 새어 나오지 않는가?
+- World Truth와 Character Knowledge가 섞이지 않는가?
 
 이 문서는 그 판정을 위한 프로젝트 기준선이다.

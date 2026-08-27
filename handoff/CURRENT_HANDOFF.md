@@ -2,278 +2,289 @@
 
 ## Current phase
 
-# **R2 Stage 07.5 Relationship / Narrative Human-Gate Remediation**
+# **R2 Stage 07.5 Social Immersion / Human-Gate Remediation**
 
-공식 baseline은 계속:
+공식 baseline:
 
 - `docs/00_CANONICAL_BASELINE.md`
 
-기술 SSOT는 계속:
+기술 SSOT:
 
 - `docs/06_TECH_BLUEPRINT.md`
 
 현재 정확한 판정:
 
-# **Stage 07 Automated PASS / Initial Human QA FAIL / P1 remediation in progress**
+# **Original Stage 07 Automated PASS / Human Gate FAIL / First-Five Social Runtime Not Yet Implemented**
 
-Stage 08은 아직 시작하지 않는다.
-
----
-
-# 1. 왜 Stage 07.5인가
-
-Stage 07의 첫 실제 Player Human QA에서 자동 테스트가 잡지 못하는 P1 문제가 확인됐다.
-
-- first-person 팔/손이 몸보다 HUD처럼 보임
-- 주먹도끼 contact/grip 약함
-- R/H1/H2가 관계 인물보다 silhouette/function처럼 보임
-- 현재 runtime에서 canonical Hunt의 관계·인과·callback이 충분히 살아나지 않음
-- terminology cue가 학습 웹페이지 느낌을 강화
-- current shelter / actor / body composition에 production-replaceability blocker 존재
-
-따라서 Stage 08로 넘어가지 않고 작은 remediation proof를 수행한다.
-
-`Stage 07.5`는 새 대형 Stage나 production milestone이 아니다.
+Stage 08은 BLOCKED다.
 
 ---
 
-# 2. 현재 작업 branch
+# 1. 새 세션에서 가장 먼저 알아야 할 것
+
+최초 실제 Player Human QA에서 다음이 반복 확인됐다.
+
+- 팔/손이 몸보다 HUD처럼 읽힘
+- handaxe grip/contact 약함
+- R/H1/H2가 사람보다 기능 silhouette로 읽힘
+- speaker를 명확히 해도 `이 사람은 이런 역할`이라는 기능 서술 때문에 이입이 생기지 않음
+- 큰 학습 cue + 설명 + 버튼 구조가 역사 체험보다 교육 웹페이지처럼 보임
+- 관계와 서사 callback이 현재 runtime에서 약함
+
+따라서 현재 문제를 production image로 덮지 않는다.
+
+---
+
+# 2. 이미 main에 반영된 설계 결정
+
+- Player는 구석기에 처음 들어온 현대 관광객이 아니라 이 공동체의 기존 구성원
+- R/H1/H2는 authoring ID
+- Player-facing 인물은 이름·습관·shared event·callback으로 기억
+- fictional name은 Historical Reconstruction
+- 한국어 dialogue는 실제 선사 언어 재현이 아니라 학생을 위한 의미 번역
+- `우가우가`식 pseudo-primitive speech 금지
+- NPC는 Player가 없어도 자기 행동/대화를 가질 수 있음
+- NPC-to-NPC interaction 허용/권장
+- World Truth ≠ Character Knowledge
+- Shared Day Event는 participant / witness / told knowledge를 구분
+- relationship은 호감도 숫자가 아니라 event memory와 callback
+
+---
+
+# 3. Stage 07.5 provisional naming
+
+현재 first-five screenplay/runtime proof용 call-name:
 
 ```text
-r2-stage07-5-relationship-narrative-proof
+R  → 아루
+H1 → 다무
+H2 → 누아
 ```
 
-최신 `main`에서 생성했다.
+주의:
 
-기존:
+- 실제 선사 언어/실존 인명 재현이 아님
+- production final lock 아님
+- Human QA 후 바꿀 수 있음
+- Player 자신의 이름은 이 proof에서 고정 표시하지 않음
+- 이름 머리 위 상시 nameplate 금지
+- 이름 + 기능 설명 카드 금지
+
+상세 naming/community contract:
+
+- `handoff/DAY1_COMMUNITY_HUNT_FIRST5_SCREENPLAY.md`
+
+---
+
+# 4. Day 1 Community 핵심
+
+Player + 핵심 NPC 3명만 있는 RPG party처럼 보이면 실패다.
+
+Stage 07.5 proof에서는 최소:
+
+- 아루 / R
+- 다무 / H1
+- 누아 / H2
+- ambient background actor 1~2명
+
+을 활용한다.
+
+background actor는:
+
+- 불/재료/거처 관련 자기 일을 함
+- Player가 눈을 떠도 자기 일을 계속함
+- Player에게 모두 말을 걸지 않음
+- NPC끼리 짧게 대화할 수 있음
+
+정확한 공동체 규모/혈연/권력 구조는 lock하지 않는다.
+
+---
+
+# 5. 각 핵심 인물의 기억 구조
+
+## 아루
+
+- 습관: 물건을 건네기 전 잡는 면/날을 짧게 확인, 걱정할수록 말이 짧음
+- first-five: 눈맞춤 → handaxe handoff → `해 지기 전에 와.`
+- callback: dusk / return / waiting recontextualization
+
+## 다무
+
+- 습관: 먼저 움직이지만 다른 사람이 늦으면 속도를 줄임, 발견하면 몸을 비켜 같이 보게 함
+- first-five: `가자.` → 같이 걷기 → `잠깐.` → shared ground observation
+- callback: fatigue / danger / carry / return
+
+## 누아
+
+- 습관: 대화 중에도 다른 지형/소리에 주의가 이동, 바로 정답을 확신하지 않음
+- first-five: 이동 중 다른 방향 attention seed
+- callback: 후속 natural shelter / alternate judgment
+
+이 내용은 Player 설명문으로 노출하지 않는다.
+
+---
+
+# 6. First Five Minutes 구현 순서
+
+canonical browser contract:
+
+- `docs/04_HUNT_PLAYFLOW.md` v9
+
+상세 screenplay:
+
+- `handoff/DAY1_COMMUNITY_HUNT_FIRST5_SCREENPLAY.md`
+
+우선 구현:
 
 ```text
-r2-human-qa-visual-composition-fix
+눈뜨기 전 ambient life
+→ 눈을 뜸
+→ background actors는 자기 행동 계속
+→ 다른 사람의 부름 속에서 `아루` 이름을 자연스럽게 들음
+→ 아루: `손.`
+→ Player right hand handoff
+→ Experience 뒤 뗀석기 → 대표적인 예: 주먹도끼 naming
+→ 다무: `가자.` / 이미 이동 시작
+→ 누아는 외부를 봄
+→ Player가 흐름에 합류
+→ 아루: `해 지기 전에 와.`
+→ 불/거처/사람 소리가 실제로 멀어짐
+→ 다무가 속도를 바꾸고 멈춤
+→ `잠깐.`
+→ Player가 곁에 몸을 낮춤
+→ 다무가 몸을 비켜 같이 지면을 봄
+→ 누아 attention-shift seed
 ```
 
-는 merge하지 않는다.
-
-이 branch는 old runtime 계약 위에 CSS부터 고치려던 실험이므로 frozen reference로만 둔다. 필요한 CSS 아이디어는 새 relationship/narrative structure가 정해진 뒤 선택적으로만 이식한다.
-
----
-
-# 3. 현재 확정 Relationship Spine
-
-## R
-
-- first recognition: 불 가까이에서 먼저 플레이어를 봄
-- shared incident: 돌도구를 직접 건넴
-- motif: “해가 지기 전에 돌아와.”
-- proof callback: Perspective Proof에서 같은 아침을 R 쪽 자리에서 다시 봄
-- 후속 Stage 08 payoff: 실제 귀환/재회
-
-## H1
-
-- first recognition: 같이 나갈 준비 / 플레이어를 기다림
-- shared incident: 같이 이동하고 같은 지면 흔적을 살핌
-- 후속 Stage 08 payoff seed: 피로·위험·운반을 함께 겪는 사람
-
-## H2
-
-- first recognition: 이동 전부터 주변을 살핌
-- shared incident: 무언가를 먼저 보고 멈춤
-- player causality: 플레이어가 H2의 시선을 직접 따라본 뒤에만 자연 거처 후보가 드러남
-- 후속 Stage 08 payoff seed: 다른 판단 가능성
-
-관계는 호감도/점수 시스템이 아니다.
-
----
-
-# 4. 현재 Stage 07.5 Player flow
+그 다음 existing proof:
 
 ```text
-사냥 관점
-→ 새벽 불 / 현재 임시 거처 / 오늘 먹을 것을 찾아 나갈 Need
-→ R이 먼저 나를 봄
-→ 내가 R을 봄
-→ R의 손에서 돌도구를 받음
-→ 같은 도구가 내 오른손에 남음
-→ 뗀석기 상위 개념 + 지금 손의 대표적인 예 = 주먹도끼
-→ H1/H2 합류
-→ R: “해가 지기 전에 돌아와.”
-→ R + 불 + current shelter가 함께 멀어짐
-→ H1이 속도를 늦추고 나를 기다림
-→ H1 곁에 몸을 낮춰 같은 지면 흔적을 봄
-→ 다시 셋이 걸음을 맞춤
-→ H2가 먼저 멈추고 한 방향을 봄
-→ 아직 cave 미노출
-→ 플레이어가 H2의 시선을 따라봄
-→ 그 뒤 바위 아래 자연 거처 후보가 드러남
-→ 사람들과 가까이 감
-→ 넓음/마름/보호 가능성 + 어둠/동물/거리 불확실성을 함께 확인
+Player가 누아의 attention을 직접 follow
+→ 그 뒤 natural shelter target reveal
+→ inspection
 → 동굴 / 바위 그늘 naming
-→ 같은 Day 1 아침, 도구를 건넨 사람 쪽 자리에서 출발 사건을 다시 봄
+→ Perspective Recontextualization Proof
 ```
-
-Perspective Proof는 Camp role = R을 확정하는 결정이 아니다.
 
 ---
 
-# 5. 핵심 runtime invariant
+# 7. 가장 중요한 causal invariants
 
-가장 중요한 신규 invariant:
+## 사람 → Player → 세계
 
-# **H2가 먼저 멈추고 플레이어가 그 시선을 따라보기 전에는 cave target이 렌더링되지 않는다.**
-
-기존 구조의 문제는 cave가 먼저 화면에 나타난 뒤 텍스트가 `H2도 보고 멈춘다`고 설명하는 순서였다.
-
-새 구조는:
+나쁜 순서:
 
 ```text
-H2 stop / gaze
-→ player action
-→ world reveal
+시스템이 target/정답 먼저 보여줌
+→ NPC가 그것을 설명
 ```
 
-이다.
+좋은 순서:
 
-즉 사람의 행동이 실제 발견의 원인이 된다.
+```text
+사람의 몸/행동 변화
+→ Player가 알아차림
+→ 직접 action
+→ 그 뒤 world information
+```
+
+## Knowledge
+
+World event가 발생했다고 모든 캐릭터가 자동으로 알지 않는다.
+
+- 직접 봄
+- 같이 겪음
+- 나중에 들음
+
+을 구분한다.
+
+## Naming
+
+Experience before Name.
+
+```text
+아루 손 → handaxe → 내 오른손
+→ 뗀석기
+→ 대표적인 예: 주먹도끼
+```
 
 ---
 
-# 6. 구현 원칙
+# 8. Runtime 구현 시 하지 말 것
 
-유지:
-
-- React + TypeScript + Vite
-- `useReducer`
-- explicit small state
-- curriculum evidence
-- Player / Teacher / Debug separation
-
-추가:
-
-- Stage 07 proof에 필요한 최소 relationship qualitative signals
-
-예:
-
-```text
-r-recognized
-r-tool-handoff-shared
-r-return-motif-heard
-h1-shared-ground-observation
-h2-gaze-followed
-```
-
-이 signal은 Debug/QA용이며 Player에는 노출하지 않는다.
-
-추가하지 않음:
-
-- Relationship Engine
-- affection score
-- personality score
-- Dialogue Engine
+- Stage 08 전체 Hunt로 점프
+- production image 생성
+- R/H1/H2를 Player에 표시
+- `아루 — 도구를 주는 사람` 같은 role card
+- 이름 상시 nameplate
+- 긴 캐릭터 소개
+- 아루가 교과 문단을 말하게 함
+- 범용 Dialogue Engine
 - NPC AI
-- generic Scene DSL
+- Relationship/affection score
+- 모든 screenplay Beat를 reducer state로 승격
+- cave target을 누아 attention-follow 전에 미리 렌더링
+- role/perspective 제목을 Player에 되살림
 
 ---
 
-# 7. Visual proof 변경
+# 9. 자동 테스트에서 추가해야 할 것
 
-새 relationship structure 위에서 Human QA blocker를 줄이는 최소 CSS layer를 추가한다.
+최소:
 
-목적:
+- opening role/perspective title 없음
+- background autonomous beat 최소 하나 존재
+- Player surface에 R/H1/H2 authoring ID 없음
+- `아루/다무/누아`와 기능 label이 같이 소개되지 않음
+- handoff가 terminology보다 먼저
+- 같은 handaxe continuity
+- `aru-return-line` departure 전에 존재
+- 다무 stop/body change가 shared observation보다 먼저
+- Player direct observation 뒤 ground evidence
+- 누아 attention follow 전 후속 target 미노출
+- Teacher/Debug에서 fictional naming + reconstruction mapping 확인 가능
 
-- world와 story가 별도 웹페이지 section처럼 느껴지는 문제 완화
-- beige curriculum card 축소
-- 중앙 X 팔/HUD 느낌 완화
-- H1/H2 relationship-active beat의 visual focus 차이
-- handaxe readability 보완
-- current shelter icon-like 위험 완화
-
-이 CSS는 production art가 아니다.
-
-production image는 만들지 않는다.
-
----
-
-# 8. 테스트
-
-현재 integration tests는 다음 causal invariant를 검증하도록 강화했다.
-
-- Experience before terminology
-- R handoff 뒤 same handaxe continuity
-- R return motif가 departure에 존재
-- H1 shared observation
-- H2가 먼저 멈춤
-- H2 gaze-follow 전 cave DOM 없음
-- gaze-follow 뒤 cave DOM 등장
-- companion judgments 뒤 cave terminology
-- perspective callback은 같은 Day 1
-- new POV body에 Hunt handaxe가 잘못 붙지 않음
-- Player에는 reconstruction/relationship ID 없음
-- Debug에서만 qualitative relationship signals 확인
-
-자동 test는 `사람처럼 느껴지는가`, `몰입되는가`를 판정하지 않는다.
+자동 test는 사람 같은 느낌/몰입감 자체를 PASS 선언하지 않는다.
 
 ---
 
-# 9. 아직 Stage 08에 남긴 것
+# 10. Human Re-check
 
-- 실제 사냥감 발견/접근
-- Pursuit Dilemma
-- 본격 피로와 시간 압박
-- Threat/Horror
-- Hunt result
-- Return
-- R reunion
-- 죄책감/후회/성취 payoff
-- 주먹도끼 실제 다용도 interaction
-- cave consequence
+runtime + CI 이후 사용자 실제 Player 재플레이가 필수다.
 
-Stage 07.5에 넣지 않는다.
+먼저 볼 것:
 
----
+1. 첫 5분 뒤 아루/다무/누아가 사람으로 기억되는가
+2. 내가 이 공동체에 원래 있던 사람처럼 느껴지는가
+3. NPC가 Player가 없어도 살아 있는가
+4. handaxe 전달이 item pickup이 아니라 사람 사이 접촉처럼 느껴지는가
+5. 출발 뒤 불/거처/사람 기척이 실제로 멀어지는가
+6. 다무가 멈춰서 나도 같이 바닥을 봤다는 인과가 느껴지는가
+7. role title 없이 현재 상황을 이해할 수 있는가
+8. terminology cue가 여전히 교육 카드처럼 튀는가
+9. 몸/도구가 HUD처럼 보이는가
 
-# 10. 다음 실행 순서
+P1이 남으면 production visual로 덮지 않는다.
 
-```text
-runtime/tests/docs remediation
-→ PR
-→ exact PR-head CI
-→ merge
-→ main CI
-→ 사용자 Player 자연 재플레이
-→ Teacher 확인
-→ 4:3 / 16:10 / 16:9 확인
-→ R2UX P1 재판정
-```
-
-Human Gate PASS는 사용자의 실제 재플레이 확인 전 선언하지 않는다.
+# **Human Gate PASS는 사용자 실제 재플레이 확인 전 선언하지 않는다.**
 
 ---
 
-# 11. 재플레이 때 가장 먼저 볼 것
+# 11. 그 다음
 
-1. 첫 20~30초에 사람들과 하루를 시작하는 느낌이 드는가
-2. R이 `설명 NPC`가 아니라 아침에 도구를 건넨 사람으로 기억되는가
-3. H1과 실제로 같이 행동했다고 느껴지는가
-4. cave를 시스템이 보여준 게 아니라 H2의 행동을 보고 내가 발견했다고 느껴지는가
-5. 팔/도구가 여전히 HUD처럼 보이는가
-6. terminology cue가 여전히 웹 학습 카드처럼 튀는가
-7. Perspective Proof에서 `아까 그 사람/아까 나`의 관계가 바로 이해되는가
+Human Gate PASS 전:
 
-P0/P1이 남으면 Human Gate는 계속 FAIL이다.
+- Stage 08 금지
+- mass image generation 금지
 
----
-
-# 12. Human Gate PASS 이후
+PASS 이후에도 바로 이미지 생성이 아니라:
 
 ```text
 Visual Production Readiness
-→ reference pack
-→ Player Body / R/H1/H2 / Handaxe anchors
-→ camera/composition profiles
-→ contact keyframe rough
-→ responsive crop proof
-→ 필요한 최소 Stage 06 visual runtime 계약
-→ Minimum Coherent Production Asset Set
-→ Stage 08
+→ Historical/Visual Reference
+→ Cast/Body/Tool/Scene anchors
+→ responsive/contact/occlusion readiness
+→ Stage 08 production
 ```
 
-production 이미지 대량 생성부터 시작하지 않는다.
+순서다.
