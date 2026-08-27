@@ -12,41 +12,39 @@
 
 - `docs/06_TECH_BLUEPRINT.md`
 
+새 세션 bootstrap:
+
+- `handoff/NEXT_SESSION_START_HERE.md`
+- `handoff/SESSION_PROMPT_TEMPLATE.md`
+
 현재 판정:
 
-# **Social Runtime Integrated / Automated PASS / Human Gate FAIL / Scene Composition v2.1 Approved / Raster Media Adapter Integrated / Visual Continuity + Anatomy Gate Integrated / Approved Raster Assets 0 / Stage 08 BLOCKED**
+# **Social Runtime Integrated / Automated PASS / Human Gate FAIL / Scene Composition v2.1 Approved / Responsive Raster + Visual Continuity + Anatomy/Contact Gates Integrated / Visual Anchor Review Board Integrated / Approved Raster Assets 0 / Stage 08 BLOCKED**
 
 최신 exact repository HEAD와 CI는 GitHub가 최종 진실 공급원이다.
 
 ---
 
-# 1. 세션 시작 시 반드시 읽을 것
+# 1. 새 세션 시작 시 반드시 읽을 것
 
 1. `AGENTS.md`
 2. `docs/00_CANONICAL_BASELINE.md`
 3. `PROJECT_STATUS.md`
 4. `docs/00_DEVELOPMENT_WORKFLOW.md`
 5. `handoff/CURRENT_HANDOFF.md`
-6. `docs/01B_RELATIONSHIP_AGENCY_PRINCIPLES.md`
-7. `docs/03_HUNT_STORY.md`
-8. `docs/04_HUNT_PLAYFLOW.md`
-9. `docs/06_TECH_BLUEPRINT.md`
-10. `docs/07_IMMERSION_NARRATIVE_BIBLE.md`
-11. `docs/07A_FIRST_PERSON_VISUAL_ASSET_BIBLE.md`
-12. `docs/07B_FIRST_PERSON_VISUAL_PRODUCTION_SPEC.md`
-13. `handoff/STAGE07_5_FIRST_PERSON_SCENE_COMPOSITION_BIBLE_V2_1.md`
-14. `handoff/STAGE07_5_VISUAL_CONTINUITY_INDEX.md`
-15. `handoff/STAGE07_5_STYLE_ANCHOR_BIBLE.md`
-16. `handoff/STAGE07_5_CHARACTER_IDENTITY_ANCHOR_BIBLE.md`
-17. `handoff/STAGE07_5_ANATOMY_PROPORTION_AND_POSE_MASTER_SPEC.md`
-18. `handoff/STAGE07_5_CONTACT_GEOMETRY_MASTER.md`
-19. `handoff/STAGE07_5_WORLD_CONTINUITY_BIBLE.md`
-20. `handoff/STAGE07_5_OBJECT_CONTINUITY_BIBLE.md`
-21. `handoff/STAGE07_5_RESPONSIVE_VISUAL_PRODUCTION_CONTRACT.md`
-22. `handoff/STAGE07_5_RASTER_ASSET_PRODUCTION_BRIEFS.md`
-23. `handoff/STAGE07_5_VISUAL_GENERATION_AND_REVIEW_PROTOCOL.md`
+6. `handoff/NEXT_SESSION_START_HERE.md`
+7. `handoff/STAGE07_5_VISUAL_CONTINUITY_INDEX.md`
+8. `handoff/STAGE07_5_STYLE_ANCHOR_BIBLE.md`
+9. `handoff/STAGE07_5_CHARACTER_IDENTITY_ANCHOR_BIBLE.md`
+10. `handoff/STAGE07_5_ANATOMY_PROPORTION_AND_POSE_MASTER_SPEC.md`
+11. `handoff/STAGE07_5_CONTACT_GEOMETRY_MASTER.md`
+12. `handoff/STAGE07_5_OBJECT_CONTINUITY_BIBLE.md`
+13. `handoff/STAGE07_5_WORLD_CONTINUITY_BIBLE.md`
+14. `handoff/STAGE07_5_RESPONSIVE_VISUAL_PRODUCTION_CONTRACT.md`
+15. `handoff/STAGE07_5_VISUAL_GENERATION_AND_REVIEW_PROTOCOL.md`
+16. `handoff/STAGE07_5_FIRST_PERSON_SCENE_COMPOSITION_BIBLE_V2_1.md`
 
-감사/근거 추적 시:
+Historical reference audit가 필요할 때:
 
 - `handoff/STAGE07_5_HISTORICAL_VISUAL_REFERENCE_REVIEW.md`
 - `handoff/STAGE07_5_PROJECT_OWNER_SCENE_REVIEW.md`
@@ -55,80 +53,102 @@ handoff 문서는 Technical SSOT가 아니다.
 
 ---
 
-# 2. Current production truth
+# 2. Already approved / do not reopen by default
+
+- Scene Composition Bible v2.1 = Project-owner approved.
+- Scene Composition Design = PASS.
+- Project-owner Scene Confirmation = PASS.
+- SC03→04 curriculum/world timing, SC05 departure geometry, SC08~10 handaxe continuity, SC11 same-moment sync, HUD avoidance 등은 이미 lock됨.
+- final Player visual은 `raster-first Hybrid Embodied Composite`로 간다.
+- CSS/SVG/DOM 사람·손·도구는 final art가 아니다.
+- L/TP/PP는 필요 시 별도 composition family다.
+
+새 세션이 다시 Scene Review 단계로 돌아가면 안 된다.
+
+---
+
+# 3. Current production truth
 
 Final Player-facing visual:
 
 # **raster-first Hybrid Embodied Composite + Anchor-conditioned Continuity + Anatomy-locked Derivation**
 
-DOM/CSS/SVG geometry는 previsual/debug/UI 보조로만 유지한다.
+Style target:
 
-가장 중요한 원칙:
+# **Grounded Illustrative Realism**
 
-- same character = same skeleton/proportion master,
-- same Player body = same hand/forearm/body master,
-- same handaxe = same morphology/scale fingerprint,
-- same world = same geography/light master,
-- contact scene = approved body/object/world masters + contact geometry,
-- L/TP/PP = different framing, not different bodies/worlds.
+유지:
 
-Human Gate는 계속 FAIL이다.
+- believable anatomy / contact / depth
+- restrained illustrative surface treatment
+- same detail density across human/hand/tool/world
+
+금지:
+
+- hyper-photoreal skin/lens look
+- cartoon/chibi anatomy
+- fantasy barbarian/caveman caricature
+- AAA poster grading
+- 사람만 사진처럼 보이고 배경만 회화적인 style mismatch
 
 ---
 
-# 3. Visual Continuity + Anatomy System
+# 4. Visual Anchor Review Board — integrated
 
-Art-production entry:
+Dev-only:
 
-- `STAGE07_5_VISUAL_CONTINUITY_INDEX.md`
+```text
+http://localhost:5173/?anchors=1
+```
 
-New anatomy/contact contracts:
+기타 dev surface:
 
-- `STAGE07_5_ANATOMY_PROPORTION_AND_POSE_MASTER_SPEC.md`
-- `STAGE07_5_CONTACT_GEOMETRY_MASTER.md`
+```text
+?previsual=1
+?raster=1
+```
+
+`?anchors=1`은 현재 Gate의 주 검토 화면이다.
+
+보여주는 것:
+
+- STYLE-GIR-V1
+- priority visual anchors
+- anatomy/contact contracts
+- first required master/reference slots
+- approved master/reference path count
+- downstream raster dependencies
+
+---
+
+# 5. First Anchor Review Bundles
 
 Machine-readable:
 
-- `src/experience/production/stage075StyleAnchor.ts`
-- `src/experience/production/stage075VisualContinuityRegistry.ts`
-- `src/experience/production/stage075AnatomyRegistry.ts`
-- `src/experience/production/stage075RasterManifest.ts`
+- `src/experience/production/stage075AnchorReviewBundle.ts`
 
-Tests:
-
-- `tests/integration/Stage075VisualContinuityRegistry.test.ts`
-- `tests/integration/Stage075AnatomyRegistry.test.ts`
-- `tests/integration/Stage075RasterMedia.test.tsx`
-
----
-
-# 4. Runtime approval dependency
-
-Scene raster 자체가 `approved`여도 바로 runtime에 노출되지 않는다.
+현재 첫 네 bundle:
 
 ```text
-STYLE-GIR-V1 approved
-+
-all required visual anchors approved
-+
-all required anatomy/proportion contracts approved
-+
-required contact geometry contract approved where applicable
-+
-approved master/reference paths stored
-+
-scene raster approved
-+
-L/TP/PP sources registered
-↓
-runtime render allowed
+0. STYLE-GIR-V1
+1. DAY1-HANDAXE-V1
+2. PLAYER-HUNT-BODY-V1
+3. ARU-IDENTITY-V1
 ```
 
-즉 final scene asset은 upstream body/character/object/world masters를 우회할 수 없다.
+현재 모든 required slot의 approved path count = 0.
+
+Planned path convention:
+
+```text
+public/assets/stage075/anchors/<ANCHOR-ID>/<slot>.webp
+```
+
+실제 파일이 승인되기 전 path를 승인 상태처럼 등록하지 않는다.
 
 ---
 
-# 5. Player body master
+# 6. Player body / anatomy master
 
 Required:
 
@@ -137,25 +157,25 @@ PLAYER-HUNT-BODY-V1
 PLAYER-HUNT-BODY-PROP-V1
 ```
 
-Master packet must include:
+Master packet 최소 방향:
 
-- right/left palm and dorsum,
-- right forearm relaxed/reaching,
-- right hand gripping DAY1-HANDAXE-V1,
-- left ground brace,
-- left rock brace,
-- seated edge,
-- crouch relationship,
-- walking-carry,
-- receive-tool first-person view.
+- right/left palm and dorsum
+- forearm neutral/reaching
+- right hand gripping DAY1-HANDAXE-V1
+- left ground brace
+- left rock brace
+- crouch body edge
+- walking-carry
+- receive-tool
 
-Measured production ratios use normalized local units and are locked after review. Do not invent them as historical facts.
+비율은 approved master에서 측정해 production ratio로 잠근다.
+고고학적 집단 평균 사실처럼 임의 숫자를 발명하지 않는다.
+
+Portrait 때문에 손/팔을 임의 확대·축소하지 않는다.
 
 ---
 
-# 6. Character anatomy masters
-
-Required:
+# 7. Character anatomy masters
 
 ```text
 ARU-IDENTITY-V1  + ARU-PROP-V1
@@ -163,25 +183,25 @@ DAMU-IDENTITY-V1 + DAMU-PROP-V1
 NUA-IDENTITY-V1  + NUA-PROP-V1
 ```
 
-Each hero packet requires:
+Hero packet은 얼굴 한 장이 아니다.
 
-- front/back,
-- 3/4 left/right,
-- strict side left/right,
-- seated,
-- crouched,
-- walking,
-- relevant contact/reach pose,
-- hand close-up,
-- head silhouette strip,
-- skeleton landmark overlay,
-- normalized H=1.00 proportion record.
+최소:
 
-A new pose derives from the approved skeleton; it does not redesign the body.
+- front/back
+- 3/4 left/right
+- strict side left/right
+- seated/crouched/walking
+- relevant reach/contact pose
+- hand reference
+- head silhouette
+- skeleton landmark overlay
+- H=1.00 normalized proportion record
+
+새 pose는 approved skeleton에서 파생한다. 몸을 다시 설계하지 않는다.
 
 ---
 
-# 7. Contact geometry masters
+# 8. Contact geometry masters
 
 ```text
 SC02-HANDOFF-GEO-V1       reference-pending
@@ -197,25 +217,25 @@ Aru hand
 → Player right hand
 ```
 
-Offer / Shared / Release must be one continuous transfer family.
+Offer → Shared Contact → Release는 한 continuous transfer family다.
 
 SC07:
 
-- Damu lowers first,
-- Player remains standing in SC06,
-- Player then crouches,
-- left hand braces ground,
-- right hand keeps same handaxe.
+- Damu lowers first
+- Player remains standing in SC06
+- Player then crouches
+- left hand braces ground
+- right hand keeps same handaxe
 
 SC10:
 
-- left hand braces same approved rock edge,
-- right hand keeps same handaxe,
-- anatomy/world shape may not deform to make contact possible.
+- left hand braces same approved rock edge
+- right hand keeps same handaxe
+- anatomy/world shape를 contact에 맞춰 변형하지 않는다.
 
 ---
 
-# 8. Reject codes
+# 9. Reject codes
 
 Anatomy:
 
@@ -250,7 +270,33 @@ Hero/contact asset에 unresolved ANAT/GEO drift가 있으면 P1 reject다.
 
 ---
 
-# 9. Immediate lock order
+# 10. Runtime approval dependency
+
+Scene raster 자체가 `approved`여도 바로 runtime에 노출되지 않는다.
+
+```text
+STYLE-GIR-V1 approved
++
+all required visual anchors approved
++
+all required anatomy/proportion contracts approved
++
+required contact geometry approved
++
+approved master/reference paths stored
++
+scene raster approved
++
+L/TP/PP sources registered
+↓
+runtime render allowed
+```
+
+Upstream master를 우회할 수 없다.
+
+---
+
+# 11. Immediate lock order
 
 ```text
 0. STYLE-GIR-V1 reference packet
@@ -260,7 +306,7 @@ Hero/contact asset에 unresolved ANAT/GEO drift가 있으면 P1 reject다.
 4. ARU-IDENTITY-V1 turnaround packet
 5. ARU-PROP-V1 measured contract
 6. SC02-HANDOFF-GEO-V1 contact skeleton/geometry
-7. SC02 unified contact L/TP/PP candidate
+7. SC02 unified-contact L/TP/PP candidate
 8. DAMU-IDENTITY-V1 + DAMU-PROP-V1
 9. NUA-IDENTITY-V1 + NUA-PROP-V1
 10. world/contact families
@@ -270,11 +316,44 @@ SC02 final raster는 0~6이 승인되기 전 제작하지 않는다.
 
 ---
 
-# 10. Current asset truth
+# 12. What the next session should actually do
+
+새 세션은 저장소를 다시 일반 분석만 하고 끝내면 안 된다.
+
+1. latest `main` / CI 확인
+2. 필독 문서 읽기
+3. `stage075AnchorReviewBundle.ts`와 `?anchors=1` 확인
+4. 현재 Gate가 유지되는지 확인
+5. **STYLE-GIR-V1 첫 reference packet 후보 준비/검토**부터 실제 작업 시작
+6. 실패 후보는 reject하고 repository에 억지로 넣지 않음
+7. Project-owner가 실제 candidate를 승인한 뒤에만 approved path/status 등록
+8. branch → PR → CI → merge
+9. 운영 문서 재정렬
+10. exact main SHA / main CI 확인
+
+이미지 생성이 필요할 경우 full game scene이 아니라 anchor bundle candidate만 생성한다.
+
+---
+
+# 13. Do not repeat
+
+- Scene Bible을 다시 처음부터 설계하지 말 것
+- 장면마다 독립적으로 Aru/Damu/Nua/world를 text-to-image하지 말 것
+- `same X as before` 프롬프트만으로 consistency를 맡기지 말 것
+- UI/대사/버튼을 scene raster에 bake-in하지 말 것
+- 미관이 좋다는 이유로 anatomy/contact/history drift를 통과시키지 말 것
+- portrait 대응을 anatomy 변형으로 해결하지 말 것
+- 승인되지 않은 raster를 runtime에 연결하지 말 것
+- CI PASS를 Human PASS로 간주하지 말 것
+- Stage 08로 넘어가지 말 것
+
+---
+
+# 14. Current asset truth
 
 ```text
 Approved Raster Assets = 0
-Approved Style Anchor = 0
+Approved Style Anchors = 0
 Approved Anatomy Contracts = 0
 Approved Contact Geometry Contracts = 0
 ```
@@ -283,17 +362,15 @@ Approved Contact Geometry Contracts = 0
 
 ---
 
-# 11. Current Gate
+# 15. Current Gate
 
 # **Visual Anatomy Reference Lock**
 
-다음 행동은 장면 이미지를 늘리는 것이 아니다.
+다음 실제 산출물:
 
-1. Style packet을 실제로 잠근다.
-2. Handaxe master morphology/scale를 잠근다.
-3. Player body/hand master를 만들고 실제 비율을 측정·기록한다.
-4. Aru turnaround master와 skeleton/proportion record를 잠근다.
-5. SC02 contact skeleton/geometry를 잠근다.
-6. 그 뒤에만 SC02 L/TP/PP final candidate를 만든다.
+# **STYLE-GIR-V1 first controlled reference packet**
 
-Human Gate = FAIL, Stage 08 = BLOCKED 유지.
+Human Gate = FAIL.
+Stage 08 = BLOCKED.
+
+# **GitHub main이 과거 채팅 기억보다 우선한다.**
