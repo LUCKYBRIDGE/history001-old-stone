@@ -5,6 +5,7 @@ import './styles/tokens.css';
 import './styles/global.css';
 import './styles/stage075ContinuousAction.css';
 import './styles/stage075PlayerActionCausality.css';
+import './styles/stage075PrevisualHarness.css';
 
 const rootElement = document.getElementById('root');
 
