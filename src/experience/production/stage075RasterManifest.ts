@@ -1,4 +1,8 @@
 import {
+  areStage075AnatomyContractsApproved,
+  type Stage075AnatomyContractId,
+} from './stage075AnatomyRegistry';
+import {
   isStage075StyleAnchorApproved,
   type Stage075StyleAnchorId,
 } from './stage075StyleAnchor';
@@ -39,6 +43,7 @@ export interface Stage075RasterRecord {
   requiredFamilies: readonly RasterCompositionFamily[];
   requiredStyleAnchorId: Stage075StyleAnchorId;
   requiredAnchorIds: readonly Stage075VisualAnchorId[];
+  requiredAnatomyContractIds: readonly Stage075AnatomyContractId[];
   derivationMode: RasterDerivationMode;
   continuityGroupId: string;
   sources?: RasterSourceSet;
@@ -56,8 +61,9 @@ export interface Stage075RasterRecord {
  * - `pending` entries intentionally have no runtime source path.
  * - A scene raster cannot reach runtime merely because its own status is `approved`.
  * - STYLE-GIR-V1 and every required visual anchor must be approved first.
- * - Approved anchors must point to stored approved master/reference files.
- * - Generated candidates that fail art/history/continuity review are not added as sources.
+ * - Hero/body/contact assets must also satisfy approved anatomy/contact contracts.
+ * - Approved anchors/contracts must point to stored approved master/reference files.
+ * - Generated candidates that fail art/history/continuity/anatomy review are not added as sources.
  */
 export const STAGE075_RASTER_MANIFEST: readonly Stage075RasterRecord[] = [
   {
@@ -69,6 +75,7 @@ export const STAGE075_RASTER_MANIFEST: readonly Stage075RasterRecord[] = [
     requiredFamilies: ['L', 'TP', 'PP'],
     requiredStyleAnchorId: 'STYLE-GIR-V1',
     requiredAnchorIds: ['DAY1-HANDAXE-V1'],
+    requiredAnatomyContractIds: [],
     derivationMode: 'anchor-conditioned',
     continuityGroupId: 'DAY1-HANDAXE-CONTINUITY',
     alt: '오른손으로 쥘 수 있는 비대칭 구석기 주먹도끼',
@@ -96,6 +103,11 @@ export const STAGE075_RASTER_MANIFEST: readonly Stage075RasterRecord[] = [
       'PROP-TEMP-SHELTER-A',
       'LIGHT-DAY1-DAWN-A',
     ],
+    requiredAnatomyContractIds: [
+      'PLAYER-HUNT-BODY-PROP-V1',
+      'ARU-PROP-V1',
+      'SC02-HANDOFF-GEO-V1',
+    ],
     derivationMode: 'anchor-conditioned',
     continuityGroupId: 'SC02-HANDOFF-CONTINUITY',
     alt: '아루가 주먹도끼를 건네고 플레이어의 오른손이 받는 순간',
@@ -107,6 +119,7 @@ export const STAGE075_RASTER_MANIFEST: readonly Stage075RasterRecord[] = [
       'L/TP/PP 모두 접촉점과 아루의 몸 방향을 보존한다.',
       '텍스트·버튼·말풍선은 raster 안에 baked-in 하지 않는다.',
       'Offer/Shared/Release는 같은 anchor-conditioned image family에서 파생한다.',
+      'approved anatomy master와 SC02 contact geometry를 재설계하지 않는다.',
     ],
   },
   {
@@ -129,6 +142,7 @@ export const STAGE075_RASTER_MANIFEST: readonly Stage075RasterRecord[] = [
       'B1-CONTINUITY-V1',
       'B2-CONTINUITY-V1',
     ],
+    requiredAnatomyContractIds: ['ARU-PROP-V1', 'DAMU-PROP-V1', 'NUA-PROP-V1'],
     derivationMode: 'anchor-conditioned',
     continuityGroupId: 'CAMP-DAWN-CONTINUITY',
     alt: '새벽 불가에서 사람들이 각자 일을 이어가는 작은 공동체 공간',
@@ -138,6 +152,7 @@ export const STAGE075_RASTER_MANIFEST: readonly Stage075RasterRecord[] = [
       '거처는 현대 텐트처럼 읽히지 않는다.',
       '모든 인물이 플레이어를 동시에 바라보지 않는다.',
       'L/TP/PP는 같은 지리와 같은 순간을 다른 framing으로 보여준다.',
+      'portrait 재구성을 위해 인체 비율을 늘리거나 압축하지 않는다.',
     ],
   },
 ] as const;
@@ -148,7 +163,8 @@ export function isStage075RasterReadyForRuntime(record: Stage075RasterRecord) {
       record.sources &&
       record.requiredStyleAnchorId === 'STYLE-GIR-V1' &&
       isStage075StyleAnchorApproved() &&
-      areStage075AnchorsApproved(record.requiredAnchorIds),
+      areStage075AnchorsApproved(record.requiredAnchorIds) &&
+      areStage075AnatomyContractsApproved(record.requiredAnatomyContractIds),
   );
 }
 
