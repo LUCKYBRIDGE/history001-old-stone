@@ -20,10 +20,30 @@ describe('Stage075PrevisualHarness', () => {
 
     const stage = screen.getByTestId('previsual-stage');
     expect(stage.getAttribute('data-aspect')).toBe('16:9');
+    expect(stage.getAttribute('data-composition-family')).toBe('L');
 
     await user.click(screen.getByRole('radio', { name: '4:3' }));
 
     expect(stage.getAttribute('data-aspect')).toBe('4:3');
+    expect(stage.getAttribute('data-composition-family')).toBe('L');
+  });
+
+  it('exposes tablet and phone portrait as separate composition review families', async () => {
+    const user = userEvent.setup();
+    render(<Stage075PrevisualHarness />);
+
+    const stage = screen.getByTestId('previsual-stage');
+
+    await user.click(screen.getByRole('radio', { name: '3:4' }));
+    expect(stage.getAttribute('data-aspect')).toBe('3:4');
+    expect(stage.getAttribute('data-composition-family')).toBe('TP');
+    expect(document.body.textContent).toContain('tablet portrait');
+
+    await user.click(screen.getByRole('radio', { name: '9:16' }));
+    expect(stage.getAttribute('data-aspect')).toBe('9:16');
+    expect(stage.getAttribute('data-composition-family')).toBe('PP');
+    expect(document.body.textContent).toContain('phone portrait');
+    expect(document.body.textContent).toContain('TP/PP 전용 production composition');
   });
 
   it('makes the handoff a three-beat ownership transfer with a shared-contact frame', async () => {
