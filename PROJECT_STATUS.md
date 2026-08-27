@@ -2,7 +2,7 @@
 
 ## Current phase
 
-# **R2 Stage 07.5 Social Immersion / Human-Gate Recheck**
+# **R2 Stage 07.5 Continuous Action / Human-Gate Remediation**
 
 장기 공식 기준선은 계속:
 
@@ -12,7 +12,7 @@
 
 현재 정확한 상태:
 
-# **Stage 07.5 First-Five Social Runtime Integrated / Automated PASS / Human Gate FAIL·Recheck Pending**
+# **Stage 07.5 Social Runtime Integrated / Automated PASS / Human Recheck FAIL / Continuous Action Remediation In Progress**
 
 Stage 08은 계속 BLOCKED다.
 
@@ -20,9 +20,9 @@ Stage 08은 계속 BLOCKED다.
 
 ---
 
-# 1. 왜 Stage 07.5를 수행했는가
+# 1. Human QA가 확인한 P1 문제
 
-실제 Player Human QA에서 자동 테스트가 잡지 못한 P1 문제가 확인됐다.
+실제 Player Human QA와 재플레이에서 자동 테스트가 잡지 못한 P1 문제가 확인됐다.
 
 - **R2UX-001 / Embodied spatial** — 팔/손이 몸보다 HUD처럼 읽히고 handaxe grip/contact가 약함
 - **R2UX-002 / Relationship presence** — R/H1/H2가 사람보다 기능 silhouette처럼 읽힘
@@ -30,29 +30,41 @@ Stage 08은 계속 BLOCKED다.
 - **R2UX-004 / Curriculum presentation** — 정확한 교과 내용도 별도 학습 카드처럼 보여 몰입을 끊음
 - **R2UX-005 / Visual composition** — current shelter / actor / body가 production 치환 가능한 구도로 충분히 읽히지 않음
 - **R2UX-006 / Speaker ambiguity** — `한 사람`, `다른 한 사람`, `그 사람` 지칭이 인물 기억을 방해
-- **R2UX-007 / Functional-role narration** — `도구를 건네는 사람`, `같이 가는 사람`, `주변을 살피는 사람` 같은 제작 기능이 인물 정체성을 대신함
+- **R2UX-007 / Functional-role narration** — 제작 기능이 인물 정체성을 대신함
+- **R2UX-008 / Action-scene legibility** — Social Runtime은 이전보다 나아졌지만, 현재 구조와 placeholder 시각물만으로는 `무슨 동작 중인지`, `어떤 상황인지`가 몸과 장면에서 즉시 읽히지 않으며 연출도 어색하고 부족함
+
+R2UX-008 직접 Human 피드백:
+
+> **“전보다는 낫지만 많이 부족해. 시각적으로 이미지가 제대로 안 만들어졌고, 연출도 부족하고 어색한 상태야. 현재 어떤 동작 중인지, 어떤 상황인지가 현재 구조, 이미지들로는 몰입이 안돼.”**
+
+Root cause:
+
+- Visual production / asset composition
+- Embodied spatial
+- Interaction / action legibility
+- Screen treatment / scene continuity
+
+해석:
+
+- 이름/대사/인과만 추가해서는 해결되지 않는다.
+- 현재 actor primitive가 위치만 달라질 뿐 `걷기`, `도구 전달`, `멈춤`, `쪼그림`, `시선 전환`이 서로 다른 몸의 실루엣으로 충분히 보이지 않는다.
+- story prose + button이 행동을 대신 설명하는 비중이 아직 높다.
+- production art를 대량 제작하기 전에 placeholder만으로도 action silhouette와 공간 깊이가 읽혀야 한다.
 
 현재 확인된 P0는 없다.
 
-# **P1이 실제 플레이에서 해소됐는지 아직 확인하지 않았으므로 Human Gate PASS를 선언하지 않는다.**
+# **P1이 남아 있으므로 Human Gate PASS를 선언하지 않는다.**
 
 ---
 
-# 2. main에 통합된 Social Immersion 계약
+# 2. main에 이미 통합된 Social Immersion 계약
 
 현재 canonical/runtime 공통 방향:
 
-- Player는 구석기에 처음 온 관광객이 아니라 **이미 이 공동체에서 살아온 사람**
+- Player는 구석기에 처음 온 관광객이 아니라 이미 이 공동체에서 살아온 사람
 - R/H1/H2는 authoring ID이며 Player-facing identity와 분리
-- Stage 07.5 provisional call-name:
-
-```text
-R  → 아루
-H1 → 다무
-H2 → 누아
-```
-
-- 위 이름은 실제 구석기 이름 복원이 아닌 **fictional reconstruction / translation handle**
+- Stage 07.5 provisional call-name: `아루 / 다무 / 누아`
+- 이름은 실제 선사 언어 복원이 아닌 fictional reconstruction / translation handle
 - Player 자신의 이름은 고정하지 않아 self-projection 유지
 - 한국어 대사는 실제 선사 언어 복원이 아니라 학생을 위한 의미 번역
 - pseudo-primitive speech 금지
@@ -60,109 +72,81 @@ H2 → 누아
 - NPC는 Player에게만 반응하지 않고 자기 행동과 NPC-to-NPC interaction을 가질 수 있음
 - 관계는 호감도 점수가 아니라 shared event / memory / callback으로 유지
 - `World Truth ≠ Character Knowledge`
-- 직접 참여 / 목격 / 나중에 들음을 구분
 
 기술 SSOT는 계속 `docs/06_TECH_BLUEPRINT.md` 하나다.
 
 ---
 
-# 3. Stage 07.5 First-Five Runtime — 구현 완료 범위
+# 3. Stage 07.5 First-Five Social Runtime — 구현 완료 범위
 
-현재 Player runtime은 다음 proof를 갖는다.
-
-```text
-눈뜨기 전 ambient community dialogue
-→ 눈을 뜸
-→ background community는 자기 일을 계속
-→ 생활 속 부름으로 `아루` 이름을 들음
-→ 아루: `손.`
-→ 아루 손 → canonical handaxe → Player 오른손
-→ Experience 뒤 뗀석기 → 대표적인 예: 주먹도끼 naming
-→ 다무는 이미 움직이며 `가자.`
-→ 누아는 Player가 아닌 바깥 환경에 attention
-→ 흐름에 합류
-→ 아루: `해 지기 전에 와.`
-→ 다무: `알았어.`
-→ 불/거처/사람에게서 멀어짐
-→ 다무가 먼저 멈추고 `잠깐.`
-→ 이때 ground evidence는 아직 보이지 않음
-→ Player가 다무 곁에 몸을 낮춤
-→ 그 뒤에만 눌린 풀/흙/가지 evidence가 나타남
-→ 다무: `봤어?`
-→ 다시 이동
-→ 누아의 attention shift
-→ 이때 cave target은 아직 보이지 않음
-→ Player가 누아가 보는 방향을 직접 확인
-→ 그 뒤에만 natural shelter target reveal
-→ inspection
-→ 동굴 / 바위 그늘 naming
-→ 같은 아침 Perspective Recontextualization Proof
-```
-
-상세 장면 계약:
-
-- `handoff/DAY1_COMMUNITY_HUNT_FIRST5_SCREENPLAY.md`
-
-canonical browser contract:
-
-- `docs/04_HUNT_PLAYFLOW.md`
-
----
-
-# 4. 자동검증 상태
-
-Stage 07.5 runtime은 PR-head와 merge 후 main에서 다음 pipeline을 통과했다.
+현재 runtime은 다음 causal proof를 갖는다.
 
 ```text
-install
-→ typecheck
-→ tests
-→ production build
+ambient community life
+→ 아루 handaxe handoff
+→ Experience 뒤 뗀석기 / 주먹도끼 naming
+→ 다무/누아와 출발
+→ 아루 귀환 모티프
+→ 다무 stop
+→ Player crouch
+→ 그 뒤 ground evidence
+→ 누아 attention shift
+→ Player follow
+→ 그 뒤 natural shelter reveal
 ```
 
-자동 테스트는 최소 다음 invariant를 검증한다.
+자동 테스트는 이 causal order와 Teacher/Debug metadata를 검증한다.
 
-- opening에 role/perspective exposition 없음
-- ambient community beat 존재
-- 아루 이름이 기능 label 없이 장면 안에서 등장
-- handoff가 terminology보다 먼저
-- 동일 handaxe continuity
-- 다무가 이미 움직이고 누아는 별도 attention을 가짐
-- 아루의 귀환 말과 다무의 응답
-- 다무 stop 전후 causal order
-- Player가 몸을 낮추기 전 ground evidence 없음
-- Player action 뒤 ground evidence 등장
-- 누아 attention follow 전 cave 없음
-- Teacher/Debug에서만 fictional-name ↔ authoring-ID mapping 확인
-- Debug Shared Day Events / relationship signals / learning evidence
+하지만 자동 테스트는 다음을 판정하지 않는다.
 
-# **자동 테스트는 `사람처럼 느껴지는가`, `몰입되는가`를 판정하지 않는다.**
+- 실제 사람처럼 보이는가
+- 걷기/멈춤/쪼그림이 몸으로 구분되는가
+- handoff contact가 자연스러운가
+- 장면이 연속된 행동으로 느껴지는가
+- 몰입되는가
 
 ---
 
-# 5. 현재 다음 Gate — 사용자 Human Recheck
+# 4. 현재 remediation — Continuous Action / Scene Composition
 
-지금부터 새 기능을 더 붙이는 것보다 **실제 Player 재플레이가 먼저**다.
+현재 수정의 목적은 이미지 자산 제작이 아니다.
 
-우선 확인:
+# **Production art 없이도 현재 동작과 상황이 먼저 읽히는 previsual staging**
 
-1. 눈뜨기 전부터 세계가 이미 움직이고 있던 느낌이 드는가
-2. 눈을 뜬 뒤 주변 사람들이 Player 때문에 정지된 NPC처럼 보이지 않는가
-3. `아루`, `다무`, `누아`를 기능 설명 없이 서로 다른 사람으로 기억할 수 있는가
-4. 아루 handoff가 item pickup보다 사람 사이의 물리적 사건처럼 느껴지는가
-5. 다무와 누아가 각각 `역할 담당 NPC`가 아니라 행동이 다른 사람처럼 느껴지는가
-6. 다무가 멈췄기 때문에 나도 몸을 낮춰 바닥을 보게 됐다는 인과가 느껴지는가
-7. 누아가 먼저 뭔가에 주의를 돌리고 내가 그 방향을 봤기 때문에 새 공간을 발견했다고 느껴지는가
-8. 불/거처/사람에게서 실제로 멀어지는 공간감이 있는가
-9. terminology cue가 여전히 교육용 카드처럼 튀는가
-10. 팔/손/주먹도끼가 여전히 HUD처럼 보이는가
-11. 전체가 여전히 `검은 실루엣 + 설명문 + 버튼` 웹페이지처럼 느껴지는가
+을 만든다.
 
-특히 11번이 FAIL이면 다음 remediation은 **문장 추가가 아니라 continuous scene/action composition**으로 올라간다.
+우선 proof 대상:
+
+1. **아루 handoff**
+   - 아루의 몸이 Player 쪽으로 기울어짐
+   - 도구를 든 팔이 실제 contact point로 뻗음
+   - Player 오른손도 그 순간에만 프레임으로 들어옴
+   - 주변 인물/배경은 시각적 우선순위에서 내려감
+
+2. **다무 movement**
+   - `이동 중 → 갑자기 멈춤 → 몸을 낮춤 → 지면을 같이 봄`이 서로 다른 silhouette로 보여야 함
+   - ground evidence는 Player crouch 이후에만 보이는 기존 causal invariant 유지
+
+3. **누아 attention shift**
+   - gaze line만이 아니라 머리/상체/팔 방향이 함께 바뀌어야 함
+   - Player가 방향을 따라보기 전 target 미노출 유지
+
+4. **Departure spatial continuity**
+   - 불/거처/남은 사람과 실제로 멀어지는 depth 변화
+   - 앞서 걷는 두 사람의 이동 자세
+   - foreground/midground/background 분리
+
+5. **Player body**
+   - 필요한 동작에 필요한 팔/무릎만 보임
+   - 고정 FPS HUD처럼 두 팔이 항상 화면을 점유하지 않음
+
+6. **Story/UI hierarchy**
+   - 설명문은 장면 해설이 아니라 보조 감각 정보로 축소
+   - dialogue/action control이 scene보다 시각적으로 강해지지 않음
 
 ---
 
-# 6. 아직 하지 않는 것
+# 5. 현재 remediation이 하지 않는 것
 
 Human Gate 전에는 다음으로 확장하지 않는다.
 
@@ -176,22 +160,24 @@ Human Gate 전에는 다음으로 확장하지 않는다.
 - generic Dialogue / Relationship engine
 - relationship score/호감도
 
-Curriculum guardrail도 유지한다.
+이미지를 생성해 현재 구조 문제를 덮지 않는다.
 
-```text
-Immersion
-→ Historical Imagination
-→ Understanding
-→ Naming / Conceptualization
-```
+---
 
-```text
-Experience → Name → Reuse → Connect
-```
+# 6. 다음 Gate
 
-```text
-뗀석기
-└─ 대표적인 예: 주먹도끼
-```
+Continuous Action composition 코드가 자동검증을 통과하면 사용자 실제 Player 재플레이가 다시 필요하다.
 
-# **다음 상태 변경은 사용자 실제 재플레이 결과를 R2UX로 재판정한 뒤 결정한다.**
+Human re-check 핵심:
+
+1. 설명문을 읽기 전에 아루가 도구를 건네는 장면임을 알 수 있는가
+2. 다무가 걷는 중인지, 멈춘 것인지, 몸을 낮춘 것인지 구별되는가
+3. 누아가 다른 방향에 주의를 돌린 순간이 시각적으로 읽히는가
+4. 출발 후 뒤의 불/거처/사람에게서 멀어진 느낌이 있는가
+5. Player 팔/도구가 HUD가 아니라 행동 중 몸처럼 보이는가
+6. 장면이 `실루엣 + 설명문 + 버튼` 정지 페이지보다 연속 사건에 가까워졌는가
+7. 그래도 production visual이 없어서 Human Gate 판단 자체가 불가능한 수준인지
+
+7번이 YES라면 Gate 설계를 다시 검토한다. 그 경우 무작정 Stage 08 전체 production으로 점프하지 않고 **Human Gate용 최소 production visual set**의 필요성을 별도 결정한다.
+
+# **자동 PASS는 Human PASS가 아니다.**
