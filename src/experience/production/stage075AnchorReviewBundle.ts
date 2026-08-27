@@ -54,11 +54,12 @@ function styleSlot(
   instruction: string,
   reviewFocus: readonly string[],
   rejectCodes: readonly string[],
+  mode: Stage075AnchorCandidateMode = 'independent-exploration',
 ): Stage075AnchorReviewSlot {
   return {
     ...slot('STYLE-GIR-V1', id, label, purpose),
     candidateBrief: {
-      mode: 'independent-exploration',
+      mode,
       instruction,
       reviewFocus,
       rejectCodes,
@@ -135,6 +136,7 @@ export const STAGE075_ANCHOR_REVIEW_BUNDLES: readonly Stage075AnchorReviewBundle
           'portrait does not become more photographic because the subject is larger',
         ],
         ['SID-PHOTO', 'SID-DETAIL', 'SID-LIGHT', 'SID-COLOR', 'SID-COMPOSITE', 'ANAT-FOV'],
+        'locked-keyframe-variation',
       ),
     ],
   },
