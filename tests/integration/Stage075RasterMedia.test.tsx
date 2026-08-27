@@ -23,7 +23,7 @@ describe('Stage075RasterMedia', () => {
     expect(document.querySelector('img')).toBeNull();
   });
 
-  it('does not render an approved scene raster when style/continuity anchors are not approved', () => {
+  it('does not render an approved scene raster when style/continuity/anatomy gates are not approved', () => {
     const continuityBlocked: Stage075RasterRecord = {
       assetId: 'TEST-CONTINUITY-BLOCKED',
       sceneIds: ['SC02'],
@@ -33,6 +33,7 @@ describe('Stage075RasterMedia', () => {
       requiredFamilies: ['L'],
       requiredStyleAnchorId: 'STYLE-GIR-V1',
       requiredAnchorIds: ['ARU-IDENTITY-V1', 'DAY1-HANDAXE-V1'],
+      requiredAnatomyContractIds: ['ARU-PROP-V1', 'SC02-HANDOFF-GEO-V1'],
       derivationMode: 'anchor-conditioned',
       continuityGroupId: 'TEST-CONTINUITY',
       sources: {

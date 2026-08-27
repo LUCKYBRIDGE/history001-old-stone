@@ -20,15 +20,19 @@ This file does not replace the technical SSOT (`docs/06_TECH_BLUEPRINT.md`). It 
    - STYLE-GIR-V1 realism/detail/lighting target
 5. `handoff/STAGE07_5_CHARACTER_IDENTITY_ANCHOR_BIBLE.md`
    - Aru/Damu/Nua/B1/B2/Player identity packets
-6. `handoff/STAGE07_5_WORLD_CONTINUITY_BIBLE.md`
+6. `handoff/STAGE07_5_ANATOMY_PROPORTION_AND_POSE_MASTER_SPEC.md`
+   - skeleton/turnaround/hand/limb ratio and pose-family master requirements
+7. `handoff/STAGE07_5_CONTACT_GEOMETRY_MASTER.md`
+   - SC02/SC07/SC10 contact topology, camera/body/object geometry
+8. `handoff/STAGE07_5_WORLD_CONTINUITY_BIBLE.md`
    - Day 1 geography/light/landmark continuity
-7. `handoff/STAGE07_5_OBJECT_CONTINUITY_BIBLE.md`
+9. `handoff/STAGE07_5_OBJECT_CONTINUITY_BIBLE.md`
    - DAY1-HANDAXE-V1 and recurring prop continuity
-8. `handoff/STAGE07_5_RESPONSIVE_VISUAL_PRODUCTION_CONTRACT.md`
+10. `handoff/STAGE07_5_RESPONSIVE_VISUAL_PRODUCTION_CONTRACT.md`
    - L/TP/PP composition families and viewport QA
-9. `handoff/STAGE07_5_RASTER_ASSET_PRODUCTION_BRIEFS.md`
+11. `handoff/STAGE07_5_RASTER_ASSET_PRODUCTION_BRIEFS.md`
    - PV/scene-specific production requirements
-10. `handoff/STAGE07_5_VISUAL_GENERATION_AND_REVIEW_PROTOCOL.md`
+12. `handoff/STAGE07_5_VISUAL_GENERATION_AND_REVIEW_PROTOCOL.md`
    - Generation Job Card / derivation / drift / approval process
 
 Historical uncertainty review:
@@ -46,6 +50,10 @@ Historical uncertainty review:
 ## Character/world/object/light anchors
 
 - `src/experience/production/stage075VisualContinuityRegistry.ts`
+
+## Anatomy / pose / contact contracts
+
+- `src/experience/production/stage075AnatomyRegistry.ts`
 
 ## Scene raster dependencies / approval
 
@@ -73,10 +81,14 @@ required World / Landmark Anchors approved
 required Object / Prop Anchors approved
         +
 required Lighting Anchor approved
+        +
+required Anatomy / Pose Contracts approved
+        +
+required Contact Geometry Contract approved where applicable
         ↓
-scene candidate generated/edited from those anchors
+scene candidate generated/edited from those masters
         ↓
-continuity + history + responsive review
+continuity + anatomy + contact + history + responsive review
         ↓
 scene raster status = approved
         ↓
@@ -85,11 +97,11 @@ L/TP/PP sources registered
 runtime adapter may render it
 ```
 
-If any upstream anchor is not approved, runtime remains on the pending/fallback proof.
+If any upstream anchor/contract is not approved, runtime remains on the pending/fallback proof.
 
 ---
 
-# 4. Anchor lock order
+# 4. Anchor / anatomy lock order
 
 Do not attempt to lock everything simultaneously.
 
@@ -97,26 +109,31 @@ Recommended order:
 
 ```text
 0. STYLE-GIR-V1
-1. DAY1-HANDAXE-V1
-2. PLAYER-HUNT-BODY-V1 hand/forearm packet
-3. ARU-IDENTITY-V1
-4. DAMU-IDENTITY-V1
-5. NUA-IDENTITY-V1
-6. WORLD-CAMP-DAWN-A
-7. PROP-CAMP-FIRE-A / PROP-TEMP-SHELTER-A
-8. WORLD-DEPARTURE-PATH-A + LM-SPLIT-ROCK-01
-9. WORLD-GROUND-OBS-A
-10. WORLD-ROCK-SHELTER-A
-11. B1/B2 low-detail continuity packet
-12. lighting reference packet final cross-check
+1. DAY1-HANDAXE-V1 morphology + scale packet
+2. PLAYER-HUNT-BODY-V1 reference packet
+3. PLAYER-HUNT-BODY-PROP-V1 anatomy/proportion contract
+4. ARU-IDENTITY-V1 reference packet
+5. ARU-PROP-V1 turnaround/proportion contract
+6. SC02-HANDOFF-GEO-V1 contact geometry
+7. DAMU-IDENTITY-V1 + DAMU-PROP-V1
+8. NUA-IDENTITY-V1 + NUA-PROP-V1
+9. WORLD-CAMP-DAWN-A
+10. PROP-CAMP-FIRE-A / PROP-TEMP-SHELTER-A
+11. WORLD-DEPARTURE-PATH-A + LM-SPLIT-ROCK-01
+12. WORLD-GROUND-OBS-A + SC07-GROUND-BRACE-GEO-V1
+13. WORLD-ROCK-SHELTER-A + SC10-ROCK-BRACE-GEO-V1
+14. B1/B2 low-detail continuity packet
+15. lighting reference packet final cross-check
 ```
 
 Reason:
 
-- style must not drift while other anchors are created
-- the handaxe and Player hand are reused immediately in the most important contact scene
-- Aru is needed for SC02
-- camp geography is needed before full living-camp and departure variants
+- style must not drift while other anchors are created,
+- the handaxe defines a real scale relationship for the Player hand,
+- Player hand/forearm proportions must be locked before SC02,
+- Aru body/arm proportions must be locked before the handoff keyframe,
+- contact geometry should be solved before any final SC02 scene raster,
+- Damu/Nua and world families can then inherit the same scale/anatomy discipline.
 
 ---
 
@@ -124,7 +141,7 @@ Reason:
 
 ## HUNT-SC02-HANDOFF-KEYFRAME-V1
 
-Requires:
+Requires visual anchors:
 
 ```text
 STYLE-GIR-V1
@@ -137,10 +154,21 @@ PROP-TEMP-SHELTER-A
 LIGHT-DAY1-DAWN-A
 ```
 
+Requires anatomy/contact contracts:
+
+```text
+PLAYER-HUNT-BODY-PROP-V1
+ARU-PROP-V1
+SC02-HANDOFF-GEO-V1
+```
+
 Production method:
 
 ```text
-anchor-conditioned Unified Contact Keyframe
+approved body/object masters
+→ contact skeleton rough
+→ contact geometry approval
+→ anchor-conditioned Unified Contact Keyframe
 → Offer / Shared / Release
 → L / TP / PP
 ```
@@ -161,7 +189,12 @@ DAMU-IDENTITY-V1
 NUA-IDENTITY-V1
 B1-CONTINUITY-V1
 B2-CONTINUITY-V1
+ARU-PROP-V1
+DAMU-PROP-V1
+NUA-PROP-V1
 ```
+
+Portrait must reframe these same bodies; it may not stretch/compress anatomy to fit.
 
 ---
 
@@ -175,10 +208,15 @@ It includes:
 STYLE
 + FACE
 + HAIR SILHOUETTE
++ SKELETON PROPORTION
 + BODY PROPORTION
 + GARMENT SILHOUETTE
 + HAND ANATOMY
++ JOINT ARTICULATION
++ CENTER OF MASS
++ POSE FAMILY
 + MOVEMENT IDENTITY
++ CONTACT TOPOLOGY
 + OBJECT FINGERPRINT
 + WORLD GEOGRAPHY
 + LANDMARK SHAPE
@@ -198,66 +236,116 @@ Forbidden production assumption:
 
 > "The model will remember Aru from previous generations."
 
+Also forbidden:
+
+> "We can fix the hand/arm scale later in CSS."
+
 Required:
 
-- approved anchor reference files
-- derivation lineage
-- Job Card
-- side-by-side comparison
-- registry dependency
+- approved anchor reference files,
+- approved anatomy/proportion master packet,
+- approved contact geometry where applicable,
+- derivation lineage,
+- Job Card,
+- side-by-side comparison,
+- registry dependency.
 
-Model memory is not an asset management strategy.
-
----
-
-# 8. Current anchor state
-
-At the time this index was created:
-
-```text
-STYLE-GIR-V1            reference-pending
-ARU-IDENTITY-V1         reference-pending
-DAMU-IDENTITY-V1        reference-pending
-NUA-IDENTITY-V1         reference-pending
-PLAYER-HUNT-BODY-V1     reference-pending
-WORLD-CAMP-DAWN-A       reference-pending
-WORLD-DEPARTURE-PATH-A  reference-pending
-WORLD-GROUND-OBS-A      reference-pending
-WORLD-ROCK-SHELTER-A    reference-pending
-LM-SPLIT-ROCK-01        reference-pending
-DAY1-HANDAXE-V1         reference-pending
-PROP-TEMP-SHELTER-A     reference-pending
-```
-
-Spec-locked but still needing production reference review where relevant:
-
-```text
-B1-CONTINUITY-V1
-B2-CONTINUITY-V1
-PROP-CAMP-FIRE-A
-LIGHT-DAY1-DAWN-A
-LIGHT-DAY1-ROUTE-A
-```
-
-No entry should be marked `anchor-approved` until an actual approved master/reference path is stored.
+Model memory is not an asset management strategy. CSS scaling is not an anatomy correction strategy.
 
 ---
 
-# 9. Immediate next production gate
+# 8. Drift families
 
-The next gate is not `generate SC01`.
+Visual continuity drift:
+
+```text
+CID-* character identity
+WID-* world identity
+OID-* object identity
+SID-* style identity
+```
+
+Anatomy drift:
+
+```text
+ANAT-HAND-SCALE
+ANAT-FINGER
+ANAT-WRIST
+ANAT-ARM-LENGTH
+ANAT-SHOULDER
+ANAT-TORSO
+ANAT-PELVIS
+ANAT-LEG-LENGTH
+ANAT-COM
+ANAT-FOV
+ANAT-POSE-ID
+```
+
+Contact geometry drift:
+
+```text
+GEO-CONTACT-DEPTH
+GEO-CONTACT-POINT
+GEO-CONTACT-TOPOLOGY
+GEO-OBJECT-SCALE
+GEO-LIMB-SCALE
+GEO-CAMERA
+GEO-CROP
+GEO-TEMPORAL
+```
+
+Unresolved `ANAT-*` or `GEO-*` is P1 for hero/contact production assets.
+
+---
+
+# 9. Current anchor/contract state
+
+Current production truth:
+
+```text
+STYLE-GIR-V1                 reference-pending
+DAY1-HANDAXE-V1              reference-pending
+PLAYER-HUNT-BODY-V1          reference-pending
+PLAYER-HUNT-BODY-PROP-V1     reference-pending
+ARU-IDENTITY-V1              reference-pending
+ARU-PROP-V1                  reference-pending
+SC02-HANDOFF-GEO-V1          reference-pending
+DAMU-IDENTITY-V1             reference-pending
+DAMU-PROP-V1                 reference-pending
+NUA-IDENTITY-V1              reference-pending
+NUA-PROP-V1                  reference-pending
+WORLD-CAMP-DAWN-A            reference-pending
+WORLD-DEPARTURE-PATH-A       reference-pending
+WORLD-GROUND-OBS-A           reference-pending
+WORLD-ROCK-SHELTER-A         reference-pending
+SC07-GROUND-BRACE-GEO-V1     reference-pending
+SC10-ROCK-BRACE-GEO-V1       reference-pending
+LM-SPLIT-ROCK-01             reference-pending
+PROP-TEMP-SHELTER-A          reference-pending
+```
+
+No anchor or anatomy/contact contract should be marked approved until an actual approved master/reference path is stored.
+
+---
+
+# 10. Immediate next production gate
+
+The next gate is not `generate SC01` or `generate SC02 final`.
 
 It is:
 
-# **Visual Anchor Reference Lock**
+# **Visual Anatomy Reference Lock**
 
-First review bundle should contain only a small coherent anchor pack:
+First review bundle should contain only a small coherent master pack:
 
-1. STYLE-GIR-V1 style test/reference packet
-2. DAY1-HANDAXE-V1 master object packet
-3. PLAYER-HUNT-BODY-V1 hand/forearm packet
-4. ARU-IDENTITY-V1 first character packet
+1. `STYLE-GIR-V1` style reference packet
+2. `DAY1-HANDAXE-V1` master object packet
+3. `PLAYER-HUNT-BODY-V1` hand/forearm/body reference packet
+4. `PLAYER-HUNT-BODY-PROP-V1` measured production ratios
+5. `ARU-IDENTITY-V1` turnaround packet
+6. `ARU-PROP-V1` measured production ratios
+7. `SC02-HANDOFF-GEO-V1` skeleton/contact rough
 
-Only after these four align should SC02 contact production begin.
+Only after these seven align should the SC02 final contact keyframe be produced.
 
-This deliberately trades short-term image count for long-term consistency.
+This deliberately trades short-term image count for long-term anatomical and visual consistency.
