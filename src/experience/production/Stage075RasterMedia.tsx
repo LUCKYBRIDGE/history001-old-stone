@@ -52,6 +52,9 @@ export function Stage075RasterMedia({
         <span>{record.requiredFamilies.join(' / ')}</span>
         <span>style: {record.requiredStyleAnchorId}</span>
         <span>anchors: {record.requiredAnchorIds.join(' / ') || 'none'}</span>
+        <span>
+          anatomy/contact: {record.requiredAnatomyContractIds.join(' / ') || 'none'}
+        </span>
         {record.rejectionReason ? (
           <span className="stage075-raster-slot__reject">{record.rejectionReason}</span>
         ) : null}
