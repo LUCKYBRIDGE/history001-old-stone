@@ -42,12 +42,11 @@ describe('Stage 07.5 visual anchor review board', () => {
     expect(plannedPaths.every((path) => path.startsWith('public/assets/stage075/anchors/'))).toBe(true);
   });
 
-  it('defines STYLE-GIR-V1 as five controlled independent-exploration slots without downstream identity locks', () => {
+  it('defines five controlled STYLE-GIR-V1 slots without prematurely locking downstream identities', () => {
     const styleBundle = getStage075AnchorReviewBundle('STYLE-GIR-V1');
 
     expect(styleBundle).toBeTruthy();
     expect(styleBundle!.slots).toHaveLength(5);
-    expect(styleBundle!.slots.every((slot) => slot.candidateBrief?.mode === 'independent-exploration')).toBe(true);
     expect(styleBundle!.slots.map((slot) => slot.id)).toEqual([
       'human-mid',
       'first-person-hand',
@@ -55,6 +54,8 @@ describe('Stage 07.5 visual anchor review board', () => {
       'material',
       'responsive-pair',
     ]);
+    expect(styleBundle!.slots.slice(0, 4).every((slot) => slot.candidateBrief?.mode === 'independent-exploration')).toBe(true);
+    expect(styleBundle!.slots[4].candidateBrief?.mode).toBe('locked-keyframe-variation');
 
     const combinedInstructions = styleBundle!.slots
       .map((slot) => slot.candidateBrief?.instruction ?? '')
