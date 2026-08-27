@@ -2,7 +2,7 @@
 
 ## Current phase
 
-# **R2 Stage 07.5 Continuous Action / Human-Gate Remediation**
+# **R2 Stage 07.5 Scene Composition Design Lock**
 
 장기 공식 기준선은 계속:
 
@@ -12,7 +12,7 @@
 
 현재 정확한 상태:
 
-# **Stage 07.5 Social Runtime Integrated / Automated PASS / Human Recheck FAIL / Continuous Action Remediation In Progress**
+# **Stage 07.5 Social Runtime Integrated / Automated PASS / Human Recheck FAIL / Scene Composition Bible In Progress**
 
 Stage 08은 계속 BLOCKED다.
 
@@ -37,19 +37,24 @@ R2UX-008 직접 Human 피드백:
 
 > **“전보다는 낫지만 많이 부족해. 시각적으로 이미지가 제대로 안 만들어졌고, 연출도 부족하고 어색한 상태야. 현재 어떤 동작 중인지, 어떤 상황인지가 현재 구조, 이미지들로는 몰입이 안돼.”**
 
+추가 Human 방향 결정:
+
+> **각 장면의 대사, 1인칭 시점에서 보이는 내 손/팔/도구, 인물, 이미지 배치, 풍경, continuity를 아주 세세하게 먼저 설계하고 그 다음 구현한다.**
+
 Root cause:
 
 - Visual production / asset composition
 - Embodied spatial
 - Interaction / action legibility
 - Screen treatment / scene continuity
+- **Previsual design completeness 부족**
 
 해석:
 
 - 이름/대사/인과만 추가해서는 해결되지 않는다.
-- 현재 actor primitive가 위치만 달라질 뿐 `걷기`, `도구 전달`, `멈춤`, `쪼그림`, `시선 전환`이 서로 다른 몸의 실루엣으로 충분히 보이지 않는다.
-- story prose + button이 행동을 대신 설명하는 비중이 아직 높다.
-- production art를 대량 제작하기 전에 placeholder만으로도 action silhouette와 공간 깊이가 읽혀야 한다.
+- CSS로 먼저 장면을 만들고 나중에 의미를 맞추는 방식도 중단해야 한다.
+- 각 Scene의 camera/body/tool/actor/world/dialogue/transition/crop/continuity가 먼저 잠겨야 한다.
+- production image도 scene composition 승인 전에 만들지 않는다.
 
 현재 확인된 P0는 없다.
 
@@ -77,7 +82,7 @@ Root cause:
 
 ---
 
-# 3. Stage 07.5 First-Five Social Runtime — 구현 완료 범위
+# 3. Stage 07.5 First-Five Social Runtime — 현재 prototype 범위
 
 현재 runtime은 다음 causal proof를 갖는다.
 
@@ -105,53 +110,97 @@ ambient community life
 - 장면이 연속된 행동으로 느껴지는가
 - 몰입되는가
 
----
-
-# 4. 현재 remediation — Continuous Action / Scene Composition
-
-현재 수정의 목적은 이미지 자산 제작이 아니다.
-
-# **Production art 없이도 현재 동작과 상황이 먼저 읽히는 previsual staging**
-
-을 만든다.
-
-우선 proof 대상:
-
-1. **아루 handoff**
-   - 아루의 몸이 Player 쪽으로 기울어짐
-   - 도구를 든 팔이 실제 contact point로 뻗음
-   - Player 오른손도 그 순간에만 프레임으로 들어옴
-   - 주변 인물/배경은 시각적 우선순위에서 내려감
-
-2. **다무 movement**
-   - `이동 중 → 갑자기 멈춤 → 몸을 낮춤 → 지면을 같이 봄`이 서로 다른 silhouette로 보여야 함
-   - ground evidence는 Player crouch 이후에만 보이는 기존 causal invariant 유지
-
-3. **누아 attention shift**
-   - gaze line만이 아니라 머리/상체/팔 방향이 함께 바뀌어야 함
-   - Player가 방향을 따라보기 전 target 미노출 유지
-
-4. **Departure spatial continuity**
-   - 불/거처/남은 사람과 실제로 멀어지는 depth 변화
-   - 앞서 걷는 두 사람의 이동 자세
-   - foreground/midground/background 분리
-
-5. **Player body**
-   - 필요한 동작에 필요한 팔/무릎만 보임
-   - 고정 FPS HUD처럼 두 팔이 항상 화면을 점유하지 않음
-
-6. **Story/UI hierarchy**
-   - 설명문은 장면 해설이 아니라 보조 감각 정보로 축소
-   - dialogue/action control이 scene보다 시각적으로 강해지지 않음
+최근 Continuous Action previsual remediation도 prototype일 뿐 final scene design으로 취급하지 않는다.
 
 ---
 
-# 5. 현재 remediation이 하지 않는 것
+# 4. 현재 최우선 작업 — Scene Composition Bible
 
-Human Gate 전에는 다음으로 확장하지 않는다.
+# **추가 runtime 구현을 일시 중지한다.**
 
-- Stage 08 전체 Hunt
+현재 최우선 산출물:
+
+- `handoff/STAGE07_5_FIRST_PERSON_SCENE_COMPOSITION_BIBLE.md`
+
+이 문서는 현재 Stage 07.5의 모든 주요 Beat에 대해 최소 다음을 잠근다.
+
+```text
+Scene/Beat purpose
+Camera profile / eye line / look direction
+Player body visibility
+Left/right hand action
+Held handaxe position / grip / continuity
+Aru/Damu/Nua position / pose / gaze / action
+Background community activity
+World plate / landscape / foreground / occlusion
+Light / sound / dialogue source
+Exact dialogue + timing
+Player direct action
+Immediate visual response
+Curriculum cue placement
+UI/action affordance placement
+Previous/next transition
+4:3 / 16:10 / 16:9 crop safety
+Historical fact / reconstruction boundary
+Production Mode A/B/C
+Required visual/reference anchors
+Human acceptance criteria
+```
+
+# **장면 설계가 먼저 잠기고, 구현은 그 뒤에 한다.**
+
+---
+
+# 5. Scene Composition Lock Gate
+
+다음 구현 branch를 만들기 전에:
+
+1. Scene Composition Bible 작성 완료
+2. 장면별 손/팔/도구/인물/풍경/대사/전환 continuity 검토
+3. Human/Project-owner가 주요 composition 방향 확인
+4. source review가 필요한 visual 항목을 `REFERENCE-LOCK REQUIRED`로 분리
+5. unresolved Scene-level P1 정리
+6. 그 뒤에만 runtime/asset implementation 시작
+
+금지:
+
+- CSS부터 만들고 의미를 나중에 맞추기
+- AI 이미지부터 생성하고 gameplay를 이미지에 맞추기
+- 장면마다 독립적으로 image를 생성해 continuity를 잃기
+- final art quality로 잘못된 camera/body composition을 덮기
+
+---
+
+# 6. 현재 Scene Composition 설계 대상
+
+현재 Stage 07.5 전체 Beat:
+
+```text
+SC00 Sensory Orientation
+SC01 Fire / Living Community Presence
+SC02 Aru → Handaxe → Player Handoff
+SC03 Tool Ownership / Experience → Name
+SC04 Rise / Damu Already Moving / Nua Elsewhere
+SC05 Departure / Camp Recedes
+SC06 Damu Stops / Player Still Standing
+SC07 Player Crouches / Shared Ground Observation
+SC08 Rise / Nua Attention Shift
+SC09 Follow Gaze / Rock Shelter Revealed
+SC10 Rock Shelter Inspection
+SC11 Perspective Recontextualization / Aru-side Proof
+```
+
+각 Beat는 freeze-frame만 봐도 핵심 action/situation이 읽혀야 한다.
+
+---
+
+# 7. 아직 하지 않는 것
+
+Scene Composition Lock 전에는 다음을 하지 않는다.
+
+- 새 runtime/CSS remediation
 - production image generation
+- Stage 08 전체 Hunt 구현
 - final cast appearance/name lock
 - 본격 Pursuit Dilemma
 - Threat/Horror 완성
@@ -160,24 +209,27 @@ Human Gate 전에는 다음으로 확장하지 않는다.
 - generic Dialogue / Relationship engine
 - relationship score/호감도
 
-이미지를 생성해 현재 구조 문제를 덮지 않는다.
+Scene Composition Lock 이후에도 Stage 08 전 Visual Production Readiness Gate는 별도로 필요하다.
 
 ---
 
-# 6. 다음 Gate
+# 8. 다음 Gate
 
-Continuous Action composition 코드가 자동검증을 통과하면 사용자 실제 Player 재플레이가 다시 필요하다.
+현재 다음 Gate는 **Human Gameplay Recheck가 아니라 Scene Composition Review**다.
 
-Human re-check 핵심:
+먼저 설계 문서에서 다음을 확인한다.
 
-1. 설명문을 읽기 전에 아루가 도구를 건네는 장면임을 알 수 있는가
-2. 다무가 걷는 중인지, 멈춘 것인지, 몸을 낮춘 것인지 구별되는가
-3. 누아가 다른 방향에 주의를 돌린 순간이 시각적으로 읽히는가
-4. 출발 후 뒤의 불/거처/사람에게서 멀어진 느낌이 있는가
-5. Player 팔/도구가 HUD가 아니라 행동 중 몸처럼 보이는가
-6. 장면이 `실루엣 + 설명문 + 버튼` 정지 페이지보다 연속 사건에 가까워졌는가
-7. 그래도 production visual이 없어서 Human Gate 판단 자체가 불가능한 수준인지
+1. 각 장면의 camera가 이전/다음 장면과 이어지는가
+2. 내 손/팔/무릎이 왜 보이는지 장면마다 이유가 있는가
+3. handaxe가 같은 물건으로 계속 이어지는가
+4. Aru/Damu/Nua가 각 장면에서 어디에 있고 무엇을 하는지 명확한가
+5. 풍경/거처/불/랜드마크가 같은 공간으로 이어지는가
+6. 대사가 행동 전에 설명하지 않고 행동과 함께 발생하는가
+7. curriculum cue가 장면을 덮지 않는가
+8. 4:3 / 16:10 / 16:9에서 핵심 contact/actor/target이 유지되는가
+9. 아직 역사 자료가 필요한 외형을 근거 없이 lock하지 않았는가
+10. Scene screenshot만 보고 현재 행동/상황을 설명할 수 있는가
 
-7번이 YES라면 Gate 설계를 다시 검토한다. 그 경우 무작정 Stage 08 전체 production으로 점프하지 않고 **Human Gate용 최소 production visual set**의 필요성을 별도 결정한다.
+이 review가 통과된 다음에만 구현 branch로 이동한다.
 
-# **자동 PASS는 Human PASS가 아니다.**
+# **자동 PASS는 Human PASS가 아니며, 설계 완료도 Human Gameplay PASS가 아니다.**
