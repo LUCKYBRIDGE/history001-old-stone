@@ -2,7 +2,7 @@
 
 ## Current phase
 
-# **R2 Stage 07.5 Controlled Raster Asset Acquisition**
+# **R2 Stage 07.5 Visual Anchor Reference Lock**
 
 공식 baseline:
 
@@ -14,9 +14,7 @@
 
 현재 판정:
 
-# **Social Runtime Integrated / Automated PASS / Human Gate FAIL / Scene Composition v2.1 Approved / Responsive Raster Contract Ready / Raster Media Adapter Integrated / Approved Raster Assets 0**
-
-Stage 08은 BLOCKED다.
+# **Social Runtime Integrated / Automated PASS / Human Gate FAIL / Scene Composition v2.1 Approved / Raster Media Adapter Integrated / Visual Continuity System Integrated / Approved Raster Assets 0 / Stage 08 BLOCKED**
 
 최신 exact repository HEAD와 CI는 GitHub가 최종 진실 공급원이다.
 
@@ -37,8 +35,14 @@ Stage 08은 BLOCKED다.
 11. `docs/07A_FIRST_PERSON_VISUAL_ASSET_BIBLE.md`
 12. `docs/07B_FIRST_PERSON_VISUAL_PRODUCTION_SPEC.md`
 13. `handoff/STAGE07_5_FIRST_PERSON_SCENE_COMPOSITION_BIBLE_V2_1.md`
-14. `handoff/STAGE07_5_RESPONSIVE_VISUAL_PRODUCTION_CONTRACT.md`
-15. `handoff/STAGE07_5_RASTER_ASSET_PRODUCTION_BRIEFS.md`
+14. `handoff/STAGE07_5_VISUAL_CONTINUITY_INDEX.md`
+15. `handoff/STAGE07_5_STYLE_ANCHOR_BIBLE.md`
+16. `handoff/STAGE07_5_CHARACTER_IDENTITY_ANCHOR_BIBLE.md`
+17. `handoff/STAGE07_5_WORLD_CONTINUITY_BIBLE.md`
+18. `handoff/STAGE07_5_OBJECT_CONTINUITY_BIBLE.md`
+19. `handoff/STAGE07_5_RESPONSIVE_VISUAL_PRODUCTION_CONTRACT.md`
+20. `handoff/STAGE07_5_RASTER_ASSET_PRODUCTION_BRIEFS.md`
+21. `handoff/STAGE07_5_VISUAL_GENERATION_AND_REVIEW_PROTOCOL.md`
 
 감사/근거 추적 시:
 
@@ -56,12 +60,13 @@ handoff 문서는 Technical SSOT가 아니다.
 
 - social/narrative causality는 이전보다 개선됨
 - CSS previsual도 동작 구분은 개선됨
-- 그러나 사람/손/도구/풍경을 CSS/SVG형 geometry로 계속 다듬는 방식에는 명확한 품질 한계가 있음
-- desktop landscape 중심 좌표만으로는 tablet/phone portrait가 성립하지 않음
+- 그러나 사람/손/도구/풍경을 CSS/SVG geometry로 계속 다듬는 방식에는 품질 한계가 있음
+- portrait/tablet/mobile은 별도 composition family가 필요함
+- 실제 raster 전환 시 `좋은 한 장`보다 캐릭터/배경/도구/스타일 continuity가 더 중요함
 
 따라서:
 
-# **Final Player-facing visual = raster-first Hybrid Embodied Composite**
+# **Final Player-facing visual = raster-first Hybrid Embodied Composite + Anchor-conditioned Continuity**
 
 DOM/CSS/SVG geometry는 previsual/debug/UI 보조로만 유지한다.
 
@@ -69,7 +74,174 @@ Human Gate는 계속 FAIL이다.
 
 ---
 
-# 3. Responsive Composition Families
+# 3. Visual Continuity System — Integrated
+
+Art-production 진입점:
+
+- `STAGE07_5_VISUAL_CONTINUITY_INDEX.md`
+
+세부 계약:
+
+- style → `STAGE07_5_STYLE_ANCHOR_BIBLE.md`
+- characters/player body → `STAGE07_5_CHARACTER_IDENTITY_ANCHOR_BIBLE.md`
+- world/geography/light/landmark → `STAGE07_5_WORLD_CONTINUITY_BIBLE.md`
+- handaxe/recurring props → `STAGE07_5_OBJECT_CONTINUITY_BIBLE.md`
+- generation/review → `STAGE07_5_VISUAL_GENERATION_AND_REVIEW_PROTOCOL.md`
+
+Machine-readable:
+
+- `src/experience/production/stage075StyleAnchor.ts`
+- `src/experience/production/stage075VisualContinuityRegistry.ts`
+- `src/experience/production/stage075RasterManifest.ts`
+
+Tests:
+
+- `tests/integration/Stage075VisualContinuityRegistry.test.ts`
+- `tests/integration/Stage075RasterMedia.test.tsx`
+
+---
+
+# 4. Approval dependency
+
+Scene raster 자체가 `approved`여도 바로 runtime에 노출되지 않는다.
+
+필수 조건:
+
+```text
+STYLE-GIR-V1 = anchor-approved
++
+all required character/body/world/object/prop/light anchors = anchor-approved
++
+approved master/reference paths registered
++
+scene raster = approved
++
+required L/TP/PP sources registered
+↓
+runtime render allowed
+```
+
+이 Gate는 코드에서도 강제된다.
+
+---
+
+# 5. STYLE-GIR-V1
+
+목표:
+
+# **Grounded Illustrative Realism**
+
+- 현실적인 해부/접촉/원근
+- 약간 일러스트적인 surface treatment
+- hyper-photoreal skin 금지
+- cinematic poster/AAA advertising look 금지
+- fantasy barbarian/caveman caricature 금지
+- people/body/tool/world가 같은 detail density를 공유
+
+현재:
+
+```text
+STYLE-GIR-V1 = reference-pending
+```
+
+실제 style reference packet이 승인되기 전 scene raster는 runtime-ready가 될 수 없다.
+
+---
+
+# 6. Character identity anchors
+
+```text
+ARU-IDENTITY-V1     reference-pending
+DAMU-IDENTITY-V1    reference-pending
+NUA-IDENTITY-V1     reference-pending
+PLAYER-HUNT-BODY-V1 reference-pending
+```
+
+Hero character는 한 portrait로 승인하지 않는다.
+
+최소 identity packet:
+
+- 3/4 양방향
+- side
+- full body
+- seated/crouched
+- head/shoulder
+- walking/stop/attention motion
+- hand reference
+- hair silhouette
+- garment silhouette
+
+일관성은 face뿐 아니라 body/motion/garment/hand까지 포함한다.
+
+---
+
+# 7. World continuity anchors
+
+```text
+WORLD-CAMP-DAWN-A       reference-pending
+WORLD-DEPARTURE-PATH-A  reference-pending
+WORLD-GROUND-OBS-A      reference-pending
+WORLD-ROCK-SHELTER-A    reference-pending
+LM-SPLIT-ROCK-01        reference-pending
+PROP-TEMP-SHELTER-A     reference-pending
+```
+
+핵심:
+
+- 같은 Day 1 world geography
+- camp/fire/Aru behind-left
+- route right/right-center
+- scene마다 새 배경을 독립 생성하지 않음
+- L/TP/PP는 다른 세계가 아니라 같은 세계의 다른 camera framing
+- SC05와 SC11은 같은 순간의 world-state/light를 공유
+
+---
+
+# 8. DAY1-HANDAXE-V1
+
+현재:
+
+```text
+DAY1-HANDAXE-V1 = reference-pending
+```
+
+승인 packet:
+
+- face-A
+- face-B
+- side/thickness
+- grip-base
+- working-end
+- scale reference
+- major flake-scar fingerprint
+- Aru grip
+- Player right-hand grip
+
+SC02→SC11에서 같은 물체 identity를 유지한다.
+
+---
+
+# 9. Generation protocol
+
+각 생성/편집 후보는 Generation Job Card를 가져야 한다.
+
+필수 기록:
+
+- target asset / scene / beat / composition family
+- derivation mode
+- parent asset
+- 실제로 제공한 approved anchor reference files
+- camera/body/contact/object/light contracts
+- only-allowed changes
+- must-not-change list
+- historical confidence
+- drift codes / severity
+
+# **`same Aru as before` 같은 텍스트만으로 continuity를 맡기지 않는다.**
+
+---
+
+# 10. Responsive families
 
 ```text
 L  = Landscape
@@ -78,41 +250,14 @@ PP = Phone Portrait
 N  = Near-square fallback
 ```
 
-- 16:9 하나를 모든 화면에 단순 crop하지 않는다.
-- narrative meaning이 깨지면 portrait 전용 art-directed composition을 만든다.
-- SC02/SC05/SC06→07/SC08→09/SC10/SC11은 dedicated portrait variant를 우선 검토한다.
+- 16:9 단순 crop 금지
+- dedicated portrait recompose 허용/권장
+- identity/world/object/light는 동일
+- framing만 달라야 함
 
 ---
 
-# 4. Dev-only Previsual Harness
-
-```text
-http://localhost:5173/?previsual=1
-```
-
-지원 ratio:
-
-```text
-16:9
-16:10
-4:3
-3:4   = TP review
-9:16  = PP review
-```
-
-portrait 실패는 dedicated portrait composition 필요 신호다.
-
----
-
-# 5. Raster Media Adapter — Integrated
-
-관련 코드:
-
-- `src/experience/production/stage075RasterManifest.ts`
-- `src/experience/production/Stage075RasterMedia.tsx`
-- `src/experience/production/Stage075RasterIntegrationPreview.tsx`
-- `src/styles/stage075RasterMedia.css`
-- `tests/integration/Stage075RasterMedia.test.tsx`
+# 11. Current Raster Adapter
 
 개발 모드:
 
@@ -120,121 +265,37 @@ portrait 실패는 dedicated portrait composition 필요 신호다.
 http://localhost:5173/?raster=1
 ```
 
-규칙:
+현재 approved raster asset count:
 
-- pending/rejected asset은 실제 `<picture>/<img>`로 렌더하지 않는다.
-- approved asset + sources가 있을 때만 렌더한다.
-- phone portrait(PP) → tablet portrait(TP) → landscape fallback 순으로 source를 선택한다.
-- 미승인 생성물을 Player에 임시로라도 연결하지 않는다.
+# **0**
 
----
-
-# 6. Image Generation Attempt — REJECTED
-
-이번 세션의 생성 후보는 모두 repository 적용에서 제외했다.
-
-실패:
-
-- isolated handaxe 요청이 전체 게임 장면/UI mockup으로 이탈
-- clean SC02 contact keyframe 요청이 editor/previsual UI 화면으로 이탈
-- text/UI baked-in
-- history/identity/contact continuity 검증 불가
-
-따라서 현재 Approved Raster Asset은 **0개**다.
-
-생성 결과는 품질/계약을 통과해야만 asset이 된다.
+이전 자유 생성 후보는 production brief 이탈로 모두 REJECT됐으며 repository에 넣지 않았다.
 
 ---
 
-# 7. Current Raster Manifest
+# 12. Immediate Anchor Lock Order
+
+다음 제작 순서:
 
 ```text
-DAY1-HANDAXE-V1                 pending
-HUNT-SC02-HANDOFF-KEYFRAME-V1 pending
-HUNT-SC01-CAMP-WORLD-V1       pending
+0. STYLE-GIR-V1 reference packet
+1. DAY1-HANDAXE-V1 master packet
+2. PLAYER-HUNT-BODY-V1 hand/forearm packet
+3. ARU-IDENTITY-V1 packet
+4. DAMU-IDENTITY-V1 packet
+5. NUA-IDENTITY-V1 packet
+6. WORLD-CAMP-DAWN-A packet
+7. fire/shelter supporting anchors
+8. route/landmark/ground/rock-shelter anchors
 ```
 
-첫 승인 순서:
-
-1. DAY1-HANDAXE-V1
-2. Aru/Damu/Nua identity anchors
-3. PV-02 Handoff L/TP/PP
-4. PV-01 Living Camp L/TP/PP
-5. 나머지 critical PV
+SC02 production은 최소 0~3이 잠기고 camp/light anchors가 준비된 뒤 시작한다.
 
 ---
 
-# 8. Raster Production Strategy
+# 13. Current Gate
 
-주 계약:
-
-- `STAGE07_5_RESPONSIVE_VISUAL_PRODUCTION_CONTRACT.md`
-- `STAGE07_5_RASTER_ASSET_PRODUCTION_BRIEFS.md`
-
-형식:
-
-- opaque world plate → AVIF/WebP
-- transparent actor/body/item → WebP alpha
-- PNG → source master 또는 alpha edge 필요 시
-- contact-heavy scene → Unified Contact Keyframe
-
----
-
-# 9. Mandatory Cross-device QA
-
-```text
-1920×1080
-1440×900
-1366×768
-1024×768
-1180×820
-820×1180
-768×1024
-390×844
-393×852
-360×800
-844×390
-```
-
-모든 critical scene에서:
-
-- action-before-copy readability
-- body proportion
-- hand/tool/contact crop
-- cast identity
-- safe-area
-- portrait narrative equivalence
-
-를 확인한다.
-
----
-
-# 10. Historical Boundary
-
-# **Korean Paleolithic Educational Composite / Element-level Provenance**
-
-- [H] Historical anchor
-- [C] Comparative reference
-- [R] Reconstruction choice
-- [D] Deferred / non-diagnostic
-
-Chronology Coherence Gate 유지.
-
-여전히 보류:
-
-- exact season/plants
-- exact shelter construction/material/knots
-- exact garment pattern/stitching
-- exact skin/hair/species morphology
-- final cast face
-- Hunt Player exact age/sex
-- final audio
-
----
-
-# 11. Current Gate
-
-# **Controlled Raster Asset Acquisition / Approval**
+# **Visual Anchor Reference Lock**
 
 현재:
 
@@ -242,9 +303,12 @@ Chronology Coherence Gate 유지.
 Scene Composition Design = PASS
 Project-owner Scene Confirmation = PASS
 Responsive Raster Contract = READY
-Raster Production Briefs = READY
 Raster Media Adapter = INTEGRATED
-Raster Approval Gate = INTEGRATED
+Visual Continuity Registry = INTEGRATED
+Style Anchor = REFERENCE PENDING
+Character Anchors = REFERENCE PENDING
+World Anchors = REFERENCE PENDING
+DAY1-HANDAXE Anchor = REFERENCE PENDING
 Approved Raster Assets = 0
 Player Raster Replacement = NOT YET
 Human Gate = FAIL
@@ -253,12 +317,12 @@ Stage 08 = BLOCKED
 
 다음 행동:
 
-1. controlled asset generation/acquisition을 수행한다.
-2. 후보마다 history/identity/contact/crop review를 한다.
-3. DAY1-HANDAXE-V1과 cast anchors부터 승인한다.
-4. SC02 L/TP/PP unified keyframe을 승인한다.
-5. 승인된 source만 manifest에 등록한다.
-6. minimum coherent Stage07.5 set을 Player runtime에 통합한다.
-7. cross-device Human Visual QA를 다시 한다.
+1. STYLE-GIR-V1 reference packet 후보를 만든다.
+2. 사실성 수준/손/사람/배경/material treatment가 같은지 검토한다.
+3. style PASS 후 DAY1-HANDAXE master를 만든다.
+4. Player hand/forearm과 Aru identity packet을 같은 style anchor에서 파생한다.
+5. anchor packet은 각각 전체 packet side-by-side로 승인한다.
+6. 승인 master path를 registry에 등록한다.
+7. 그 뒤에만 SC02 L/TP/PP contact keyframe을 제작한다.
 
-자동 PASS, 생성 완료, adapter 통합만으로 Human PASS를 선언하지 않는다.
+자동 PASS, 생성 완료, 한 장의 좋은 이미지로 Human PASS나 Anchor PASS를 선언하지 않는다.
