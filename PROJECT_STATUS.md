@@ -2,7 +2,7 @@
 
 ## Current phase
 
-# **R2 Stage 07.5 Responsive Raster Production Readiness**
+# **R2 Stage 07.5 Raster Integration Readiness**
 
 장기 공식 기준선:
 
@@ -10,7 +10,7 @@
 
 현재 정확한 상태:
 
-# **Social Runtime Integrated / Automated PASS / Human Gate FAIL / Scene Composition v2.1 Approved / Dev-only Previsual Harness Integrated / Responsive Raster Production Contract Ready / Raster Assets NOT YET / Stage 08 BLOCKED**
+# **Social Runtime Integrated / Automated PASS / Human Gate FAIL / Scene Composition v2.1 Approved / Responsive Raster Contract Ready / Raster Media Adapter Integrated / Approved Raster Assets 0 / Stage 08 BLOCKED**
 
 최신 exact main/PR/Actions는 GitHub가 최종 진실 공급원이다.
 
@@ -37,10 +37,11 @@
 - R2UX-017 Hard story seam — 왼쪽 copy overlay의 직사각형 끝선이 세로 구분선처럼 보임
 - R2UX-018 Final visual medium — CSS/SVG형 사람·손·도구는 최종 몰입 품질에 구조적 한계
 - R2UX-019 Portrait composition — tablet/phone 세로가 landscape 단순 축소/crop으로는 성립하지 않음
+- R2UX-020 Raster candidate control — 생성 결과가 제작 브리프 대신 광범위한 게임 UI mockup으로 이탈할 수 있음
 
 현재 확인된 P0는 없다.
 
-# **P1 시각/몰입 문제가 실제 raster production-like proof로 재검증되지 않았으므로 Human Gate는 계속 FAIL이다.**
+# **P1 시각/몰입 문제가 승인된 raster production-like proof로 재검증되지 않았으므로 Human Gate는 계속 FAIL이다.**
 
 ---
 
@@ -51,10 +52,9 @@
 - 이전보다 연출/인과는 개선됨
 - 그러나 CSS/SVG placeholder만 계속 다듬는 방식은 한계가 명확함
 - 실제 사람/손/도구/풍경은 raster illustrated asset으로 전환해야 함
-- 현재 왼쪽 story overlay의 hard edge가 화면을 둘로 갈라 보이게 함
 - mobile/tablet portrait와 다양한 viewport를 처음부터 composition family로 설계해야 함
 
-이에 따라 다음 방향을 채택한다.
+이에 따라:
 
 # **Player-facing final visuals = raster-first Hybrid Embodied Composite**
 
@@ -82,12 +82,12 @@ LOCK:
 
 # 4. Responsive Raster Production Contract
 
-현재 Stage 07.5 전용 실행 계약:
+실행 계약:
 
 - `handoff/STAGE07_5_RESPONSIVE_VISUAL_PRODUCTION_CONTRACT.md`
 - `handoff/STAGE07_5_RASTER_ASSET_PRODUCTION_BRIEFS.md`
 
-핵심 composition family:
+composition family:
 
 ```text
 L  = landscape
@@ -96,43 +96,90 @@ PP = phone portrait
 N  = near-square fallback
 ```
 
-중요 원칙:
+핵심:
 
 - 16:9 하나를 모든 화면에 crop하지 않는다.
 - 의미가 깨지는 장면은 portrait 전용 재구성을 만든다.
-- critical contact/action은 landscape + portrait 모두 검증한다.
-- 최종 사람/손/도구/거처를 CSS 도형으로 유지하지 않는다.
-- world plate는 AVIF/WebP 우선.
-- transparent foreground는 WebP alpha 우선.
-- PNG는 source master/alpha 품질 필요 시 사용 가능.
 - contact-heavy 장면은 Unified Contact Keyframe 우선.
+- 최종 사람/손/도구/거처를 CSS 도형으로 유지하지 않는다.
 
 ---
 
-# 5. Current Player Proof Fix
+# 5. Raster Media Adapter — Integrated
 
-현재 proof 단계에서도 split-screen 인상을 줄이기 위해 responsive override를 추가했다.
+현재 `main`에는 승인된 raster를 안전하게 연결하기 위한 runtime adapter가 통합되어 있다.
 
-- story overlay = full-frame soft fade
-- hard vertical edge 금지
-- landscape = bottom-left + bottom soft fade
-- portrait = bottom vertical fade
-- tablet/phone safe-area 고려
-- persistent footer 금지 유지
+관련 코드:
 
-이것은 production art가 아니라 production-ready layout behavior proof다.
-
----
-
-# 6. Dev-only Previsual Harness
+- `src/experience/production/stage075RasterManifest.ts`
+- `src/experience/production/Stage075RasterMedia.tsx`
+- `src/experience/production/Stage075RasterIntegrationPreview.tsx`
+- `src/styles/stage075RasterMedia.css`
+- `tests/integration/Stage075RasterMedia.test.tsx`
 
 개발 모드:
+
+```text
+http://localhost:5173/?raster=1
+```
+
+정책:
+
+- `pending` 또는 `rejected` asset은 `<picture>/<img>`로 렌더하지 않는다.
+- `approved + sources 존재`일 때만 실제 raster를 렌더한다.
+- source 우선순위는 PP → TP → landscape fallback이다.
+- landscape/portrait variant가 준비되기 전 Player runtime visual을 강제로 교체하지 않는다.
+
+---
+
+# 6. Generated Candidate Review — Current Session
+
+이번 세션에서 이미지 생성 후보를 시도했으나 모두 **REJECT** 처리했다.
+
+실패 유형:
+
+- isolated handaxe 요청이 전체 게임 장면/UI mockup으로 이탈
+- SC02 clean keyframe 요청이 previsual/editor UI mockup으로 이탈
+- 텍스트/UI가 baked-in되어 production asset 계약과 충돌
+- 역사/인물/공간 continuity를 검증할 수 없는 자유 생성
+
+따라서 해당 이미지는 repository에 넣지 않았다.
+
+# **생성됐다는 이유만으로 asset을 채택하지 않는다.**
+
+---
+
+# 7. Current Raster Manifest
+
+현재 manifest entry:
+
+```text
+DAY1-HANDAXE-V1                 pending
+HUNT-SC02-HANDOFF-KEYFRAME-V1 pending
+HUNT-SC01-CAMP-WORLD-V1       pending
+```
+
+Approved raster asset count:
+
+# **0**
+
+첫 승인 목표는 여전히:
+
+1. DAY1-HANDAXE-V1
+2. Aru/Damu/Nua identity anchors
+3. SC02 Shared Contact L/TP/PP
+
+이다.
+
+---
+
+# 8. Dev-only Previsual Harness
 
 ```text
 http://localhost:5173/?previsual=1
 ```
 
-지원 ratio:
+지원:
 
 - 16:9
 - 16:10
@@ -140,33 +187,11 @@ http://localhost:5173/?previsual=1
 - 3:4 tablet portrait
 - 9:16 phone portrait
 
-portrait에서 요소가 겹치거나 의미가 깨지는 것은 CSS로 숨기지 않는다.
-그 결과는 TP/PP 전용 production composition 필요 신호로 취급한다.
+portrait에서 의미가 깨지는 결과는 TP/PP 전용 composition 필요 신호다.
 
 ---
 
-# 7. First Real Raster Batch Scope
-
-Stage 08 전체 batch가 아니다.
-
-Stage 07.5 Human-Gate proof에 필요한 최소 순서:
-
-1. DAY1-HANDAXE-V1 anchor
-2. Aru/Damu/Nua identity anchors
-3. PV-02 Shared Contact L/P
-4. PV-01 Living Camp L/P
-5. PV-05 Stop/Crouch L/P
-6. PV-06 Attention/Reveal L/P
-7. PV-04 Departure L/P
-8. PV-07 Rock Shelter L/P
-9. PV-08 Same-Moment Aru POV L/P
-10. PV-03 supporting held-tool/movement layers
-
-실제 이미지 생성/제작은 아직 시작하지 않았다.
-
----
-
-# 8. Mandatory Viewport QA
+# 9. Mandatory Viewport QA
 
 최소:
 
@@ -197,7 +222,7 @@ Stage 07.5 Human-Gate proof에 필요한 최소 순서:
 
 ---
 
-# 9. Still Deferred
+# 10. Still Deferred
 
 - exact season
 - exact vegetation species
@@ -214,21 +239,21 @@ Stage 07.5 Human-Gate proof에 필요한 최소 순서:
 
 ---
 
-# 10. Current Gate
+# 11. Current Gate
 
-# **Responsive Previsual Recheck / Raster Production Readiness**
+# **Controlled Raster Asset Acquisition / Approval**
 
 현재:
 
 ```text
 Scene Composition Design = PASS
 Project-owner Scene Confirmation = PASS
-Dev-only Previsual Harness = INTEGRATED
-Landscape + Portrait Review Modes = READY
-Responsive Raster Production Contract = READY
+Responsive Layout Contract = READY
 Raster Asset Briefs = READY
-Raster Assets = NOT YET
-Previsual Approval = NOT YET
+Raster Media Adapter = INTEGRATED
+Raster Approval Gate = INTEGRATED
+Approved Raster Assets = 0
+Player Raster Replacement = NOT YET
 Human Gate = FAIL
 Stage 08 = BLOCKED
 ```
@@ -236,15 +261,15 @@ Stage 08 = BLOCKED
 다음 순서:
 
 ```text
-responsive proof recheck
-→ unresolved layout/crop 문제 수정
-→ production asset brief lock
-→ 별도 explicit raster image production task
-→ candidate asset review
+controlled asset acquisition/generation
+→ candidate rejection/approval review
+→ DAY1-HANDAXE / identity anchor lock
+→ SC02 L/TP/PP contact keyframe lock
+→ manifest status approved + source registration
 → minimum coherent Stage07.5 raster integration
 → cross-device Human Visual QA
 → Human Gate PASS 여부
 → Stage 08
 ```
 
-# **자동 PASS는 Human PASS가 아니며, layout PASS도 raster visual PASS가 아니다.**
+# **자동 PASS는 Human PASS가 아니며, 생성 성공도 visual approval이 아니다.**
