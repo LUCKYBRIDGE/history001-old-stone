@@ -1,6 +1,7 @@
 import { ExperienceOrchestrator } from '../experience/ExperienceOrchestrator';
 import { Stage075PrevisualHarness } from '../experience/previsual/Stage075PrevisualHarness';
 import { Stage075RasterIntegrationPreview } from '../experience/production/Stage075RasterIntegrationPreview';
+import { Stage075VisualAnchorReviewBoard } from '../experience/production/Stage075VisualAnchorReviewBoard';
 import {
   R2EmbodiedSkeleton,
   type SkeletonSurfaceMode,
@@ -13,17 +14,29 @@ function getDevelopmentMode() {
       legacy: false,
       previsual: false,
       raster: false,
+      anchors: false,
       surfaceMode: 'player' as SkeletonSurfaceMode,
     };
   }
 
   const params = new URLSearchParams(window.location.search);
 
+  if (params.get('anchors') === '1') {
+    return {
+      legacy: false,
+      previsual: false,
+      raster: false,
+      anchors: true,
+      surfaceMode: 'player' as SkeletonSurfaceMode,
+    };
+  }
+
   if (params.get('raster') === '1') {
     return {
       legacy: false,
       previsual: false,
       raster: true,
+      anchors: false,
       surfaceMode: 'player' as SkeletonSurfaceMode,
     };
   }
@@ -33,6 +46,7 @@ function getDevelopmentMode() {
       legacy: false,
       previsual: true,
       raster: false,
+      anchors: false,
       surfaceMode: 'player' as SkeletonSurfaceMode,
     };
   }
@@ -42,6 +56,7 @@ function getDevelopmentMode() {
       legacy: true,
       previsual: false,
       raster: false,
+      anchors: false,
       surfaceMode: 'player' as SkeletonSurfaceMode,
     };
   }
@@ -51,6 +66,7 @@ function getDevelopmentMode() {
       legacy: false,
       previsual: false,
       raster: false,
+      anchors: false,
       surfaceMode: 'debug' as SkeletonSurfaceMode,
     };
   }
@@ -60,6 +76,7 @@ function getDevelopmentMode() {
       legacy: false,
       previsual: false,
       raster: false,
+      anchors: false,
       surfaceMode: 'teacher' as SkeletonSurfaceMode,
     };
   }
@@ -68,6 +85,7 @@ function getDevelopmentMode() {
     legacy: false,
     previsual: false,
     raster: false,
+    anchors: false,
     surfaceMode: 'player' as SkeletonSurfaceMode,
   };
 }
@@ -77,7 +95,9 @@ export function App() {
 
   return (
     <AppShell>
-      {mode.raster ? (
+      {mode.anchors ? (
+        <Stage075VisualAnchorReviewBoard />
+      ) : mode.raster ? (
         <Stage075RasterIntegrationPreview />
       ) : mode.previsual ? (
         <Stage075PrevisualHarness />
