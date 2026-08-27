@@ -1,0 +1,45 @@
+/*
+ * Human QA correction: `crouch-proof` means Damu has stopped/crouched first.
+ * The Player has NOT crouched yet. The underlying skeleton currently reuses the
+ * `crouch-observe` body token for both steps, so this visual override preserves
+ * the intended causal order until the body-pose contract is split in runtime.
+ */
+
+.r2-world--crouch-proof .r2-body--crouch-observe .r2-body__left {
+  left: 2%;
+  bottom: -8rem;
+  opacity: 0.1;
+  transform: rotate(20deg);
+}
+
+.r2-world--crouch-proof .r2-body--crouch-observe .r2-body__right {
+  right: 5%;
+  bottom: -6.6rem;
+  opacity: 0.5;
+  transform: rotate(-20deg);
+}
+
+.r2-world--crouch-proof .r2-body--crouch-observe .r2-body__knee {
+  bottom: -14%;
+  opacity: 0;
+}
+
+/* Only after the Player chooses to lower the body (`travel`) does crouch read. */
+.r2-world--travel .r2-body--crouch-observe .r2-body__left {
+  left: 24%;
+  bottom: -2.6rem;
+  opacity: 0.58;
+  transform: rotate(54deg);
+}
+
+.r2-world--travel .r2-body--crouch-observe .r2-body__right {
+  right: 8%;
+  bottom: -5rem;
+  opacity: 0.48;
+  transform: rotate(-28deg);
+}
+
+.r2-world--travel .r2-body--crouch-observe .r2-body__knee {
+  bottom: -2%;
+  opacity: 0.8;
+}
