@@ -2,7 +2,7 @@
 
 ## Current phase
 
-# **R2 Stage 07.5 Project-owner Scene Composition Review**
+# **R2 Stage 07.5 Previsual Remediation Readiness**
 
 공식 baseline:
 
@@ -14,7 +14,7 @@
 
 현재 판정:
 
-# **Social Runtime Integrated / Automated PASS / Human Gate FAIL / Scene Bible v2 Consolidated / Project-owner Review Corrections Prepared / Confirmation Pending / Implementation Frozen**
+# **Social Runtime Integrated / Automated PASS / Human Gate FAIL / Scene Composition v2.1 Project-owner Approved / Previsual Readiness Ready / Rough Previsual NOT YET / Implementation Frozen**
 
 Stage 08은 BLOCKED다.
 
@@ -36,46 +36,117 @@ Stage 08은 BLOCKED다.
 10. `docs/07_IMMERSION_NARRATIVE_BIBLE.md`
 11. `docs/07A_FIRST_PERSON_VISUAL_ASSET_BIBLE.md`
 12. `docs/07B_FIRST_PERSON_VISUAL_PRODUCTION_SPEC.md`
-13. `handoff/STAGE07_5_FIRST_PERSON_SCENE_COMPOSITION_BIBLE_V2.md`
-14. `handoff/STAGE07_5_PROJECT_OWNER_SCENE_REVIEW.md`
+13. `handoff/STAGE07_5_FIRST_PERSON_SCENE_COMPOSITION_BIBLE_V2_1.md`
+14. `handoff/STAGE07_5_PREVISUAL_REMEDIATION_READINESS.md`
 
-감사 추적이 필요할 때:
+감사/근거 추적 시:
 
-- `handoff/STAGE07_5_FIRST_PERSON_SCENE_COMPOSITION_BIBLE.md`
-- `handoff/STAGE07_5_SCENE_COMPOSITION_LOCK_DECISIONS.md`
+- `handoff/STAGE07_5_FIRST_PERSON_SCENE_COMPOSITION_BIBLE_V2.md`
+- `handoff/STAGE07_5_PROJECT_OWNER_SCENE_REVIEW.md`
+- `handoff/STAGE07_5_PROJECT_OWNER_SCENE_REVIEW_SUMMARY.md`
 - `handoff/STAGE07_5_HISTORICAL_VISUAL_REFERENCE_REVIEW.md`
 
 handoff 문서는 Technical SSOT가 아니다.
 
 ---
 
-# 2. 지금까지의 Human 판정
+# 2. Human QA Truth
 
 실제 Player replay에서:
 
-- 관계/이름/인과는 초기보다 개선
-- 그러나 동작/상황이 몸과 장면만으로 즉시 읽히지 않음
+- 관계/이름/인과는 초기보다 개선됨
+- 그러나 행동/상황이 몸과 장면만으로 즉시 읽히지 않음
 - 손/팔/주먹도끼 HUD 느낌
 - actor pose/거리/풍경 continuity 부족
 - 설명문/버튼 의존도가 큼
 
 따라서 Human Gate는 계속 FAIL이다.
 
-현재 runtime/CSS는 prototype으로만 유지한다.
+현재 runtime/CSS는 causal/social prototype이며 final composition이 아니다.
 
 ---
 
-# 3. 현재 previsual 기준
+# 3. Project-owner Approval
 
-주 문서:
+Project-owner가 Scene Review 핵심 7개를 승인했다.
 
-- `STAGE07_5_FIRST_PERSON_SCENE_COMPOSITION_BIBLE_V2.md`
+LOCK:
 
-Review corrections:
+1. SC03 terminology while world resumes
+2. SC05 diagonal departure → forward settle
+3. SC08~10 same held handaxe off-frame continuity
+4. SC11 same SC05 Stage A moment from Aru-side
+5. fixed bottom action HUD 금지
+6. SC10 default explicit animal spoor 제외
+7. Nua 4:3 crop tune
 
-- `STAGE07_5_PROJECT_OWNER_SCENE_REVIEW.md`
+판정:
 
-공식 visual framing:
+# **Project-owner Scene Composition Confirmation = PASS**
+
+승인 통합본:
+
+- `STAGE07_5_FIRST_PERSON_SCENE_COMPOSITION_BIBLE_V2_1.md`
+
+---
+
+# 4. v2.1 Core Locks
+
+## Screen direction
+
+```text
+camp/fire/Aru = behind-left
+route = right/right-center
+Damu/Nua = ahead
+```
+
+## Handaxe
+
+```text
+Aru hand → handaxe → Player right hand
+```
+
+same DAY1-HANDAXE-v1 유지.
+
+SC08~10:
+
+```text
+visible
+→ right arm lowers
+→ tool exits FOV continuously
+→ held state remains true
+→ SC10 same tool re-enters continuously
+```
+
+## SC05
+
+```text
+C4D diagonal camp-visible
+→ walking settle
+→ C4F forward
+→ camp exits through scale/parallax/occlusion/audio falloff
+```
+
+## SC11
+
+SC05 Stage A와 exact same world moment.
+
+- same group spacing
+- same walking phase family
+- same handaxe
+- same camp/fire/shelter
+- same morning light
+- same dialogue order
+
+## UI
+
+- persistent bottom button bar 없음
+- actionable 순간에만 표시
+- action 시작 즉시 withdraw
+
+---
+
+# 5. Historical Framing
 
 # **Korean Paleolithic Educational Composite / Element-level Provenance**
 
@@ -86,197 +157,103 @@ Review corrections:
 
 Chronology Coherence Gate 유지.
 
----
+Still deferred:
 
-# 4. 이번 Scene Review의 핵심 발견
-
-## SSOT drift
-
-상위 canonical/AGENTS가 실제 main보다 과거 상태를 일부 기술하고 있었다.
-
-조치:
-
-- Canonical Baseline v5로 갱신
-- AGENTS current Stage/Gate 갱신
-
-## SC03→04
-
-문제:
-
-- terminology beat 뒤에 world가 정지할 위험
-
-결정:
-
-```text
-handoff
-→ handaxe inspect
-→ terminology annotation
-→ annotation이 떠 있는 동안 Damu movement begins
-→ Damu already moving
-→ 가자.
-→ Player: 일어나 따라간다
-```
-
-별도 `개념 확인/다음` 버튼 없음.
-
-## SC05
-
-문제:
-
-- forward camera에서 rear-left camp를 동시에 보이는 공간기하 불명확
-
-결정:
-
-```text
-Stage A: left-biased diagonal departure view
-→ Aru/fire/shelter peripheral left
-→ Damu/Nua forward-right
-→ farewell dialogue
-→ Stage B: camera eases forward/right
-→ camp exits left via parallax/occlusion
-```
-
-hard cut/background replacement 금지.
-
-## SC08~10 handaxe
-
-결정:
-
-```text
-SC07 visible lower-right
-→ rise 중 right arm lowers naturally
-→ tool exits FOV continuously
-→ held state remains true
-→ SC09 pan 동안 off-frame
-→ SC10 approach/body adjustment
-→ same handaxe re-enters lower-right over 250~400ms
-```
-
-inventory pop 금지.
-
-## SC11
-
-결정:
-
-SC11은 SC05 Stage A와 같은 world moment의 반대편.
-
-동일하게 유지:
-
-- group spacing
-- walking phase
-- handaxe orientation
-- fire/shelter
-- morning light
-
-Aru own voice:
-
-> `해 지기 전에 와.`
-
-그 뒤 먼 Damu:
-
-> `알았어.`
-
-rewind/flashback/meta-title 금지.
-
-## Action UI
-
-- fixed bottom HUD 금지
-- 입력 가능할 때만 표시
-- scene-specific safe placement
-- action 시작 즉시 withdraw
-- persistent footer 금지
-
----
-
-# 5. Scene 판정
-
-```text
-SC00 PASS + timing clarification
-SC01 PASS + 4:3 crop tune
-SC02 PASS / critical contact
-SC03 P1 correction locked
-SC04 PASS + crop tune
-SC05 P1 correction locked
-SC06 PASS
-SC07 PASS
-SC08 P1 correction locked
-SC09 PASS after continuity rule
-SC10 P1 correction locked
-SC11 P1 correction locked
-```
-
-현재 review 방향은 설계상 정리됐지만 Project-owner confirmation 전에는 Previsual Approval로 올리지 않는다.
-
----
-
-# 6. SC10 추가 결정
-
-Stage 07.5 기본 production에서는 explicit animal spoor를 넣지 않는다.
-
-현재 uncertainty는:
-
-- dark interior
-- unknown depth
-- limited sightline
-- uneven natural floor
-
-로 표현한다.
-
-동물 흔적/위협은 필요할 경우 Stage 08 Threat Build-up에서 별도 인과와 함께 검토한다.
-
----
-
-# 7. 아직 Deferred
-
-- exact season
-- exact vegetation species
-- exact temporary shelter construction/material/knots
-- exact clothing pattern/stitching
+- exact season/plants
+- exact shelter construction/material/knots
+- exact garment pattern/stitching
 - exact skin/hair/species morphology
 - final cast face
 - Hunt Player exact age/sex
-- final audio production
+- final audio
 
 근거 없이 채우지 않는다.
 
 ---
 
-# 8. 지금 하지 말 것
+# 6. Previsual Remediation Package
 
-Project-owner confirmation 전:
+현재 주 실행 문서:
 
-- runtime/CSS remediation
-- production image generation
-- production asset 제작
-- Stage 08 전체 Hunt 구현
-- final cast lock
-- generic NPC/relationship/dialogue engine
+- `STAGE07_5_PREVISUAL_REMEDIATION_READINESS.md`
+
+Minimum critical PV set:
+
+```text
+PV-01 SC01 living camp
+PV-02 SC02 handoff
+PV-03 SC03→04 naming + world resume
+PV-04 SC05 departure spatial proof
+PV-05 SC06→07 stop/crouch
+PV-06 SC08→09 Nua attention/reveal
+PV-07 SC10 rock shelter inspection
+PV-08 SC11 same-moment Aru POV
+```
+
+각 PV는:
+
+- shot metadata
+- body/tool/actor/world continuity
+- 16:9/16:10/4:3 proof
+- 필요한 motion strip
+- historical confidence
+- acceptance condition
+
+을 가져야 한다.
 
 ---
 
-# 9. 현재 다음 행동
+# 7. Previsual vs Production
 
-# **Project-owner Scene Composition Confirmation**
+Rough previsual은 Stage 08 production batch가 아니다.
 
-확인할 핵심 7개:
+현재 가능:
 
-1. SC03 terminology와 world movement 동시 진행
-2. SC05 diagonal departure composition
-3. SC08~10 off-frame handaxe continuity
-4. SC11 same-moment temporal sync
-5. action affordance fixed-HUD 금지
-6. SC10 explicit animal trace 기본 제외
-7. Nua 4:3 crop tune
+- wire/rough composition
+- camera/pose/contact proof
+- crop proof
+- motion strip
+- visual continuity review
 
-확인되면:
+현재 금지:
+
+- production image batch
+- final art polishing
+- runtime production integration
+- Stage 08 expansion
+- final cast/garment/environment specific lock
+
+# **실제 production image 생성은 별도 명시적 작업으로 취급한다.**
+
+---
+
+# 8. Current Gate
+
+# **Rough Previsual Artifact Build / Project-owner Review**
+
+현재:
 
 ```text
-Bible v2.x consolidation
-→ Previsual Approval
-→ Visual Production Readiness
-→ minimum coherent asset set
-→ runtime/asset implementation
-→ Human Visual QA
+Scene Composition Design = PASS
+Project-owner Confirmation = PASS
+Previsual Readiness = READY
+Rough Previsual Artifact Set = NOT YET
+Previsual Approval = NOT YET
+Human Gate = FAIL
+Stage 08 = BLOCKED
 ```
 
-Human Gate는 계속 FAIL이고 Stage 08은 BLOCKED다.
+다음 순서:
+
+```text
+rough previsual artifacts
+→ Project-owner Previsual Review
+→ P1 correction if any
+→ Previsual Approval
+→ minimum coherent Stage07.5 Human-Gate visual proof implementation
+→ Human Visual QA
+→ Human Gate PASS 여부
+→ Stage 08 Visual Production Readiness
+```
+
+자동 테스트나 문서 승인만으로 Human PASS를 선언하지 않는다.
