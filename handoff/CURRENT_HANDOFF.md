@@ -2,7 +2,7 @@
 
 ## Current phase
 
-# **R2 Stage 07.5 Social Immersion / Human-Gate Recheck**
+# **R2 Stage 07.5 Scene Composition Hardening / Design Lock**
 
 공식 baseline:
 
@@ -12,9 +12,9 @@
 
 - `docs/06_TECH_BLUEPRINT.md`
 
-현재 정확한 판정:
+현재 판정:
 
-# **Stage 07.5 First-Five Runtime Integrated / Automated PASS / Human Gate FAIL·Recheck Pending**
+# **Social Runtime Integrated / Automated PASS / Human Gate FAIL / Scene Composition Design Lock In Progress / Implementation Frozen**
 
 Stage 08은 BLOCKED다.
 
@@ -22,241 +22,228 @@ Stage 08은 BLOCKED다.
 
 ---
 
-# 1. 지금 무엇이 끝났는가
+# 1. 세션 시작 시 반드시 읽을 것
 
-Social Immersion canonical + Day 1 Community + Hunt First Five Minutes screenplay가 runtime까지 통합됐다.
+1. `AGENTS.md`
+2. `docs/00_CANONICAL_BASELINE.md`
+3. `PROJECT_STATUS.md`
+4. `docs/00_DEVELOPMENT_WORKFLOW.md`
+5. `handoff/CURRENT_HANDOFF.md`
+6. `docs/01B_RELATIONSHIP_AGENCY_PRINCIPLES.md`
+7. `docs/03_HUNT_STORY.md`
+8. `docs/04_HUNT_PLAYFLOW.md`
+9. `docs/06_TECH_BLUEPRINT.md`
+10. `docs/07_IMMERSION_NARRATIVE_BIBLE.md`
+11. `docs/07A_FIRST_PERSON_VISUAL_ASSET_BIBLE.md`
+12. `docs/07B_FIRST_PERSON_VISUAL_PRODUCTION_SPEC.md`
+13. `handoff/DAY1_COMMUNITY_HUNT_FIRST5_SCREENPLAY.md`
+14. `handoff/STAGE07_5_FIRST_PERSON_SCENE_COMPOSITION_BIBLE.md`
+15. `handoff/STAGE07_5_SCENE_COMPOSITION_LOCK_DECISIONS.md`
 
-핵심 Player flow:
-
-```text
-눈뜨기 전에도 공동체 생활 소리/대화가 이어짐
-→ 눈을 뜸
-→ background people은 자기 일을 계속
-→ 장면 속 부름으로 `아루`를 자연스럽게 인식
-→ 아루: `손.`
-→ 아루 손 → handaxe → 내 오른손
-→ 그 뒤 뗀석기 → 대표적인 예: 주먹도끼 naming
-→ 다무는 이미 움직이며 `가자.`
-→ 누아는 독립적으로 바깥을 살핌
-→ 출발
-→ 아루: `해 지기 전에 와.`
-→ 다무: `알았어.`
-→ 불/거처/사람에게서 멀어짐
-→ 다무가 먼저 멈춰 `잠깐.`
-→ 아직 ground evidence 없음
-→ 내가 다무 곁에 몸을 낮춤
-→ 그 뒤 ground evidence reveal
-→ 다무: `봤어?`
-→ 다시 이동
-→ 누아 attention shift
-→ cave는 아직 없음
-→ 내가 누아가 보는 방향을 확인
-→ 그 뒤 natural shelter reveal
-→ inspection / 동굴·바위 그늘 naming
-→ 같은 아침 Perspective Recontextualization
-```
-
-상세 screenplay:
-
-- `handoff/DAY1_COMMUNITY_HUNT_FIRST5_SCREENPLAY.md`
+Scene Composition Bible과 Lock Decisions는 구현 계약이며 Technical SSOT가 아니다.
 
 ---
 
-# 2. provisional character identity
+# 2. 왜 지금 구현을 멈췄는가
 
-Stage 07.5 Human QA용 call-name:
+실제 Human replay에서 social/narrative causality는 전보다 좋아졌지만 다음 P1이 남았다.
 
-```text
-R  → 아루
-H1 → 다무
-H2 → 누아
-```
+- 현재 무슨 동작인지 화면만으로 잘 안 읽힘
+- 손/팔/주먹도끼가 실제 몸보다 HUD/overlay처럼 보임
+- actor pose와 장면 연출이 어색함
+- 풍경과 actor가 같은 물리 공간처럼 충분히 이어지지 않음
+- 설명문/버튼을 읽어야 상황을 이해하는 비중이 높음
+- 장면별 camera/body/tool/actor/world continuity가 구현 전에 충분히 잠기지 않았음
 
-규칙:
+프로젝트 오너의 현재 원칙:
 
-- 실제 선사 언어/실존 인명 복원 아님
-- Historical Reconstruction
-- production final lock 아님
-- Player 자신의 이름은 고정하지 않음
-- Player에 R/H1/H2 authoring ID 노출 금지
-- `아루 — 도구를 주는 사람` 같은 기능 카드 금지
-- 이름 상시 nameplate 금지
+> **각 장면의 대사, 1인칭 시점에서 보이는 내 손/팔/도구, 인물, 이미지 배치, 풍경, 일관성을 세세하게 설계한 뒤 구현한다.**
 
-Teacher/Debug에서는 authoring mapping과 reconstruction 경계를 확인할 수 있다.
+따라서 지금은 runtime/CSS를 더 고치는 단계가 아니다.
 
 ---
 
-# 3. 이번 runtime의 핵심 causal invariants
-
-## 도구
+# 3. 현재 Stage 07.5 Scene 목록
 
 ```text
-아루의 행동
-→ Player가 손을 내밂
-→ same handaxe가 Player 오른손으로 이동
-→ 그 뒤 terminology
+SC00 Sensory Orientation
+SC01 Fire / Living Community Presence
+SC02 Aru → Handaxe → Player Handoff
+SC03 Tool Ownership / Experience → Name
+SC04 Rise / Damu Already Moving / Nua Elsewhere
+SC05 Departure / Camp Recedes
+SC06 Damu Stops / Player Still Standing
+SC07 Player Crouches / Shared Ground Observation
+SC08 Rise / Nua Attention Shift
+SC09 Follow Gaze / Rock Shelter Revealed
+SC10 Rock Shelter Inspection
+SC11 Perspective Recontextualization / Aru-side Proof
 ```
 
-## 다무 / ground observation
-
-```text
-다무가 먼저 멈춤
-→ `잠깐.`
-→ 아직 ground target 없음
-→ Player가 곁에 몸을 낮춤
-→ 다무가 몸을 비킴
-→ 그 뒤에만 눌린 풀/흙/가지 evidence
-```
-
-## 누아 / natural shelter
-
-```text
-누아 attention shift
-→ Player가 알아차림
-→ cave target은 아직 없음
-→ Player가 직접 그 방향을 봄
-→ 그 뒤에만 natural shelter reveal
-```
-
-즉 기본 문법은:
-
-# **Person / World change → Player perception/action → New information**
-
-이다.
+각 Scene은 camera / body / hand / tool / actor / environment / light / sound / dialogue / UI / transition / responsive crop / historical boundary / acceptance를 먼저 가져야 한다.
 
 ---
 
-# 4. Social Immersion 원칙
+# 4. 이미 잠긴 Social Immersion 원칙
 
-- Player는 구석기 세계의 외부 관광객이 아니라 기존 공동체 구성원
-- NPC는 Player만을 위해 정지한 tutorial object가 아님
-- background actor는 자기 일을 할 수 있음
-- NPC-to-NPC dialogue 허용
-- Character = 이름 + 몸의 습관 + shared event + memory + callback
-- 관계는 호감도 점수가 아님
-- 한국어 dialogue는 학생에게 전달되는 의미 번역
+- Player는 외부 관광객이 아니라 기존 공동체 구성원
+- provisional call-name: `아루 / 다무 / 누아`
+- R/H1/H2는 authoring ID일 뿐 Player 역할 label이 아님
+- 한국어 대사는 실제 선사 언어 복원이 아니라 의미 번역
 - pseudo-primitive speech 금지
-- World Truth와 Character Knowledge를 분리
-
-범용 NPC AI / Dialogue Engine / Relationship Engine은 만들지 않는다.
-
----
-
-# 5. Automated verification
-
-통합 runtime은 PR-head와 merge 후 main에서:
-
-```text
-install
-→ typecheck
-→ tests
-→ production build
-```
-
-를 통과했다.
-
-자동검증은 causal/state invariant만 증명한다.
-
-자동화가 증명하지 않는 것:
-
-- 아루/다무/누아가 실제 사람처럼 느껴지는가
-- 이름이 자연스러운가
-- background community가 살아 있는 세계처럼 보이는가
-- handaxe contact가 시각적으로 자연스러운가
-- body가 HUD가 아닌가
-- dialogue/curriculum cue가 몰입을 깨지 않는가
-- 전체 장면이 여전히 웹페이지/slideshow처럼 느껴지는가
-
-# **이 항목은 Human QA가 소유한다.**
+- NPC는 Player에게만 반응하는 tutorial object가 아님
+- NPC-to-NPC interaction 허용
+- 관계 = shared event / memory / callback
+- `World Truth ≠ Character Knowledge`
+- Player 자신의 이름은 고정하지 않아 self-projection 유지
 
 ---
 
-# 6. 지금 다음 행동 — 사용자 Player 재플레이
+# 5. Scene Lock Decisions v1에서 새로 확정한 것
 
-새 코드 작업을 시작하기 전에 사용자 실제 Player 재플레이가 필요하다.
-
-Player:
+## 공간 방향
 
 ```text
-http://localhost:5173/
+camp/fire/Aru = behind-left
+outbound route = screen right/right-center
+Damu/Nua = ahead
 ```
 
-Teacher:
+SC04~SC10에서 이유 없는 좌우 mirror/180° crossing 금지.
 
-```text
-http://localhost:5173/?teacher=1
-```
+## route landmark
 
-Debug는 원인이 필요할 때만:
+- `LM-SPLIT-ROCK-01`
+- 갈라진 낮은 큰 바위
+- fictional Day 1 route landmark
+- Return에서 같은 object로 callback 예정
 
-```text
-http://localhost:5173/?debug=1
-```
+## handaxe
 
-재플레이에서 먼저 볼 것:
+- same canonical object
+- right-hand dominant grip
+- grip-base를 Player가 잡음
+- inspect에서 face-A 위주
+- working-end는 forward-left/up-left 방향
+- inventory spin / FPS weapon lock 금지
 
-1. 눈을 뜨기 전부터 세계가 이미 진행 중인 느낌이 드는가
-2. 눈을 뜬 뒤 주변 사람들이 나 때문에 만들어진 NPC가 아니라 자기 일을 하는 사람처럼 보이는가
-3. 아루/다무/누아를 설명 카드 없이 구별하고 기억할 수 있는가
-4. 아루에게 돌을 `받았다`는 물리적·관계적 감각이 생기는가
-5. 다무와 함께 바닥을 봤다는 공동 행동감이 있는가
-6. 누아의 행동 때문에 내 시선이 이동했다는 인과가 있는가
-7. 불/거처/사람에게서 멀어지는 공간감이 있는가
-8. terminology cue가 교육 카드처럼 튀는가
-9. 팔/손/주먹도끼가 HUD처럼 보이는가
-10. 여전히 `검은 실루엣 + 설명문 + 버튼` 웹페이지인가
+## SC07
 
-사용자가 자연어로 느낀 점을 말하면 R2UX 형식으로 변환한다. 체크리스트 문장으로 다시 작성하라고 요구하지 않는다.
+- 왼손은 지면을 짚어 crouch를 지지
+- evidence를 가리키거나 직접 만지지 않음
+
+## SC08/09
+
+- Nua = right-forward 약 25° body turn
+- Player = right 20~24° pan
+- 그 뒤 rock shelter reveal
+- SC08 dialogue 없음
+
+## SC10
+
+- 왼손 near-left rock edge brace 필수
+- Nua: `안이 꽤 넓어.`
+- Damu: `안쪽은 먼저 봐야 해.`
+
+## SC11
+
+- Perspective 방식 A
+- 같은 실제 순간을 Aru POV에서 다시 경험
+- memory echo 아님
+- own voice: `해 지기 전에 와.`
+- Aru 손/팔은 reference lock 전 기본 숨김
+
+## background actors
+
+- B1 fire tending
+- B2 material/shelter work
+- SC00~SC05에서 같은 사람/같은 작업 continuity
+
+## curriculum cue
+
+- 큰 교육 카드 금지
+- contextual annotation
+- 시간만으로 자동 hide 금지
+- 다음 world action까지 읽을 수 있게 유지
 
 ---
 
-# 7. Human recheck 후 분기
+# 6. 추가 QA Gate
 
-## 관계/인과는 좋아졌지만 시각 몰입이 여전히 낮다
+Scene Review는 다음을 모두 포함한다.
 
-다음 작업:
+1. 1-second freeze-frame test
+2. 800ms silent motion test
+3. no-audio test
+4. no-caption test
+5. reduced-effects test
+6. first-glance priority test
+7. no-overlay test
+8. contact continuity test
+9. 4:3 / 16:10 / 16:9 crop test
+10. same-body / same-tool / same-world continuity test
 
-# **Continuous Scene / Action Composition Remediation**
-
-즉 문장이나 이름을 더 붙이는 것이 아니라:
-
-- 정지 화면 전환 감소
-- actor movement continuity
-- world depth/occlusion
-- hand/contact staging
-- text/button dominance 감소
-- embodied action continuity
-
-를 proof한다.
-
-## 관계/서사 자체가 여전히 기능적으로 느껴진다
-
-Character/shared-event/callback을 다시 수정한다.
-
-## P1이 충분히 해소됐다
-
-사용자 확인을 근거로 Human Gate 상태를 갱신하고 그 다음에 Visual Production Readiness로 간다.
-
-# **Human Gate PASS를 자동으로 선언하지 않는다.**
+자동 테스트로 `몰입됨`을 선언하지 않는다.
 
 ---
 
-# 8. 아직 하지 말 것
+# 7. 아직 Reference Lock이 필요한 것
 
-Human Gate 전:
+현재 근거 없이 확정하지 않는다.
 
-- Stage 08 전체 Hunt 구현 금지
-- production image/mass image generation 금지
-- final cast lock 금지
-- NPC AI 금지
-- relationship score 금지
+- exact season
+- exact vegetation species/palette
+- exact clothing construction/material/stitching
+- detailed skin/hair appearance
+- final age/sex reading
+- exact temporary shelter reconstruction/material system
+- final face/cast appearance
+- final sound production
 
-PASS 이후에도 바로 이미지 생성이 아니라:
+Current shelter는 reference lock 전에도 다음을 금지한다.
+
+- 대칭 A-frame tent
+- 현대 캠핑 텐트형 삼각형
+- 집+삼각지붕 icon
+- 중앙 출입문이 강조된 house silhouette
+
+---
+
+# 8. 다음 작업
+
+# **다음 작업은 runtime 구현이 아니다.**
 
 ```text
-Visual Production Readiness
-→ reference / identity / composition / technical handoff
-→ Stage 08 production
+Scene Bible v1
++ Lock Decisions v1
+→ Historical Visual Reference Review
+→ REFERENCE-LOCK REQUIRED 항목 결정
+→ Scene Composition Bible v2 통합
+→ Project-owner Scene Composition Review
+→ Previsual Approval
+→ runtime + asset implementation
+→ Human Visual QA
 ```
 
-순서를 따른다.
+특히 다음 세션에서 먼저 해야 할 것은:
+
+1. reference가 필요한 시각 항목별 source review 계획 수립
+2. shelter / clothing / vegetation / body appearance에서 무엇을 실제로 lock할지 결정
+3. Bible v1 + Lock Decisions를 단일 Bible v2로 통합
+4. v2의 SC00~SC11을 Project-owner review용으로 요약
+
+---
+
+# 9. 지금 하지 말 것
+
+- 새 runtime/CSS remediation
+- production image generation
+- Stage 08 전체 Hunt 구현
+- final cast lock
+- generic NPC AI
+- generic relationship/dialogue engine
+- 새로운 Scene을 추가해 현재 proof 범위를 흐리기
+
+# **Bible v2 + Reference Lock + Project-owner Review 전에는 구현 branch를 만들지 않는다.**
+
+Human Gate는 계속 FAIL이며, 자동 PASS는 Human PASS가 아니다.
