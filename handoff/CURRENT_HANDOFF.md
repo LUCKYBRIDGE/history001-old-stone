@@ -2,7 +2,7 @@
 
 ## Current phase
 
-# **R2 Stage 07.5 Previsual Remediation Readiness**
+# **R2 Stage 07.5 Previsual Browser Review**
 
 공식 baseline:
 
@@ -14,7 +14,7 @@
 
 현재 판정:
 
-# **Social Runtime Integrated / Automated PASS / Human Gate FAIL / Scene Composition v2.1 Project-owner Approved / Previsual Readiness Ready / Rough Previsual NOT YET / Implementation Frozen**
+# **Social Runtime Integrated / Automated PASS / Human Gate FAIL / Scene Composition v2.1 Project-owner Approved / Dev-only Previsual Harness Integrated / Project-owner Previsual Browser Review Pending**
 
 Stage 08은 BLOCKED다.
 
@@ -62,11 +62,11 @@ handoff 문서는 Technical SSOT가 아니다.
 
 따라서 Human Gate는 계속 FAIL이다.
 
-현재 runtime/CSS는 causal/social prototype이며 final composition이 아니다.
+현재 Player runtime/CSS는 causal/social prototype이며 final composition이 아니다.
 
 ---
 
-# 3. Project-owner Approval
+# 3. Project-owner Approved Scene Contract
 
 Project-owner가 Scene Review 핵심 7개를 승인했다.
 
@@ -90,63 +90,66 @@ LOCK:
 
 ---
 
-# 4. v2.1 Core Locks
+# 4. Dev-only Previsual Harness
 
-## Screen direction
+승인된 v2.1을 이미지 생성 없이 브라우저에서 검토할 수 있는 neutral composition harness가 `main`에 통합되어 있다.
 
-```text
-camp/fire/Aru = behind-left
-route = right/right-center
-Damu/Nua = ahead
-```
-
-## Handaxe
+개발 모드:
 
 ```text
-Aru hand → handaxe → Player right hand
+http://localhost:5173/?previsual=1
 ```
 
-same DAY1-HANDAXE-v1 유지.
+구성:
 
-SC08~10:
+- PV-01~PV-08 선택
+- PV별 1~3개 핵심 frame 선택
+- 16:9 / 16:10 / 4:3 frame 전환
+- 4:3 / 16:10 safe zone overlay
+- element label on/off
+- camera note
+- dialogue timing
+- frame continuity checks
+- PV acceptance criteria
+- SC05/SC11 same-moment linkage
 
-```text
-visible
-→ right arm lowers
-→ tool exits FOV continuously
-→ held state remains true
-→ SC10 same tool re-enters continuously
-```
+관련 코드:
 
-## SC05
+- `src/experience/previsual/stage075PrevisualSpec.ts`
+- `src/experience/previsual/Stage075PrevisualHarness.tsx`
+- `src/styles/stage075PrevisualHarness.css`
+- `tests/integration/Stage075PrevisualHarness.test.tsx`
 
-```text
-C4D diagonal camp-visible
-→ walking settle
-→ C4F forward
-→ camp exits through scale/parallax/occlusion/audio falloff
-```
-
-## SC11
-
-SC05 Stage A와 exact same world moment.
-
-- same group spacing
-- same walking phase family
-- same handaxe
-- same camp/fire/shelter
-- same morning light
-- same dialogue order
-
-## UI
-
-- persistent bottom button bar 없음
-- actionable 순간에만 표시
-- action 시작 즉시 withdraw
+이 route는 DEV에서만 활성화되며 Player production runtime을 대체하지 않는다.
 
 ---
 
-# 5. Historical Framing
+# 5. Critical PV Set
+
+```text
+PV-01 SC01 living camp
+PV-02 SC02 handoff
+PV-03 SC03→04 naming + world resume
+PV-04 SC05 departure spatial proof
+PV-05 SC06→07 stop/crouch
+PV-06 SC08→09 Nua attention/reveal
+PV-07 SC10 rock shelter inspection
+PV-08 SC11 same-moment Aru POV
+```
+
+주요 검증점:
+
+- 사람/도구/세계 위치가 1초 정지 화면에서도 읽히는가
+- 손/팔이 HUD가 아니라 행동 정보로 읽히는가
+- 접촉점이 4:3에서도 유지되는가
+- scene axis가 뒤집히지 않는가
+- handaxe가 사라졌다 생기지 않는가
+- action UI가 fixed HUD가 되지 않는가
+- SC11이 rewind가 아니라 same-moment opposite-side POV로 읽히는가
+
+---
+
+# 6. Historical Framing
 
 # **Korean Paleolithic Educational Composite / Element-level Provenance**
 
@@ -171,49 +174,17 @@ Still deferred:
 
 ---
 
-# 6. Previsual Remediation Package
-
-현재 주 실행 문서:
-
-- `STAGE07_5_PREVISUAL_REMEDIATION_READINESS.md`
-
-Minimum critical PV set:
-
-```text
-PV-01 SC01 living camp
-PV-02 SC02 handoff
-PV-03 SC03→04 naming + world resume
-PV-04 SC05 departure spatial proof
-PV-05 SC06→07 stop/crouch
-PV-06 SC08→09 Nua attention/reveal
-PV-07 SC10 rock shelter inspection
-PV-08 SC11 same-moment Aru POV
-```
-
-각 PV는:
-
-- shot metadata
-- body/tool/actor/world continuity
-- 16:9/16:10/4:3 proof
-- 필요한 motion strip
-- historical confidence
-- acceptance condition
-
-을 가져야 한다.
-
----
-
 # 7. Previsual vs Production
 
-Rough previsual은 Stage 08 production batch가 아니다.
+현재 harness는 rough composition review 도구다.
 
 현재 가능:
 
-- wire/rough composition
+- wire/rough composition review
 - camera/pose/contact proof
 - crop proof
-- motion strip
-- visual continuity review
+- same-moment proof
+- continuity review
 
 현재 금지:
 
@@ -229,31 +200,30 @@ Rough previsual은 Stage 08 production batch가 아니다.
 
 # 8. Current Gate
 
-# **Rough Previsual Artifact Build / Project-owner Review**
+# **Project-owner Previsual Browser Review**
 
 현재:
 
 ```text
 Scene Composition Design = PASS
-Project-owner Confirmation = PASS
+Project-owner Scene Confirmation = PASS
 Previsual Readiness = READY
-Rough Previsual Artifact Set = NOT YET
+Dev-only Previsual Harness = INTEGRATED
+Automated Harness Verification = PASS
+Project-owner Previsual Browser Review = PENDING
 Previsual Approval = NOT YET
 Human Gate = FAIL
 Stage 08 = BLOCKED
 ```
 
-다음 순서:
+다음 행동:
 
-```text
-rough previsual artifacts
-→ Project-owner Previsual Review
-→ P1 correction if any
-→ Previsual Approval
-→ minimum coherent Stage07.5 Human-Gate visual proof implementation
-→ Human Visual QA
-→ Human Gate PASS 여부
-→ Stage 08 Visual Production Readiness
-```
+1. 최신 `main`을 받는다.
+2. `npm run dev` 실행.
+3. `?previsual=1`로 PV-01~PV-08을 본다.
+4. 각 PV에서 16:9 → 16:10 → 4:3을 전환한다.
+5. 어색한 구도/동작 인과/접촉/crop 문제를 그대로 기록한다.
+6. 해당 feedback을 spec/harness에 먼저 수정한다.
+7. Project-owner가 Previsual PASS를 선언하기 전 production visual 제작으로 넘어가지 않는다.
 
 자동 테스트나 문서 승인만으로 Human PASS를 선언하지 않는다.
