@@ -2,7 +2,7 @@
 
 ## Current phase
 
-# **R2 Stage 07.5 Previsual Remediation Readiness**
+# **R2 Stage 07.5 Previsual Browser Review**
 
 장기 공식 기준선:
 
@@ -10,7 +10,7 @@
 
 현재 정확한 상태:
 
-# **Social Runtime Integrated / Automated PASS / Human Gate FAIL / Historical Visual Reference Review Complete / Scene Composition v2.1 Approved / Previsual Readiness Prepared / Rough Previsual NOT YET / Stage 08 BLOCKED**
+# **Social Runtime Integrated / Automated PASS / Human Gate FAIL / Historical Visual Reference Review Complete / Scene Composition v2.1 Approved / Dev-only Previsual Harness Integrated / Project-owner Browser Review Pending / Stage 08 BLOCKED**
 
 최신 exact main/PR/Actions는 GitHub가 최종 진실 공급원이다.
 
@@ -61,36 +61,60 @@ Project-owner가 다음 7개 correction direction을 승인했다.
 
 - `handoff/STAGE07_5_FIRST_PERSON_SCENE_COMPOSITION_BIBLE_V2_1.md`
 
-이전 v2와 review 문서는 audit/reference로 유지한다.
+---
+
+# 3. Dev-only Previsual Harness
+
+현재 `main`에는 승인된 v2.1을 브라우저에서 검토하기 위한 dev-only harness가 통합되어 있다.
+
+개발 모드 진입:
+
+```text
+?previsual=1
+```
+
+예:
+
+```text
+http://localhost:5173/?previsual=1
+```
+
+목적:
+
+- production image 없이 구도 검증
+- 16:9 / 16:10 / 4:3 crop 전환
+- Player body / actor / handaxe / shelter / target / UI 배치 확인
+- PV frame별 camera/dialogue/continuity/acceptance 확인
+- SC05↔SC11 same-moment match 확인
+
+이 harness는 Player runtime이 아니며 production art도 아니다.
 
 ---
 
-# 3. Current Previsual Contract
+# 4. Machine-readable Critical PV Set
 
-주 설계 계약:
+현재 harness가 직접 표현하는 최소 critical set:
 
-- `handoff/STAGE07_5_FIRST_PERSON_SCENE_COMPOSITION_BIBLE_V2_1.md`
+1. PV-01 SC01 living camp
+2. PV-02 SC02 handoff
+3. PV-03 SC03→04 ownership/naming/movement resume
+4. PV-04 SC05 departure spatial proof
+5. PV-05 SC06→07 stop/crouch proof
+6. PV-06 SC08→09 Nua attention/reveal
+7. PV-07 SC10 rock shelter inspection
+8. PV-08 SC11 same-moment Aru POV
 
-Previsual 준비 계약:
+Machine-readable spec:
 
-- `handoff/STAGE07_5_PREVISUAL_REMEDIATION_READINESS.md`
+- `src/experience/previsual/stage075PrevisualSpec.ts`
 
-Historical framing:
+Browser harness:
 
-# **Korean Paleolithic Educational Composite / Element-level Provenance**
-
-Markers:
-
-- [H] Historical anchor
-- [C] Comparative reference
-- [R] Reconstruction choice
-- [D] Deferred / non-diagnostic
-
-Chronology Coherence Gate 유지.
+- `src/experience/previsual/Stage075PrevisualHarness.tsx`
 
 ---
 
-# 4. Locked Composition Highlights
+# 5. Locked Composition Highlights
 
 - 1600×900 16:9 master + 4:3/16:10 mandatory proof
 - outbound axis: camp/Aru behind-left, route right/right-center, Damu/Nua ahead
@@ -106,25 +130,6 @@ Chronology Coherence Gate 유지.
 - SC10 left rock brace + no default explicit animal spoor
 - SC11 exact same SC05 Stage A moment from Aru-side POV
 - action affordance appears only when actionable; persistent footer forbidden
-
----
-
-# 5. Previsual Remediation Minimum Set
-
-Rough previsual은 Stage 08 production batch가 아니다.
-
-Human-Gate P1을 직접 검증할 최소 set:
-
-1. PV-01 SC01 living camp
-2. PV-02 SC02 handoff
-3. PV-03 SC03→04 ownership/naming/movement resume
-4. PV-04 SC05 departure spatial proof
-5. PV-05 SC06→07 stop/crouch proof
-6. PV-06 SC08→09 Nua attention/reveal
-7. PV-07 SC10 rock shelter inspection
-8. PV-08 SC11 same-moment Aru POV
-
-각 PV는 16:9 / 16:10 / 4:3 composition proof와 필요한 motion strip을 가진다.
 
 ---
 
@@ -145,7 +150,7 @@ Human-Gate P1을 직접 검증할 최소 set:
 
 ---
 
-# 7. Implementation / Image Boundary
+# 7. Production Boundary
 
 현재 하지 않는다.
 
@@ -155,23 +160,25 @@ Human-Gate P1을 직접 검증할 최소 set:
 - final cast/garment/vegetation lock
 - generic asset/animation engine 선행
 
-현재 준비 가능한 것은 rough previsual artifact 설계/검증뿐이다.
-
 # **실제 production image 생성은 별도 명시적 작업으로 취급한다.**
+
+현재 허용되는 시각 검토는 dev-only neutral previsual harness까지다.
 
 ---
 
 # 8. Current Gate
 
-# **Rough Previsual Artifact Build / Review**
+# **Project-owner Previsual Browser Review**
 
 현재 판정:
 
 ```text
 Scene Composition Design = PASS
-Project-owner Confirmation = PASS
+Project-owner Scene Confirmation = PASS
 Previsual Readiness Package = READY
-Rough Previsual Artifact Set = NOT YET
+Dev-only Previsual Harness = INTEGRATED
+Automated Harness Verification = PASS
+Project-owner Previsual Browser Review = PENDING
 Previsual Approval = NOT YET
 Human Gate = FAIL
 Stage 08 = BLOCKED
@@ -180,14 +187,15 @@ Stage 08 = BLOCKED
 다음 순서:
 
 ```text
-rough previsual artifacts
-→ Project-owner Previsual Review
-→ unresolved P1 수정
-→ Previsual Approval
-→ minimum coherent Stage07.5 Human-Gate visual proof implementation
+Project-owner가 ?previsual=1 검토
+→ PV-01~PV-08에서 어색한 구도/인과/P1 기록
+→ harness/spec 조정
+→ Project-owner Previsual Approval
+→ minimum coherent Stage07.5 Human-Gate visual proof 계획
+→ 별도 승인 후 필요한 production-like visual 제작/통합
 → Human Visual QA
 → Human Gate PASS 여부
 → Stage 08 Visual Production Readiness
 ```
 
-# **자동 PASS는 Human PASS가 아니며, Scene Design PASS도 Visual PASS가 아니다.**
+# **자동 PASS는 Human PASS가 아니며, Harness PASS도 Visual PASS가 아니다.**
