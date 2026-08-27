@@ -1,3 +1,7 @@
+import {
+  STAGE075_ANCHOR_REVIEW_BUNDLES,
+  getStage075AnchorBundleProgress,
+} from './stage075AnchorReviewBundle';
 import { STAGE075_ANATOMY_CONTRACTS } from './stage075AnatomyRegistry';
 import { STAGE075_RASTER_MANIFEST } from './stage075RasterManifest';
 import { STAGE075_STYLE_ANCHOR } from './stage075StyleAnchor';
@@ -41,6 +45,37 @@ export function Stage075VisualAnchorReviewBoard() {
           실제 reference path와 함께 잠긴 뒤 scene raster를 승인한다.
         </p>
       </header>
+
+      <section className="anchor-review__section" aria-labelledby="bundle-heading">
+        <div className="anchor-review__section-heading">
+          <div>
+            <p>First production bundle</p>
+            <h2 id="bundle-heading">Required master/reference slots</h2>
+          </div>
+        </div>
+        <div className="anchor-review__cards">
+          {STAGE075_ANCHOR_REVIEW_BUNDLES.map((bundle) => {
+            const progress = getStage075AnchorBundleProgress(bundle);
+            return (
+              <article className="anchor-review__card" key={bundle.anchorId} data-testid={`review-bundle-${bundle.anchorId}`}>
+                <div className="anchor-review__card-heading">
+                  <h3>{bundle.reviewOrder}. {bundle.anchorId}</h3>
+                  <span className="anchor-review__progress">{progress.approved}/{progress.required}</span>
+                </div>
+                <ul className="anchor-review__slot-list">
+                  {bundle.slots.map((item) => (
+                    <li key={item.id}>
+                      <strong>{item.label}</strong>
+                      <span>{item.purpose}</span>
+                      <code>{item.approvedPath ?? item.plannedRepositoryPath}</code>
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            );
+          })}
+        </div>
+      </section>
 
       <section className="anchor-review__section" aria-labelledby="style-anchor-heading">
         <div className="anchor-review__section-heading">
