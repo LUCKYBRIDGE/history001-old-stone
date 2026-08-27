@@ -19,7 +19,7 @@
 
 현재 판정:
 
-# **Social Runtime Integrated / Automated PASS / Human Gate FAIL / Scene Composition v2.1 Approved / Responsive Raster + Visual Continuity + Anatomy/Contact Gates Integrated / Visual Anchor Review Board Integrated / Approved Raster Assets 0 / Stage 08 BLOCKED**
+# **Social Runtime Integrated / Automated PASS / Human Gate FAIL / Scene Composition v2.1 Approved / Responsive Raster + Visual Continuity + Anatomy/Contact Gates Integrated / Visual Anchor Review Board Integrated / STYLE-GIR-V1 Controlled Packet Production-Ready / Approved Raster Assets 0 / Stage 08 BLOCKED**
 
 최신 exact repository HEAD와 CI는 GitHub가 최종 진실 공급원이다.
 
@@ -43,6 +43,10 @@
 14. `handoff/STAGE07_5_RESPONSIVE_VISUAL_PRODUCTION_CONTRACT.md`
 15. `handoff/STAGE07_5_VISUAL_GENERATION_AND_REVIEW_PROTOCOL.md`
 16. `handoff/STAGE07_5_FIRST_PERSON_SCENE_COMPOSITION_BIBLE_V2_1.md`
+
+STYLE-GIR-V1 실제 후보 제작 시 추가로:
+
+- `handoff/STAGE07_5_STYLE_GIR_V1_REFERENCE_PACKET.md`
 
 Historical reference audit가 필요할 때:
 
@@ -116,6 +120,8 @@ http://localhost:5173/?anchors=1
 - priority visual anchors
 - anatomy/contact contracts
 - first required master/reference slots
+- controlled candidate mode / instruction / review focus / reject code
+- planned candidate path와 approved reference path의 구분
 - approved master/reference path count
 - downstream raster dependencies
 
@@ -145,6 +151,39 @@ public/assets/stage075/anchors/<ANCHOR-ID>/<slot>.webp
 ```
 
 실제 파일이 승인되기 전 path를 승인 상태처럼 등록하지 않는다.
+
+### STYLE-GIR-V1 packet preparation
+
+운영 packet:
+
+- `handoff/STAGE07_5_STYLE_GIR_V1_REFERENCE_PACKET.md`
+
+현재 정확한 상태:
+
+```text
+Packet definition = PRODUCTION READY
+Required slots = 5
+Approved slots = 0/5
+STYLE-GIR-V1 = reference-pending
+```
+
+5개 slot:
+
+```text
+human-mid
+first-person-hand
+world
+material
+responsive-pair
+```
+
+통제 원칙:
+
+- 앞의 네 style sample은 anonymous/non-diagnostic exploration으로 Aru/Damu/Nua, DAY1-HANDAXE-V1, WORLD-CAMP-DAWN-A를 조기 lock하지 않는다.
+- `responsive-pair`는 같은 anonymous source moment에서 `locked-keyframe-variation`으로 파생해 L/portrait equivalence를 확인한다.
+- 각 slot은 Review Board에서 controlled instruction, review focus, reject code를 직접 확인한다.
+- STYLE-GIR-V1은 5/5 required approved path가 모두 등록되고 `stage075StyleAnchor.ts`의 approved reference set과 정확히 일치해야만 `anchor-approved`가 유효하다.
+- 한 장 또는 일부 reference만 등록해서 style Gate를 우회할 수 없다.
 
 ---
 
@@ -237,6 +276,22 @@ SC10:
 
 # 9. Reject codes
 
+Style packet 주요 reject:
+
+```text
+SID-PHOTO
+SID-3D
+SID-POSTER
+SID-FANTASY
+SID-CARTOON
+SID-TEXTBOOK
+SID-FOG
+SID-DETAIL
+SID-LIGHT
+SID-COLOR
+SID-COMPOSITE
+```
+
 Anatomy:
 
 ```text
@@ -294,6 +349,16 @@ runtime render allowed
 
 Upstream master를 우회할 수 없다.
 
+Style Gate 자체도 다음을 모두 만족해야 한다.
+
+```text
+STYLE-GIR-V1 status = anchor-approved
++
+5/5 required bundle slots have approvedPath
++
+style approvedReferencePaths exactly match those five approved paths
+```
+
 ---
 
 # 11. Immediate lock order
@@ -314,6 +379,8 @@ Upstream master를 우회할 수 없다.
 
 SC02 final raster는 0~6이 승인되기 전 제작하지 않는다.
 
+현재 0번의 **packet definition/production controls만 준비 완료**되었다. STYLE-GIR-V1 reference lock 자체는 아직 0/5이므로 1번으로 넘어가지 않는다.
+
 ---
 
 # 12. What the next session should actually do
@@ -322,14 +389,15 @@ SC02 final raster는 0~6이 승인되기 전 제작하지 않는다.
 
 1. latest `main` / CI 확인
 2. 필독 문서 읽기
-3. `stage075AnchorReviewBundle.ts`와 `?anchors=1` 확인
+3. `stage075AnchorReviewBundle.ts`, `STAGE07_5_STYLE_GIR_V1_REFERENCE_PACKET.md`, `?anchors=1` 확인
 4. 현재 Gate가 유지되는지 확인
-5. **STYLE-GIR-V1 첫 reference packet 후보 준비/검토**부터 실제 작업 시작
-6. 실패 후보는 reject하고 repository에 억지로 넣지 않음
-7. Project-owner가 실제 candidate를 승인한 뒤에만 approved path/status 등록
-8. branch → PR → CI → merge
-9. 운영 문서 재정렬
-10. exact main SHA / main CI 확인
+5. **STYLE-GIR-V1 5개 controlled candidate 제작/검토**부터 실제 작업 시작
+6. candidate는 packet 전체의 style consistency로 비교
+7. 실패 후보는 reject하고 repository에 억지로 넣지 않음
+8. Project-owner가 실제 candidate를 승인한 뒤에만 approved path/status 등록
+9. branch → PR → CI → merge
+10. 운영 문서 재정렬
+11. exact main SHA / main CI 확인
 
 이미지 생성이 필요할 경우 full game scene이 아니라 anchor bundle candidate만 생성한다.
 
@@ -352,6 +420,8 @@ SC02 final raster는 0~6이 승인되기 전 제작하지 않는다.
 # 14. Current asset truth
 
 ```text
+STYLE-GIR-V1 Packet Definition = PRODUCTION READY
+STYLE-GIR-V1 Approved Slots = 0/5
 Approved Raster Assets = 0
 Approved Style Anchors = 0
 Approved Anatomy Contracts = 0
@@ -368,7 +438,7 @@ Approved Contact Geometry Contracts = 0
 
 다음 실제 산출물:
 
-# **STYLE-GIR-V1 first controlled reference packet**
+# **STYLE-GIR-V1 five controlled reference candidates + packet-level review**
 
 Human Gate = FAIL.
 Stage 08 = BLOCKED.
