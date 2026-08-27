@@ -10,7 +10,7 @@
 
 현재 정확한 상태:
 
-# **Social Runtime Integrated / Automated PASS / Human Gate FAIL / Scene Composition v2.1 Approved / Responsive Raster + Visual Continuity + Anatomy/Contact Gates Integrated / Visual Anchor Review Board Integrated / Approved Raster Assets 0 / Stage 08 BLOCKED**
+# **Social Runtime Integrated / Automated PASS / Human Gate FAIL / Scene Composition v2.1 Approved / Responsive Raster + Visual Continuity + Anatomy/Contact Gates Integrated / Visual Anchor Review Board Integrated / STYLE-GIR-V1 Controlled Packet Production-Ready / Approved Raster Assets 0 / Stage 08 BLOCKED**
 
 최신 exact main/PR/Actions는 GitHub가 최종 진실 공급원이다.
 
@@ -64,6 +64,7 @@ Scene Composition Bible v2.1은 이미 Project-owner 승인 PASS다. 현재 작�
 Art-production 진입점:
 
 - `handoff/STAGE07_5_VISUAL_CONTINUITY_INDEX.md`
+- `handoff/STAGE07_5_STYLE_GIR_V1_REFERENCE_PACKET.md`
 
 핵심 상세 계약:
 
@@ -103,6 +104,8 @@ Machine-readable:
 - priority visual anchors 상태
 - anatomy/contact contract 상태
 - required master/reference slots
+- controlled candidate instruction / review focus / reject code
+- planned candidate path와 approved reference path의 구분
 - approved path 개수
 - downstream scene raster dependency
 
@@ -134,6 +137,8 @@ runtime render
 
 `Stage075RasterMedia` / raster manifest가 이 Gate를 코드에서 강제한다.
 
+STYLE-GIR-V1은 추가로 **5개 required slot 전부가 approved path를 가져야 하고**, `stage075StyleAnchor.ts`의 approved reference set과 bundle의 approved path set이 정확히 일치해야 Gate가 열린다. 한두 개 reference path만 등록해서 style Gate를 우회할 수 없다.
+
 ---
 
 # 6. First actual reference bundles
@@ -162,6 +167,18 @@ runtime render
 - world sample
 - material sample
 - landscape/portrait equivalence
+
+현재 이 5개 slot은 controlled production brief가 준비되어 있다.
+
+- `human-mid`, `first-person-hand`, `world`, `material`은 upstream style exploration으로만 사용한다.
+- anonymous/non-diagnostic subject를 사용해 Aru/Damu/Nua, DAY1-HANDAXE-V1, WORLD-CAMP-DAWN-A를 조기 확정하지 않는다.
+- `responsive-pair`는 동일 source moment에서 `locked-keyframe-variation`으로 L/portrait equivalence를 검증한다.
+- planned path는 승인 경로가 아니다.
+- 실제 Project-owner 승인 전에는 `reference-pending`, approved slots `0/5`를 유지한다.
+
+운영 Job Card:
+
+- `handoff/STAGE07_5_STYLE_GIR_V1_REFERENCE_PACKET.md`
 
 ### DAY1-HANDAXE-V1
 
@@ -204,7 +221,7 @@ runtime render
 현재:
 
 ```text
-STYLE-GIR-V1                reference-pending
+STYLE-GIR-V1                reference-pending (controlled packet ready, approved 0/5)
 DAY1-HANDAXE-V1             reference-pending
 PLAYER-HUNT-BODY-V1         reference-pending
 PLAYER-HUNT-BODY-PROP-V1    reference-pending
@@ -373,6 +390,8 @@ Approved Raster Asset count:
 
 SC02 final art는 0~6이 승인되기 전 만들지 않는다.
 
+STYLE-GIR-V1의 **production packet 준비는 완료**되었지만 reference lock은 아직 `0/5`다. 따라서 현재 실제 visual-production 다음 행동은 이 packet의 다섯 controlled candidate를 만들고 같은 packet으로 검토하는 것이다.
+
 ---
 
 # 14. Current Gate
@@ -389,7 +408,8 @@ Raster Media Adapter = INTEGRATED
 Visual Continuity Registry = INTEGRATED
 Anatomy/Contact Registry = INTEGRATED
 Visual Anchor Review Board = INTEGRATED
-Style Anchor = REFERENCE PENDING
+STYLE-GIR-V1 Controlled Packet = PRODUCTION READY
+Style Anchor = REFERENCE PENDING (0/5 approved)
 Character/Player Anchors = REFERENCE PENDING
 Anatomy Contracts = REFERENCE PENDING
 Contact Geometry Contracts = REFERENCE PENDING
@@ -400,6 +420,6 @@ Human Gate = FAIL
 Stage 08 = BLOCKED
 ```
 
-다음 세션 첫 행동은 `handoff/NEXT_SESSION_START_HERE.md`와 `?anchors=1`을 기준으로 **STYLE-GIR-V1 첫 reference packet을 실제로 준비·검토하는 것**이다.
+다음 행동은 `handoff/STAGE07_5_STYLE_GIR_V1_REFERENCE_PACKET.md`와 `?anchors=1`을 기준으로 **STYLE-GIR-V1의 5개 controlled candidate를 제작·검토하는 것**이다.
 
 # **장면 수보다 모체·뼈대·비율·접촉·세계 일관성을 우선한다.**
