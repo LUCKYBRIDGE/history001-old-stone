@@ -9,9 +9,9 @@ describe('Stage075PrevisualHarness', () => {
     render(<Stage075PrevisualHarness />);
 
     expect(STAGE075_PREVISUAL_CASES).toHaveLength(8);
-    expect(screen.getByRole('button', { name: /PV-01 Living Camp/i })).toBeTruthy();
-    expect(screen.getByRole('button', { name: /PV-08 Same-Moment Aru POV/i })).toBeTruthy();
-    expect(screen.getByText(/실제 이미지 없이 승인된 v2\.1/)).toBeTruthy();
+    expect(screen.getByTestId('previsual-case-PV-01')).toBeTruthy();
+    expect(screen.getByTestId('previsual-case-PV-08')).toBeTruthy();
+    expect(document.body.textContent).toContain('실제 이미지 없이 승인된 v2.1');
   });
 
   it('switches aspect ratio so 4:3 crop can be inspected explicitly', async () => {
@@ -30,8 +30,8 @@ describe('Stage075PrevisualHarness', () => {
     const user = userEvent.setup();
     render(<Stage075PrevisualHarness />);
 
-    await user.click(screen.getByRole('button', { name: /PV-02 Handaxe Handoff/i }));
-    await user.click(screen.getByRole('button', { name: /2\. Shared Contact/i }));
+    await user.click(screen.getByTestId('previsual-case-PV-02'));
+    await user.click(screen.getByTestId('previsual-frame-pv02-contact'));
 
     expect(screen.getByTestId('previsual-element-handaxe-contact')).toBeTruthy();
     expect(screen.getByTestId('previsual-element-player-right-contact')).toBeTruthy();
@@ -42,12 +42,12 @@ describe('Stage075PrevisualHarness', () => {
     const user = userEvent.setup();
     render(<Stage075PrevisualHarness />);
 
-    await user.click(screen.getByRole('button', { name: /PV-05 Stop \/ Crouch Proof/i }));
+    await user.click(screen.getByTestId('previsual-case-PV-05'));
 
     expect(screen.getByTestId('previsual-element-player-standing-edge')).toBeTruthy();
     expect(document.body.textContent).toContain('Player는 아직 standing eye height.');
 
-    await user.click(screen.getByRole('button', { name: /2\. 내가 직접 몸을 낮춤/i }));
+    await user.click(screen.getByTestId('previsual-frame-pv05-player-crouch'));
 
     expect(screen.getByTestId('previsual-element-player-left-support')).toBeTruthy();
     expect(screen.getByTestId('previsual-element-ground-evidence')).toBeTruthy();
@@ -57,8 +57,8 @@ describe('Stage075PrevisualHarness', () => {
     const user = userEvent.setup();
     render(<Stage075PrevisualHarness />);
 
-    await user.click(screen.getByRole('button', { name: /PV-08 Same-Moment Aru POV/i }));
-    await user.click(screen.getByRole('button', { name: /2\. SC11 · Aru-side same moment/i }));
+    await user.click(screen.getByTestId('previsual-case-PV-08'));
+    await user.click(screen.getByTestId('previsual-frame-pv08-aru-side'));
 
     expect(document.body.textContent).toContain('DEPARTURE-MOMENT-A');
     expect(document.body.textContent).toContain('PV-04 · Stage A · 대각선 출발');
