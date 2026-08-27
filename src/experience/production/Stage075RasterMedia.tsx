@@ -1,4 +1,7 @@
-import type { Stage075RasterRecord } from './stage075RasterManifest';
+import {
+  isStage075RasterReadyForRuntime,
+  type Stage075RasterRecord,
+} from './stage075RasterManifest';
 
 interface Stage075RasterMediaProps {
   record: Stage075RasterRecord;
@@ -11,7 +14,8 @@ export function Stage075RasterMedia({
   className,
   eager = false,
 }: Stage075RasterMediaProps) {
-  const sources = record.status === 'approved' ? record.sources : undefined;
+  const readyForRuntime = isStage075RasterReadyForRuntime(record);
+  const sources = readyForRuntime ? record.sources : undefined;
 
   if (!sources) {
     return (
@@ -19,12 +23,14 @@ export function Stage075RasterMedia({
         className={`stage075-raster-slot stage075-raster-slot--pending ${className ?? ''}`.trim()}
         data-testid={`raster-slot-${record.assetId}`}
         data-raster-status={record.status}
+        data-continuity-ready={readyForRuntime ? 'true' : 'false'}
         aria-label={`${record.assetId} raster asset ${record.status}`}
       >
         <span className="stage075-raster-slot__eyebrow">RASTER SLOT · {record.pvId}</span>
         <strong>{record.assetId}</strong>
         <span>{record.role}</span>
         <span>{record.requiredFamilies.join(' / ')}</span>
+        <span>anchors: {record.requiredAnchorIds.join(' / ') || 'none'}</span>
         {record.rejectionReason ? (
           <span className="stage075-raster-slot__reject">{record.rejectionReason}</span>
         ) : null}
@@ -40,6 +46,7 @@ export function Stage075RasterMedia({
       data-testid={`raster-media-${record.assetId}`}
       data-asset-id={record.assetId}
       data-raster-status="approved"
+      data-continuity-ready="true"
     >
       {sources.phonePortrait ? (
         <source
