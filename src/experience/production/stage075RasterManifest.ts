@@ -1,4 +1,8 @@
 import {
+  isStage075StyleAnchorApproved,
+  type Stage075StyleAnchorId,
+} from './stage075StyleAnchor';
+import {
   areStage075AnchorsApproved,
   type Stage075VisualAnchorId,
 } from './stage075VisualContinuityRegistry';
@@ -33,6 +37,7 @@ export interface Stage075RasterRecord {
   role: RasterAssetRole;
   status: RasterApprovalStatus;
   requiredFamilies: readonly RasterCompositionFamily[];
+  requiredStyleAnchorId: Stage075StyleAnchorId;
   requiredAnchorIds: readonly Stage075VisualAnchorId[];
   derivationMode: RasterDerivationMode;
   continuityGroupId: string;
@@ -50,8 +55,8 @@ export interface Stage075RasterRecord {
  * IMPORTANT:
  * - `pending` entries intentionally have no runtime source path.
  * - A scene raster cannot reach runtime merely because its own status is `approved`.
- * - Every required visual anchor must also be `anchor-approved` and point to an
- *   approved master/reference file.
+ * - STYLE-GIR-V1 and every required visual anchor must be approved first.
+ * - Approved anchors must point to stored approved master/reference files.
  * - Generated candidates that fail art/history/continuity review are not added as sources.
  */
 export const STAGE075_RASTER_MANIFEST: readonly Stage075RasterRecord[] = [
@@ -62,6 +67,7 @@ export const STAGE075_RASTER_MANIFEST: readonly Stage075RasterRecord[] = [
     role: 'held-item',
     status: 'pending',
     requiredFamilies: ['L', 'TP', 'PP'],
+    requiredStyleAnchorId: 'STYLE-GIR-V1',
     requiredAnchorIds: ['DAY1-HANDAXE-V1'],
     derivationMode: 'anchor-conditioned',
     continuityGroupId: 'DAY1-HANDAXE-CONTINUITY',
@@ -80,6 +86,7 @@ export const STAGE075_RASTER_MANIFEST: readonly Stage075RasterRecord[] = [
     role: 'contact-keyframe',
     status: 'pending',
     requiredFamilies: ['L', 'TP', 'PP'],
+    requiredStyleAnchorId: 'STYLE-GIR-V1',
     requiredAnchorIds: [
       'ARU-IDENTITY-V1',
       'PLAYER-HUNT-BODY-V1',
@@ -109,6 +116,7 @@ export const STAGE075_RASTER_MANIFEST: readonly Stage075RasterRecord[] = [
     role: 'world-plate',
     status: 'pending',
     requiredFamilies: ['L', 'TP', 'PP'],
+    requiredStyleAnchorId: 'STYLE-GIR-V1',
     requiredAnchorIds: [
       'WORLD-CAMP-DAWN-A',
       'PROP-CAMP-FIRE-A',
@@ -138,6 +146,8 @@ export function isStage075RasterReadyForRuntime(record: Stage075RasterRecord) {
   return Boolean(
     record.status === 'approved' &&
       record.sources &&
+      record.requiredStyleAnchorId === 'STYLE-GIR-V1' &&
+      isStage075StyleAnchorApproved() &&
       areStage075AnchorsApproved(record.requiredAnchorIds),
   );
 }
