@@ -71,6 +71,7 @@ export function Stage075PrevisualHarness() {
           <button
             type="button"
             key={previsualCase.id}
+            data-testid={`previsual-case-${previsualCase.id}`}
             className={index === caseIndex ? 'is-active' : undefined}
             onClick={() => selectCase(index)}
           >
@@ -125,6 +126,7 @@ export function Stage075PrevisualHarness() {
               <button
                 type="button"
                 key={frame.id}
+                data-testid={`previsual-frame-${frame.id}`}
                 className={index === frameIndex ? 'is-active' : undefined}
                 onClick={() => setFrameIndex(index)}
               >
