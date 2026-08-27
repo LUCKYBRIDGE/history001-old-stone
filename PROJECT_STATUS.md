@@ -10,7 +10,7 @@
 
 현재 정확한 상태:
 
-# **Social Runtime Integrated / Automated PASS / Human Gate FAIL / Scene Composition v2.1 Approved / Raster Media Adapter Integrated / Visual Continuity + Anatomy Gate Integrated / Approved Raster Assets 0 / Stage 08 BLOCKED**
+# **Social Runtime Integrated / Automated PASS / Human Gate FAIL / Scene Composition v2.1 Approved / Responsive Raster + Visual Continuity + Anatomy/Contact Gates Integrated / Visual Anchor Review Board Integrated / Approved Raster Assets 0 / Stage 08 BLOCKED**
 
 최신 exact main/PR/Actions는 GitHub가 최종 진실 공급원이다.
 
@@ -18,7 +18,7 @@
 
 # 1. Current blocking truth
 
-기존 P1에 더해 raster production에서 다음 위험을 명시적으로 관리한다.
+현재 raster production에서 명시적으로 관리하는 핵심 위험:
 
 - R2UX-021 Visual identity drift — 장면별 독립 생성 시 인물/배경/도구/스타일 일관성 붕괴 위험
 - R2UX-022 Anatomy/proportion drift — 손·팔·어깨·몸통·다리 비율이 장면/포즈/portrait마다 바뀔 위험
@@ -30,7 +30,7 @@
 
 ---
 
-# 2. Project-owner latest direction
+# 2. Project-owner direction
 
 최종 raster 제작은 `좋은 장면 이미지 여러 장`을 만드는 방식이 아니다.
 
@@ -50,11 +50,18 @@ style anchor
 
 장면 이미지를 먼저 만들고 나중에 손·팔·비율을 수정하는 방식은 금지한다.
 
+Scene Composition Bible v2.1은 이미 Project-owner 승인 PASS다. 현재 작업은 Scene Bible 재설계가 아니다.
+
 ---
 
 # 3. Primary visual-production contracts
 
-진입점:
+새 세션 bootstrap:
+
+- `handoff/NEXT_SESSION_START_HERE.md`
+- `handoff/SESSION_PROMPT_TEMPLATE.md`
+
+Art-production 진입점:
 
 - `handoff/STAGE07_5_VISUAL_CONTINUITY_INDEX.md`
 
@@ -66,24 +73,42 @@ style anchor
 - `handoff/STAGE07_5_CONTACT_GEOMETRY_MASTER.md`
 - `handoff/STAGE07_5_WORLD_CONTINUITY_BIBLE.md`
 - `handoff/STAGE07_5_OBJECT_CONTINUITY_BIBLE.md`
-- `handoff/STAGE07_5_VISUAL_GENERATION_AND_REVIEW_PROTOCOL.md`
-
-기존 scene/responsive 계약:
-
-- `handoff/STAGE07_5_FIRST_PERSON_SCENE_COMPOSITION_BIBLE_V2_1.md`
 - `handoff/STAGE07_5_RESPONSIVE_VISUAL_PRODUCTION_CONTRACT.md`
-- `handoff/STAGE07_5_RASTER_ASSET_PRODUCTION_BRIEFS.md`
+- `handoff/STAGE07_5_VISUAL_GENERATION_AND_REVIEW_PROTOCOL.md`
+- `handoff/STAGE07_5_FIRST_PERSON_SCENE_COMPOSITION_BIBLE_V2_1.md`
 
 Machine-readable:
 
 - `src/experience/production/stage075StyleAnchor.ts`
 - `src/experience/production/stage075VisualContinuityRegistry.ts`
 - `src/experience/production/stage075AnatomyRegistry.ts`
+- `src/experience/production/stage075AnchorReviewBundle.ts`
 - `src/experience/production/stage075RasterManifest.ts`
 
 ---
 
-# 4. Runtime approval gate
+# 4. Dev-only review surfaces
+
+```text
+?anchors=1   Visual Anchor Review Board
+?previsual=1 Scene Previsual Harness
+?raster=1    Raster Integration Slots
+```
+
+`?anchors=1`이 현재 Gate의 주 검토 화면이다.
+
+여기서 다음을 한 화면에서 확인한다.
+
+- STYLE-GIR-V1 상태
+- priority visual anchors 상태
+- anatomy/contact contract 상태
+- required master/reference slots
+- approved path 개수
+- downstream scene raster dependency
+
+---
+
+# 5. Runtime approval gate
 
 Raster scene asset은 자기 자신이 `approved`라고 해서 runtime에 표시되지 않는다.
 
@@ -111,7 +136,70 @@ runtime render
 
 ---
 
-# 5. Style / Object / Body lock
+# 6. First actual reference bundles
+
+현재 machine-readable bundle:
+
+- `src/experience/production/stage075AnchorReviewBundle.ts`
+
+첫 네 packet:
+
+```text
+0. STYLE-GIR-V1
+1. DAY1-HANDAXE-V1
+2. PLAYER-HUNT-BODY-V1
+3. ARU-IDENTITY-V1
+```
+
+현재 approved slot count는 0이다.
+
+### STYLE-GIR-V1
+
+필수 예:
+
+- human mid-shot
+- first-person hand
+- world sample
+- material sample
+- landscape/portrait equivalence
+
+### DAY1-HANDAXE-V1
+
+필수 예:
+
+- face-A / face-B
+- side/thickness
+- scale reference
+- Aru grip
+- Player grip
+
+### PLAYER-HUNT-BODY-V1
+
+필수 예:
+
+- right/left palm + dorsum
+- neutral forearm
+- receive reach
+- handaxe grip
+- ground brace
+- rock brace
+- crouch edge
+- walk carry
+
+### ARU-IDENTITY-V1
+
+필수 예:
+
+- front/back
+- 3/4 left/right
+- strict side left/right
+- seated
+- offer-handaxe
+- hand reference
+
+---
+
+# 7. Style / Object / Body lock
 
 현재:
 
@@ -125,14 +213,14 @@ PLAYER-HUNT-BODY-PROP-V1    reference-pending
 핵심 규칙:
 
 - Style = Grounded Illustrative Realism
-- hyper-photoreal / AAA poster / fantasy barbarian 금지
-- handaxe morphology와 scale을 먼저 잠가 Player grip scale 기준으로 사용
+- hyper-photoreal / AAA poster / cartoon-chibi / fantasy barbarian 금지
+- handaxe morphology와 scale을 먼저 잠가 Player grip 기준으로 사용
 - Player hand/palm/finger/wrist/forearm 비율을 master packet에서 측정 후 고정
 - portrait fitting을 위해 손/팔을 임의 확대·축소하지 않음
 
 ---
 
-# 6. Character anatomy anchors
+# 8. Character anatomy anchors
 
 현재:
 
@@ -147,25 +235,23 @@ NUA-PROP-V1      reference-pending
 
 Hero character는 portrait 한 장으로 승인하지 않는다.
 
-필수 master packet:
+필수 master packet 방향:
 
 - front/back
 - 3/4 left/right
 - strict side left/right
-- seated
-- crouched
-- walking
+- seated/crouched/walking
 - relevant reach/contact pose
 - hand close-up
-- head silhouette strip
+- head silhouette
 - skeleton landmark overlay
 - normalized proportion record (`H = 1.00`)
 
-Numeric ratios are production locks measured from the approved master. They are not archaeological population claims.
+Numeric ratio는 approved master에서 측정한 production lock이며 고고학적 인구집단 사실 주장이 아니다.
 
 ---
 
-# 7. Contact geometry contracts
+# 9. Contact geometry contracts
 
 현재:
 
@@ -175,7 +261,7 @@ SC07-GROUND-BRACE-GEO-V1 reference-pending
 SC10-ROCK-BRACE-GEO-V1   reference-pending
 ```
 
-SC02 핵심 topology:
+SC02 topology:
 
 ```text
 Aru hand
@@ -191,18 +277,17 @@ SC07:
 - Player는 SC06에서는 아직 서 있음
 - Player가 직접 crouch
 - 왼손은 지면 지지
-- 증거를 손가락으로 가리키지 않음
 - 오른손 handaxe ownership 유지
 
 SC10:
 
 - 왼손이 같은 rock-shelter edge를 짚음
 - 오른손은 같은 handaxe 유지
-- 바위가 손을 맞추기 위해 형태를 바꾸지 않음
+- 바위/팔 anatomy를 접촉에 맞춰 임의 변형하지 않음
 
 ---
 
-# 8. Anatomy / Geometry reject families
+# 10. Anatomy / Geometry reject families
 
 ```text
 ANAT-HAND-SCALE
@@ -231,7 +316,7 @@ Hero/contact asset에 unresolved `ANAT-*` 또는 `GEO-*`가 있으면 P1 reject�
 
 ---
 
-# 9. World / responsive continuity
+# 11. World / responsive continuity
 
 ```text
 WORLD-CAMP-DAWN-A       reference-pending
@@ -252,7 +337,7 @@ Portrait 때문에 anatomy를 늘이거나 줄이면 안 된다.
 
 ---
 
-# 10. Current raster asset state
+# 12. Current raster asset state
 
 Manifest:
 
@@ -266,11 +351,11 @@ Approved Raster Asset count:
 
 # **0**
 
-자유 생성 후보는 production contract 이탈 시 repository에 넣지 않는다.
+실패한 자유 생성 후보는 production contract 이탈 시 repository에 넣지 않는다.
 
 ---
 
-# 11. Immediate lock order
+# 13. Immediate lock order
 
 ```text
 0. STYLE-GIR-V1 reference packet
@@ -290,7 +375,7 @@ SC02 final art는 0~6이 승인되기 전 만들지 않는다.
 
 ---
 
-# 12. Current Gate
+# 14. Current Gate
 
 # **Visual Anatomy Reference Lock**
 
@@ -303,6 +388,7 @@ Responsive Raster Contract = READY
 Raster Media Adapter = INTEGRATED
 Visual Continuity Registry = INTEGRATED
 Anatomy/Contact Registry = INTEGRATED
+Visual Anchor Review Board = INTEGRATED
 Style Anchor = REFERENCE PENDING
 Character/Player Anchors = REFERENCE PENDING
 Anatomy Contracts = REFERENCE PENDING
@@ -314,6 +400,6 @@ Human Gate = FAIL
 Stage 08 = BLOCKED
 ```
 
-다음 제작은 장면 이미지 수를 늘리는 작업이 아니라 **style/handaxe/body/Aru master reference packet을 실제로 잠그는 작업**이다.
+다음 세션 첫 행동은 `handoff/NEXT_SESSION_START_HERE.md`와 `?anchors=1`을 기준으로 **STYLE-GIR-V1 첫 reference packet을 실제로 준비·검토하는 것**이다.
 
-# **장면 수보다 모체·뼈대·비율·접촉 일관성을 우선한다.**
+# **장면 수보다 모체·뼈대·비율·접촉·세계 일관성을 우선한다.**
