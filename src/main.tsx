@@ -6,6 +6,7 @@ import './styles/global.css';
 import './styles/stage075ContinuousAction.css';
 import './styles/stage075PlayerActionCausality.css';
 import './styles/stage075PrevisualHarness.css';
+import './styles/stage075ResponsiveComposition.css';
 
 const rootElement = document.getElementById('root');
 
