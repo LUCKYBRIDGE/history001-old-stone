@@ -1,5 +1,6 @@
 import {
   isStage075RasterReadyForRuntime,
+  type RasterSourceSet,
   type Stage075RasterRecord,
 } from './stage075RasterManifest';
 
@@ -7,6 +8,25 @@ interface Stage075RasterMediaProps {
   record: Stage075RasterRecord;
   className?: string;
   eager?: boolean;
+}
+
+export function getStage075ResponsiveSources(sources: RasterSourceSet) {
+  return [
+    sources.phonePortrait
+      ? {
+          family: 'PP' as const,
+          media: '(orientation: portrait) and (max-width: 599px)',
+          srcSet: sources.phonePortrait,
+        }
+      : null,
+    sources.tabletPortrait
+      ? {
+          family: 'TP' as const,
+          media: '(orientation: portrait) and (min-width: 600px)',
+          srcSet: sources.tabletPortrait,
+        }
+      : null,
+  ].filter((source): source is NonNullable<typeof source> => Boolean(source));
 }
 
 export function Stage075RasterMedia({
@@ -30,6 +50,7 @@ export function Stage075RasterMedia({
         <strong>{record.assetId}</strong>
         <span>{record.role}</span>
         <span>{record.requiredFamilies.join(' / ')}</span>
+        <span>style: {record.requiredStyleAnchorId}</span>
         <span>anchors: {record.requiredAnchorIds.join(' / ') || 'none'}</span>
         {record.rejectionReason ? (
           <span className="stage075-raster-slot__reject">{record.rejectionReason}</span>
@@ -39,6 +60,7 @@ export function Stage075RasterMedia({
   }
 
   const loading = eager ? 'eager' : 'lazy';
+  const responsiveSources = getStage075ResponsiveSources(sources);
 
   return (
     <picture
@@ -48,20 +70,14 @@ export function Stage075RasterMedia({
       data-raster-status="approved"
       data-continuity-ready="true"
     >
-      {sources.phonePortrait ? (
+      {responsiveSources.map((source) => (
         <source
-          media="(orientation: portrait) and (max-width: 599px)"
-          srcSet={sources.phonePortrait}
-          data-composition-family="PP"
+          key={source.family}
+          media={source.media}
+          srcSet={source.srcSet}
+          data-composition-family={source.family}
         />
-      ) : null}
-      {sources.tabletPortrait ? (
-        <source
-          media="(orientation: portrait) and (min-width: 600px)"
-          srcSet={sources.tabletPortrait}
-          data-composition-family="TP"
-        />
-      ) : null}
+      ))}
       <img
         src={sources.landscape}
         alt={record.alt}
