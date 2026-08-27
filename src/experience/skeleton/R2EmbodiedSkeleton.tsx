@@ -3,6 +3,7 @@ import './r2EmbodiedSkeleton.css';
 import './currentShelter.css';
 import './stage07RelationshipProof.css';
 import './stage07ActorIdentityClarity.css';
+import './stage075SocialImmersion.css';
 
 export type SkeletonSurfaceMode = 'player' | 'teacher' | 'debug';
 
@@ -45,6 +46,15 @@ type RelationshipSignalId =
   | 'h1-shared-ground-observation'
   | 'h2-gaze-followed';
 
+type SharedDayEventId =
+  | 'morning-community-already-active'
+  | 'aru-name-heard-in-context'
+  | 'aru-handaxe-handoff'
+  | 'aru-return-line'
+  | 'departed-from-fire-together'
+  | 'player-damu-shared-ground-observation'
+  | 'nua-attention-shift-seed';
+
 type CurriculumAnchorId =
   | 'paleolithic-chipped-stone'
   | 'handaxe'
@@ -63,6 +73,7 @@ interface SkeletonState {
   reducedEffects: boolean;
   evidence: readonly LearningEvidenceId[];
   relationshipSignals: readonly RelationshipSignalId[];
+  sharedDayEvents: readonly SharedDayEventId[];
 }
 
 type SkeletonEvent =
@@ -80,27 +91,34 @@ type SkeletonEvent =
   | { type: 'RESET' }
   | { type: 'SET_REDUCED_EFFECTS'; value: boolean };
 
+const characterCallNames = {
+  R: '아루',
+  H1: '다무',
+  H2: '누아',
+} as const;
+
 const initialState: SkeletonState = {
   step: 'orientation',
   hasTool: false,
   reducedEffects: false,
   evidence: [],
   relationshipSignals: [],
+  sharedDayEvents: [],
 };
 
 const teacherStepLabels: Readonly<Record<SkeletonStep, string>> = {
-  orientation: '관점 진입',
-  fire: '새벽 불 앞 / R 첫 인식',
-  'receive-tool': 'R 도구 전달',
+  orientation: '눈뜨기 전 / 공동체 생활 선행',
+  fire: '새벽 불 앞 / 아루 이름을 생활 속에서 인식',
+  'receive-tool': '아루 도구 전달',
   'tool-reveal': '뗀석기 → 주먹도끼 명명',
-  join: 'H1 합류 요청 / H2 바깥 관찰',
-  depart: 'R 귀환 모티프 / 현재 거처 이탈',
-  'crouch-proof': 'H1과 함께 지면 관찰',
-  travel: '동행 이동 연속성',
-  'h2-notice': 'H2 시선 선행',
-  'cave-notice': '시선을 따라 자연 거처 후보 발견',
+  join: '다무 이동 시작 / 누아 외부 주의',
+  depart: '아루 귀환 모티프 / 현재 거처 이탈',
+  'crouch-proof': '다무가 먼저 멈춤',
+  travel: '다무와 같은 지면을 직접 관찰',
+  'h2-notice': '누아 attention shift',
+  'cave-notice': '누아의 방향을 따라 자연 거처 후보 발견',
   'cave-inspect': '동굴·바위 그늘 살핌',
-  'perspective-proof': 'R 쪽 자리에서 같은 아침 재해석',
+  'perspective-proof': '같은 아침을 아루 쪽 자리에서 재해석',
 };
 
 const stepTreatment: Readonly<Record<SkeletonStep, SkeletonTreatmentPreset>> = {
@@ -111,52 +129,41 @@ const stepTreatment: Readonly<Record<SkeletonStep, SkeletonTreatmentPreset>> = {
   join: 'standing-shift',
   depart: 'walking-air',
   'crouch-proof': 'crouch-focus',
-  travel: 'walking-air',
+  travel: 'crouch-focus',
   'h2-notice': 'standing-shift',
   'cave-notice': 'cave-exposure',
   'cave-inspect': 'cave-exposure',
   'perspective-proof': 'perspective-transition',
 };
 
-function addEvidence(
-  evidence: readonly LearningEvidenceId[],
-  ...ids: readonly LearningEvidenceId[]
-) {
-  return ids.reduce<readonly LearningEvidenceId[]>(
-    (nextEvidence, id) =>
-      nextEvidence.includes(id) ? nextEvidence : [...nextEvidence, id],
-    evidence,
+function addUnique<T>(items: readonly T[], ...ids: readonly T[]) {
+  return ids.reduce<readonly T[]>(
+    (nextItems, id) => (nextItems.includes(id) ? nextItems : [...nextItems, id]),
+    items,
   );
 }
 
-function addRelationshipSignals(
-  signals: readonly RelationshipSignalId[],
-  ...ids: readonly RelationshipSignalId[]
-) {
-  return ids.reduce<readonly RelationshipSignalId[]>(
-    (nextSignals, id) =>
-      nextSignals.includes(id) ? nextSignals : [...nextSignals, id],
-    signals,
-  );
-}
-
-function skeletonReducer(
-  state: SkeletonState,
-  event: SkeletonEvent,
-): SkeletonState {
+function skeletonReducer(state: SkeletonState, event: SkeletonEvent): SkeletonState {
   switch (event.type) {
     case 'BEGIN':
-      return state.step === 'orientation' ? { ...state, step: 'fire' } : state;
+      return state.step === 'orientation'
+        ? {
+            ...state,
+            step: 'fire',
+            sharedDayEvents: addUnique(
+              state.sharedDayEvents,
+              'morning-community-already-active',
+              'aru-name-heard-in-context',
+            ),
+          }
+        : state;
 
     case 'NOTICE_R':
       return state.step === 'fire'
         ? {
             ...state,
             step: 'receive-tool',
-            relationshipSignals: addRelationshipSignals(
-              state.relationshipSignals,
-              'r-recognized',
-            ),
+            relationshipSignals: addUnique(state.relationshipSignals, 'r-recognized'),
           }
         : state;
 
@@ -166,16 +173,17 @@ function skeletonReducer(
             ...state,
             step: 'tool-reveal',
             hasTool: true,
-            evidence: addEvidence(
+            evidence: addUnique(
               state.evidence,
               'tool-received-in-embodied-context',
               'chipped-stone-term-revealed',
               'handaxe-term-revealed',
             ),
-            relationshipSignals: addRelationshipSignals(
+            relationshipSignals: addUnique(
               state.relationshipSignals,
               'r-tool-handoff-shared',
             ),
+            sharedDayEvents: addUnique(state.sharedDayEvents, 'aru-handaxe-handoff'),
           }
         : state;
 
@@ -183,16 +191,26 @@ function skeletonReducer(
       return state.step === 'tool-reveal' ? { ...state, step: 'join' } : state;
 
     case 'JOIN_COMPANIONS':
-      return state.step === 'join' ? { ...state, step: 'depart' } : state;
+      return state.step === 'join'
+        ? {
+            ...state,
+            step: 'depart',
+            relationshipSignals: addUnique(
+              state.relationshipSignals,
+              'r-return-motif-heard',
+            ),
+            sharedDayEvents: addUnique(state.sharedDayEvents, 'aru-return-line'),
+          }
+        : state;
 
     case 'DEPART':
       return state.step === 'depart'
         ? {
             ...state,
             step: 'crouch-proof',
-            relationshipSignals: addRelationshipSignals(
-              state.relationshipSignals,
-              'r-return-motif-heard',
+            sharedDayEvents: addUnique(
+              state.sharedDayEvents,
+              'departed-from-fire-together',
             ),
           }
         : state;
@@ -202,26 +220,36 @@ function skeletonReducer(
         ? {
             ...state,
             step: 'travel',
-            evidence: addEvidence(
-              state.evidence,
-              'embodied-observation-performed',
-            ),
-            relationshipSignals: addRelationshipSignals(
+            evidence: addUnique(state.evidence, 'embodied-observation-performed'),
+            relationshipSignals: addUnique(
               state.relationshipSignals,
               'h1-shared-ground-observation',
+            ),
+            sharedDayEvents: addUnique(
+              state.sharedDayEvents,
+              'player-damu-shared-ground-observation',
             ),
           }
         : state;
 
     case 'CONTINUE_TRAVEL':
-      return state.step === 'travel' ? { ...state, step: 'h2-notice' } : state;
+      return state.step === 'travel'
+        ? {
+            ...state,
+            step: 'h2-notice',
+            sharedDayEvents: addUnique(
+              state.sharedDayEvents,
+              'nua-attention-shift-seed',
+            ),
+          }
+        : state;
 
     case 'FOLLOW_H2_GAZE':
       return state.step === 'h2-notice'
         ? {
             ...state,
             step: 'cave-notice',
-            relationshipSignals: addRelationshipSignals(
+            relationshipSignals: addUnique(
               state.relationshipSignals,
               'h2-gaze-followed',
             ),
@@ -229,16 +257,14 @@ function skeletonReducer(
         : state;
 
     case 'APPROACH_CAVE':
-      return state.step === 'cave-notice'
-        ? { ...state, step: 'cave-inspect' }
-        : state;
+      return state.step === 'cave-notice' ? { ...state, step: 'cave-inspect' } : state;
 
     case 'CONTINUE_AFTER_CAVE_INSPECTION':
       return state.step === 'cave-inspect'
         ? {
             ...state,
             step: 'perspective-proof',
-            evidence: addEvidence(
+            evidence: addUnique(
               state.evidence,
               'natural-shelter-evaluated',
               'cave-shelter-term-revealed',
@@ -270,19 +296,23 @@ export function R2EmbodiedSkeleton({
 
   if (state.step === 'orientation') {
     return (
-      <div className="r2-skeleton">
+      <div
+        className={`r2-skeleton ${state.reducedEffects ? 'r2-skeleton--reduced' : ''}`}
+        data-surface-mode={surfaceMode}
+      >
         <section className="r2-orientation" aria-labelledby="r2-orientation-title">
+          <div className="r2-orientation__ember" aria-hidden="true" />
+          <div className="r2-orientation__ambient" aria-label="눈을 뜨기 전 들리는 주변 생활 소리">
+            <span>“그건 젖었어.”</span>
+            <span>“저쪽 걸 써.”</span>
+          </div>
           <p className="r2-orientation__eyebrow">새벽</p>
           <h1 id="r2-orientation-title">불 냄새가 먼저 난다.</h1>
           <p>
-            눈꺼풀 너머로 붉은 빛이 번진다. 손끝은 아직 따뜻하고, 가까운 곳에서
-            장작이 내려앉는 소리와 낮은 발소리가 들린다.
+            눈꺼풀 너머로 붉은 빛이 번진다. 장작이 내려앉고, 가까운 곳에서 발소리와
+            물건이 바닥에 닿는 소리가 이어진다.
           </p>
-          <button
-            className="r2-action"
-            type="button"
-            onClick={() => dispatch({ type: 'BEGIN' })}
-          >
+          <button className="r2-action" type="button" onClick={() => dispatch({ type: 'BEGIN' })}>
             눈을 뜬다
           </button>
         </section>
@@ -315,7 +345,9 @@ export function R2EmbodiedSkeleton({
         <CurrentShelter step={state.step} />
         <Fire step={state.step} />
         <CaveOpening step={state.step} />
+        <BackgroundCommunity step={state.step} />
         <Actors step={state.step} />
+        <AmbientDialogueLayer step={state.step} />
         <ActorDialogueLayer step={state.step} />
         <PlayerBody step={state.step} hasTool={state.hasTool} />
         <WorldDetail step={state.step} />
@@ -409,6 +441,34 @@ function CaveOpening({ step }: { step: SkeletonStep }) {
   );
 }
 
+function BackgroundCommunity({ step }: { step: SkeletonStep }) {
+  const visible =
+    step === 'fire' ||
+    step === 'receive-tool' ||
+    step === 'tool-reveal' ||
+    step === 'join' ||
+    step === 'perspective-proof';
+
+  if (!visible) {
+    return null;
+  }
+
+  return (
+    <div className="r2-background-community" aria-hidden="true">
+      <div className="r2-background-actor r2-background-actor--fire" data-testid="background-fire-actor">
+        <span className="r2-background-actor__head" />
+        <span className="r2-background-actor__body" />
+        <span className="r2-background-actor__arm" />
+      </div>
+      <div className="r2-background-actor r2-background-actor--shelter" data-testid="background-shelter-actor">
+        <span className="r2-background-actor__head" />
+        <span className="r2-background-actor__body" />
+        <span className="r2-background-actor__arm" />
+      </div>
+    </div>
+  );
+}
+
 function Actors({ step }: { step: SkeletonStep }) {
   if (step === 'perspective-proof') {
     return (
@@ -424,23 +484,25 @@ function Actors({ step }: { step: SkeletonStep }) {
     );
   }
 
-  const showR =
+  const showAru =
     step === 'fire' ||
     step === 'receive-tool' ||
     step === 'tool-reveal' ||
     step === 'join' ||
     step === 'depart';
-  const h1SharedObservation = step === 'crouch-proof' || step === 'travel';
-  const h1Invite = step === 'join';
-  const h2GazeCue = step === 'h2-notice' || step === 'cave-notice';
-  const h2Scanning = step === 'join' || step === 'h2-notice';
+  const damuInvite = step === 'join';
+  const damuStopped = step === 'crouch-proof';
+  const damuSharedObservation = step === 'travel';
+  const nuaScanning = step === 'join' || step === 'depart' || step === 'h2-notice';
+  const nuaGazeCue = step === 'h2-notice' || step === 'cave-notice';
 
   return (
     <div className="r2-actors" aria-hidden="true">
-      {showR ? (
+      {showAru ? (
         <div
-          className={`r2-actor r2-actor--r ${step === 'depart' ? 'r2-actor--farewell' : ''}`}
-          data-testid="r-actor"
+          className={`r2-actor r2-actor--r r2-actor--aru ${step === 'depart' ? 'r2-actor--farewell' : ''}`}
+          data-testid="aru-actor"
+          data-character-name="아루"
         >
           <span className="r2-actor__head" />
           <span className="r2-actor__body" />
@@ -454,53 +516,99 @@ function Actors({ step }: { step: SkeletonStep }) {
           ) : null}
         </div>
       ) : null}
+
       <div
-        className={`r2-actor r2-actor--h1 ${h1SharedObservation ? 'r2-actor--relationship-active' : ''} ${h1Invite ? 'r2-actor--invite' : ''}`}
-        data-testid="h1-actor"
+        className={`r2-actor r2-actor--h1 r2-actor--damu ${damuInvite ? 'r2-actor--invite r2-actor--moving' : ''} ${damuStopped ? 'r2-actor--stopped' : ''} ${damuSharedObservation ? 'r2-actor--relationship-active r2-actor--shared-observation' : ''}`}
+        data-testid="damu-actor"
+        data-character-name="다무"
         data-relationship-beat={
-          h1SharedObservation
-            ? 'h1-shared-ground-observation'
-            : h1Invite
-              ? 'h1-invites-player'
-              : undefined
+          damuSharedObservation
+            ? 'damu-shared-ground-observation'
+            : damuStopped
+              ? 'damu-stops-before-ground-observation'
+              : damuInvite
+                ? 'damu-already-moving'
+                : undefined
         }
       >
         <span className="r2-actor__head" />
         <span className="r2-actor__body" />
-        {h1Invite ? (
-          <span className="r2-actor__gesture r2-actor__gesture--invite" />
-        ) : null}
+        {damuInvite ? <span className="r2-actor__gesture r2-actor__gesture--invite" /> : null}
       </div>
+
       <div
-        className={`r2-actor r2-actor--h2 ${h2GazeCue ? 'r2-actor--relationship-active' : ''} ${h2Scanning ? 'r2-actor--scanning' : ''}`}
-        data-testid="h2-actor"
+        className={`r2-actor r2-actor--h2 r2-actor--nua ${nuaScanning ? 'r2-actor--scanning' : ''} ${nuaGazeCue ? 'r2-actor--relationship-active r2-actor--attention-shift' : ''}`}
+        data-testid="nua-actor"
+        data-character-name="누아"
         data-relationship-beat={
-          h2GazeCue
-            ? 'h2-gaze-cue'
-            : h2Scanning
-              ? 'h2-scans-outward'
-              : undefined
+          nuaGazeCue ? 'nua-attention-shift' : nuaScanning ? 'nua-scans-independently' : undefined
         }
       >
         <span className="r2-actor__head" />
         <span className="r2-actor__body" />
-        {h2Scanning ? <span className="r2-actor__gaze" /> : null}
+        {nuaScanning ? <span className="r2-actor__gaze" /> : null}
       </div>
     </div>
   );
 }
 
+function AmbientDialogueLayer({ step }: { step: SkeletonStep }) {
+  if (step !== 'fire') {
+    return null;
+  }
+
+  return (
+    <div className="r2-ambient-dialogue-layer" aria-label="불가에서 이어지는 생활 대화">
+      <p className="r2-ambient-dialogue r2-ambient-dialogue--name-call" data-testid="aru-name-call">
+        “아루.”
+      </p>
+      <p className="r2-ambient-dialogue r2-ambient-dialogue--work">“여기 둬.”</p>
+    </div>
+  );
+}
+
+function DialogueBubble({
+  speaker,
+  line,
+  className,
+  testId,
+}: {
+  speaker: string;
+  line: string;
+  className: string;
+  testId: string;
+}) {
+  return (
+    <p className={`r2-actor-dialogue ${className}`} data-testid={testId}>
+      <span className="r2-actor-dialogue__speaker">{speaker}</span>
+      <span>“{line}”</span>
+    </p>
+  );
+}
+
 function ActorDialogueLayer({ step }: { step: SkeletonStep }) {
+  if (step === 'receive-tool') {
+    return (
+      <div className="r2-actor-dialogue-layer">
+        <DialogueBubble
+          speaker="아루"
+          line="손."
+          className="r2-actor-dialogue--aru-handoff"
+          testId="aru-dialogue"
+        />
+      </div>
+    );
+  }
+
   if (step === 'join') {
     return (
       <div className="r2-actor-dialogue-layer">
-        <p
-          className="r2-actor-dialogue r2-actor-dialogue--h1-join"
-          data-testid="h1-dialogue"
-          aria-label="바로 곁에서 목소리가 난다: 같이 가자"
-        >
-          “같이 가자.”
-        </p>
+        <DialogueBubble
+          speaker="다무"
+          line="가자."
+          className="r2-actor-dialogue--h1-join"
+          testId="damu-dialogue"
+        />
       </div>
     );
   }
@@ -508,27 +616,44 @@ function ActorDialogueLayer({ step }: { step: SkeletonStep }) {
   if (step === 'depart') {
     return (
       <div className="r2-actor-dialogue-layer">
-        <p
-          className="r2-actor-dialogue r2-actor-dialogue--r-depart"
-          data-testid="r-dialogue"
-          aria-label="뒤쪽 불가에서 익숙한 목소리가 들린다: 해가 지기 전에 돌아와"
-        >
-          “해가 지기 전에 돌아와.”
-        </p>
+        <DialogueBubble
+          speaker="아루"
+          line="해 지기 전에 와."
+          className="r2-actor-dialogue--r-depart"
+          testId="aru-dialogue"
+        />
+        <DialogueBubble
+          speaker="다무"
+          line="알았어."
+          className="r2-actor-dialogue--damu-reply"
+          testId="damu-dialogue"
+        />
       </div>
     );
   }
 
-  if (step === 'h2-notice') {
+  if (step === 'crouch-proof') {
     return (
       <div className="r2-actor-dialogue-layer">
-        <p
-          className="r2-actor-dialogue r2-actor-dialogue--h2-notice"
-          data-testid="h2-dialogue"
-          aria-label="조금 앞쪽에서 짧은 목소리가 난다: 저기"
-        >
-          “저기.”
-        </p>
+        <DialogueBubble
+          speaker="다무"
+          line="잠깐."
+          className="r2-actor-dialogue--damu-stop"
+          testId="damu-dialogue"
+        />
+      </div>
+    );
+  }
+
+  if (step === 'travel') {
+    return (
+      <div className="r2-actor-dialogue-layer">
+        <DialogueBubble
+          speaker="다무"
+          line="봤어?"
+          className="r2-actor-dialogue--damu-ground"
+          testId="damu-dialogue"
+        />
       </div>
     );
   }
@@ -536,20 +661,18 @@ function ActorDialogueLayer({ step }: { step: SkeletonStep }) {
   if (step === 'cave-inspect') {
     return (
       <div className="r2-actor-dialogue-layer">
-        <p
-          className="r2-actor-dialogue r2-actor-dialogue--h2-cave"
-          data-testid="h2-dialogue"
-          aria-label="바위 아래 가까운 곳에서 목소리가 난다: 안이 꽤 넓어"
-        >
-          “안이 꽤 넓어.”
-        </p>
-        <p
-          className="r2-actor-dialogue r2-actor-dialogue--h1-cave"
-          data-testid="h1-dialogue"
-          aria-label="바로 옆에서 다른 목소리가 난다: 안쪽은 먼저 봐야 해"
-        >
-          “안쪽은 먼저 봐야 해.”
-        </p>
+        <DialogueBubble
+          speaker="누아"
+          line="안이 꽤 넓어."
+          className="r2-actor-dialogue--h2-cave"
+          testId="nua-dialogue"
+        />
+        <DialogueBubble
+          speaker="다무"
+          line="안쪽은 먼저 봐야 해."
+          className="r2-actor-dialogue--h1-cave"
+          testId="damu-dialogue"
+        />
       </div>
     );
   }
@@ -557,13 +680,7 @@ function ActorDialogueLayer({ step }: { step: SkeletonStep }) {
   return null;
 }
 
-function PlayerBody({
-  step,
-  hasTool,
-}: {
-  step: SkeletonStep;
-  hasTool: boolean;
-}) {
+function PlayerBody({ step, hasTool }: { step: SkeletonStep; hasTool: boolean }) {
   const pose = getBodyPose(step);
 
   return (
@@ -590,17 +707,17 @@ function PlayerBody({
 }
 
 function WorldDetail({ step }: { step: SkeletonStep }) {
-  if (step === 'crouch-proof') {
-    return (
-      <div className="r2-ground-mark" aria-hidden="true">
-        <span />
-        <span />
-        <span />
-      </div>
-    );
+  if (step !== 'travel') {
+    return null;
   }
 
-  return null;
+  return (
+    <div className="r2-ground-mark" data-testid="ground-mark" aria-hidden="true">
+      <span />
+      <span />
+      <span />
+    </div>
+  );
 }
 
 function CurriculumCue({ cue }: { cue: CurriculumCueData }) {
@@ -628,19 +745,16 @@ function StoryBeat({
     case 'fire':
       return (
         <>
-          <p className="r2-dialogue">
-            눈을 뜨자 불빛이 먼저 번진다. 불 너머의 익숙한 얼굴과 눈이 마주친다.
-          </p>
           <p>
-            입안은 마르고 배는 비어 있다. 주변에서는 말없이 짐을 챙기는 소리가
-            난다.
+            불가에서는 손들이 계속 움직인다. 누군가는 불씨를 만지고, 누군가는 거처 곁의
+            재료를 정리한다. 네가 눈을 떠도 모두가 멈추지는 않는다.
           </p>
           <button
             className="r2-action r2-action--quiet"
             type="button"
             onClick={() => dispatch({ type: 'NOTICE_R' })}
           >
-            눈이 마주친 얼굴을 바라본다
+            아루 쪽을 본다
           </button>
         </>
       );
@@ -648,16 +762,12 @@ function StoryBeat({
     case 'receive-tool':
       return (
         <>
-          <p className="r2-dialogue">
-            눈앞의 손이 불 옆에 놓인 돌을 집어 들어 네 오른손 쪽으로 내민다.
-            한쪽은 손에 잡히고 다른 쪽은 날카롭게 깨져 있다.
+          <p>
+            아루가 불 옆의 돌을 집는다. 손에 잡히는 면과 깨진 날을 잠깐 확인한 뒤 네
+            오른손 쪽으로 내민다.
           </p>
-          <button
-            className="r2-action"
-            type="button"
-            onClick={() => dispatch({ type: 'RECEIVE_TOOL' })}
-          >
-            돌도구를 받는다
+          <button className="r2-action" type="button" onClick={() => dispatch({ type: 'RECEIVE_TOOL' })}>
+            손을 내민다
           </button>
         </>
       );
@@ -666,15 +776,15 @@ function StoryBeat({
       return (
         <>
           <p>
-            돌을 건넨 손이 물러나고 같은 돌이 네 오른손에 남는다. 거친 무게와
-            깨진 날이 손 안에서 분명하게 느껴진다.
+            아루의 손이 물러나고 같은 돌이 네 오른손에 남는다. 거친 무게와 깨진 날이
+            손안에서 분명하다.
           </p>
           <button
             className="r2-action"
             type="button"
             onClick={() => dispatch({ type: 'CONTINUE_AFTER_TOOL_REVEAL' })}
           >
-            주먹도끼를 쥐고 일어난다
+            돌을 쥔 채 일어난다
           </button>
         </>
       );
@@ -683,15 +793,10 @@ function StoryBeat({
       return (
         <>
           <p>
-            일어서자 바로 곁의 발소리가 멎는다. 누군가 몸을 돌려 너를 본다.
-            조금 앞쪽의 사람은 나무 사이를 바라보고 있다.
+            다무는 이미 몇 걸음 앞서 있다. 누아는 네 쪽보다 나무 사이 바깥을 보고 있다.
           </p>
-          <button
-            className="r2-action"
-            type="button"
-            onClick={() => dispatch({ type: 'JOIN_COMPANIONS' })}
-          >
-            목소리 쪽으로 한 걸음 다가간다
+          <button className="r2-action" type="button" onClick={() => dispatch({ type: 'JOIN_COMPANIONS' })}>
+            일어나 따라간다
           </button>
         </>
       );
@@ -700,15 +805,11 @@ function StoryBeat({
       return (
         <>
           <p>
-            뒤쪽 불가에서 익숙한 목소리가 들린다. 돌아보면 아까 돌을 내민 손이
-            가볍게 들려 있다. 불과 임시 거처는 그 자리에 남아 있다.
+            다무와 누아의 걸음이 이어진다. 뒤쪽의 불과 사람들, 현재 거처는 한곳에 남아
+            조금씩 작아진다.
           </p>
-          <button
-            className="r2-action"
-            type="button"
-            onClick={() => dispatch({ type: 'DEPART' })}
-          >
-            한번 돌아보고 걷기 시작한다
+          <button className="r2-action" type="button" onClick={() => dispatch({ type: 'DEPART' })}>
+            걷기 시작한다
           </button>
         </>
       );
@@ -717,15 +818,11 @@ function StoryBeat({
       return (
         <>
           <p>
-            몇 걸음 못 가 옆의 발소리가 느려진다. 곁의 사람이 쪼그려 앉는다.
-            그 앞의 풀 한쪽이 낮게 눌려 있다.
+            한동안 걷던 다무의 발걸음이 갑자기 느려진다. 발소리가 멎고 다무가 먼저 몸을
+            낮춘다. 아직 무엇인지 보이지 않는다.
           </p>
-          <button
-            className="r2-action"
-            type="button"
-            onClick={() => dispatch({ type: 'OBSERVE_GROUND' })}
-          >
-            옆에 쪼그려 앉는다
+          <button className="r2-action" type="button" onClick={() => dispatch({ type: 'OBSERVE_GROUND' })}>
+            다무 곁에 몸을 낮춘다
           </button>
         </>
       );
@@ -734,15 +831,11 @@ function StoryBeat({
       return (
         <>
           <p>
-            둘이 다시 일어나자 셋의 발걸음이 이어진다. 불과 거처는 이제 보이지
-            않는다.
+            다무가 몸을 조금 비켜준다. 낮게 눌린 풀과 흐트러진 흙, 꺾인 작은 가지가 네
+            앞에 들어온다.
           </p>
-          <button
-            className="r2-action"
-            type="button"
-            onClick={() => dispatch({ type: 'CONTINUE_TRAVEL' })}
-          >
-            다시 걷는다
+          <button className="r2-action" type="button" onClick={() => dispatch({ type: 'CONTINUE_TRAVEL' })}>
+            다시 일어나 걷는다
           </button>
         </>
       );
@@ -751,15 +844,11 @@ function StoryBeat({
       return (
         <>
           <p>
-            한동안 더 걷자 앞서 가던 사람이 갑자기 멈춘다. 몸이 큰 바위 쪽으로
-            돌아간다.
+            다시 한동안 걷자 누아의 발걸음이 멎는다. 말보다 먼저 고개와 몸이 한쪽으로
+            돌아간다. 누아는 그 방향을 그대로 보고 있다.
           </p>
-          <button
-            className="r2-action"
-            type="button"
-            onClick={() => dispatch({ type: 'FOLLOW_H2_GAZE' })}
-          >
-            그쪽을 본다
+          <button className="r2-action" type="button" onClick={() => dispatch({ type: 'FOLLOW_H2_GAZE' })}>
+            누아가 보는 쪽을 살핀다
           </button>
         </>
       );
@@ -768,14 +857,10 @@ function StoryBeat({
       return (
         <>
           <p>
-            고개를 돌리자 큰 바위 아래에 어두운 공간이 드러난다. 생각보다 입구가
-            넓어 보인다.
+            시선을 따라가자 큰 바위 아래에 어두운 공간이 드러난다. 생각보다 입구가 넓어
+            보인다.
           </p>
-          <button
-            className="r2-action"
-            type="button"
-            onClick={() => dispatch({ type: 'APPROACH_CAVE' })}
-          >
+          <button className="r2-action" type="button" onClick={() => dispatch({ type: 'APPROACH_CAVE' })}>
             바위 아래로 가까이 가 본다
           </button>
         </>
@@ -785,12 +870,12 @@ function StoryBeat({
       return (
         <>
           <p>
-            바닥 한쪽은 비교적 말라 있고 머리 위로 두꺼운 바위가 이어진다.
-            비나 바람을 피하기에는 괜찮아 보인다.
+            바닥 한쪽은 비교적 말라 있고 머리 위로 두꺼운 바위가 이어진다. 비나 바람을
+            피하기에는 괜찮아 보인다.
           </p>
           <p>
-            하지만 안쪽은 어둡다. 다른 동물이 이곳을 이용했는지, 물과
-            먹을거리까지 얼마나 먼지도 아직 모른다.
+            하지만 안쪽은 어둡다. 다른 동물이 이곳을 이용했는지, 물과 먹을거리까지 얼마나
+            먼지도 아직 모른다.
           </p>
           <button
             className="r2-action"
@@ -808,13 +893,10 @@ function StoryBeat({
           <p className="r2-orientation__eyebrow">같은 아침</p>
           <h1>불이 바로 앞에서 타고 있다.</h1>
           <p>
-            손이 비어 있다. 조금 전까지 손에 있던 돌은 이제 저 멀리, 세 사람
-            가운데 한 사람의 오른손에 들려 있다. 불 냄새는 그대로인데 발소리는
-            점점 멀어진다.
+            손이 비어 있다. 조금 전까지 가까이에 있던 돌은 이제 멀어지는 세 사람 가운데
+            한 사람의 오른손에 들려 있다. 불 냄새는 그대로인데 발소리는 점점 멀어진다.
           </p>
-          <p className="r2-dialogue">
-            입 밖으로 방금 한 말이 아직 남아 있다. “해가 지기 전에 돌아와.”
-          </p>
+          <p className="r2-dialogue">입 밖으로 방금 한 말이 아직 남아 있다. “해 지기 전에 와.”</p>
         </>
       );
 
@@ -847,12 +929,14 @@ function SkeletonControls({
       <aside className="r2-surface-panel" aria-label="교사용 제어">
         <strong>교사용 제어</strong>
         <span>현재 구간: {teacherStepLabels[state.step]}</span>
-        {curriculumCue ? (
-          <span>교과 연결: {curriculumCue.teacherSummary}</span>
-        ) : null}
-        {reconstructionNote ? (
-          <span data-testid="reconstruction-note">{reconstructionNote}</span>
-        ) : null}
+        <span data-testid="character-name-mapping">
+          가상 이름 매핑: R={characterCallNames.R}, H1={characterCallNames.H1}, H2={characterCallNames.H2}
+        </span>
+        <span>
+          언어 규칙: Player 한국어 대사는 실제 선사 언어 복원이 아니라 의미 전달을 위한 번역 표현
+        </span>
+        {curriculumCue ? <span>교과 연결: {curriculumCue.teacherSummary}</span> : null}
+        {reconstructionNote ? <span data-testid="reconstruction-note">{reconstructionNote}</span> : null}
         <label>
           <input
             type="checkbox"
@@ -877,10 +961,12 @@ function SkeletonControls({
           hasTool: state.hasTool,
           reducedEffects: state.reducedEffects,
           treatment: stepTreatment[state.step],
+          characterCallNames,
           curriculumAnchors: curriculumCue?.anchorIds ?? [],
           reconstruction: reconstructionNote,
           evidence: state.evidence,
           relationshipSignals: state.relationshipSignals,
+          sharedDayEvents: state.sharedDayEvents,
         })}
       </code>
       <button type="button" onClick={onReset}>
@@ -905,8 +991,7 @@ function getCurriculumCue(step: SkeletonStep): CurriculumCueData | null {
     return {
       anchorIds: ['cave-or-rock-shelter'],
       title: '동굴 / 바위 그늘',
-      description:
-        '구석기 사람들은 이런 자연 공간도 생활 공간으로 이용했다.',
+      description: '구석기 사람들은 이런 자연 공간도 생활 공간으로 이용했다.',
       teacherSummary: '동굴·바위 그늘도 생활 공간으로 이용',
     };
   }
@@ -916,22 +1001,24 @@ function getCurriculumCue(step: SkeletonStep): CurriculumCueData | null {
 
 function getReconstructionNote(step: SkeletonStep): string | null {
   switch (step) {
+    case 'orientation':
     case 'fire':
-    case 'join':
-    case 'depart':
-      return '역사적 재구성: 이 Day 1 공동체의 구체 인물과 거처 배치';
+      return '역사적 재구성: 이 Day 1 공동체의 구체 인물·이름·대사·생활 배치. 아루/다무/누아는 실제 구석기 이름 복원이 아님';
     case 'receive-tool':
     case 'tool-reveal':
-      return '역사적 재구성: R이 이 아침에 플레이어에게 이 도구를 건네는 구체 사건';
+      return '역사적 재구성: 아루(R)가 이 아침에 플레이어에게 이 도구를 건네는 구체 사건';
+    case 'join':
+    case 'depart':
+      return '역사적 재구성: 다무(H1)·누아(H2)와 함께 출발하고 아루(R)의 귀환 말을 듣는 구체 사건';
     case 'crouch-proof':
     case 'travel':
-      return '역사적 재구성: H1과 함께 이동하고 같은 흔적을 살피는 관계 사건';
+      return '역사적 재구성: 다무(H1)가 먼저 멈추고 플레이어가 같은 지면 흔적을 직접 살피는 관계 사건';
     case 'h2-notice':
     case 'cave-notice':
     case 'cave-inspect':
-      return '역사적 재구성: H2의 시선을 따라 이 날 자연 거처 후보를 발견하는 구체 사건';
+      return '역사적 재구성: 누아(H2)의 attention shift를 따라 이 날 자연 거처 후보를 발견하는 구체 사건';
     case 'perspective-proof':
-      return '역사적 재구성: 같은 Day 1 아침을 R 쪽 자리에서 다시 보는 관계 관점 proof이며 Camp 역할 확정이 아님';
+      return '역사적 재구성: 같은 Day 1 아침을 아루(R) 쪽 자리에서 다시 보는 관계 관점 proof이며 Camp 역할 확정이 아님';
     default:
       return null;
   }
@@ -950,9 +1037,8 @@ function getBodyPose(step: SkeletonStep) {
     case 'depart':
       return 'walking-with-tool';
     case 'crouch-proof':
-      return 'crouch-observe';
     case 'travel':
-      return 'walking-with-tool';
+      return 'crouch-observe';
     case 'h2-notice':
     case 'cave-notice':
       return 'standing-with-tool';
@@ -968,27 +1054,27 @@ function getBodyPose(step: SkeletonStep) {
 function getWorldAriaLabel(step: SkeletonStep) {
   switch (step) {
     case 'fire':
-      return '새벽 불 앞. 불 너머의 익숙한 얼굴과 주변 사람들, 내 손과 무릎, 임시 거처가 보이는 시야';
+      return '새벽 불 앞. 주변 사람들이 자기 일을 계속하고 있고, 불가에서 아루라는 이름이 불리는 시야';
     case 'receive-tool':
-      return '눈앞의 손이 돌도구를 집어 들어 내 오른손 쪽으로 내미는 시야';
+      return '아루가 돌도구의 잡는 면과 깨진 날을 확인한 뒤 내 오른손 쪽으로 내미는 시야';
     case 'tool-reveal':
       return '내 오른손에 대표적인 뗀석기인 주먹도끼를 받아 쥔 채 형태를 살피는 시야';
     case 'join':
-      return '주먹도끼를 든 채 내 쪽으로 돌아서 기다리는 사람과 조금 앞에서 나무 사이를 바라보는 사람이 보이는 시야';
+      return '다무는 이미 앞쪽으로 움직이고 누아는 바깥 환경을 바라보는 시야';
     case 'depart':
-      return '주먹도끼를 들고 걷기 전 불가에서 아까 돌을 내민 손과 현재 임시 거처를 돌아보는 시야';
+      return '다무와 누아를 따라 걷기 시작하며 뒤쪽의 아루와 불, 현재 임시 거처가 멀어지는 시야';
     case 'crouch-proof':
-      return '곁의 사람과 몸을 낮춰 내 손과 무릎 너머의 눌린 풀을 함께 살피는 시야';
+      return '한동안 걷던 다무가 먼저 멈추고 몸을 낮췄지만 아직 지면 정보는 직접 확인하지 않은 시야';
     case 'travel':
-      return '지면을 함께 살핀 뒤 세 사람이 다시 걸음을 맞추는 시야';
+      return '다무 곁에 몸을 낮춘 뒤 눌린 풀과 흐트러진 흙, 작은 가지 변화를 직접 살피는 시야';
     case 'h2-notice':
-      return '한동안 이동한 뒤 앞서 가던 사람이 갑자기 멈추고 큰 바위 방향을 바라보는 시야';
+      return '다시 이동한 뒤 누아가 말보다 먼저 멈추고 한쪽 방향을 바라보는 시야';
     case 'cave-notice':
-      return '앞서 가던 사람이 멈춘 방향을 본 뒤 큰 바위 아래 넓어 보이는 어두운 공간이 드러난 시야';
+      return '누아가 보던 방향을 직접 살핀 뒤 큰 바위 아래 넓어 보이는 어두운 공간이 드러난 시야';
     case 'cave-inspect':
-      return '주먹도끼를 든 채 함께 온 사람들과 넓은 자연 공간의 입구와 마른 바닥, 어두운 안쪽을 살피는 시야';
+      return '주먹도끼를 든 채 다무와 누아와 함께 자연 공간의 입구와 마른 바닥, 어두운 안쪽을 살피는 시야';
     case 'perspective-proof':
-      return '같은 아침 불 바로 앞. 내 손은 비어 있고 조금 전 내 손을 떠난 돌도구를 든 사람과 두 사람이 멀어지는 모습을 보는 시야';
+      return '같은 아침 불 바로 앞. 내 손은 비어 있고 조금 전 건넨 돌도구를 든 사람이 다른 두 사람과 멀어지는 모습을 보는 시야';
     default:
       return '구석기 공동체의 시야';
   }

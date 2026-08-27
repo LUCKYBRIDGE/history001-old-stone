@@ -1,0 +1,367 @@
+/*
+ * Stage 07.5 first-five social immersion staging.
+ *
+ * Placeholder-only proof. This layer adds ambient community life, provisional
+ * call-name dialogue, and causal actor/body staging without locking production
+ * character art or Stage 08 assets.
+ */
+
+.r2-orientation__ember {
+  position: absolute;
+  left: 12%;
+  bottom: 13%;
+  width: min(18rem, 30vw);
+  aspect-ratio: 1.6;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(221, 117, 54, 0.34), transparent 68%);
+  filter: blur(10px);
+  pointer-events: none;
+}
+
+.r2-orientation__ambient {
+  position: absolute;
+  right: clamp(1rem, 6vw, 6rem);
+  top: clamp(2rem, 7vw, 5rem);
+  display: grid;
+  gap: 0.45rem;
+  max-width: 18rem;
+  color: rgba(255, 244, 228, 0.7);
+  font-size: clamp(0.78rem, 1.2vw, 0.95rem);
+  font-weight: 650;
+  text-align: right;
+  letter-spacing: 0.01em;
+}
+
+.r2-orientation__ambient span:last-child {
+  margin-right: 2rem;
+  opacity: 0.78;
+}
+
+.r2-background-community {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+}
+
+.r2-background-actor {
+  position: absolute;
+  width: 2.8rem;
+  height: 7.2rem;
+  opacity: 0.48;
+  filter: blur(0.15px) drop-shadow(0 0.7rem 0.7rem rgba(0, 0, 0, 0.2));
+  transform-origin: center bottom;
+}
+
+.r2-background-actor__head,
+.r2-background-actor__body,
+.r2-background-actor__arm {
+  position: absolute;
+  display: block;
+  background: linear-gradient(150deg, #342b23, #211c18 72%);
+}
+
+.r2-background-actor__head {
+  top: 0;
+  left: 50%;
+  width: 1.45rem;
+  height: 1.55rem;
+  border-radius: 48%;
+  transform: translateX(-50%);
+}
+
+.r2-background-actor__body {
+  top: 1.35rem;
+  left: 50%;
+  width: 1.65rem;
+  height: 4.3rem;
+  border-radius: 45% 45% 20% 20%;
+  transform: translateX(-50%);
+}
+
+.r2-background-actor__arm {
+  top: 2.2rem;
+  left: 1.2rem;
+  width: 2.3rem;
+  height: 0.48rem;
+  border-radius: 999px;
+  transform: rotate(22deg);
+  transform-origin: left center;
+}
+
+.r2-background-actor--fire {
+  left: 25%;
+  bottom: 32%;
+  transform: scale(0.72) rotate(4deg);
+}
+
+.r2-background-actor--shelter {
+  left: 8%;
+  bottom: 33%;
+  transform: scale(0.62) rotate(-5deg);
+}
+
+.r2-background-actor--shelter .r2-background-actor__arm {
+  transform: rotate(-26deg);
+}
+
+.r2-world--join .r2-background-community {
+  opacity: 0.72;
+}
+
+.r2-world--perspective-proof .r2-background-community {
+  opacity: 0.56;
+}
+
+.r2-ambient-dialogue-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 11;
+  pointer-events: none;
+}
+
+.r2-ambient-dialogue {
+  position: absolute;
+  margin: 0;
+  color: rgba(255, 247, 235, 0.78);
+  font-size: clamp(0.74rem, 1.1vw, 0.9rem);
+  font-weight: 650;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.65);
+}
+
+.r2-ambient-dialogue--name-call {
+  top: 25%;
+  left: 10%;
+}
+
+.r2-ambient-dialogue--work {
+  top: 33%;
+  left: 21%;
+  opacity: 0.64;
+}
+
+.r2-actor-dialogue {
+  display: grid;
+  gap: 0.15rem;
+}
+
+.r2-actor-dialogue__speaker {
+  color: rgba(239, 208, 165, 0.78);
+  font-size: 0.7em;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+}
+
+.r2-actor-dialogue--aru-handoff {
+  top: 29%;
+  left: 43%;
+}
+
+.r2-actor-dialogue--aru-handoff::after {
+  left: 24%;
+}
+
+.r2-actor-dialogue--damu-reply {
+  top: 36%;
+  right: 29%;
+}
+
+.r2-actor-dialogue--damu-reply::after {
+  right: 24%;
+}
+
+.r2-actor-dialogue--damu-stop {
+  top: 31%;
+  right: 33%;
+}
+
+.r2-actor-dialogue--damu-stop::after {
+  right: 22%;
+}
+
+.r2-actor-dialogue--damu-ground {
+  top: 34%;
+  right: 36%;
+}
+
+.r2-actor-dialogue--damu-ground::after {
+  right: 20%;
+}
+
+.r2-world--join .r2-actor--damu.r2-actor--moving {
+  right: 30%;
+  bottom: 34%;
+  transform: scale(0.78) translateX(2rem) rotate(2deg);
+}
+
+.r2-world--depart .r2-actor--damu {
+  right: 31%;
+  bottom: 39%;
+  transform: scale(0.66);
+}
+
+.r2-world--depart .r2-actor--nua {
+  right: 13%;
+  bottom: 41%;
+  transform: scale(0.61) rotate(-6deg);
+}
+
+.r2-world--crouch-proof .r2-actor--damu.r2-actor--stopped {
+  right: 35%;
+  bottom: 31%;
+  transform: scale(0.8) translateY(1.7rem) rotate(3deg);
+  opacity: 0.98;
+}
+
+.r2-world--crouch-proof .r2-actor--nua {
+  right: 14%;
+  bottom: 42%;
+  transform: scale(0.58);
+  opacity: 0.58;
+}
+
+.r2-world--travel .r2-actor--damu.r2-actor--shared-observation {
+  right: 37%;
+  bottom: 28%;
+  transform: scale(0.78) translateY(2.3rem) rotate(4deg);
+  opacity: 0.96;
+}
+
+.r2-world--travel .r2-actor--nua {
+  right: 16%;
+  bottom: 42%;
+  transform: scale(0.58);
+  opacity: 0.55;
+}
+
+.r2-world--travel .r2-ground-mark {
+  opacity: 1;
+}
+
+.r2-world--crouch-proof .r2-ground-mark {
+  display: none;
+}
+
+.r2-world--h2-notice .r2-actor--nua.r2-actor--attention-shift {
+  right: 24%;
+  bottom: 37%;
+  transform: scale(0.74) rotate(-8deg);
+  opacity: 0.98;
+}
+
+.r2-world--h2-notice .r2-actor--nua .r2-actor__head {
+  transform: translateX(-50%) rotate(-18deg);
+}
+
+.r2-world--h2-notice .r2-actor__gaze {
+  width: 5rem;
+  right: -5.2rem;
+  opacity: 0.5;
+}
+
+.r2-world--receive-tool .r2-actor--aru {
+  transform: scale(1.03) translateY(0.3rem);
+}
+
+.r2-world--receive-tool .r2-actor__offering-hand {
+  z-index: 6;
+}
+
+.r2-world--fire .r2-actor--damu,
+.r2-world--receive-tool .r2-actor--damu,
+.r2-world--tool-reveal .r2-actor--damu {
+  right: 18%;
+  bottom: 39%;
+  transform: scale(0.58);
+  opacity: 0.48;
+}
+
+.r2-world--fire .r2-actor--nua,
+.r2-world--receive-tool .r2-actor--nua,
+.r2-world--tool-reveal .r2-actor--nua {
+  right: 7%;
+  bottom: 42%;
+  transform: scale(0.52) rotate(-5deg);
+  opacity: 0.42;
+}
+
+.r2-world--fire + .r2-story,
+.r2-world--receive-tool + .r2-story,
+.r2-world--join + .r2-story,
+.r2-world--depart + .r2-story,
+.r2-world--crouch-proof + .r2-story,
+.r2-world--travel + .r2-story,
+.r2-world--h2-notice + .r2-story {
+  width: min(58%, 43rem);
+}
+
+.r2-world--crouch-proof + .r2-story,
+.r2-world--travel + .r2-story {
+  padding-bottom: clamp(1.1rem, 2.4vw, 2rem);
+}
+
+@media (max-width: 820px) {
+  .r2-background-actor--fire {
+    left: 29%;
+  }
+
+  .r2-ambient-dialogue--name-call {
+    left: 7%;
+  }
+
+  .r2-actor-dialogue--aru-handoff {
+    left: 37%;
+  }
+
+  .r2-actor-dialogue--damu-reply,
+  .r2-actor-dialogue--damu-stop,
+  .r2-actor-dialogue--damu-ground {
+    right: 21%;
+  }
+}
+
+@media (max-width: 560px) {
+  .r2-orientation__ambient {
+    top: 1.25rem;
+    right: 1rem;
+    font-size: 0.74rem;
+  }
+
+  .r2-background-actor--fire {
+    left: 27%;
+  }
+
+  .r2-background-actor--shelter {
+    left: 4%;
+  }
+
+  .r2-ambient-dialogue--name-call {
+    top: 20%;
+    left: 5%;
+  }
+
+  .r2-actor-dialogue--aru-handoff {
+    top: 23%;
+    left: 31%;
+  }
+
+  .r2-actor-dialogue--damu-reply {
+    top: 33%;
+    right: 11%;
+  }
+
+  .r2-actor-dialogue--damu-stop,
+  .r2-actor-dialogue--damu-ground {
+    right: 10%;
+  }
+
+  .r2-world--fire + .r2-story,
+  .r2-world--receive-tool + .r2-story,
+  .r2-world--join + .r2-story,
+  .r2-world--depart + .r2-story,
+  .r2-world--crouch-proof + .r2-story,
+  .r2-world--travel + .r2-story,
+  .r2-world--h2-notice + .r2-story {
+    width: 100%;
+  }
+}
