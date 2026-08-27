@@ -23,19 +23,28 @@
 3. `PROJECT_STATUS.md`
 4. `docs/00_DEVELOPMENT_WORKFLOW.md`
 5. `handoff/CURRENT_HANDOFF.md`
-6. `docs/01_PROJECT_CORE.md`
-7. `docs/01A_EMBODIED_FIRST_PERSON_PRINCIPLES.md`
-8. `docs/01B_RELATIONSHIP_AGENCY_PRINCIPLES.md`
-9. `docs/01C_SUBTLE_SCREEN_TREATMENT_PRINCIPLES.md`
-10. `docs/01D_LEARNING_CLARITY_SAFETY_HISTORICAL_INTEGRITY.md`
-11. `docs/01E_CURRICULUM_TEXTBOOK_ANCHORS.md`
-12. 해당 Stage canonical 문서
-13. 관련 handoff / code / tests
+6. `handoff/NEXT_SESSION_START_HERE.md`
+7. `docs/01_PROJECT_CORE.md`
+8. `docs/01A_EMBODIED_FIRST_PERSON_PRINCIPLES.md`
+9. `docs/01B_RELATIONSHIP_AGENCY_PRINCIPLES.md`
+10. `docs/01C_SUBTLE_SCREEN_TREATMENT_PRINCIPLES.md`
+11. `docs/01D_LEARNING_CLARITY_SAFETY_HISTORICAL_INTEGRITY.md`
+12. `docs/01E_CURRICULUM_TEXTBOOK_ANCHORS.md`
+13. 해당 Stage canonical 문서
+14. 관련 handoff / code / tests
 
 현재 Stage 07.5 작업에서는 추가로 반드시:
 
-- `handoff/STAGE07_5_FIRST_PERSON_SCENE_COMPOSITION_BIBLE_V2.md`
-- `handoff/STAGE07_5_PROJECT_OWNER_SCENE_REVIEW.md`
+- `handoff/STAGE07_5_FIRST_PERSON_SCENE_COMPOSITION_BIBLE_V2_1.md`
+- `handoff/STAGE07_5_VISUAL_CONTINUITY_INDEX.md`
+- `handoff/STAGE07_5_STYLE_ANCHOR_BIBLE.md`
+- `handoff/STAGE07_5_CHARACTER_IDENTITY_ANCHOR_BIBLE.md`
+- `handoff/STAGE07_5_ANATOMY_PROPORTION_AND_POSE_MASTER_SPEC.md`
+- `handoff/STAGE07_5_CONTACT_GEOMETRY_MASTER.md`
+- `handoff/STAGE07_5_OBJECT_CONTINUITY_BIBLE.md`
+- `handoff/STAGE07_5_WORLD_CONTINUITY_BIBLE.md`
+- `handoff/STAGE07_5_RESPONSIVE_VISUAL_PRODUCTION_CONTRACT.md`
+- `handoff/STAGE07_5_VISUAL_GENERATION_AND_REVIEW_PROTOCOL.md`
 
 를 읽는다.
 
@@ -210,6 +219,12 @@ Perspective proof에서 메타 제목으로 정답을 먼저 주지 않는다.
 - 사람과 내 몸이 같은 공간처럼 보여야 함
 - action affordance도 fixed footer/HUD가 되지 않음
 
+현재 final visual direction:
+
+# **raster-first Hybrid Embodied Composite + Anchor-conditioned Continuity + Anatomy-locked Derivation**
+
+DOM/CSS/SVG 사람·손·도구·풍경은 previsual/debug/UI 보조다. final Player-facing art가 아니다.
+
 ---
 
 # 9. 주먹도끼 Guardrail
@@ -230,6 +245,7 @@ Stage 07.5 continuity:
 - right-hand dominant production attribute
 - same canonical object
 - grip-base continuity
+- same morphology / scale / flake-scar fingerprint
 - off-frame이어도 state상 계속 들고 있음
 - inventory pop / FPS weapon lock 금지
 
@@ -405,6 +421,9 @@ Player 허용:
 - `?legacy=1`
 - `?teacher=1`
 - `?debug=1`
+- `?previsual=1` — Scene Previsual Harness
+- `?raster=1` — Raster Integration Slots
+- `?anchors=1` — Visual Anchor Review Board
 
 ---
 
@@ -432,7 +451,7 @@ Player 허용:
 
 현재 판정:
 
-# **Social Runtime Integrated / Automated PASS / Human Gate FAIL / Scene Composition Review In Progress / Implementation Frozen**
+# **Social Runtime Integrated / Automated PASS / Human Gate FAIL / Scene Composition v2.1 Approved / Responsive Raster + Visual Continuity + Anatomy/Contact Gates Integrated / Visual Anchor Review Board Integrated / Approved Raster Assets 0 / Stage 08 BLOCKED**
 
 현재 prototype은 final production composition이 아니다.
 
@@ -440,37 +459,36 @@ Player 허용:
 
 # 20. 현재 다음 공식 Gate
 
-# **Project-owner Scene Composition Confirmation**
+# **Visual Anatomy Reference Lock**
 
-주 문서:
-
-- `handoff/STAGE07_5_FIRST_PERSON_SCENE_COMPOSITION_BIBLE_V2.md`
-- `handoff/STAGE07_5_PROJECT_OWNER_SCENE_REVIEW.md`
-
-Review에서 잠근 주요 보정:
-
-- SC03→04 terminology와 world movement 동시 진행
-- SC05 physically plausible diagonal departure geometry
-- SC08~10 handaxe continuous off-frame/re-entry
-- SC11 SC05 Stage A temporal sync
-- action affordance fixed-HUD 금지
-
-Project-owner confirmation 전:
-
-- runtime/CSS remediation 금지
-- production image generation 금지
-- Stage 08 금지
-
-확인 뒤:
+현재 우선순위:
 
 ```text
-Bible v2.x consolidation
-→ Previsual Approval
-→ Visual Production Readiness
-→ minimum coherent production set
-→ runtime/asset implementation
-→ Human Visual QA
+0. STYLE-GIR-V1 reference packet
+1. DAY1-HANDAXE-V1 morphology + scale packet
+2. PLAYER-HUNT-BODY-V1 master packet
+3. PLAYER-HUNT-BODY-PROP-V1 measured anatomy contract
+4. ARU-IDENTITY-V1 turnaround packet
+5. ARU-PROP-V1 measured anatomy contract
+6. SC02-HANDOFF-GEO-V1 contact geometry master
+7. 그 뒤에만 SC02 unified-contact L/TP/PP candidate
 ```
+
+필수 진입점:
+
+- `handoff/NEXT_SESSION_START_HERE.md`
+- `handoff/STAGE07_5_VISUAL_CONTINUITY_INDEX.md`
+- `src/experience/production/stage075AnchorReviewBundle.ts`
+- dev-only `?anchors=1`
+
+현재 금지:
+
+- 승인된 Scene Bible 재설계
+- 장면별 독립 text-to-image 반복
+- anchor 승인 전 full scene final art 제작
+- anatomy/contact/world continuity를 무시한 미관 우선 승인
+- Stage 08 진행
+- 자동 PASS를 Human PASS로 간주
 
 # **Human Gate는 계속 FAIL이며 Stage 08은 BLOCKED다.**
 
@@ -484,6 +502,7 @@ Bible v2.x consolidation
 - Implementation Complete
 - Automated PASS
 - Project-owner Scene Confirmation
+- Visual Anchor Reference Lock
 - Previsual Approval
 - Human QA PASS
 - Visual Production Ready
@@ -504,7 +523,8 @@ Human QA PASS도 Student Pilot PASS가 아니다.
 4. production build
 5. `PROJECT_STATUS.md`
 6. `handoff/CURRENT_HANDOFF.md`
-7. 필요 시 `handoff/TEST_REPORT.md`
-8. 실제 GitHub SHA/CI 확인
+7. 현재 Gate가 바뀌었으면 `handoff/NEXT_SESSION_START_HERE.md`도 확인
+8. 필요 시 `handoff/TEST_REPORT.md`
+9. 실제 GitHub SHA/CI 확인
 
 최신 exact SHA/run은 GitHub/Actions가 최종 진실 공급원이다.
