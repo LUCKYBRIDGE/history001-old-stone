@@ -5,11 +5,17 @@ import {
   type PrevisualElement,
 } from './stage075PrevisualSpec';
 
-const ASPECT_RATIOS: Record<PrevisualAspect, number> = {
+type HarnessAspect = PrevisualAspect | '3:4' | '9:16';
+
+const ASPECT_RATIOS: Record<HarnessAspect, number> = {
   '16:9': 16 / 9,
   '16:10': 16 / 10,
   '4:3': 4 / 3,
+  '3:4': 3 / 4,
+  '9:16': 9 / 16,
 };
+
+const HARNESS_ASPECTS: readonly HarnessAspect[] = ['16:9', '16:10', '4:3', '3:4', '9:16'];
 
 function elementStyle(element: PrevisualElement) {
   const { x, y, w, h, rotate = 0 } = element.box;
@@ -26,13 +32,14 @@ function elementStyle(element: PrevisualElement) {
 export function Stage075PrevisualHarness() {
   const [caseIndex, setCaseIndex] = useState(0);
   const [frameIndex, setFrameIndex] = useState(0);
-  const [aspect, setAspect] = useState<PrevisualAspect>('16:9');
+  const [aspect, setAspect] = useState<HarnessAspect>('16:9');
   const [showSafeZones, setShowSafeZones] = useState(true);
   const [showLabels, setShowLabels] = useState(true);
 
   const currentCase = STAGE075_PREVISUAL_CASES[caseIndex];
   const currentFrame = currentCase.frames[Math.min(frameIndex, currentCase.frames.length - 1)];
   const aspectRatio = ASPECT_RATIOS[aspect];
+  const isPortrait = aspect === '3:4' || aspect === '9:16';
 
   const sharedMomentCases = useMemo(
     () =>
@@ -57,6 +64,7 @@ export function Stage075PrevisualHarness() {
           <h1>Scene Composition Harness</h1>
           <p>
             실제 이미지 없이 승인된 v2.1의 카메라·몸·도구·인물·접촉·크롭·연속성을 검증한다.
+            세로 화면은 단순 crop 승인용이 아니라 portrait 전용 재구성 필요 여부를 찾는 용도다.
           </p>
         </div>
         <div className="previsual-harness__status" aria-label="gate status">
@@ -84,7 +92,7 @@ export function Stage075PrevisualHarness() {
       <div className="previsual-harness__toolbar">
         <fieldset>
           <legend>Frame ratio</legend>
-          {(['16:9', '16:10', '4:3'] as const).map((value) => (
+          {HARNESS_ASPECTS.map((value) => (
             <label key={value}>
               <input
                 type="radio"
@@ -103,7 +111,7 @@ export function Stage075PrevisualHarness() {
             checked={showSafeZones}
             onChange={(event) => setShowSafeZones(event.target.checked)}
           />
-          4:3 / 16:10 safe zone
+          safe-zone guides
         </label>
         <label>
           <input
@@ -114,6 +122,13 @@ export function Stage075PrevisualHarness() {
           element labels
         </label>
       </div>
+
+      {isPortrait ? (
+        <p className="previsual-harness__portrait-warning" role="note">
+          Portrait review: 현재 normalized 좌표는 landscape 설계에서 출발했다. 요소가 겹치거나 의미가 깨지면
+          “crop 실패”가 아니라 TP/PP 전용 production composition이 필요하다는 신호다.
+        </p>
+      ) : null}
 
       <div className="previsual-harness__workspace">
         <aside className="previsual-harness__case-panel">
@@ -143,6 +158,10 @@ export function Stage075PrevisualHarness() {
             <div>
               <dt>Camera</dt>
               <dd>{currentFrame.camera}</dd>
+            </div>
+            <div>
+              <dt>Composition family</dt>
+              <dd>{isPortrait ? (aspect === '3:4' ? 'TP · tablet portrait' : 'PP · phone portrait') : 'L · landscape'}</dd>
             </div>
             {currentFrame.momentId ? (
               <div>
@@ -177,6 +196,7 @@ export function Stage075PrevisualHarness() {
             style={{ aspectRatio }}
             data-testid="previsual-stage"
             data-aspect={aspect}
+            data-composition-family={isPortrait ? (aspect === '3:4' ? 'TP' : 'PP') : 'L'}
             data-case={currentCase.id}
             data-frame={currentFrame.id}
           >
@@ -184,11 +204,16 @@ export function Stage075PrevisualHarness() {
             {showSafeZones ? (
               <>
                 <div className="previsual-stage__safe previsual-stage__safe--16-10" aria-hidden="true">
-                  <span>16:10 master crop</span>
+                  <span>16:10 landscape safe</span>
                 </div>
                 <div className="previsual-stage__safe previsual-stage__safe--4-3" aria-hidden="true">
-                  <span>4:3 essential safe</span>
+                  <span>4:3 landscape safe</span>
                 </div>
+                {isPortrait ? (
+                  <div className="previsual-stage__safe previsual-stage__safe--portrait" aria-hidden="true">
+                    <span>{aspect === '3:4' ? 'tablet portrait action safe' : 'phone portrait action safe'}</span>
+                  </div>
+                ) : null}
               </>
             ) : null}
 

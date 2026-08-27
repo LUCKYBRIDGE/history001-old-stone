@@ -2,7 +2,7 @@
 
 ## Current phase
 
-# **R2 Stage 07.5 Previsual Browser Review**
+# **R2 Stage 07.5 Responsive Raster Production Readiness**
 
 공식 baseline:
 
@@ -14,7 +14,7 @@
 
 현재 판정:
 
-# **Social Runtime Integrated / Automated PASS / Human Gate FAIL / Scene Composition v2.1 Project-owner Approved / Dev-only Previsual Harness Integrated / Project-owner Previsual Browser Review Pending**
+# **Social Runtime Integrated / Automated PASS / Human Gate FAIL / Scene Composition v2.1 Approved / Responsive Proof Updated / Raster Production Contract Ready / Raster Assets NOT YET**
 
 Stage 08은 BLOCKED다.
 
@@ -37,62 +37,73 @@ Stage 08은 BLOCKED다.
 11. `docs/07A_FIRST_PERSON_VISUAL_ASSET_BIBLE.md`
 12. `docs/07B_FIRST_PERSON_VISUAL_PRODUCTION_SPEC.md`
 13. `handoff/STAGE07_5_FIRST_PERSON_SCENE_COMPOSITION_BIBLE_V2_1.md`
-14. `handoff/STAGE07_5_PREVISUAL_REMEDIATION_READINESS.md`
+14. `handoff/STAGE07_5_RESPONSIVE_VISUAL_PRODUCTION_CONTRACT.md`
+15. `handoff/STAGE07_5_RASTER_ASSET_PRODUCTION_BRIEFS.md`
 
 감사/근거 추적 시:
 
-- `handoff/STAGE07_5_FIRST_PERSON_SCENE_COMPOSITION_BIBLE_V2.md`
-- `handoff/STAGE07_5_PROJECT_OWNER_SCENE_REVIEW.md`
-- `handoff/STAGE07_5_PROJECT_OWNER_SCENE_REVIEW_SUMMARY.md`
+- `handoff/STAGE07_5_PREVISUAL_REMEDIATION_READINESS.md`
 - `handoff/STAGE07_5_HISTORICAL_VISUAL_REFERENCE_REVIEW.md`
+- `handoff/STAGE07_5_PROJECT_OWNER_SCENE_REVIEW.md`
 
 handoff 문서는 Technical SSOT가 아니다.
 
 ---
 
-# 2. Human QA Truth
+# 2. Latest Human QA Truth
 
-실제 Player replay에서:
+최근 Player screenshots/replay에서:
 
-- 관계/이름/인과는 초기보다 개선됨
-- 그러나 행동/상황이 몸과 장면만으로 즉시 읽히지 않음
-- 손/팔/주먹도끼 HUD 느낌
-- actor pose/거리/풍경 continuity 부족
-- 설명문/버튼 의존도가 큼
+- social/narrative causality는 이전보다 개선됨
+- CSS previsual도 이전보다 동작 구분은 개선됨
+- 그러나 사람/손/도구/풍경을 CSS/SVG형 geometry로 계속 다듬는 방식에는 명확한 품질 한계가 있음
+- 왼쪽 story overlay가 직사각형으로 끝나 세로 구분선/2-pane처럼 보였음
+- desktop landscape 중심 좌표만으로는 tablet/phone portrait가 성립하지 않음
 
-따라서 Human Gate는 계속 FAIL이다.
+따라서:
 
-현재 Player runtime/CSS는 causal/social prototype이며 final composition이 아니다.
+# **Final Player-facing visual은 raster-first Hybrid Embodied Composite로 전환한다.**
 
----
+DOM/CSS/SVG geometry는 previsual/debug/UI 보조로만 유지한다.
 
-# 3. Project-owner Approved Scene Contract
-
-Project-owner가 Scene Review 핵심 7개를 승인했다.
-
-LOCK:
-
-1. SC03 terminology while world resumes
-2. SC05 diagonal departure → forward settle
-3. SC08~10 same held handaxe off-frame continuity
-4. SC11 same SC05 Stage A moment from Aru-side
-5. fixed bottom action HUD 금지
-6. SC10 default explicit animal spoor 제외
-7. Nua 4:3 crop tune
-
-판정:
-
-# **Project-owner Scene Composition Confirmation = PASS**
-
-승인 통합본:
-
-- `STAGE07_5_FIRST_PERSON_SCENE_COMPOSITION_BIBLE_V2_1.md`
+Human Gate는 계속 FAIL이다.
 
 ---
 
-# 4. Dev-only Previsual Harness
+# 3. Current Player Proof Layout Fix
 
-승인된 v2.1을 이미지 생성 없이 브라우저에서 검토할 수 있는 neutral composition harness가 `main`에 통합되어 있다.
+새 responsive composition layer가 다음을 보정한다.
+
+- story overlay width를 full frame으로 확장
+- 왼쪽 copy 영역 끝의 hard vertical seam 제거
+- landscape에서는 soft bottom/bottom-left fade
+- portrait에서는 soft bottom vertical fade
+- action UI는 copy와 함께 scene-local 유지
+- persistent footer 없음
+- phone safe-area bottom/left/right 고려
+
+이것은 final art가 아니라 raster integration 전에 layout 자체가 잘못되지 않는지 보는 proof다.
+
+---
+
+# 4. Responsive Composition Families
+
+```text
+L  = Landscape
+TP = Tablet Portrait
+PP = Phone Portrait
+N  = Near-square fallback
+```
+
+핵심:
+
+- 16:9 하나를 모든 화면에 단순 crop하지 않는다.
+- narrative meaning이 깨지면 portrait 전용 art-directed composition을 만든다.
+- SC02/SC05/SC06→07/SC08→09/SC10/SC11은 portrait dedicated variant를 우선 검토한다.
+
+---
+
+# 5. Dev-only Previsual Harness
 
 개발 모드:
 
@@ -100,56 +111,101 @@ LOCK:
 http://localhost:5173/?previsual=1
 ```
 
-구성:
+지원 ratio:
 
-- PV-01~PV-08 선택
-- PV별 1~3개 핵심 frame 선택
-- 16:9 / 16:10 / 4:3 frame 전환
-- 4:3 / 16:10 safe zone overlay
-- element label on/off
-- camera note
-- dialogue timing
-- frame continuity checks
-- PV acceptance criteria
-- SC05/SC11 same-moment linkage
+```text
+16:9
+16:10
+4:3
+3:4   = TP review
+9:16  = PP review
+```
+
+portrait mode에서 normalized landscape 요소가 부딪히거나 crop되는 문제를 CSS로 자동 숨기지 않는다.
+그 실패는 전용 portrait composition 필요 신호다.
 
 관련 코드:
 
 - `src/experience/previsual/stage075PrevisualSpec.ts`
 - `src/experience/previsual/Stage075PrevisualHarness.tsx`
 - `src/styles/stage075PrevisualHarness.css`
+- `src/styles/stage075PrevisualPortrait.css`
 - `tests/integration/Stage075PrevisualHarness.test.tsx`
 
-이 route는 DEV에서만 활성화되며 Player production runtime을 대체하지 않는다.
+---
+
+# 6. Raster Production Strategy
+
+주 계약:
+
+- `STAGE07_5_RESPONSIVE_VISUAL_PRODUCTION_CONTRACT.md`
+- `STAGE07_5_RASTER_ASSET_PRODUCTION_BRIEFS.md`
+
+형식 원칙:
+
+- opaque world plate → AVIF/WebP
+- transparent actor/body/item → WebP alpha
+- PNG → source master 또는 alpha edge 필요 시
+- contact-heavy scene → Unified Contact Keyframe
+
+즉 “PNG 같은 실제 그림을 쓴다”는 방향은 맞지만, 모든 파일을 lossless PNG로 runtime에 넣는 것은 아니다.
 
 ---
 
-# 5. Critical PV Set
+# 7. Critical Raster Batch
+
+Stage 08 전체가 아니라 Stage 07.5 Human-Gate proof만 제작한다.
+
+순서:
+
+1. DAY1-HANDAXE-V1
+2. Aru/Damu/Nua anchors
+3. PV-02 Handoff L/P
+4. PV-01 Living Camp L/P
+5. PV-05 Stop/Crouch L/P
+6. PV-06 Nua Attention/Reveal L/P
+7. PV-04 Departure L/P
+8. PV-07 Rock Shelter L/P
+9. PV-08 Same-Moment Aru POV L/P
+10. PV-03 supporting variants
+
+실제 이미지 생성/제작은 아직 시작하지 않았다.
+
+---
+
+# 8. Mandatory Cross-device QA
+
+최소 확인:
 
 ```text
-PV-01 SC01 living camp
-PV-02 SC02 handoff
-PV-03 SC03→04 naming + world resume
-PV-04 SC05 departure spatial proof
-PV-05 SC06→07 stop/crouch
-PV-06 SC08→09 Nua attention/reveal
-PV-07 SC10 rock shelter inspection
-PV-08 SC11 same-moment Aru POV
+1920×1080
+1440×900
+1366×768
+1024×768
+1180×820
+820×1180
+768×1024
+390×844
+393×852
+360×800
+844×390
 ```
 
-주요 검증점:
+모든 critical scene에서:
 
-- 사람/도구/세계 위치가 1초 정지 화면에서도 읽히는가
-- 손/팔이 HUD가 아니라 행동 정보로 읽히는가
-- 접촉점이 4:3에서도 유지되는가
-- scene axis가 뒤집히지 않는가
-- handaxe가 사라졌다 생기지 않는가
-- action UI가 fixed HUD가 되지 않는가
-- SC11이 rewind가 아니라 same-moment opposite-side POV로 읽히는가
+- action-before-copy readability
+- body proportion
+- hand/tool/contact crop
+- cast identity
+- copy seam/pane absence
+- safe-area
+- portrait narrative equivalence
+
+를 확인한다.
 
 ---
 
-# 6. Historical Framing
+# 9. Historical Boundary
 
 # **Korean Paleolithic Educational Composite / Element-level Provenance**
 
@@ -160,7 +216,7 @@ PV-08 SC11 same-moment Aru POV
 
 Chronology Coherence Gate 유지.
 
-Still deferred:
+여전히 보류:
 
 - exact season/plants
 - exact shelter construction/material/knots
@@ -170,47 +226,22 @@ Still deferred:
 - Hunt Player exact age/sex
 - final audio
 
-근거 없이 채우지 않는다.
-
 ---
 
-# 7. Previsual vs Production
+# 10. Current Gate
 
-현재 harness는 rough composition review 도구다.
-
-현재 가능:
-
-- wire/rough composition review
-- camera/pose/contact proof
-- crop proof
-- same-moment proof
-- continuity review
-
-현재 금지:
-
-- production image batch
-- final art polishing
-- runtime production integration
-- Stage 08 expansion
-- final cast/garment/environment specific lock
-
-# **실제 production image 생성은 별도 명시적 작업으로 취급한다.**
-
----
-
-# 8. Current Gate
-
-# **Project-owner Previsual Browser Review**
+# **Responsive Previsual Recheck / Raster Asset Production Readiness**
 
 현재:
 
 ```text
 Scene Composition Design = PASS
 Project-owner Scene Confirmation = PASS
-Previsual Readiness = READY
-Dev-only Previsual Harness = INTEGRATED
-Automated Harness Verification = PASS
-Project-owner Previsual Browser Review = PENDING
+Responsive Proof Layout = UPDATED
+Landscape/Portrait Previsual Modes = READY
+Responsive Raster Contract = READY
+Raster Production Briefs = READY
+Raster Assets = NOT YET
 Previsual Approval = NOT YET
 Human Gate = FAIL
 Stage 08 = BLOCKED
@@ -218,12 +249,12 @@ Stage 08 = BLOCKED
 
 다음 행동:
 
-1. 최신 `main`을 받는다.
-2. `npm run dev` 실행.
-3. `?previsual=1`로 PV-01~PV-08을 본다.
-4. 각 PV에서 16:9 → 16:10 → 4:3을 전환한다.
-5. 어색한 구도/동작 인과/접촉/crop 문제를 그대로 기록한다.
-6. 해당 feedback을 spec/harness에 먼저 수정한다.
-7. Project-owner가 Previsual PASS를 선언하기 전 production visual 제작으로 넘어가지 않는다.
+1. latest responsive proof를 desktop + portrait에서 재확인한다.
+2. hard vertical story seam이 사라졌는지 확인한다.
+3. `?previsual=1`에서 3:4 / 9:16을 보며 dedicated portrait composition이 필요한 PV를 확인한다.
+4. brief에 수정이 필요하면 image production 전에 수정한다.
+5. 실제 raster image 제작은 별도 explicit task로 시작한다.
+6. candidate review 후 minimum coherent set만 runtime에 통합한다.
+7. cross-device Human Visual QA를 다시 한다.
 
-자동 테스트나 문서 승인만으로 Human PASS를 선언하지 않는다.
+자동 PASS나 문서 완료만으로 Human PASS를 선언하지 않는다.
