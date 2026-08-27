@@ -1,3 +1,5 @@
+import type { Stage075VisualAnchorId } from './stage075VisualContinuityRegistry';
+
 export type AnatomyContractStatus =
   | 'schema-locked'
   | 'reference-pending'
@@ -16,7 +18,7 @@ export interface Stage075AnatomyContract {
   id: Stage075AnatomyContractId;
   status: AnatomyContractStatus;
   scenes: readonly string[];
-  requiredAnchorIds: readonly string[];
+  requiredAnchorIds: readonly Stage075VisualAnchorId[];
   requiredPoseFamilies: readonly string[];
   proportionKeys: readonly string[];
   immutableRules: readonly string[];
@@ -26,10 +28,8 @@ export interface Stage075AnatomyContract {
 
 /**
  * Anatomy and contact geometry are upstream dependencies for hero/body/contact rasters.
- *
- * Numeric body ratios are intentionally not invented here. They are measured from an
- * approved master packet, then the contract can move to `contract-approved` with the
- * stored master path(s).
+ * Numeric ratios are deliberately not invented here; they are measured from approved
+ * production masters, then the contract can move to `contract-approved`.
  */
 export const STAGE075_ANATOMY_CONTRACTS: readonly Stage075AnatomyContract[] = [
   {
