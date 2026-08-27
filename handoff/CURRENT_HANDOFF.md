@@ -2,7 +2,7 @@
 
 ## Current phase
 
-# **R2 Stage 07.5 Scene Composition Hardening / Design Lock**
+# **R2 Stage 07.5 Scene Composition Bible v2 / Project-owner Review**
 
 공식 baseline:
 
@@ -14,7 +14,7 @@
 
 현재 판정:
 
-# **Social Runtime Integrated / Automated PASS / Human Gate FAIL / Scene Composition Design Lock In Progress / Implementation Frozen**
+# **Social Runtime Integrated / Automated PASS / Human Gate FAIL / Historical Visual Reference Review Complete v1 / Scene Composition Bible v2 Consolidated / Implementation Frozen**
 
 Stage 08은 BLOCKED다.
 
@@ -37,33 +37,95 @@ Stage 08은 BLOCKED다.
 11. `docs/07A_FIRST_PERSON_VISUAL_ASSET_BIBLE.md`
 12. `docs/07B_FIRST_PERSON_VISUAL_PRODUCTION_SPEC.md`
 13. `handoff/DAY1_COMMUNITY_HUNT_FIRST5_SCREENPLAY.md`
-14. `handoff/STAGE07_5_FIRST_PERSON_SCENE_COMPOSITION_BIBLE.md`
-15. `handoff/STAGE07_5_SCENE_COMPOSITION_LOCK_DECISIONS.md`
+14. `handoff/STAGE07_5_FIRST_PERSON_SCENE_COMPOSITION_BIBLE_V2.md`
 
-Scene Composition Bible과 Lock Decisions는 구현 계약이며 Technical SSOT가 아니다.
+감사/근거 추적이 필요할 때:
 
----
+- `handoff/STAGE07_5_FIRST_PERSON_SCENE_COMPOSITION_BIBLE.md` v1
+- `handoff/STAGE07_5_SCENE_COMPOSITION_LOCK_DECISIONS.md`
+- `handoff/STAGE07_5_HISTORICAL_VISUAL_REFERENCE_REVIEW.md`
 
-# 2. 왜 지금 구현을 멈췄는가
-
-실제 Human replay에서 social/narrative causality는 전보다 좋아졌지만 다음 P1이 남았다.
-
-- 현재 무슨 동작인지 화면만으로 잘 안 읽힘
-- 손/팔/주먹도끼가 실제 몸보다 HUD/overlay처럼 보임
-- actor pose와 장면 연출이 어색함
-- 풍경과 actor가 같은 물리 공간처럼 충분히 이어지지 않음
-- 설명문/버튼을 읽어야 상황을 이해하는 비중이 높음
-- 장면별 camera/body/tool/actor/world continuity가 구현 전에 충분히 잠기지 않았음
-
-프로젝트 오너의 현재 원칙:
-
-> **각 장면의 대사, 1인칭 시점에서 보이는 내 손/팔/도구, 인물, 이미지 배치, 풍경, 일관성을 세세하게 설계한 뒤 구현한다.**
-
-따라서 지금은 runtime/CSS를 더 고치는 단계가 아니다.
+위 handoff 문서는 Technical SSOT가 아니다.
 
 ---
 
-# 3. 현재 Stage 07.5 Scene 목록
+# 2. 지금까지의 Human 판단
+
+첫 구현/재플레이에서 다음이 확인됐다.
+
+- 관계/이름/인과는 초기보다 개선
+- 하지만 현재 화면만으로 동작/상황을 즉시 읽기 어려움
+- 손/팔/도구가 실제 몸보다 HUD처럼 보임
+- actor pose/거리/풍경이 충분히 하나의 물리적 공간으로 묶이지 않음
+- 설명문/버튼이 장면을 대신 설명하는 비중이 큼
+
+프로젝트 오너의 현재 기준:
+
+> 각 장면의 대사, 1인칭에서 보이는 손/팔/도구, 인물, 이미지 배치, 풍경, continuity를 세세하게 설계한 다음 구현한다.
+
+따라서 현재 runtime/CSS는 prototype으로만 유지한다.
+
+---
+
+# 3. Bible v2의 역사적 framing
+
+# **Korean Paleolithic Educational Composite / Element-level Provenance**
+
+Day 1은 특정 유적 특정 날짜의 1:1 복원이 아니다.
+
+visual decision마다:
+
+- `[H]` Historical anchor
+- `[C]` Comparative reference
+- `[R]` Reconstruction choice
+- `[D]` Deferred / non-diagnostic
+
+를 구분한다.
+
+새 Gate:
+
+# **Chronology Coherence Gate**
+
+`구석기 자료`라는 이유만으로 서로 다른 시기/유적의 구체 세부를 한 장면에 합치지 않는다.
+
+---
+
+# 4. Historical Visual Review 핵심
+
+## Handaxe
+
+- NMK 신수19143 primary morphology
+- NMK 신수18710 secondary proportion/material
+- specific artifact clone 아님
+- same fictional Day 1 object
+
+## Shelter
+
+- Seokjangri specific hut = 후기 구석기 comparative reference
+- current Day 1 shelter의 1:1 template 아님
+- Day 1 shelter = low-specificity asymmetric temporary protection reconstruction
+
+## Clothing
+
+- exact Korean Paleolithic garment는 근거가 부족
+- anti-modern / anti-fantasy constraints만 확정
+- exact pattern/stitching deferred
+
+## Human appearance
+
+- 한반도 구석기 인골로 표준 얼굴을 일반화하기 어려움
+- fictional non-caricature cast
+- exact species/facial morphology deferred
+
+## Environment
+
+- 후기 플라이스토세 식생 자료는 특정 연대/지역의 comparative data
+- exact Day 1 species/season으로 사용 금지
+- chronologically non-diagnostic environment
+
+---
+
+# 5. Stage 07.5 Scene 목록
 
 ```text
 SC00 Sensory Orientation
@@ -80,170 +142,159 @@ SC10 Rock Shelter Inspection
 SC11 Perspective Recontextualization / Aru-side Proof
 ```
 
-각 Scene은 camera / body / hand / tool / actor / environment / light / sound / dialogue / UI / transition / responsive crop / historical boundary / acceptance를 먼저 가져야 한다.
+Bible v2가 각 scene의:
+
+- camera
+- body
+- hand
+- tool
+- actor
+- background
+- world
+- light
+- sound
+- dialogue
+- timing
+- UI
+- transition
+- responsive crop
+- reference confidence
+- acceptance
+
+을 한 문서에서 정의한다.
 
 ---
 
-# 4. 이미 잠긴 Social Immersion 원칙
+# 6. 핵심 locked decisions
 
-- Player는 외부 관광객이 아니라 기존 공동체 구성원
-- provisional call-name: `아루 / 다무 / 누아`
-- R/H1/H2는 authoring ID일 뿐 Player 역할 label이 아님
-- 한국어 대사는 실제 선사 언어 복원이 아니라 의미 번역
-- pseudo-primitive speech 금지
-- NPC는 Player에게만 반응하는 tutorial object가 아님
-- NPC-to-NPC interaction 허용
-- 관계 = shared event / memory / callback
-- `World Truth ≠ Character Knowledge`
-- Player 자신의 이름은 고정하지 않아 self-projection 유지
-
----
-
-# 5. Scene Lock Decisions v1에서 새로 확정한 것
-
-## 공간 방향
+## Screen axis
 
 ```text
 camp/fire/Aru = behind-left
-outbound route = screen right/right-center
+outbound route = right/right-center
 Damu/Nua = ahead
 ```
 
-SC04~SC10에서 이유 없는 좌우 mirror/180° crossing 금지.
+## Camera
 
-## route landmark
+C0~C10 family.
 
-- `LM-SPLIT-ROCK-01`
-- 갈라진 낮은 큰 바위
-- fictional Day 1 route landmark
-- Return에서 같은 object로 callback 예정
+## Route landmark
 
-## handaxe
+`LM-SPLIT-ROCK-01` — 갈라진 낮은 큰 바위.
 
-- same canonical object
-- right-hand dominant grip
-- grip-base를 Player가 잡음
-- inspect에서 face-A 위주
-- working-end는 forward-left/up-left 방향
-- inventory spin / FPS weapon lock 금지
+## Handaxe
+
+- right hand
+- grip-base
+- face-A continuity
+- no inventory spin/FPS lock
 
 ## SC07
 
-- 왼손은 지면을 짚어 crouch를 지지
-- evidence를 가리키거나 직접 만지지 않음
+- Player left hand = ground brace
+- evidence pointing/touch 금지
 
 ## SC08/09
 
-- Nua = right-forward 약 25° body turn
-- Player = right 20~24° pan
-- 그 뒤 rock shelter reveal
-- SC08 dialogue 없음
+- Nua right-forward ~25° body turn
+- Player right pan 20~24°
+- no dialogue at turn/reveal
 
 ## SC10
 
-- 왼손 near-left rock edge brace 필수
+- left hand rock brace required
 - Nua: `안이 꽤 넓어.`
 - Damu: `안쪽은 먼저 봐야 해.`
 
 ## SC11
 
-- Perspective 방식 A
-- 같은 실제 순간을 Aru POV에서 다시 경험
+- actual same moment from Aru-side POV
 - memory echo 아님
-- own voice: `해 지기 전에 와.`
-- Aru 손/팔은 reference lock 전 기본 숨김
+- own voice `해 지기 전에 와.`
+- no `아루의 관점` meta title
 
-## background actors
+## Curriculum cue
 
-- B1 fire tending
-- B2 material/shelter work
-- SC00~SC05에서 같은 사람/같은 작업 continuity
-
-## curriculum cue
-
-- 큰 교육 카드 금지
 - contextual annotation
-- 시간만으로 자동 hide 금지
-- 다음 world action까지 읽을 수 있게 유지
+- timer-only auto hide 금지
+- no large beige/modal card
 
 ---
 
-# 6. 추가 QA Gate
+# 7. Project-owner Scene Review
 
-Scene Review는 다음을 모두 포함한다.
+현재 다음 Gate.
 
-1. 1-second freeze-frame test
-2. 800ms silent motion test
-3. no-audio test
-4. no-caption test
-5. reduced-effects test
-6. first-glance priority test
-7. no-overlay test
-8. contact continuity test
-9. 4:3 / 16:10 / 16:9 crop test
-10. same-body / same-tool / same-world continuity test
+Bible v2의 SC00~SC11을 **구현하지 않은 설계 상태에서 먼저 검토**한다.
 
-자동 테스트로 `몰입됨`을 선언하지 않는다.
+필수 확인:
 
----
+1. 대사 자연스러움
+2. 각 순간 누가 무엇을 하는지
+3. Player 몸이 왜 보이는지
+4. 손/팔 위치
+5. handaxe grip/contact
+6. actor 위치/pose/gaze
+7. camp→route→ground→rock shelter spatial continuity
+8. background life continuity
+9. camera movement
+10. action UI가 scene을 가리지 않는지
+11. curriculum cue가 몰입을 끊지 않는지
+12. 4:3/16:10/16:9 crop
+13. 역사적 사실/비교/재구성/보류의 구분
+14. SC11 perspective 이해 가능성
 
-# 7. 아직 Reference Lock이 필요한 것
-
-현재 근거 없이 확정하지 않는다.
-
-- exact season
-- exact vegetation species/palette
-- exact clothing construction/material/stitching
-- detailed skin/hair appearance
-- final age/sex reading
-- exact temporary shelter reconstruction/material system
-- final face/cast appearance
-- final sound production
-
-Current shelter는 reference lock 전에도 다음을 금지한다.
-
-- 대칭 A-frame tent
-- 현대 캠핑 텐트형 삼각형
-- 집+삼각지붕 icon
-- 중앙 출입문이 강조된 house silhouette
+Review에서 P1이면 v2 수정.
 
 ---
 
-# 8. 다음 작업
+# 8. Previsual QA
 
-# **다음 작업은 runtime 구현이 아니다.**
+Project-owner review 후에도 다음이 필요하다.
 
-```text
-Scene Bible v1
-+ Lock Decisions v1
-→ Historical Visual Reference Review
-→ REFERENCE-LOCK REQUIRED 항목 결정
-→ Scene Composition Bible v2 통합
-→ Project-owner Scene Composition Review
-→ Previsual Approval
-→ runtime + asset implementation
-→ Human Visual QA
-```
+- 1-second freeze frame
+- 800ms silent motion
+- no-caption
+- no-audio
+- reduced-effects
+- contact
+- direction
+- no-overlay
+- responsive crop
+- same body/tool/world continuity
+- chronology coherence
+- anti-anachronism
+- anti-caricature
 
-특히 다음 세션에서 먼저 해야 할 것은:
-
-1. reference가 필요한 시각 항목별 source review 계획 수립
-2. shelter / clothing / vegetation / body appearance에서 무엇을 실제로 lock할지 결정
-3. Bible v1 + Lock Decisions를 단일 Bible v2로 통합
-4. v2의 SC00~SC11을 Project-owner review용으로 요약
+자동 테스트로 Human PASS를 선언하지 않는다.
 
 ---
 
-# 9. 지금 하지 말 것
+# 9. Implementation Freeze
+
+현재 하지 말 것:
 
 - 새 runtime/CSS remediation
 - production image generation
-- Stage 08 전체 Hunt 구현
-- final cast lock
-- generic NPC AI
-- generic relationship/dialogue engine
-- 새로운 Scene을 추가해 현재 proof 범위를 흐리기
+- Stage 08 전체 Hunt
+- final cast face lock
+- exact garment/vegetation을 근거 없이 확정
 
-# **Bible v2 + Reference Lock + Project-owner Review 전에는 구현 branch를 만들지 않는다.**
+# **Project-owner Scene Review + Previsual Approval 전에는 implementation branch를 만들지 않는다.**
 
-Human Gate는 계속 FAIL이며, 자동 PASS는 Human PASS가 아니다.
+---
+
+# 10. 다음 순서
+
+```text
+Bible v2 consolidated
+→ Project-owner Scene Composition Review
+→ v2 correction if needed
+→ Previsual Approval
+→ Visual Production Readiness
+→ minimum coherent asset + runtime implementation
+→ Human Visual QA
+```
+
+Human Gate는 계속 FAIL이며 Stage 08은 BLOCKED다.
