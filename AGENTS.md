@@ -1,12 +1,12 @@
 # AGENTS.md
 
-이 저장소는 초등학생용 **구석기 신체화 1인칭 역사 체험 웹게임**의 Single Source of Truth다.
+이 저장소는 초등학생용 **구석기 신체화 1인칭 역사 체험 웹게임**의 작업 규칙이다.
 
-현재 공식 기준선:
+현재 장기 공식 기준선:
 
 # **Design Reboot R2 / Stage 07 Curriculum-Hardened Baseline**
 
-정확한 기준선·문서 위계·공식 용어·완료 판정은 가장 먼저:
+현재 운영 상태와 문서 위계는 가장 먼저:
 
 - `docs/00_CANONICAL_BASELINE.md`
 
@@ -30,15 +30,17 @@
 10. `docs/01D_LEARNING_CLARITY_SAFETY_HISTORICAL_INTEGRITY.md`
 11. `docs/01E_CURRICULUM_TEXTBOOK_ANCHORS.md`
 12. 해당 Stage canonical 문서
-13. 관련 코드/tests
+13. 관련 handoff / code / tests
+
+현재 Stage 07.5 작업에서는 추가로 반드시:
+
+- `handoff/STAGE07_5_FIRST_PERSON_SCENE_COMPOSITION_BIBLE_V2.md`
+- `handoff/STAGE07_5_PROJECT_OWNER_SCENE_REVIEW.md`
+
+를 읽는다.
 
 Audit/Legacy 문서는 필요할 때만 참고한다.
-
-- `docs/R2_STAGE01_07_SEQUENTIAL_AUDIT.md`
-- `docs/R2_STAGE01_DEEP_AUDIT_REPORT.md`
-- `docs/08_HUNT_IMMERSION_REDESIGN.md`
-
-과거 채팅 기억보다 GitHub 최신 canonical 문서를 우선한다.
+과거 채팅 기억보다 최신 GitHub canonical을 우선한다.
 
 ---
 
@@ -57,15 +59,15 @@ Immersion
 → Naming / Conceptualization
 ```
 
-교과 연결 흐름:
+교과 연결:
 
 # **Experience → Name → Reuse → Connect**
 
 ---
 
-# 3. Curriculum / Textbook Anchor Guardrail
+# 3. Curriculum Guardrail
 
-현재 핵심 Anchor:
+핵심 Anchor:
 
 - 뗀석기
 - 주먹도끼
@@ -89,66 +91,76 @@ Immersion
 
 금지:
 
-- `뗀석기 = 주먹도끼`처럼 동의어화
-- 시작부터 유물 목록 제시
-- 장문의 교과서 모달
-- 즉시 객관식/OX 퀴즈
-- 모든 사물 상시 이름표
-- 교과 Anchor 때문에 관계·위험·스토리를 정지
+- `뗀석기 = 주먹도끼`
+- 시작부터 유물 목록
+- 장문의 교과 모달
+- 즉시 객관식/OX
+- 상시 이름표
+- 교과 cue 때문에 story/action 중단
 
 ---
 
-# 4. 거처 용어 통일
+# 4. 거처 용어
 
 ## 현재 임시 거처
 
-Stage 07에서 현재 공동체 생활 공간을 처음 보여줄 때 사용하는 중립적 표현.
+처음 보는 현재 공동체 생활 공간의 중립적 표현.
 
 ## 막집
 
-교과서 핵심 용어. Camp에서 실제 임시 거처를 보고/손질한 뒤 명명하는 것을 기본 경로로 한다.
+교과서 핵심 용어. Camp에서 거처를 실제로 보고/손질한 뒤 명명하는 기본 경로.
 
 ## 동굴 / 바위 그늘
 
 자연 지형을 이용한 생활 공간.
 
-# **막집도 맞고 동굴/바위 그늘도 맞다. 둘을 경쟁 정답으로 만들지 않는다.**
-
-동굴은:
-
-- 구석기의 유일한 집이 아님
-- 막집의 업그레이드가 아님
-- 자동 새 집 판정이 아님
-- 자동 공포 던전도 아님
+막집과 동굴/바위 그늘을 경쟁 정답으로 만들지 않는다.
+동굴은 유일한 집/막집 업그레이드/자동 새 집/자동 공포 던전이 아니다.
 
 ---
 
-# 5. Historical Integrity
+# 5. Historical Integrity / Chronology
 
-두 층을 구분한다.
+Historical / Curriculum Fact와 Reconstructed Event를 구분한다.
 
-## Historical / Curriculum Fact
+Historical anchor 예:
 
 - 뗀석기 사용
 - 주먹도끼의 다용도성
 - 이동 생활
+- 불 이용
 - 막집
 - 동굴/바위 그늘 생활
-- 불 이용
 
-## Reconstructed Event
+Reconstruction 예:
 
-- R/H1/H2라는 구체 인물
-- R이 특정 아침에 주먹도끼를 건네는 사건
-- 특정 Hunt에서 동굴 후보를 발견하는 사건
-- 구체 대사·감정·선택 결과
+- 아루/다무/누아
+- 특정 아침 handoff
+- 구체 camp layout
+- 특정 route / landmark
+- 구체 대사/감정/선택 결과
 
-Player를 매번 `[재구성]` 라벨로 끊지 않는다.
-Teacher/Debug에서는 사실/재구성 경계를 확인 가능하게 한다.
+Player flow를 `[재구성]` 라벨로 반복 중단하지 않는다.
+Teacher/Debug에서 사실/재구성 경계를 확인할 수 있어야 한다.
+
+공식 visual framing:
+
+# **Korean Paleolithic Educational Composite / Element-level Provenance**
+
+confidence marker:
+
+- `[H]` Historical anchor
+- `[C]` Comparative reference
+- `[R]` Reconstruction choice
+- `[D]` Deferred / non-diagnostic
+
+# **Chronology Coherence Gate**
+
+서로 다른 구석기 시기/유적의 구체 복원을 `구석기`라는 이유만으로 무비판적으로 합치지 않는다.
 
 ---
 
-# 6. Same-Day Time Guardrail
+# 6. Same-Day / Limited Knowledge
 
 # **Student Play Order ≠ In-World Time**
 
@@ -159,30 +171,29 @@ Same Day 1
 └─ Camp
 ```
 
-- 역할 완료는 플레이 진행 상태.
-- 역할 완료마다 세계 시간이 하루씩 전진하지 않음.
-- 역할 순서를 바꿔도 동일 `dayId`.
-- 한 역할의 결과가 다른 역할의 이미 일어난 과거를 소급 변경하지 않음.
-- 세 관점 뒤 Common Evening 한 번.
+- 역할 완료마다 하루 증가 금지
+- 역할 순서가 달라도 동일 `dayId`
+- 한 역할 결과로 이미 일어난 과거를 소급 변경 금지
+- 세 관점 뒤 Common Evening 한 번
+
+# **World Truth ≠ Character Knowledge**
+
+현재 캐릭터가 직접 보거나 함께 겪거나 전달받은 범위만 안다.
 
 ---
 
 # 7. Role-True Perspective
 
-역할 시작 시 현재 관점을 짧게 알려줄 수 있다.
-
-예:
-
-> **사냥을 나선 사람의 관점**
-
-이후 player-facing 정보는 그 인물이 실제로:
+Player-facing 정보는 현재 인물이 실제로:
 
 - 보는 것
 - 듣는 것
 - 이미 아는 것
 - 주변 사람이 드러낸 것
 
-범위 안에서만 제공한다.
+범위 안에 있어야 한다.
+
+Perspective proof에서 메타 제목으로 정답을 먼저 주지 않는다.
 
 ---
 
@@ -190,37 +201,45 @@ Same Day 1
 
 기본 화면:
 
-# **환경 + 자연스럽게 보이는 내 몸 + 들고 있는 것 + 주변 사람 + 행동 + 빛/소리**
+# **환경 + 자연스럽게 보이는 내 몸 + 들고 있는 것 + 주변 사람 + 현재 행동 + 빛/소리**
 
-- 몸은 HUD가 아니다.
-- 모든 장면 아래에 손 PNG를 고정하지 않는다.
-- pose에 따라 보이는 몸이 달라진다.
-- 같은 역할에서 몸/도구/광원 continuity를 유지한다.
-- 사람과 내 몸이 같은 공간처럼 보여야 한다.
+- body is not HUD
+- 모든 장면 아래 고정 손 PNG 금지
+- pose에 따라 몸 가시성 변화
+- 동일 역할 body/tool/light continuity 유지
+- 사람과 내 몸이 같은 공간처럼 보여야 함
+- action affordance도 fixed footer/HUD가 되지 않음
 
 ---
 
 # 9. 주먹도끼 Guardrail
 
-주먹도끼를 사냥 전용 무기로 축소하지 않는다.
-
 ```text
 받음
 → 뗀석기 상위 개념 + 주먹도끼 대표 예 명명
-→ 손에 계속 보임
-→ Stage 08 이후 실제 생활 행동에서 재사용
-→ 다른 역할/저녁에서 다시 등장
+→ 손에 계속 존재
+→ 이후 실제 생활 행동에서 재사용
+→ 다른 역할/저녁에서 재등장
 ```
 
+사냥 전용 무기로 축소하지 않는다.
 단순 receive proof와 실제 다용도 사용 evidence를 구분한다.
+
+Stage 07.5 continuity:
+
+- right-hand dominant production attribute
+- same canonical object
+- grip-base continuity
+- off-frame이어도 state상 계속 들고 있음
+- inventory pop / FPS weapon lock 금지
 
 ---
 
-# 10. 관계와 Emotional Reality
+# 10. 관계 / Emotional Reality
 
-관계는 호감도 점수가 아니라 함께 겪은 사건의 기억과 이후 반응이다.
+관계는 호감도 점수가 아니라 shared event와 이후 반응이다.
 
-허용:
+가능:
 
 - 기대
 - 흥분
@@ -232,13 +251,13 @@ Same Day 1
 - 성취감
 - 안도
 
-# **안전 = 감정 제거가 아니다.**
+안전 = 감정 제거가 아니다.
 
-피할 것:
+금지:
 
 - NPC 모욕/조롱
 - 학생 인격 판정
-- 죄책감만으로 숨겨진 정답 강요
+- 죄책감만으로 숨은 정답 강요
 - 호감도/도덕 점수
 
 ---
@@ -247,29 +266,29 @@ Same Day 1
 
 # **Choice Fairness = 결과 평등이 아니라 결과의 납득 가능성**
 
-- 판단에 필요한 정보가 선택 전에 존재해야 함.
-- 결과는 앞선 조건과 연결되어야 함.
-- 더 나쁜 결과/후회도 가능.
-- 필수 교과 개념을 특정 선택 하나가 독점하지 않음.
+- 필요한 정보가 선택 전에 존재
+- 결과가 앞선 조건과 연결
+- 더 나쁜 결과/후회 가능
+- 필수 교과 개념을 특정 선택 하나가 독점하지 않음
 
 ---
 
 # 12. Threat / Horror
 
-공포게임 같은 순간을 허용한다.
+역사적 상황/자연의 불확실성과 연결된 긴장은 허용한다.
 
 가능:
 
 - 어둠
 - 시야 밖 소리/움직임
 - 갑작스러운 정지
-- 미지의 동굴 안쪽
-- 가까워지는 위험
+- 미지의 안쪽 공간
 - 짧은 놀람
 - 회피/도주
-- rare strong-accent
+- rare strong accent
 
-공포는 역사적 상황·자연의 불확실성과 연결한다.
+Stage 07.5 natural shelter discovery를 자동 공포 장면으로 고정하지 않는다.
+Explicit animal-threat evidence는 Stage 08 threat logic과 함께 검토한다.
 
 ---
 
@@ -293,15 +312,13 @@ Reduced Effects에서도 같은 사건·판단·학습이 유지돼야 한다.
 
 # 14. Scene ≠ Beat
 
-## Scene
+Scene:
+- 목표·직접 행동·위치·결과·관계/world memory가 의미 있게 변하는 단위
 
-목표·직접 행동·위치·시간·결과·관계/world memory가 의미 있게 변하는 상태 단위.
+Beat:
+- 시선·정적·대사·손 transition·용어 reveal·화면 효과 같은 Scene 내부 변화
 
-## Beat
-
-시선·정적·대사·손 transition·용어 reveal·화면 효과 같은 Scene 내부 표현 변화.
-
-# **모든 연출/용어 reveal을 reducer state로 만들지 않는다.**
+모든 연출/대사를 reducer state로 만들지 않는다.
 
 ---
 
@@ -313,11 +330,11 @@ Reduced Effects에서도 같은 사건·판단·학습이 유지돼야 한다.
 
 ## Gather
 
-가까운 관찰 / 채집 / 도구 재사용 / 가공 / 공간 기억 / 범위 확대
+가까운 관찰 / 채집 / 도구 재사용 / 가공 / 공간 기억
 
 ## Camp
 
-불 / 현재 임시 거처와 막집 / 생활 유지 / 가공 / 기다림 / 재회 / 새 거처 후보 재평가
+불 / 현재 임시 거처와 막집 / 생활 유지 / 가공 / 기다림 / 재회
 
 Hunt의 추적/공포 문법을 Gather/Camp에 복제하지 않는다.
 
@@ -352,104 +369,128 @@ App
 - generic VFX engine
 - 전역 관계 점수
 
+`docs/06_TECH_BLUEPRINT.md`가 유일한 Technical SSOT다.
+
 ---
 
 # 17. Curriculum Runtime 용어
 
-- **Curriculum Anchor**: 교과 개념과 구현/QA를 연결하는 내부 안정 ID.
-- **Terminology Reveal**: 경험 뒤 학생에게 짧게 이름을 붙이는 beat.
-- **Learning Evidence**: 학생 점수가 아니라 자동검증/QA 내부 증거.
+- Curriculum Anchor: 내부 안정 ID
+- Terminology Reveal: 경험 뒤 짧은 명명 beat
+- Learning Evidence: 학생 점수가 아닌 QA/자동검증 증거
 
-상위 개념+구체 예를 한 cue에서 연결할 때는 복수 anchor를 허용한다.
-
-```text
-paleolithic-chipped-stone
-+ handaxe
-```
-
-학생에게 internal ID는 노출하지 않는다.
+학생에게 internal ID를 노출하지 않는다.
 
 ---
 
 # 18. Player / Teacher / Debug
 
-Player에 금지:
+Player 금지:
 
 - Stage 번호
-- exact reducer state
+- reducer state
 - evidence ID
-- internal curriculum anchor ID
+- curriculum internal ID
 - 개발 toolbar
-- reconstruction 관리 metadata
+- reconstruction metadata
 
-Player에 허용:
+Player 허용:
 
-- 짧은 역할 orientation
 - 직접 행동
 - 짧은 terminology reveal
+- 필요한 최소 orientation
 
 개발 환경:
 
-- `?legacy=1` — Legacy Hunt v0.1
-- `?teacher=1` — Teacher surface
-- `?debug=1` — Debug surface
+- `?legacy=1`
+- `?teacher=1`
+- `?debug=1`
 
 ---
 
-# 19. 현재 Stage 07 범위
+# 19. 현재 Stage 07.5 범위와 판정
+
+현재 main causal proof:
 
 ```text
-사냥 관점
-→ 새벽 불 + 현재 임시 거처
-→ R의 도구 전달
-→ 뗀석기 → 대표적인 예: 주먹도끼
-→ 동행 합류/출발
-→ 현재 거처가 멀어짐
-→ 몸 낮춰 관찰
-→ 한동안 이동
-→ 동굴/바위 그늘 후보 발견
-→ 공간 평가 + 짧은 교과 연결
-→ 다른 사람 관점 전환 proof
+눈뜨기 전 community life
+→ 눈을 뜸
+→ 생활 속 아루 인식
+→ handaxe handoff
+→ 뗀석기 / 주먹도끼 naming
+→ 다무/누아와 출발
+→ camp recedes
+→ 다무가 먼저 멈춤
+→ Player crouch
+→ ground evidence
+→ 누아 attention shift
+→ Player gaze follow
+→ natural shelter reveal
+→ inspect / 동굴·바위 그늘 naming
+→ same-moment Aru-side perspective proof
 ```
-
-이것은 전체 Hunt가 아니다.
 
 현재 판정:
 
-# **Implementation Complete / Automated PASS / Human QA Pending**
+# **Social Runtime Integrated / Automated PASS / Human Gate FAIL / Scene Composition Review In Progress / Implementation Frozen**
+
+현재 prototype은 final production composition이 아니다.
 
 ---
 
 # 20. 현재 다음 공식 Gate
 
-# **Stage 07 Teacher Browser Visual / Immersion / Curriculum / Misconception QA**
+# **Project-owner Scene Composition Confirmation**
 
-이 Gate에서 최소 확인:
+주 문서:
 
-- body/item spatial relation
-- R/H1/H2 존재감
-- 현재 임시 거처가 집 아이콘처럼 보이지 않는지
-- `뗀석기 → 주먹도끼` 관계 이해
-- terminology reveal의 몰입 영향
-- cave 발견의 공간감/거리감
-- cave 장점과 불확실성
-- 사실/재구성 구분
-- reduced effects parity
-- 핵심 오개념 여부
+- `handoff/STAGE07_5_FIRST_PERSON_SCENE_COMPOSITION_BIBLE_V2.md`
+- `handoff/STAGE07_5_PROJECT_OWNER_SCENE_REVIEW.md`
 
-Human Gate 통과 전 Stage 08 전체 Hunt 확장 금지.
+Review에서 잠근 주요 보정:
+
+- SC03→04 terminology와 world movement 동시 진행
+- SC05 physically plausible diagonal departure geometry
+- SC08~10 handaxe continuous off-frame/re-entry
+- SC11 SC05 Stage A temporal sync
+- action affordance fixed-HUD 금지
+
+Project-owner confirmation 전:
+
+- runtime/CSS remediation 금지
+- production image generation 금지
+- Stage 08 금지
+
+확인 뒤:
+
+```text
+Bible v2.x consolidation
+→ Previsual Approval
+→ Visual Production Readiness
+→ minimum coherent production set
+→ runtime/asset implementation
+→ Human Visual QA
+```
+
+# **Human Gate는 계속 FAIL이며 Stage 08은 BLOCKED다.**
 
 ---
 
 # 21. 완료 판정
 
+구분:
+
 - Design PASS
 - Implementation Complete
 - Automated PASS
+- Project-owner Scene Confirmation
+- Previsual Approval
 - Human QA PASS
+- Visual Production Ready
 - Stage Complete
 
-자동 CI만으로 `Immersion Complete` 또는 `Curriculum Complete`를 선언하지 않는다.
+자동 CI만으로 Immersion/Curriculum/Human PASS를 선언하지 않는다.
+Human QA PASS도 Student Pilot PASS가 아니다.
 
 ---
 
@@ -457,13 +498,13 @@ Human Gate 통과 전 Stage 08 전체 Hunt 확장 금지.
 
 코드/설계를 변경했다면:
 
-1. 관련 canonical 문서 업데이트
+1. canonical 문서 정합성 확인
 2. typecheck
 3. tests
 4. production build
 5. `PROJECT_STATUS.md`
 6. `handoff/CURRENT_HANDOFF.md`
-7. `handoff/TEST_REPORT.md`
+7. 필요 시 `handoff/TEST_REPORT.md`
 8. 실제 GitHub SHA/CI 확인
 
-최신 상태를 과장하지 않고 기록한다.
+최신 exact SHA/run은 GitHub/Actions가 최종 진실 공급원이다.
