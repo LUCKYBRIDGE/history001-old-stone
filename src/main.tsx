@@ -8,6 +8,7 @@ import './styles/stage075PlayerActionCausality.css';
 import './styles/stage075PrevisualHarness.css';
 import './styles/stage075ResponsiveComposition.css';
 import './styles/stage075PrevisualPortrait.css';
+import './styles/stage075RasterMedia.css';
 
 const rootElement = document.getElementById('root');
 
