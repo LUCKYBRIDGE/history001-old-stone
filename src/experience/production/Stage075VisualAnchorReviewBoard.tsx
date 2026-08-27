@@ -65,8 +65,28 @@ export function Stage075VisualAnchorReviewBoard() {
                 <ul className="anchor-review__slot-list">
                   {bundle.slots.map((item) => (
                     <li key={item.id}>
-                      <strong>{item.label}</strong>
+                      <div className="anchor-review__slot-heading">
+                        <strong>{item.label}</strong>
+                        <span className={`anchor-review__slot-state anchor-review__slot-state--${item.approvedPath ? 'approved' : 'planned'}`}>
+                          {item.approvedPath ? 'approved reference' : 'planned candidate path'}
+                        </span>
+                      </div>
                       <span>{item.purpose}</span>
+                      {item.candidateBrief ? (
+                        <div className="anchor-review__candidate-brief" data-testid={`candidate-brief-${bundle.anchorId}-${item.id}`}>
+                          <p><strong>Mode:</strong> <code>{item.candidateBrief.mode}</code></p>
+                          <p><strong>Controlled instruction:</strong> {item.candidateBrief.instruction}</p>
+                          <div>
+                            <strong>Review focus</strong>
+                            <ul>
+                              {item.candidateBrief.reviewFocus.map((focus) => <li key={focus}>{focus}</li>)}
+                            </ul>
+                          </div>
+                          <p className="anchor-review__mono">
+                            <strong>Reject:</strong> {item.candidateBrief.rejectCodes.join(' · ')}
+                          </p>
+                        </div>
+                      ) : null}
                       <code>{item.approvedPath ?? item.plannedRepositoryPath}</code>
                     </li>
                   ))}
