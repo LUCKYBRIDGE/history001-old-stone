@@ -84,6 +84,44 @@
   line-height: 1.5;
 }
 
+.anchor-review__slot-list {
+  display: grid;
+  gap: 0.55rem;
+  padding-left: 0 !important;
+  list-style: none;
+}
+
+.anchor-review__slot-list li {
+  display: grid;
+  gap: 0.18rem;
+  padding: 0.55rem 0;
+  border-top: 1px solid rgba(255, 244, 224, 0.08);
+}
+
+.anchor-review__slot-list span {
+  color: rgba(255, 244, 224, 0.66);
+  font-size: 0.82rem;
+}
+
+.anchor-review__slot-list code {
+  overflow-wrap: anywhere;
+  color: rgba(255, 244, 224, 0.52);
+  font-size: 0.72rem;
+}
+
+.anchor-review__progress {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.8rem;
+  border-radius: 999px;
+  padding: 0.22rem 0.48rem;
+  background: rgba(255, 244, 224, 0.08);
+  color: rgba(255, 244, 224, 0.8);
+  font-size: 0.74rem;
+  font-weight: 800;
+}
+
 .anchor-review__meta,
 .anchor-review__path-state {
   color: rgba(255, 244, 224, 0.68);
