@@ -36,7 +36,8 @@
 }
 
 .anchor-review__section-heading,
-.anchor-review__card-heading {
+.anchor-review__card-heading,
+.anchor-review__slot-heading {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
@@ -91,22 +92,67 @@
   list-style: none;
 }
 
-.anchor-review__slot-list li {
+.anchor-review__slot-list > li {
   display: grid;
-  gap: 0.18rem;
-  padding: 0.55rem 0;
+  gap: 0.35rem;
+  padding: 0.7rem 0;
   border-top: 1px solid rgba(255, 244, 224, 0.08);
 }
 
-.anchor-review__slot-list span {
+.anchor-review__slot-list > li > span {
   color: rgba(255, 244, 224, 0.66);
   font-size: 0.82rem;
 }
 
-.anchor-review__slot-list code {
+.anchor-review__slot-list > li > code {
   overflow-wrap: anywhere;
   color: rgba(255, 244, 224, 0.52);
   font-size: 0.72rem;
+}
+
+.anchor-review__slot-state {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  border-radius: 999px;
+  padding: 0.16rem 0.42rem;
+  font-size: 0.66rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.anchor-review__slot-state--planned {
+  color: #e5d2aa;
+  background: rgba(229, 210, 170, 0.08);
+}
+
+.anchor-review__slot-state--approved {
+  color: #cbe6c2;
+  background: rgba(203, 230, 194, 0.08);
+}
+
+.anchor-review__candidate-brief {
+  display: grid;
+  gap: 0.5rem;
+  padding: 0.65rem;
+  border-left: 2px solid rgba(229, 210, 170, 0.32);
+  background: rgba(255, 244, 224, 0.025);
+  color: rgba(255, 244, 224, 0.74);
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+
+.anchor-review__candidate-brief code {
+  color: #e5d2aa;
+}
+
+.anchor-review__candidate-brief > div {
+  display: grid;
+  gap: 0.2rem;
+}
+
+.anchor-review__candidate-brief ul {
+  padding-left: 1rem;
 }
 
 .anchor-review__progress {
