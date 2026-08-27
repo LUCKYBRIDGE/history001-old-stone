@@ -1,0 +1,214 @@
+/*
+ * Stage 07.5 responsive composition readiness layer.
+ *
+ * This is NOT production art. It removes the hard split-screen treatment from
+ * the current proof and establishes layout behavior that production raster
+ * assets must eventually satisfy across landscape and portrait viewports.
+ */
+
+:root {
+  --r2-copy-max-landscape: 44rem;
+  --r2-copy-max-portrait: 34rem;
+  --r2-safe-inline: clamp(1rem, 3.2vw, 3rem);
+}
+
+/*
+ * The story layer must never terminate as a rectangular left panel. Previous
+ * percentage widths produced the visible vertical seam seen in Human QA.
+ */
+.r2-skeleton > .r2-story,
+.r2-world--fire + .r2-story,
+.r2-world--receive-tool + .r2-story,
+.r2-world--tool-reveal + .r2-story,
+.r2-world--join + .r2-story,
+.r2-world--depart + .r2-story,
+.r2-world--crouch-proof + .r2-story,
+.r2-world--travel + .r2-story,
+.r2-world--h2-notice + .r2-story,
+.r2-world--cave-notice + .r2-story,
+.r2-world--cave-inspect + .r2-story,
+.r2-world--perspective-proof + .r2-story {
+  width: 100% !important;
+  max-width: none;
+}
+
+.r2-story {
+  box-sizing: border-box;
+  justify-self: stretch;
+  padding:
+    clamp(7rem, 17vh, 11rem)
+    var(--r2-safe-inline)
+    clamp(1.15rem, 3vw, 2.6rem);
+  background:
+    linear-gradient(
+      180deg,
+      transparent 0%,
+      rgba(12, 13, 12, 0.04) 24%,
+      rgba(12, 13, 12, 0.48) 66%,
+      rgba(12, 13, 12, 0.92) 100%
+    ),
+    linear-gradient(
+      90deg,
+      rgba(12, 13, 12, 0.82) 0%,
+      rgba(12, 13, 12, 0.66) 34%,
+      rgba(12, 13, 12, 0.28) 58%,
+      rgba(12, 13, 12, 0.06) 76%,
+      transparent 92%
+    );
+}
+
+.r2-story > * {
+  width: auto;
+  max-width: min(var(--r2-copy-max-landscape), 58vw);
+}
+
+.r2-story > .r2-curriculum-cue {
+  max-width: min(37rem, 52vw);
+}
+
+/* Buttons stay near the text they belong to; there is no persistent footer. */
+.r2-story .r2-action {
+  max-width: min(100%, 28rem);
+}
+
+/* Tablet landscape / compact desktop: keep one continuous image, not two panes. */
+@media (max-width: 1024px) and (orientation: landscape) {
+  .r2-story {
+    padding-top: clamp(8rem, 22vh, 12rem);
+    background:
+      linear-gradient(
+        180deg,
+        transparent 0%,
+        rgba(12, 13, 12, 0.08) 28%,
+        rgba(12, 13, 12, 0.7) 72%,
+        rgba(12, 13, 12, 0.94) 100%
+      ),
+      linear-gradient(
+        90deg,
+        rgba(12, 13, 12, 0.72) 0%,
+        rgba(12, 13, 12, 0.4) 50%,
+        transparent 88%
+      );
+  }
+
+  .r2-story > * {
+    max-width: min(40rem, 72vw);
+  }
+}
+
+/*
+ * Portrait is an art-directed composition family, not a squeezed 16:9 frame.
+ * The temporary DOM proof can only approximate that future composition, but it
+ * already moves narrative UI to a bottom fade and preserves the upper world.
+ */
+@media (orientation: portrait) {
+  body:has(.r2-skeleton) {
+    min-width: 0;
+  }
+
+  .app-shell:has(.r2-skeleton) {
+    width: 100%;
+    max-width: none;
+    padding-inline: 0;
+  }
+
+  .r2-skeleton {
+    width: 100%;
+  }
+
+  .r2-world {
+    min-height: 100svh;
+  }
+
+  .r2-story {
+    align-self: end;
+    padding:
+      clamp(20rem, 54svh, 38rem)
+      max(1rem, env(safe-area-inset-left))
+      calc(clamp(1rem, 2.8vh, 1.8rem) + env(safe-area-inset-bottom))
+      max(1rem, env(safe-area-inset-right));
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      rgba(12, 13, 12, 0.04) 35%,
+      rgba(12, 13, 12, 0.56) 62%,
+      rgba(12, 13, 12, 0.9) 82%,
+      rgba(12, 13, 12, 0.97) 100%
+    );
+  }
+
+  .r2-story > *,
+  .r2-story > .r2-curriculum-cue {
+    max-width: min(100%, var(--r2-copy-max-portrait));
+  }
+
+  .r2-curriculum-cue {
+    backdrop-filter: blur(5px);
+  }
+}
+
+/* Tablet portrait: leave substantial visual field above the narrative band. */
+@media (orientation: portrait) and (min-width: 600px) and (max-width: 1100px) {
+  .r2-world,
+  .r2-orientation {
+    min-height: 100svh;
+    border-radius: clamp(0.8rem, 2vw, 1.4rem);
+  }
+
+  .r2-story {
+    padding-top: clamp(28rem, 58svh, 44rem);
+    padding-inline: clamp(1.5rem, 5vw, 3rem);
+  }
+
+  .r2-story > * {
+    max-width: min(40rem, 88vw);
+  }
+}
+
+/* Phone portrait: edge-to-edge world, compact narrative band and safe-area UI. */
+@media (orientation: portrait) and (max-width: 599px) {
+  .r2-world,
+  .r2-orientation {
+    min-height: 100svh;
+    border-radius: 0;
+  }
+
+  .r2-story {
+    padding-top: clamp(19rem, 55svh, 31rem);
+  }
+
+  .r2-story p {
+    font-size: clamp(0.98rem, 4.3vw, 1.12rem);
+    line-height: 1.58;
+  }
+
+  .r2-story .r2-action {
+    min-height: 46px;
+    padding: 0.72rem 1rem;
+  }
+
+  .r2-actor-dialogue {
+    max-width: min(68vw, 15rem);
+  }
+}
+
+/* Very short landscape phones: protect the world from a tall copy overlay. */
+@media (orientation: landscape) and (max-height: 520px) {
+  .r2-world {
+    min-height: 100svh;
+  }
+
+  .r2-story {
+    padding-top: 5rem;
+    padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+  }
+
+  .r2-story > * {
+    max-width: min(36rem, 66vw);
+  }
+
+  .r2-story p {
+    font-size: 0.96rem;
+    line-height: 1.5;
+  }
+}
