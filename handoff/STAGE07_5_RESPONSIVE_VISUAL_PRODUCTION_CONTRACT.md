@@ -6,6 +6,11 @@ Purpose: convert the approved Scene Composition Bible v2.1 into a production-rea
 
 This is a Stage 07.5 execution contract. Technical runtime SSOT remains `docs/06_TECH_BLUEPRINT.md`; broad art policy remains `docs/07A_FIRST_PERSON_VISUAL_ASSET_BIBLE.md` and `docs/07B_FIRST_PERSON_VISUAL_PRODUCTION_SPEC.md`.
 
+Derivation and continuity tolerances are further locked by:
+
+- `handoff/STAGE07_5_VISUAL_IDENTITY_LAYERING_AND_DERIVATION_CONTRACT.md`
+- `src/experience/production/stage075VisualProductionPolicy.ts`
+
 ---
 
 ## 1. Decision: placeholder DOM/SVG is not the final visual medium
@@ -44,13 +49,22 @@ Preferred formats:
 
 `PNG-like final art` means raster illustrated assets, not that every runtime file must literally be PNG.
 
+Reusable character/Player/item masters should be transparent or have an extraction-safe neutral source plus a transparent derivative. STYLE-GIR reference proofs may include contextual background because they test actor/world integration; they are not automatically reusable cutouts.
+
 ---
 
-## 2. Composition families — no universal 16:9 crop
+## 2. Composition families — same master first, dedicated derivative only when necessary
 
-A single 1600×900 composition may remain the landscape master coordinate reference, but it is no longer sufficient as the only production composition.
+A single 1600×900 logical composition is not sufficient as the only planning coordinate reference, but L/TP/PP also must **not** be treated as three automatically independent art generations.
 
-Every critical scene must belong to at least these families.
+Default production order:
+
+```text
+same approved state master
+→ crop / zoom / pan for each viewport family
+→ controlled outpaint if coverage is insufficient
+→ dedicated angle/framing derivative only if the crop cannot preserve meaning
+```
 
 ### L — Landscape family
 
@@ -61,7 +75,7 @@ Primary targets:
 - 4:3 landscape
 - compact landscape phone
 
-Typical logical master:
+Typical logical reference:
 
 - 1600×900
 
@@ -80,16 +94,18 @@ Primary targets:
 - 5:8 / similar Android tablet portrait ratios
 - iPad-class portrait
 
-Typical logical master:
+Typical logical viewport reference:
 
 - 900×1200 or equivalent normalized 3:4 composition
 
 Behavior:
 
-- actors move inward rather than being cropped from a landscape frame,
+- first attempt a crop/zoom from the same approved state master,
+- do not move an actor in world space merely because portrait is narrower,
 - Player hands/body use the lower third without covering the main actor,
 - copy becomes a bottom fade band,
-- world depth uses vertical stacking: foreground body → mid actor/action → far environment.
+- vertical depth may be revealed by crop/framing when the source supports it,
+- if crop fails a hard causal/spatial requirement, create a master-conditioned portrait derivative rather than an unrelated image.
 
 ### PP — Phone Portrait family
 
@@ -99,17 +115,18 @@ Primary targets:
 - 9:19.5 / modern tall phones
 - safe-area notches/home indicator
 
-Typical logical master:
+Typical logical viewport reference:
 
 - 900×1600
 
 Behavior:
 
-- only one primary social/action relationship should dominate a frame,
-- secondary actors may move higher/deeper rather than remain far left/right,
+- first attempt a crop/zoom from the same approved state master,
+- one primary social/action relationship should dominate a frame,
 - critical hand/tool contact must stay in the center-safe vertical corridor,
 - text never forces the world into a left/right two-pane layout,
-- action affordance appears close to the associated copy and disappears on action start.
+- action affordance appears close to the associated copy and disappears on action start,
+- a dedicated PP derivative is allowed only when crop/outpaint cannot preserve the approved event geometry.
 
 ### N — Near-square fallback
 
@@ -117,29 +134,55 @@ For unusual embedded/classroom windows and resize states:
 
 - 1:1 to 4:5
 
-This is a graceful fallback, not a separate art batch by default. Use TP source art and focus anchors unless Human QA proves a separate composition is required.
+This is a graceful fallback, not a separate art batch by default. Use an existing master crop/focus anchor unless Human QA proves a separate derivative is required.
 
 ---
 
-## 3. Art direction rule: crop when safe, recompose when meaning changes
+## 3. Deterministic art-direction rule: crop first, derive only when crop fails
 
 Do not create a separate image for every viewport by default.
 
-### Crop-safe asset
+Use this decision order.
 
-One source may serve multiple families only when all of these remain true:
+### Step 1 — Crop from master
 
-- main actor is not pushed outside the safe zone,
-- hand/tool/contact is fully visible,
+Use the same source master when all of these remain true:
+
+- main actor identity stays readable,
+- hand/tool/contact stays fully visible,
 - spatial relation remains understandable,
-- dialogue does not cover the action,
-- body scale still feels first-person rather than oversized HUD.
+- dialogue does not cover the causal action,
+- Player body scale remains plausible,
+- required world landmark/cause-effect cue remains visible,
+- source resolution is sufficient for the intended display.
 
-### Recomposition-required asset
+### Step 2 — Controlled outpaint / resolution derivative
 
-Create a dedicated portrait variant when cropping would change narrative meaning.
+If the camera direction and moment are still the same but the source lacks edge coverage or resolution, derive from the same master through:
 
-Mandatory dedicated portrait consideration:
+- outpaint,
+- super-resolution/upscale,
+- local inpaint only where necessary.
+
+Visible source geometry must remain stable.
+
+### Step 3 — Angle/framing derivative
+
+Create a dedicated responsive derivative only when the view direction or framing must materially change to preserve the scene's causal/spatial meaning.
+
+It must use the same:
+
+- character anchors,
+- Player body anchor,
+- object anchors,
+- world topology/landmarks,
+- moment ID,
+- light direction,
+- body proportions.
+
+### Mandatory crop-viability review
+
+The following scenes require explicit proof that crop is sufficient or insufficient:
 
 - SC02 handaxe handoff,
 - SC05 departure spatial proof,
@@ -148,7 +191,7 @@ Mandatory dedicated portrait consideration:
 - SC10 rock shelter inspection,
 - SC11 same-moment Aru POV.
 
-These are not decorative scenes; their composition carries the causal proof.
+This is not a mandate for separate portrait art. It is a mandate to verify whether shared-master crop preserves the event.
 
 ---
 
@@ -160,7 +203,7 @@ Mode A: layered composite.
 
 Assets:
 
-- camp world plate L + TP/PP crop or variant,
+- camp world master + responsive crop or derived angle variant only if required,
 - fire integration layer if needed,
 - Aru idle/near-fire layer,
 - Damu preparation layer,
@@ -174,13 +217,13 @@ Goal: the community exists before Player interaction.
 
 Mode B: unified contact keyframe first.
 
-Required keyframes:
+Required state masters/keyframes:
 
 1. Offer,
 2. Shared Contact,
 3. Release/ownership transfer.
 
-Landscape and portrait may require separate unified compositions.
+For each state, L/TP/PP should first derive by crop/zoom from the same approved unified state master. A separate responsive unified derivative is justified only when crop fails contact or causal readability.
 
 Do not separately generate Aru hand, handaxe, and Player hand and try to align them afterward as the primary method.
 
@@ -200,13 +243,13 @@ Mode A/C.
 
 Need a coherent camp-to-route family rather than a new unrelated landscape image.
 
-- Stage A diagonal departure variant,
-- forward-settle variant,
+- Stage A diagonal departure state,
+- forward-settle state,
 - same camp/fire/shelter identity,
 - same actor clothing/body identities,
 - same DAY1-HANDAXE-v1.
 
-Portrait likely requires separate staging because `camp behind-left` and `route ahead` cannot be represented by simple horizontal cropping.
+Portrait must first attempt crop/outpaint from the same approved state master. If `camp behind-left` and `route ahead` cannot both remain truthful/readable, create a world-master-conditioned angle derivative; do not relocate people or landmarks arbitrarily just to fit portrait.
 
 ### SC06→07 — Damu Stop / Player Crouch
 
@@ -229,7 +272,7 @@ Mode C.
 - rock shelter is revealed after the pan,
 - no debug gaze ray in production.
 
-Portrait needs an inward Nua placement and vertical depth staging.
+Portrait must preserve Nua's world-space role and attention geometry. Do not move Nua inward solely as a viewport convenience; crop/outpaint first, then use an approved angle derivative if required.
 
 ### SC10 — Rock Shelter Inspection
 
@@ -253,7 +296,7 @@ Must reuse:
 - same morning light,
 - same camp state.
 
-The viewpoint changes; the world moment does not.
+The viewpoint changes materially, so this may require a dedicated Angle Master/derivative. The world moment does not change.
 
 ---
 
@@ -297,6 +340,14 @@ Every production visual record must eventually resolve these fields conceptually
 interface ResponsiveVisualPlacement {
   compositionFamily: 'L' | 'TP' | 'PP' | 'N';
   sourceAssetId: string;
+  derivationMode:
+    | 'crop-from-master'
+    | 'outpaint-from-master'
+    | 'angle-derivative'
+    | 'state-derivative'
+    | 'unified-contact-derivative';
+  parentAssetId?: string;
+  momentId: string;
   focusAnchor: { x: number; y: number };
   bodyAnchor?: { x: number; y: number };
   toolAnchor?: { x: number; y: number };
@@ -353,7 +404,8 @@ QA questions:
 4. Is the main actor identity still readable?
 5. Does copy create a false panel or seam?
 6. Are safe-area insets respected?
-7. Does the same event still mean the same thing after portrait recomposition?
+7. Does the same event still mean the same thing after crop/derivation?
+8. Was a new derivative actually necessary, or could the approved master have served the viewport?
 
 ---
 
@@ -365,33 +417,33 @@ The first real visual batch should cover only the Stage 07.5 Human-Gate proof.
 
 ### Environment anchors
 
-- CAMP-DAY1-DAWN-L
-- CAMP-DAY1-DAWN-P
-- ROUTE-DAY1-DAWN-L
-- ROUTE-DAY1-DAWN-P
-- GROUND-OBS-DAY1-L
-- GROUND-OBS-DAY1-P
-- ROCK-SHELTER-DAY1-L
-- ROCK-SHELTER-DAY1-P
+Do not assume separate L/P images before crop review. Author one coherent master/angle family per world state first, then register responsive derivatives only when necessary.
 
-`P` may initially serve both TP/PP when crop-safe; split into TP/PP only when QA proves necessary.
+Target world families:
+
+- CAMP-DAY1-DAWN master family,
+- ROUTE-DAY1-DAWN master family,
+- GROUND-OBS-DAY1 master family,
+- ROCK-SHELTER-DAY1 master family.
 
 ### Character anchors
 
-- ARU anchor
-- DAMU anchor
-- NUA anchor
-- B1/B2 low-detail background group
+- ARU anchor,
+- DAMU anchor,
+- NUA anchor,
+- B1/B2 low-detail background group.
 
 ### Player/body anchors
 
-- receive reach
-- held inspect
-- low carry
-- standing stop
-- crouch ground brace
-- rock brace
-- Aru-side POV body state if body is visible
+- receive reach,
+- held inspect,
+- low carry,
+- standing stop,
+- crouch ground brace,
+- rock brace,
+- Aru-side POV body state if body is visible.
+
+All visible limbs derive from one `PLAYER-HUNT-BODY-V1` family.
 
 ### Tool anchor
 
@@ -401,10 +453,10 @@ The first real visual batch should cover only the Stage 07.5 Human-Gate proof.
 
 At minimum:
 
-- SC02 Shared Contact L
-- SC02 Shared Contact P
-- SC10 rock-brace/contact L if separate layers fail physical QA
-- SC10 rock-brace/contact P if separate layers fail physical QA
+- SC02 Shared Contact state master,
+- SC10 rock-brace/contact state master if separate layers fail physical QA.
+
+Responsive L/TP/PP derivatives are created from those state masters only as QA requires.
 
 ---
 
@@ -416,7 +468,8 @@ Raster asset integration may begin only when the candidate set proves:
 - no SVG-human dependence in Player-facing visual,
 - handaxe identity continuity,
 - Aru/Damu/Nua identity continuity,
-- landscape + tablet portrait + phone portrait composition viability,
+- Player hand/arm/foot identity continuity,
+- landscape + tablet portrait + phone portrait viability through crop or controlled derivation,
 - contact geometry,
 - no modern/historical misconception regression,
 - mobile copy/action safe areas,
@@ -431,12 +484,13 @@ Passing this gate does **not** mean Human Gate PASS. It only means the visual ba
 Current order:
 
 ```text
-responsive composition contract
-→ remove current hard story seam
-→ portrait layout proof
-→ production asset briefs per PV/scene
-→ explicit raster asset production task
-→ raster candidate review
+visual identity/layering/derivation policy locked
+→ STYLE-GIR-V1 controlled reference packet review
+→ DAY1-HANDAXE-V1 master packet
+→ PLAYER-HUNT-BODY-V1 master family
+→ ARU identity/proportion master
+→ SC02 contact geometry
+→ first state-master + crop-first responsive proof
 → minimum coherent runtime integration
 → cross-device Human Visual QA
 → Human Gate decision
