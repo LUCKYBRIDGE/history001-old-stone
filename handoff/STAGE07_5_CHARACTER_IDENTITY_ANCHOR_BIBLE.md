@@ -10,6 +10,8 @@ Depends on:
 - `docs/07B_FIRST_PERSON_VISUAL_PRODUCTION_SPEC.md`
 - `handoff/STAGE07_5_FIRST_PERSON_SCENE_COMPOSITION_BIBLE_V2_1.md`
 - `handoff/STAGE07_5_HISTORICAL_VISUAL_REFERENCE_REVIEW.md`
+- `handoff/STAGE07_5_VISUAL_IDENTITY_LAYERING_AND_DERIVATION_CONTRACT.md`
+- `src/experience/production/stage075VisualProductionPolicy.ts`
 - `src/experience/production/stage075VisualContinuityRegistry.ts`
 
 This document does **not** claim historically exact Paleolithic faces, skin tones, hairstyles, or garment patterns. Character identity is a fictional production reconstruction under the project's Historical Reconstruction rules.
@@ -33,12 +35,19 @@ Production flow must be:
 Character specification
 → anchor exploration
 → one approved identity packet
-→ anchor-conditioned scene variants
+→ actual reference-conditioned scene variants
+→ crop/framing derivation where possible
 → continuity review against approved packet
 → scene approval
 ```
 
-Independent text-to-image is allowed only while exploring a **new anchor candidate**. Once an anchor is approved, later scene art should derive from that approved reference through reference conditioning, image-to-image, pose/depth control, inpaint/outpaint, compositing, or manual paintover.
+Independent text-to-image is allowed only while exploring a **new anchor candidate**. Once an anchor is approved, later scene art must derive from that approved reference through reference conditioning, image-to-image, pose/depth control, inpaint/outpaint, compositing, manual paintover, or crop/framing.
+
+P0 identity rule:
+
+- expression, gaze, foreshortening, minor dirt, cloth wrinkles, and hair flyaways may vary;
+- underlying face, hair silhouette, body proportion, and garment silhouette may not reset;
+- a candidate that reads as a different person is D3 reject.
 
 # **A good new image that no longer looks like the approved person is a reject.**
 
@@ -74,13 +83,19 @@ Each of `ARU-IDENTITY-V1`, `DAMU-IDENTITY-V1`, `NUA-IDENTITY-V1` requires one co
 14. garment major panel/seam/material-zone diagram
 15. footwear/ankle treatment if visible
 
+Authoring background policy:
+
+- reusable character/body masters should be transparent, or use a neutral extraction-safe source with a transparent derivative;
+- identity review sheets may use a neutral review background;
+- a final scene background is not part of the character identity master.
+
 The packet should be reviewed as a **single identity sheet**. If one view looks like another person, the packet fails.
 
 ---
 
 # 3. What becomes immutable after anchor approval
 
-After an identity anchor becomes `anchor-approved`, the following are considered identity fingerprints.
+After an identity anchor becomes `anchor-approved`, the following are P0 identity fingerprints.
 
 ## Face proportion fingerprint
 
@@ -106,7 +121,7 @@ Lock:
 - side/back length class
 - loose vs tied structure if used
 
-Minor flyaways may vary. Hairstyle identity may not reset per scene.
+Minor flyaways may vary. Hairstyle identity may not reset per scene. Fine edge strands may be simplified for a clean alpha derivative as long as the silhouette fingerprint remains intact.
 
 ## Body fingerprint
 
@@ -118,7 +133,7 @@ Lock:
 - body-mass class
 - habitual resting posture
 
-Distance and perspective may alter projected size; body identity must not.
+Distance, perspective, and foreshortening may alter projected size; body identity must not.
 
 ## Garment silhouette fingerprint
 
@@ -129,6 +144,7 @@ Lock:
 - visible wrapping or drape zones
 - hem length class
 - major material tone family
+- major material-zone placement
 
 Exact stitching and prehistoric tailoring remain historically deferred unless evidence is added.
 
@@ -209,6 +225,7 @@ Hand reference path: TBD
 - costume becomes a new outfit
 - handoff anatomy no longer matches approved Aru hand reference
 - facial detail becomes hyper-photoreal while anchor is illustrative
+- portrait/close-up looks like a different actor rather than the same Aru at another framing
 
 ---
 
@@ -343,6 +360,8 @@ No hero face sheet is required, but at minimum lock:
 - garment silhouette
 - work-zone behavior
 
+Minor lower-detail background variation is allowed if these continuity fingerprints remain intact.
+
 ---
 
 # 9. PLAYER-HUNT-BODY-V1
@@ -350,19 +369,29 @@ No hero face sheet is required, but at minimum lock:
 The Player's exact age/sex/face remain deferred.
 However, visible first-person body continuity cannot remain undefined.
 
+The Player body is a P0 identity. The hands, arms, feet, and ankles are not separate anonymous assets; they are visible parts of one approved fictional body master family.
+
 ## Lock before first raster scene approval
 
 - right-hand dominant
-- hand proportion family
-- wrist/forearm proportion
+- right/left hand proportion family
+- palm/hand size family
+- finger length/thickness relationships
+- thumb proportion
+- nail treatment
+- wrist thickness
+- wrist-to-forearm taper
+- forearm/visible-arm proportion family
+- foot length/width family where visible
+- ankle proportion where visible
 - visible skin/dirtying tone range within the fictional reconstruction
-- wrist/garment edge silhouette if visible
-- nail/finger treatment style
+- wrist/ankle garment-edge silhouette if visible
 - level of illustration detail
 
 ## Required body references
 
-- relaxed seated hand
+- neutral right hand + forearm
+- neutral left hand + forearm
 - receive reach
 - shared-contact receive
 - held-handaxe grip
@@ -370,14 +399,35 @@ However, visible first-person body continuity cannot remain undefined.
 - standing stop
 - crouch left ground brace
 - rock-shelter left-hand brace
+- visible foot/ankle neutral reference if any final scene exposes feet
+- visible foot/ankle action reference for any approved scene that exposes feet
+
+## Derivation rule
+
+After approval:
+
+```text
+PLAYER-HUNT-BODY-V1
+→ actual body-master-conditioned pose derivative
+→ crop/framing derivative
+```
+
+Do not independently generate a new hand, arm, foot, or ankle identity for a later scene.
+
+Perspective and foreshortening may change projected size. The underlying anatomical proportions may not.
 
 ## Strong reject conditions
 
 - two scenes use visibly different Player hands
-- fingers change thickness/length markedly
-- skin or dirt state changes randomly
+- a visible Player foot/ankle looks like a different body family
+- fingers change thickness/length materially
+- wrist/forearm taper changes enough to read as another body
+- skin/nail/detail treatment changes randomly
 - handaxe grip changes to an anatomically incompatible hold without action continuity
+- a limb is enlarged/compressed non-uniformly to fit a viewport
 - Player arms become permanent lower-screen HUD elements
+
+P0 Player-body drift is D3 reject.
 
 ---
 
@@ -424,33 +474,37 @@ Permitted state changes later may include:
 - wetness
 - small displacement from movement
 - wear
+- small fold changes
 
-but these require explicit continuity state rather than random generation.
+but material state changes require continuity reason rather than random identity redesign. Small fold differences alone are P3 and do not require regeneration.
 
 ---
 
 # 12. L / TP / PP identity equivalence
 
-Portrait composition may use a dedicated rendering, but it is **not a new character design**.
+For the same approved moment, crop/zoom from the same master is the first option when it preserves the event.
+
+A dedicated portrait derivative is allowed when crop/outpaint cannot preserve the causal/spatial composition, but it is **not a new character design**.
 
 For the same beat across L, TP, PP, preserve:
 
 - face identity
 - hair silhouette
 - garment identity
-- body mass
+- body mass/proportion
 - pose intent
+- Player body identity
 - handaxe/body contact
 - lighting side
 
-Portrait is a different camera/framing solution, not a costume/actor reshoot.
+Portrait is a different crop/camera solution, not a costume/actor reshoot.
 
 ## Required review
 
 For every hero-character critical scene, compare side-by-side:
 
 ```text
-L | TP | PP
+master | L | TP | PP
 ```
 
 Reviewer should be able to answer immediately:
@@ -470,11 +524,12 @@ CID-FACE    face identity drift
 CID-HAIR    hair silhouette drift
 CID-BODY    body proportion/mass drift
 CID-GARMENT garment silhouette/material-zone drift
-CID-HAND    hand anatomy drift
+CID-HAND    hand anatomy/Player-body identity drift
+CID-FOOT    foot/ankle Player-body identity drift
 CID-MOTION  movement identity drift
 CID-AGE     perceived age drift
 CID-STYLE   illustration/realism level drift
-CID-CROP    responsive crop destroys identity
+CID-CROP    responsive crop/derivative destroys identity
 ```
 
 Record drift codes in asset review notes rather than vague `looks weird` comments.
@@ -489,12 +544,15 @@ A hero anchor becomes `anchor-approved` only when all are true:
 - [ ] all views read as the same person
 - [ ] full body and close face agree
 - [ ] motion poses preserve proportion
-- [ ] hand reference is usable at SC02 scale
+- [ ] hand reference is usable at required contact scale
 - [ ] garment silhouette is stable
+- [ ] reusable master has transparent or extraction-safe authoring path
 - [ ] no modern/fantasy stereotype dominates
 - [ ] style matches Grounded Illustrative Realism
-- [ ] L/TP/PP derivation strategy is viable
+- [ ] crop-first L/TP/PP derivation strategy is viable
 - [ ] historical uncertainty is not presented as factual certainty
 - [ ] approved master/reference files are stored and registered
 
-# **No hero scene raster is approved before its required character anchors pass this checklist.**
+`PLAYER-HUNT-BODY-V1` additionally requires the visible hand/arm/foot/ankle references needed by approved scenes to read as one body family.
+
+# **No hero scene raster is approved before its required character/Player anchors pass this checklist.**
