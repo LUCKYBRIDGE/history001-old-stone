@@ -8,7 +8,9 @@ Depends on:
 
 - `handoff/STAGE07_5_FIRST_PERSON_SCENE_COMPOSITION_BIBLE_V2_1.md`
 - `handoff/STAGE07_5_HISTORICAL_VISUAL_REFERENCE_REVIEW.md`
+- `handoff/STAGE07_5_VISUAL_IDENTITY_LAYERING_AND_DERIVATION_CONTRACT.md`
 - `handoff/STAGE07_5_RESPONSIVE_VISUAL_PRODUCTION_CONTRACT.md`
+- `src/experience/production/stage075VisualProductionPolicy.ts`
 - `src/experience/production/stage075VisualContinuityRegistry.ts`
 
 Historical boundary:
@@ -34,13 +36,15 @@ Required workflow:
 
 ```text
 Day 1 world geography lock
-→ approved world anchor plates / spatial map
-→ scene cameras placed inside that map
-→ scene variants derived from existing anchor
-→ landscape/portrait recomposition preserving geography
+→ approved world master / spatial map
+→ same-direction shots crop/zoom/pan from that master where possible
+→ controlled outpaint when coverage/resolution is insufficient
+→ Angle Master only when camera direction materially changes
+→ state derivative only when the actual world/action state changes
+→ responsive framing preserving geography
 ```
 
-# **A beautiful background that changes the geography is a reject.**
+# **A beautiful background that changes the geography is a reject. Small incidental world differences are not.**
 
 ---
 
@@ -123,11 +127,13 @@ Exact meter distances are not curriculum facts. The relative geography is produc
 
 - shelter moves to opposite side of fire
 - fire relocates between adjacent beats
-- horizon ridge changes shape materially
+- horizon ridge changes shape materially without camera explanation
 - terrain slope flips
 - route exit changes side
 - SC11 cannot be reconciled geometrically with SC05
-- portrait render invents different shelter/horizon because the frame is narrower
+- portrait derivative invents different shelter/horizon because the frame is narrower
+
+Minor pebbles, grass blades, cloud edges, smoke curls, and non-landmark vegetation may vary when these structural relationships remain intact.
 
 ---
 
@@ -185,12 +191,13 @@ Allow:
 - log collapse
 - ember intensity
 - smoke density
+- smoke/flame micro-shape
 
 Do not allow:
 
 - campfire jumping across the frame because composition changed
 - perfectly circular modern campfire-ring icon
-- same fire rendered with incompatible stone layout in SC05 vs SC11
+- same fire rendered with incompatible major stone layout in SC05 vs SC11
 
 ---
 
@@ -226,7 +233,7 @@ camp clearly visible
 → no longer visible
 ```
 
-Do not replace that progression with an instant background swap.
+Do not replace that progression with an instant unrelated background swap.
 
 ---
 
@@ -262,7 +269,7 @@ silhouette sketch/reference: TBD
 
 - partial vegetation occlusion
 - distance/perspective
-- different visible face
+- different visible face caused by camera angle
 
 ## Reject
 
@@ -277,7 +284,7 @@ silhouette sketch/reference: TBD
 
 SC06 and SC07 are the **same patch of ground** from standing vs crouched height.
 
-Lock:
+Lock evidence-bearing structure:
 
 - one bent/pressed grass cluster
 - one disturbed soil zone
@@ -288,10 +295,12 @@ Lock:
 SC07 should not generate a more dramatic `clue` just because Player crouched.
 The information was physically present before; the lower view makes it readable.
 
+Incidental grass blades/pebbles outside the evidence-bearing fingerprint may vary.
+
 ## Reject
 
-- ground texture completely changes
-- branch rotates or moves without action
+- ground patch identity completely changes
+- branch/evidence marker rotates or moves without action
 - evidence becomes a glowing/iconic target
 - Player crouch teleports to another patch
 
@@ -314,7 +323,7 @@ Scenes:
 - darkness/depth direction
 
 SC10 is a **closer camera in the same space**.
-It is not a newly generated cave.
+Default method is crop/zoom from the approved high-resolution view when that preserves the required inspection framing. If a closer camera requires newly visible geometry, use a world-master-conditioned derivative rather than a newly generated cave.
 
 ## Historical framing
 
@@ -401,29 +410,31 @@ unless the narrative explicitly crosses those environments, which current Stage 
 Preferred method once anchor is approved:
 
 ```text
-approved world master
-→ camera crop / outpaint / controlled perspective variant
+approved high-resolution world master
+→ crop / zoom / pan when camera direction is effectively the same
+→ controlled outpaint / super-resolution when coverage or resolution is insufficient
+→ Angle Master only when camera direction materially changes
 → actor/body integration
 → local inpaint only where needed
 ```
 
 Avoid independent regeneration of the whole environment for every beat.
 
-If a substantially different camera needs new geometry, use:
+If a substantially different camera needs new geometry, use all of these together:
 
-- approved world master as reference
+- approved world master as actual reference
 - world topology map
 - landmark reference
 - light-direction lock
 - scene camera contract
 
-all at once.
+The resulting image is an **Angle Master derivative of the same world**, not a new world design.
 
 ---
 
 # 13. L / TP / PP world equivalence
 
-Portrait composition can reveal more vertical depth and crop horizontal information, but it must preserve:
+Responsive variants must preserve:
 
 - world topology
 - landmark identity
@@ -433,15 +444,26 @@ Portrait composition can reveal more vertical depth and crop horizontal informat
 
 ## Landscape to portrait rule
 
-Do not ask:
+Use this order:
 
-> "How do we crop this 16:9 picture into 9:16?"
+```text
+1. Can the same high-resolution master be cropped/zoomed safely?
+   YES → use the same master.
 
-Ask:
+2. Is the camera direction still effectively the same but edge coverage/resolution is insufficient?
+   YES → controlled outpaint/upscale from the same master.
 
-> "Where would a portrait camera be placed inside the same world at the same moment?"
+3. Does portrait require a materially different view direction to preserve causal/spatial meaning?
+   YES → create an Angle Master derived from the same world references.
+```
 
-This distinction is mandatory.
+A portrait viewport does **not** automatically require a new background.
+
+It also does not justify moving shelter/fire/route/landmarks to prettier screen positions.
+
+The rule is:
+
+# **Crop first. Different angle only when the crop cannot tell the same truthful spatial event.**
 
 ---
 
@@ -456,12 +478,14 @@ WID-SHELTER  shelter identity drift
 WID-FIRE     hearth position/layout drift
 WID-PATH     route axis/curvature drift
 WID-LM       landmark shape/location drift
-WID-GROUND   ground patch drift
+WID-GROUND   evidence-bearing ground patch drift
 WID-CAVE     rock-shelter geometry drift
 WID-LIGHT    light direction/time drift
 WID-PALETTE  material/color environment drift
-WID-PORTRAIT portrait is a different world rather than recomposition
+WID-PORTRAIT portrait is a different world rather than master-derived framing
 ```
+
+Do not use a WID reject code for harmless P3-only microvariation.
 
 ---
 
@@ -472,10 +496,10 @@ WID-PORTRAIT portrait is a different world rather than recomposition
 Minimum packet:
 
 - [ ] topology diagram
-- [ ] landscape master
+- [ ] high-resolution landscape/world master
 - [ ] alternate camera/reference showing same geography
-- [ ] TP composition proof
-- [ ] PP composition proof
+- [ ] TP crop or derived-composition proof
+- [ ] PP crop or derived-composition proof
 - [ ] shelter reference
 - [ ] fire/hearth reference
 - [ ] route-exit reference
@@ -488,14 +512,14 @@ Minimum packet:
 - [ ] route master
 - [ ] LM-SPLIT-ROCK-01 reference
 - [ ] forward camera proof
-- [ ] TP/PP equivalent framing
+- [ ] TP/PP equivalent framing through crop or controlled derivative
 
 `WORLD-ROCK-SHELTER-A` minimum:
 
-- [ ] discovery view
-- [ ] closer inspection view
+- [ ] discovery master view
+- [ ] closer inspection crop/derivative
 - [ ] brace-rock reference
 - [ ] entrance contour match proof
-- [ ] TP/PP equivalent framing
+- [ ] TP/PP equivalent framing through crop or controlled derivative
 
 # **No scene world raster is approved before the required world anchors pass this packet review.**

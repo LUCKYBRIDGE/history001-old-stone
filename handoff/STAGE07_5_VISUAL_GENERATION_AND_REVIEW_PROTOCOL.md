@@ -11,15 +11,17 @@ This protocol applies to:
 - inpainting/outpainting
 - manual paintover
 - layer compositing
-- portrait recomposition
+- responsive crop/framing derivation
 - future asset revision
 
 Depends on:
 
+- `handoff/STAGE07_5_VISUAL_IDENTITY_LAYERING_AND_DERIVATION_CONTRACT.md`
 - `handoff/STAGE07_5_CHARACTER_IDENTITY_ANCHOR_BIBLE.md`
 - `handoff/STAGE07_5_WORLD_CONTINUITY_BIBLE.md`
 - `handoff/STAGE07_5_OBJECT_CONTINUITY_BIBLE.md`
 - `handoff/STAGE07_5_RASTER_ASSET_PRODUCTION_BRIEFS.md`
+- `src/experience/production/stage075VisualProductionPolicy.ts`
 - `src/experience/production/stage075VisualContinuityRegistry.ts`
 - `src/experience/production/stage075RasterManifest.ts`
 
@@ -37,17 +39,23 @@ Weak:
 "same Aru as before"
 "same camp"
 "same handaxe"
+"same Player hand"
 ```
 
 Strong:
 
 ```text
 approved ARU-IDENTITY-V1 references attached
++ approved PLAYER-HUNT-BODY-V1 references attached
 + approved WORLD-CAMP-DAWN-A reference attached
 + approved DAY1-HANDAXE-V1 reference attached
-+ SC02 camera/contact contract
-+ only permitted change = hand/pose progression
++ camera/contact contract
++ only permitted change explicitly stated
 ```
+
+Second governing principle:
+
+# **Do not regenerate what can be derived from an approved master. Crop first; derive only when crop fails.**
 
 ---
 
@@ -57,7 +65,7 @@ approved ARU-IDENTITY-V1 references attached
 
 Allowed:
 
-- independent generation
+- controlled independent generation
 - multiple candidates
 - broader style exploration
 
@@ -70,6 +78,7 @@ No candidate is used in a scene until anchor review.
 Select and consolidate:
 
 - character identity packet
+- Player body packet
 - world anchor packet
 - object anchor packet
 - lighting anchor
@@ -83,11 +92,30 @@ reference-pending
 
 only after approved master/reference files are stored.
 
-## Phase C — Scene derivation
+## Phase C — Master derivation
 
-Scene production must reference approved anchors.
+Once a continuity group is approved, choose the smallest necessary derivation:
 
-Preferred methods:
+```text
+same moment + same camera direction + safe coverage
+→ crop-from-master
+
+same moment + same camera direction + insufficient coverage/resolution
+→ outpaint-from-master / upscale-from-master
+
+same moment + materially different camera direction
+→ angle-derivative
+
+actual action/world/body state changed
+→ state-derivative
+
+contact-heavy interlocked hand/body/object state
+→ unified-contact-derivative
+```
+
+Independent text-to-image is prohibited for an established continuity group.
+
+Conditioning/edit techniques may include:
 
 1. locked-keyframe variation
 2. reference-conditioned generation
@@ -95,7 +123,7 @@ Preferred methods:
 4. inpaint/outpaint
 5. manual/2D composite
 
-Independent text-to-image is prohibited for an established continuity group unless explicitly marked `independent-exploration` and cannot be approved directly.
+These are **techniques**, not permission to reset identity.
 
 ## Phase D — Cross-scene review
 
@@ -106,15 +134,15 @@ Compare against:
 - anchor masters
 - immediately previous beat
 - immediately next beat
-- same character in at least two other scenes
-- same world from another camera
+- same character in at least two other scenes where available
+- same world from another camera where applicable
 - L/TP/PP counterpart
 
 ---
 
-# 3. Mandatory Generation Job Card
+# 3. Mandatory Generation / Derivation Job Card
 
-Every generated or edited candidate requires a Job Card.
+Every generated or materially edited candidate requires a Job Card. A pure metadata crop exported from an already approved master may share the parent Job Card if no pixels are regenerated.
 
 Template:
 
@@ -123,16 +151,28 @@ JOB ID:
 TARGET ASSET ID:
 SCENE / BEAT:
 PV ID:
-COMPOSITION FAMILY: L / TP / PP
-OUTPUT ROLE: world / actor / body / object / contact / occluder
+MOMENT ID:
+COMPOSITION FAMILY: L / TP / PP / N
+OUTPUT ROLE: style-proof / world / actor / body / object / contact / occluder
 
 DERIVATION MODE:
-- anchor-conditioned
-- locked-keyframe-variation
 - independent-exploration
+- crop-from-master
+- outpaint-from-master
+- angle-derivative
+- state-derivative
+- unified-contact-derivative
 
 PARENT ASSET:
 PARENT REVISION:
+
+CONDITIONING / EDIT METHOD:
+- locked-keyframe variation
+- reference-conditioned generation
+- pose/depth/edge controlled
+- inpaint/outpaint
+- manual/2D composite
+- crop/zoom/pan only
 
 REQUIRED CHARACTER ANCHORS:
 REQUIRED PLAYER-BODY ANCHOR:
@@ -157,10 +197,14 @@ ONLY THINGS ALLOWED TO CHANGE:
 MUST NOT CHANGE:
 - ...
 
+P0 IDENTITY CHECK:
+P1 CONTACT/OBJECT CHECK:
+P2 WORLD-STRUCTURE CHECK:
+P3 INCIDENTAL VARIATION NOTES:
+
 HISTORICAL CONFIDENCE:
 [H] / [C] / [R] / [D]
 
-GENERATION/EDIT METHOD:
 TOOL/MODE:
 PROMPT OR EDIT INSTRUCTION REVISION:
 
@@ -170,19 +214,19 @@ DRIFT CODES:
 REVIEW NOTES:
 ```
 
-If the Job Card cannot list actual approved reference files, the candidate is not a production scene candidate.
+If the Job Card cannot list actual approved reference files for an established continuity group, the candidate is not a production scene candidate.
 
 ---
 
-# 4. Prompt/instruction construction order
+# 4. Instruction construction order
 
-When a generation tool is used, instruction priority should be expressed in this order:
+When a generation/edit tool is used, instruction priority must be expressed in this order:
 
 ```text
-1. preserve attached identity/world/object anchors
+1. preserve attached identity/Player/world/object anchors
 2. preserve camera/pose/contact geometry
-3. specify only the intended beat change
-4. preserve illustration style/detail level
+3. specify only the intended beat/camera change
+4. preserve STYLE-GIR-V1 detail/separability level
 5. apply historical exclusions
 6. reserve runtime UI-safe space
 ```
@@ -201,25 +245,38 @@ Aesthetic adjectives must not override anchor identity.
 
 Official style remains **Grounded Illustrative Realism**.
 
-Style anchor must preserve:
-
-- realistic anatomy
-- believable contact
-- natural perspective
-- restrained material texture
-- slightly illustrative surface treatment
-- non-photographic skin detail
-- child-appropriate visual clarity
-
-## Style drift reject codes
+Hard interpretation:
 
 ```text
-SID-PHOTO    too photoreal / camera-photo look
+physical realism in anatomy / weight / perspective / contact
++
+illustratively simplified surfaces and clean reusable silhouettes
+-
+photographic micro-detail and photographic lens language
+```
+
+Required:
+
+- face identity carried primarily by structure/proportion,
+- hair mass/silhouette before individual strand detail,
+- skin broad planes/creases before pore detail,
+- garment fold/material zones before fiber detail,
+- consistent actor/world finish,
+- extraction-friendly reusable actor/body/item edges,
+- natural coherent lighting.
+
+Reject:
+
+```text
+SID-PHOTO    photographic skin/micro-detail tier
+SID-LENS     photographic lens-language drift
+SID-EDGE     unstable/contaminated reusable extraction edge
 SID-POSTER   cinematic advertising/poster grading
 SID-CARTOON  overly simplified/cartoon shift
 SID-FANTASY  fantasy barbarian/concept-art shift
 SID-FOG      generic AI atmospheric fog obscures information
 SID-TEXTBOOK diagram/cutaway educational illustration shift
+SID-COMPOSITE pasted-layer mismatch in finish/detail
 ```
 
 A scene with correct people but wrong style is rejected.
@@ -240,22 +297,52 @@ nearest next scene
 
 Review in this order:
 
-1. face proportion
+1. face proportion/identity
 2. hair silhouette
 3. head/body ratio
 4. shoulder/body mass
-5. garment silhouette
+5. garment silhouette/material zones
 6. hands
 7. movement identity
 8. style/detail level
 
-Do not get distracted by lighting or beautiful background until identity passes.
+P0 rule:
 
-Use drift codes from Character Identity Anchor Bible.
+- expression, perspective, minor wrinkles, dirt, and flyaways may vary;
+- a candidate that reads as another person is D3 reject.
+
+Do not get distracted by lighting or a beautiful background until identity passes.
 
 ---
 
-# 7. World continuity review
+# 7. Player-body continuity review
+
+Any candidate showing Player hands, arms, feet, ankles, or recurring garment edges must compare against `PLAYER-HUNT-BODY-V1`.
+
+Review:
+
+1. hand/palm size family
+2. finger-length/thickness relationships
+3. thumb/nail treatment
+4. wrist thickness and forearm taper
+5. arm proportion family
+6. foot/ankle proportion when visible
+7. skin/dirt treatment family
+8. illustration/detail level
+
+Perspective may change projected scale. The underlying anatomy may not.
+
+Forbidden:
+
+- independently generating a new-looking Player hand/foot after lock,
+- non-uniform CSS stretching/compression to fit a viewport,
+- scene-specific hand enlargement to make contact easier to see.
+
+P0 Player-body drift is D3 reject.
+
+---
+
+# 8. World continuity review
 
 For any environment candidate, compare:
 
@@ -267,9 +354,9 @@ neighboring scene
 portrait/landscape equivalent
 ```
 
-Review:
+Review P2 structure:
 
-1. horizon/ridge silhouette
+1. horizon/ridge family
 2. fire position
 3. shelter orientation
 4. route axis
@@ -278,11 +365,19 @@ Review:
 7. light direction
 8. material palette
 
-A world that is merely `similar` does not pass.
+A world that changes those structural relationships does not pass.
+
+The following alone do **not** require rejection/regeneration when the structural world remains intact:
+
+- tiny pebble shifts,
+- individual grass blades,
+- smoke/flame micro-shape,
+- cloud micro-shape,
+- small distant vegetation differences.
 
 ---
 
-# 8. Object continuity review
+# 9. Object continuity review
 
 For scenes with DAY1-HANDAXE-V1 compare:
 
@@ -307,7 +402,7 @@ Mirrored images require explicit review because handedness/object face can inver
 
 ---
 
-# 9. Contact-heavy scene protocol
+# 10. Contact-heavy scene protocol
 
 For SC02 and other physical-contact scenes, general scene beauty is secondary.
 
@@ -330,44 +425,56 @@ not as three unrelated images.
 Pass conditions:
 
 - same Aru
-- same Player hand
+- same Player hand/body family
 - same handaxe
 - object orientation moves continuously
 - fingers do not teleport between frames
 - depth relationship is plausible
 
+If separate layers repeatedly fail these conditions, use a unified contact raster rather than forcing layer purity.
+
 ---
 
-# 10. L / TP / PP production protocol
+# 11. L / TP / PP production protocol
 
-Landscape, tablet portrait, and phone portrait may be distinct source images.
+Landscape, tablet portrait, and phone portrait are **not automatically distinct source generations**.
 
-They must share:
+For the same event state:
+
+```text
+1. crop/zoom/pan from same approved master
+2. controlled outpaint if coverage/resolution is insufficient
+3. dedicated angle/framing derivative only if the shared master cannot preserve event meaning
+```
+
+All responsive variants must share:
 
 - anchor IDs
 - moment ID
 - character identity
-- world-space positions
+- Player body identity
 - object identity
+- world-space relationships
 - light direction
 - narrative state
 
-Each responsive family gets its own Job Card but uses the same `MOMENT ID`.
+If a dedicated derivative is required, it gets its own Job Card and references the same `MOMENT ID` plus its parent master.
 
 Example:
 
 ```text
 MOMENT: SC02-SHARED-CONTACT-A
-L  → HUNT-SC02-HANDOFF-SHARED-L-v01
-TP → HUNT-SC02-HANDOFF-SHARED-TP-v01
-PP → HUNT-SC02-HANDOFF-SHARED-PP-v01
+STATE MASTER → HUNT-SC02-HANDOFF-SHARED-MASTER-v01
+L  → crop/derivative of MASTER
+TP → crop first; derivative only if crop fails
+PP → crop first; derivative only if crop fails
 ```
 
-Portrait may reposition the camera/framing but may not redesign the event.
+Portrait is a different camera/framing solution only when necessary, not a character/world reshoot.
 
 ---
 
-# 11. Moment IDs
+# 12. Moment IDs
 
 Use Moment IDs to tie multiple images to the same world-time state.
 
@@ -392,7 +499,7 @@ MOMENT-SC11-DEPARTURE-A-ARU-POV
 
 ---
 
-# 12. Candidate review layers
+# 13. Candidate review layers
 
 Every candidate passes gates in order.
 
@@ -403,36 +510,48 @@ Every candidate passes gates in order.
 - no broken alpha
 - no obvious generation artifacts
 
-## Gate 2 — Structural composition
+## Gate 2 — P0 identity continuity
 
-- camera
-- action readability
-- pose
-- contact
-- crop
-
-## Gate 3 — Identity continuity
-
-- characters
+- hero characters
 - Player body
-- objects
 
-## Gate 4 — World continuity
+P0 failure stops review and is normally D3.
+
+## Gate 3 — P1 structural anatomy/contact/object
+
+- anatomy
+- object scale/morphology
+- contact topology
+- camera/body relationship
+
+## Gate 4 — P2 world continuity
 
 - geography
 - landmark
 - light
 
-## Gate 5 — Historical integrity
+## Gate 5 — STYLE-GIR-V1
+
+- non-photographic surface boundary
+- consistent detail language
+- extraction/composite viability
+
+## Gate 6 — Historical integrity
 
 - no anachronism
 - reconstruction/deferred boundaries respected
 
-## Gate 6 — Responsive equivalence
+## Gate 7 — Responsive equivalence
 
-- L/TP/PP preserve same event meaning
+- crop-first decision was followed
+- any dedicated derivative preserves the same event
 
-## Gate 7 — Project-owner visual review
+## Gate 8 — P3 polish
+
+- harmless micro-detail variation may remain
+- do not regenerate only to chase pebble/flyaway/fold perfection
+
+## Gate 9 — Project-owner visual review
 
 Only after previous gates.
 
@@ -440,22 +559,31 @@ Failure at an earlier gate stops review; do not polish a structurally invalid ca
 
 ---
 
-# 13. Drift severity
+# 14. Drift severity
 
 Use severity with drift codes.
 
 ```text
 D0 = no meaningful drift
-D1 = small polish-level variation; acceptable if intentional
-D2 = visible continuity inconsistency; revise before approval
-D3 = identity/world/object break; reject
+D1 = small polish/incidental variation; acceptable if meaning/identity is intact
+D2 = visible structural continuity inconsistency; revise before approval
+D3 = identity/body/object/contact/world break; reject
 ```
 
-Hero character face drift, wrong handaxe identity, world topology break, or same-moment light reversal are normally D3.
+Default mapping:
+
+```text
+P0 identity failure           → D3
+P1 contact/hero-object failure → D3
+P2 major world contradiction   → D2/D3
+P3 incidental variation        → D0/D1
+```
+
+A few changed grass blades, pebbles, cloth wrinkles, flyaways, smoke curls, or cloud shapes are not grounds for regeneration by themselves.
 
 ---
 
-# 14. Versioning rules
+# 15. Versioning rules
 
 Never silently overwrite an approved anchor concept.
 
@@ -471,6 +599,7 @@ Then all dependent scene assets must be marked for review/re-derivation.
 Same for:
 
 ```text
+PLAYER-HUNT-BODY-V1
 WORLD-CAMP-DAWN-A
 DAY1-HANDAXE-V1
 PROP-TEMP-SHELTER-A
@@ -480,7 +609,7 @@ Small file compression/export changes do not require semantic version increment 
 
 ---
 
-# 15. File provenance sidecar
+# 16. File provenance sidecar
 
 For each approved master/candidate, keep a sidecar metadata record where practical.
 
@@ -488,12 +617,12 @@ Suggested fields:
 
 ```json
 {
-  "assetId": "HUNT-SC02-HANDOFF-KEYFRAME-V1",
+  "assetId": "HUNT-SC02-HANDOFF-SHARED-L-V1",
   "momentId": "MOMENT-SC02-SHARED-A",
   "family": "L",
   "revision": 1,
-  "derivationMode": "anchor-conditioned",
-  "parentAsset": null,
+  "derivationMode": "crop-from-master",
+  "parentAsset": "HUNT-SC02-HANDOFF-SHARED-MASTER-V1",
   "anchorIds": [
     "ARU-IDENTITY-V1",
     "PLAYER-HUNT-BODY-V1",
@@ -509,19 +638,24 @@ The TypeScript registry remains the runtime/development contract; sidecars help 
 
 ---
 
-# 16. Approval rule
+# 17. Approval rule
 
 A candidate can become an approved scene raster only when:
 
 - [ ] its own composition/art review passes
 - [ ] all `requiredAnchorIds` are `anchor-approved`
 - [ ] actual approved anchor files were used during derivation
-- [ ] drift severity is D0/D1 only
-- [ ] L/TP/PP required families exist
+- [ ] P0 identity continuity passes
+- [ ] P1 anatomy/object/contact continuity passes where applicable
+- [ ] P2 world structure is reconcilable
+- [ ] STYLE-GIR-V1 hard boundary passes
+- [ ] derivation method follows crop-first/master-derived policy
+- [ ] drift severity is D0/D1 only at approval
+- [ ] required responsive families exist through crop or controlled derivative
 - [ ] no baked UI/text
 - [ ] historical review passes
 - [ ] project-owner visual review passes where required
 
-The runtime adapter additionally enforces this rule programmatically.
+The runtime adapter additionally enforces its registered dependency rules.
 
 # **Consistency is therefore not dependent on memory or prompt discipline alone; it is a production and code gate.**

@@ -18,21 +18,23 @@ This file does not replace the technical SSOT (`docs/06_TECH_BLUEPRINT.md`). It 
    - SC00→SC11 exact camera/body/actor/world/dialogue contracts
 4. `handoff/STAGE07_5_STYLE_ANCHOR_BIBLE.md`
    - STYLE-GIR-V1 realism/detail/lighting target
-5. `handoff/STAGE07_5_CHARACTER_IDENTITY_ANCHOR_BIBLE.md`
+5. `handoff/STAGE07_5_VISUAL_IDENTITY_LAYERING_AND_DERIVATION_CONTRACT.md`
+   - exact P0→P3 continuity tolerances, non-photographic surface boundary, alpha/layer policy, crop-first/angle/state derivation rules
+6. `handoff/STAGE07_5_CHARACTER_IDENTITY_ANCHOR_BIBLE.md`
    - Aru/Damu/Nua/B1/B2/Player identity packets
-6. `handoff/STAGE07_5_ANATOMY_PROPORTION_AND_POSE_MASTER_SPEC.md`
+7. `handoff/STAGE07_5_ANATOMY_PROPORTION_AND_POSE_MASTER_SPEC.md`
    - skeleton/turnaround/hand/limb ratio and pose-family master requirements
-7. `handoff/STAGE07_5_CONTACT_GEOMETRY_MASTER.md`
+8. `handoff/STAGE07_5_CONTACT_GEOMETRY_MASTER.md`
    - SC02/SC07/SC10 contact topology, camera/body/object geometry
-8. `handoff/STAGE07_5_WORLD_CONTINUITY_BIBLE.md`
+9. `handoff/STAGE07_5_WORLD_CONTINUITY_BIBLE.md`
    - Day 1 geography/light/landmark continuity
-9. `handoff/STAGE07_5_OBJECT_CONTINUITY_BIBLE.md`
+10. `handoff/STAGE07_5_OBJECT_CONTINUITY_BIBLE.md`
    - DAY1-HANDAXE-V1 and recurring prop continuity
-10. `handoff/STAGE07_5_RESPONSIVE_VISUAL_PRODUCTION_CONTRACT.md`
+11. `handoff/STAGE07_5_RESPONSIVE_VISUAL_PRODUCTION_CONTRACT.md`
    - L/TP/PP composition families and viewport QA
-11. `handoff/STAGE07_5_RASTER_ASSET_PRODUCTION_BRIEFS.md`
+12. `handoff/STAGE07_5_RASTER_ASSET_PRODUCTION_BRIEFS.md`
    - PV/scene-specific production requirements
-12. `handoff/STAGE07_5_VISUAL_GENERATION_AND_REVIEW_PROTOCOL.md`
+13. `handoff/STAGE07_5_VISUAL_GENERATION_AND_REVIEW_PROTOCOL.md`
    - Generation Job Card / derivation / drift / approval process
 
 Historical uncertainty review:
@@ -46,6 +48,10 @@ Historical uncertainty review:
 ## Style
 
 - `src/experience/production/stage075StyleAnchor.ts`
+
+## Visual identity / layering / derivation policy
+
+- `src/experience/production/stage075VisualProductionPolicy.ts`
 
 ## Character/world/object/light anchors
 
@@ -170,7 +176,7 @@ approved body/object masters
 → contact geometry approval
 → anchor-conditioned Unified Contact Keyframe
 → Offer / Shared / Release
-→ L / TP / PP
+→ crop-first L / TP / PP derivation
 ```
 
 ## HUNT-SC01-CAMP-WORLD-V1
@@ -194,7 +200,7 @@ DAMU-PROP-V1
 NUA-PROP-V1
 ```
 
-Portrait must reframe these same bodies; it may not stretch/compress anatomy to fit.
+Portrait must use the same approved bodies and world state; crop is preferred when it preserves meaning, and any dedicated derivative may not stretch/compress anatomy to fit.
 
 ---
 
@@ -226,7 +232,16 @@ STYLE
 + RESPONSIVE EVENT EQUIVALENCE
 ```
 
-A candidate may fail even if only one of these breaks immersion.
+The tolerance is not equal across all fields:
+
+```text
+P0 identity = hard lock
+P1 contact/object geometry = hard lock
+P2 world structure = strong lock
+P3 incidental micro-detail = harmless drift allowed
+```
+
+A candidate is not rejected merely because a pebble, cloth wrinkle, hair flyaway, smoke curl, or tiny vegetation detail changed. It is rejected when the change breaks P0/P1 or materially contradicts P2.
 
 ---
 
@@ -316,7 +331,7 @@ NUA-IDENTITY-V1              reference-pending
 NUA-PROP-V1                  reference-pending
 WORLD-CAMP-DAWN-A            reference-pending
 WORLD-DEPARTURE-PATH-A       reference-pending
-WORLD-GROUND-OBS-A           reference-pending
+WORLD-GROUND-OBS-A            reference-pending
 WORLD-ROCK-SHELTER-A         reference-pending
 SC07-GROUND-BRACE-GEO-V1     reference-pending
 SC10-ROCK-BRACE-GEO-V1       reference-pending
@@ -335,6 +350,8 @@ The next gate is not `generate SC01` or `generate SC02 final`.
 It is:
 
 # **Visual Anatomy Reference Lock**
+
+The identity/layering/derivation policy is now a prerequisite production contract. It does not itself approve any image.
 
 First review bundle should contain only a small coherent master pack:
 

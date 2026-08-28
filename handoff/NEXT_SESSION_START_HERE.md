@@ -41,10 +41,12 @@ Current truth:
 Scene Composition Design = PASS
 Project-owner Scene Confirmation = PASS
 Responsive Raster Contract = READY
+Visual Identity/Layering/Derivation Policy = SPEC LOCKED
 Raster Media Adapter = INTEGRATED
 Visual Continuity Registry = INTEGRATED
 Anatomy / Contact Registry = INTEGRATED
 Visual Anchor Review Board = INTEGRATED
+STYLE-GIR-V1 Controlled Packet = PRODUCTION READY
 Approved Style Anchors = 0
 Approved Anatomy Contracts = 0
 Approved Raster Assets = 0
@@ -69,14 +71,15 @@ Read before changing anything:
 6. `handoff/NEXT_SESSION_START_HERE.md`
 7. `handoff/STAGE07_5_VISUAL_CONTINUITY_INDEX.md`
 8. `handoff/STAGE07_5_STYLE_ANCHOR_BIBLE.md`
-9. `handoff/STAGE07_5_CHARACTER_IDENTITY_ANCHOR_BIBLE.md`
-10. `handoff/STAGE07_5_ANATOMY_PROPORTION_AND_POSE_MASTER_SPEC.md`
-11. `handoff/STAGE07_5_CONTACT_GEOMETRY_MASTER.md`
-12. `handoff/STAGE07_5_OBJECT_CONTINUITY_BIBLE.md`
-13. `handoff/STAGE07_5_WORLD_CONTINUITY_BIBLE.md`
-14. `handoff/STAGE07_5_RESPONSIVE_VISUAL_PRODUCTION_CONTRACT.md`
-15. `handoff/STAGE07_5_VISUAL_GENERATION_AND_REVIEW_PROTOCOL.md`
-16. `handoff/STAGE07_5_FIRST_PERSON_SCENE_COMPOSITION_BIBLE_V2_1.md`
+9. `handoff/STAGE07_5_VISUAL_IDENTITY_LAYERING_AND_DERIVATION_CONTRACT.md`
+10. `handoff/STAGE07_5_CHARACTER_IDENTITY_ANCHOR_BIBLE.md`
+11. `handoff/STAGE07_5_ANATOMY_PROPORTION_AND_POSE_MASTER_SPEC.md`
+12. `handoff/STAGE07_5_CONTACT_GEOMETRY_MASTER.md`
+13. `handoff/STAGE07_5_OBJECT_CONTINUITY_BIBLE.md`
+14. `handoff/STAGE07_5_WORLD_CONTINUITY_BIBLE.md`
+15. `handoff/STAGE07_5_RESPONSIVE_VISUAL_PRODUCTION_CONTRACT.md`
+16. `handoff/STAGE07_5_VISUAL_GENERATION_AND_REVIEW_PROTOCOL.md`
+17. `handoff/STAGE07_5_FIRST_PERSON_SCENE_COMPOSITION_BIBLE_V2_1.md`
 
 Technical conflicts are resolved by `docs/06_TECH_BLUEPRINT.md`.
 
@@ -89,14 +92,24 @@ Do not reopen these unless a concrete contradiction is found.
 - Scene Composition Bible v2.1 is project-owner approved.
 - Final Player-facing visual direction is **raster-first Hybrid Embodied Composite**.
 - CSS/SVG/DOM figures are previsual/debug/UI aids, not final people/hands/tools/world art.
-- Final style target is **Grounded Illustrative Realism**: believable anatomy, depth, contact and material; not hyper-photoreal, not cartoon/chibi, not fantasy-barbarian concept art, not AAA poster grading.
-- L / TP / PP are separate composition families when necessary. Portrait is not a blind landscape crop.
-- Same character must derive from the same body/skeleton/proportion master.
-- Same Player body must derive from the same hand/forearm/body master.
+- Final style target is **Grounded Illustrative Realism**: realistic physical structure with illustratively simplified surface detail; not photographic pore/lens language, not cartoon/chibi, not fantasy-barbarian concept art, not AAA poster grading.
+- Reusable hero-character / Player-body / recurring-item masters default to transparent alpha or extraction-safe source + transparent derivative.
+- STYLE-GIR proof references may include simple contextual background because they test actor/world integration; they are not reusable cutout masters by default.
+- Hero characters are P0 identities: face + hair silhouette + body proportion/mass + garment silhouette/material zones must remain the same approved person.
+- Player hands/arms/feet/ankles are one P0 body identity and must derive from the same `PLAYER-HUNT-BODY-V1` master family.
 - Same handaxe must preserve morphology, scale and fingerprint.
-- Same world must preserve geography, landmark and light relationships.
-- Contact-heavy scenes require approved contact geometry.
+- Same world must preserve major geography, landmark and world-space light relationships.
+- Small flyaways/folds/pebbles/grass/smoke/cloud micro-shape may vary when identity/structure is intact.
+- Same moment + same camera direction uses the same high-resolution master crop/zoom/pan first.
+- If coverage/resolution is insufficient, use controlled outpaint/upscale from the same master.
+- A materially different camera direction requires an Angle Master derived from the same world/topology/landmark/light references.
+- Actual action/world/body state change requires a state derivative.
+- Contact-heavy scenes require approved contact geometry and may use unified contact rasters when layer purity breaks anatomy.
 - Scene rasters cannot bypass upstream style/visual/anatomy/contact approval gates.
+
+Governing rule:
+
+# **Do not regenerate what can be derived from an approved master.**
 
 ---
 
@@ -126,7 +139,7 @@ Required order:
 4. ARU-IDENTITY-V1 turnaround packet
 5. ARU-PROP-V1 measured anatomy contract
 6. SC02-HANDOFF-GEO-V1 contact geometry master
-7. SC02 unified-contact L / TP / PP candidate
+7. SC02 unified-contact state master + crop-first L / TP / PP proof
 8. DAMU-IDENTITY-V1 + DAMU-PROP-V1
 9. NUA-IDENTITY-V1 + NUA-PROP-V1
 10. world / landmark / supporting contact anchors
@@ -141,6 +154,7 @@ The short-term goal is not image count. It is stable upstream masters.
 Machine-readable required slots:
 
 - `src/experience/production/stage075AnchorReviewBundle.ts`
+- `src/experience/production/stage075VisualProductionPolicy.ts`
 
 Dev-only review UI:
 
@@ -162,7 +176,7 @@ The first bundles are:
 - first-person hand
 - world plate sample
 - material sample
-- landscape/portrait equivalence sample
+- landscape/portrait same-source equivalence sample
 
 ## DAY1-HANDAXE-V1
 
@@ -178,12 +192,16 @@ The first bundles are:
 - right palm / dorsum
 - left palm / dorsum
 - forearm neutral
+- right foot / ankle
+- left foot / ankle
 - receive reach
 - handaxe grip
 - ground brace
 - rock brace
 - crouch body edge
 - walk carry
+
+All visible Player limb derivatives must read as one approved body family.
 
 ## ARU-IDENTITY-V1
 
@@ -198,7 +216,35 @@ No bundle is approved until the required actual master/reference files exist and
 
 ---
 
-# 8. Anatomy / contact rules
+# 8. STYLE-GIR hard boundary
+
+PASS means:
+
+```text
+realistic anatomy / weight / perspective / contact
++
+illustratively simplified surfaces / clean reusable silhouette
+-
+photographic micro-detail / photographic lens language
+```
+
+Hard reject direction:
+
+```text
+SID-PHOTO  pore-field / beauty-photo / photographic skin tier
+SID-LENS   bokeh / lens flare / chromatic aberration / sensor-film-noise language
+SID-EDGE   unstable/contaminated reusable extraction edge
+SID-POSTER AAA/cinematic advertising grading
+SID-COMPOSITE actor/world finish mismatch
+```
+
+Also reject cartoon/chibi, fantasy-barbarian/caveman caricature, generic AI fog hiding information, or speculative exact historical costume/species coding.
+
+A close-up may reveal more of the same structure but may not become a more photographic rendering tier.
+
+---
+
+# 9. Anatomy / contact rules
 
 Important reject families:
 
@@ -231,7 +277,7 @@ Numeric production ratios should be measured from an approved master, not invent
 
 ---
 
-# 9. SC02 contact dependency
+# 10. SC02 contact dependency
 
 SC02 must read physically as:
 
@@ -256,28 +302,33 @@ SC02 raster cannot become runtime-ready until at minimum:
 
 are approved and stored with reference/master paths.
 
+For each SC02 state master, responsive L/TP/PP uses crop first; a separate responsive derivative is allowed only when crop cannot preserve contact/causal readability.
+
 ---
 
-# 10. Do not repeat these mistakes
+# 11. Do not repeat these mistakes
 
 - Do not independently text-to-image each scene and hope identity remains stable.
+- Do not independently regenerate Player hands/arms/feet after body lock.
 - Do not trust prompt text such as `same Aru as before` as an asset-management strategy.
 - Do not put generated UI, captions or buttons inside scene raster art.
-- Do not accept a nice-looking frame if anatomy/contact/world continuity is wrong.
+- Do not accept a nice-looking frame if identity/anatomy/contact/world continuity is wrong.
 - Do not make the style more photographic merely because it looks impressive.
-- Do not resize hands/arms to solve portrait composition.
+- Do not resize/stretch hands/arms/feet to solve portrait composition.
 - Do not regenerate the camp/world independently per scene.
 - Do not create a new handaxe morphology per view.
+- Do not create a separate responsive image when the approved source master can be cropped safely.
+- Do not reject/rebuild a valid world only because tiny pebbles, grass, folds, flyaways, smoke, or cloud micro-shapes differ.
 - Do not change runtime Player scenes merely to hide missing approved rasters.
 - Do not mark an anchor approved without stored approved master/reference paths.
 
 ---
 
-# 11. Recommended next-session action
+# 12. Recommended next-session action
 
-First inspect the latest GitHub `main`, open/read `?anchors=1` implementation, and verify the four first-bundle definitions.
+First inspect the latest GitHub `main`, open/read `?anchors=1` implementation, and verify the first-bundle definitions plus `stage075VisualProductionPolicy.ts`.
 
-Then proceed with the **first actual Visual Anchor Reference Packet**, beginning with `STYLE-GIR-V1`.
+Then proceed with the **first actual Visual Anchor Reference Packet**, beginning with `STYLE-GIR-V1`, only when image production is explicitly being performed.
 
 If generating images, generate only controlled anchor candidates required by the bundle; do not generate full game scenes yet. Reject candidates that violate the style/anatomy/history contracts rather than forcing them into the repository.
 
@@ -293,7 +344,7 @@ After a candidate is accepted by the project owner:
 
 ---
 
-# 12. Session-end discipline
+# 13. Session-end discipline
 
 Before ending the next session:
 
