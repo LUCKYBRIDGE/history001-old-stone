@@ -15,7 +15,9 @@ Depends on:
 - `docs/07A_FIRST_PERSON_VISUAL_ASSET_BIBLE.md`
 - `docs/07B_FIRST_PERSON_VISUAL_PRODUCTION_SPEC.md`
 - `handoff/STAGE07_5_HISTORICAL_VISUAL_REFERENCE_REVIEW.md`
+- `handoff/STAGE07_5_VISUAL_IDENTITY_LAYERING_AND_DERIVATION_CONTRACT.md`
 - `src/experience/production/stage075StyleAnchor.ts`
+- `src/experience/production/stage075VisualProductionPolicy.ts`
 
 ---
 
@@ -39,7 +41,7 @@ The image should feel physically believable, but not like a photograph, movie st
 - natural light
 - readable material differences
 - restrained surface texture
-- slight painterly/illustrative simplification
+- painterly/illustrative surface simplification
 - child-appropriate visual clarity
 
 ## Explicitly not the target
@@ -63,6 +65,42 @@ High photorealism creates three problems for this project:
 
 Therefore realism is used for **physical logic**, not for photographic surface imitation.
 
+Identity continuity and clean compositing are higher priorities than photographic micro-detail.
+
+---
+
+# 2A. Hard STYLE-GIR-V1 acceptance boundary
+
+The target is no longer interpreted through vague phrases such as `somewhat realistic` or `moderately painterly`.
+
+A candidate must pass all of these:
+
+1. anatomy/perspective/contact are physically believable;
+2. face identity comes from shape/proportion before microtexture;
+3. hair reads as mass + silhouette before individual strand detail;
+4. skin reads as broad planes/creases/value before pores;
+5. garments read as silhouette/drape/fold groups/material zones before fibers;
+6. actor/body/object/world share one finish/detail-density language;
+7. reusable actor/body/item assets can produce a clean separated silhouette;
+8. lighting remains physically coherent without fashion-photo or poster staging.
+
+Automatic reject if any of the following becomes a defining visual cue:
+
+- pore-field / beauty-photo facial rendering,
+- photographic individual-hair field,
+- lens bokeh,
+- lens flare,
+- chromatic aberration,
+- sensor/film-noise simulation,
+- shallow photographic depth-of-field that dissolves a reusable silhouette,
+- glossy beauty/wet skin treatment,
+- micro-fiber fur/fabric photography,
+- photographic actor against painterly world or the reverse,
+- visible alpha halo/background contamination on a reusable transparent asset at intended display size,
+- AAA poster/HDR grading that harms information readability.
+
+A close-up may reveal more of the same approved structure. It may not move the asset into a more photographic rendering tier.
+
 ---
 
 # 3. Skin rendering
@@ -70,7 +108,7 @@ Therefore realism is used for **physical logic**, not for photographic surface i
 Target:
 
 - natural broad form
-- simple pore suggestion at most
+- simple pore suggestion at most, never a dominant pore field
 - soft microtexture
 - dirt/dust can be visible but restrained
 - believable hand creases at action scale
@@ -115,16 +153,18 @@ Face identity must come from structure, not photo-level detail.
 Target:
 
 - mass and silhouette first
-- a few strand groups for texture
+- a limited number of strand groups for texture
 - movement readable at medium distance
+- outer contour remains extraction/composite-friendly for reusable masters
 
 Avoid:
 
 - individually rendered every hair strand
+- feathery photographic hair edge as the primary silhouette
 - glossy shampoo-ad highlight
 - modern styled hair appearance unless justified as low-specificity natural arrangement
 
-Hair silhouette is an identity anchor, not a decorative texture field.
+Hair silhouette is an identity anchor, not a decorative texture field. Minor flyaways may vary and may be simplified in an alpha derivative.
 
 ---
 
@@ -136,11 +176,13 @@ Target:
 - weight and drape
 - rough natural-material impression
 - restrained edge fraying where useful
+- major material zones that remain readable across scenes
 
 Avoid:
 
 - fantasy fur armor
 - glossy leather costume
+- fiber-level product photography
 - hyper-detailed stitching presented as archaeological fact
 - modern tailoring grammar
 
@@ -157,7 +199,8 @@ Target:
 - anatomically correct finger count/proportion
 - believable pressure/contact
 - readable knuckles and palm planes
-- moderate texture
+- restrained surface texture
+- same Player-body identity across every visible hand/arm/foot derivative
 
 Avoid:
 
@@ -166,8 +209,9 @@ Avoid:
 - glossy skin
 - extra/merged fingers
 - floating grip
+- scene-specific hand redesign
 
-Player and NPC hands must share the same illustration/detail level.
+Player and NPC hands must share the same illustration/detail level. Player limbs additionally inherit from one approved `PLAYER-HUNT-BODY-V1` family.
 
 ---
 
@@ -269,9 +313,7 @@ Avoid:
 
 # 13. Detail density hierarchy
 
-Detail should follow perceptual importance.
-
-Suggested order:
+Detail follows this required perceptual priority:
 
 ```text
 contact/action area > hero actor > Player body/tool > nearby world > distant background
@@ -279,7 +321,7 @@ contact/action area > hero actor > Player body/tool > nearby world > distant bac
 
 Do not render every part of the frame at the same micro-detail density.
 
-This helps both consistency and mobile readability.
+This helps consistency, compositing, identity retention, and mobile readability.
 
 ---
 
@@ -295,6 +337,8 @@ Maintain the same:
 - color grade
 - material simplification
 - edge treatment
+
+For the same approved moment, crop/zoom from the same high-resolution master is the first choice when meaning remains intact. If a dedicated derivative is necessary, its style tier may not change.
 
 Side-by-side review:
 
@@ -330,6 +374,8 @@ The packet should prove one consistent treatment across:
 
 Reference frames may be purpose-made style tests; they do not need to be final scenes.
 
+A contextual background is allowed in a style proof because actor/world integration must be reviewable. This does not change the rule that reusable hero-character/Player/item masters later default to transparent or extraction-safe authoring sources.
+
 ---
 
 # 16. Style drift taxonomy
@@ -346,6 +392,8 @@ SID-DETAIL    inconsistent detail density between layers/scenes
 SID-LIGHT     style-level lighting mismatch
 SID-COLOR     palette/grading drift
 SID-COMPOSITE pasted-layer mismatch in finish/detail
+SID-EDGE      reusable asset has unstable/contaminated extraction edge
+SID-LENS      photographic lens-language drift
 ```
 
 D2/D3 style drift blocks scene approval.
@@ -355,6 +403,10 @@ D2/D3 style drift blocks scene approval.
 # 17. Style approval checklist
 
 - [ ] people are physically believable but not photographic portraits
+- [ ] face identity is carried by structure rather than pore-level detail
+- [ ] hair is mass/silhouette-first rather than photographic strand-field-first
+- [ ] reusable character/body/item silhouettes can be cleanly separated
+- [ ] no baked photographic lens-language cue dominates
 - [ ] hands match character/world illustration level
 - [ ] stone texture is readable but not product photography
 - [ ] background supports action and does not become fantasy matte art
