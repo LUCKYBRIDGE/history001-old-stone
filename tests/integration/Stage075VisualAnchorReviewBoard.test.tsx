@@ -63,9 +63,37 @@ describe('Stage 07.5 visual anchor review board', () => {
     expect(combinedInstructions).toContain('Aru/Damu/Nua');
     expect(combinedInstructions).toContain('DAY1-HANDAXE-V1');
     expect(combinedInstructions).toContain('WORLD-CAMP-DAWN-A');
+    expect(combinedInstructions).toContain('crop/zoom');
+    expect(combinedInstructions).toContain('pore-field');
+    expect(combinedInstructions).toContain('lens');
+
+    const responsive = styleBundle!.slots.find((slot) => slot.id === 'responsive-pair');
+    expect(responsive?.candidateBrief?.rejectCodes).toContain('GEO-CROP');
+    expect(responsive?.candidateBrief?.rejectCodes).toContain('SID-LENS');
   });
 
-  it('keeps the first anchor review bundle incomplete until approved master files are registered', () => {
+  it('locks Player hands, forearms, feet and ankles into one required body-master packet', () => {
+    const playerBundle = getStage075AnchorReviewBundle('PLAYER-HUNT-BODY-V1');
+
+    expect(playerBundle).toBeTruthy();
+    expect(playerBundle!.slots.map((slot) => slot.id)).toEqual([
+      'right-palm',
+      'right-dorsum',
+      'left-palm',
+      'left-dorsum',
+      'forearm-neutral',
+      'right-foot-ankle',
+      'left-foot-ankle',
+      'receive-reach',
+      'handaxe-grip',
+      'ground-brace',
+      'rock-brace',
+      'crouch',
+      'walk-carry',
+    ]);
+  });
+
+  it('keeps the first anchor review bundles incomplete until approved master files are registered', () => {
     for (const bundle of STAGE075_ANCHOR_REVIEW_BUNDLES) {
       const progress = getStage075AnchorBundleProgress(bundle);
       expect(progress.required).toBeGreaterThan(0);
