@@ -21,6 +21,7 @@ Depends on:
 - `docs/07B_FIRST_PERSON_VISUAL_PRODUCTION_SPEC.md`
 - `handoff/STAGE07_5_HISTORICAL_VISUAL_REFERENCE_REVIEW.md`
 - `src/experience/production/stage075VisualContinuityRegistry.ts`
+- `src/experience/production/stage075AnchorReviewBundle.ts`
 
 ---
 
@@ -72,20 +73,32 @@ Curriculum hierarchy remains:
 
 ---
 
-# 3. Mandatory object fingerprint
+# 3. Mandatory object fingerprint and serial derivation
 
-Before `DAY1-HANDAXE-V1` becomes `anchor-approved`, create a master object sheet containing:
+`DAY1-HANDAXE-V1` must not be produced as several unrelated text-to-image views.
 
-1. face-A
+Machine-readable production order:
+
+```text
+canonical face-A / morphology seed
+→ face-B derivative
+→ side / thickness derivative
+→ metric / normalized scale reference
+```
+
+Only one slot is active at a time. The next view is produced after the preceding slot has been reviewed and approved, and every derivative uses the approved canonical object reference rather than a text-only `same handaxe` instruction.
+
+Before `DAY1-HANDAXE-V1` becomes `anchor-approved`, lock:
+
+1. canonical face-A / morphology seed
 2. face-B
 3. edge/side thickness view
 4. grip-base marking
 5. working-end marking
-6. scale reference
+6. absolute or normalized scale reference
 7. major flake-scar map
 8. material/color range
-9. Player right-hand grip reference
-10. Aru handoff grip reference
+9. distinctive asymmetry / contour fingerprint
 
 ## Fingerprint fields
 
@@ -94,9 +107,10 @@ Record after approval:
 ```text
 Master path: TBD
 Reference revision: TBD
-Overall length ratio: TBD
-Width ratio: TBD
-Thickness ratio: TBD
+Overall length: TBD
+Overall width: TBD
+Overall thickness: TBD
+Normalized length/width/thickness ratio: TBD
 Face-A major scar 1: TBD
 Face-A major scar 2: TBD
 Face-B major scar 1: TBD
@@ -108,6 +122,28 @@ Distinctive asymmetry: TBD
 
 These are production identifiers, not archaeological classification claims.
 
+### Actor-grip dependency rule
+
+Aru grip and Player grip are **not prerequisites for the handaxe morphology anchor itself**.
+
+Reason:
+
+```text
+HANDAXE morphology anchor
+→ Player canonical body
+→ Aru canonical body/identity
+→ SC02 grip/contact geometry
+```
+
+Requiring Player palm scale or Player grip before `PLAYER-HUNT-BODY-V1` exists creates a circular dependency and is prohibited.
+
+Therefore:
+
+- handaxe morphology/metric scale is locked first,
+- Player palm/handaxe relative scale is validated in `PLAYER-HUNT-BODY-V1` / `PLAYER-HUNT-BODY-PROP-V1`,
+- Aru/Player grip feasibility and shared-contact topology are validated in `SC02-HANDOFF-GEO-V1`,
+- scene raster approval still remains blocked until those downstream body/contact gates pass.
+
 ---
 
 # 4. Face orientation contract
@@ -115,8 +151,8 @@ These are production identifiers, not archaeological classification claims.
 Define the object coordinate system once.
 
 ```text
-face-A  = primary approved presentation face
-face-B  = opposite face
+face-A  = primary approved presentation face / canonical morphology seed
+face-B = opposite face
 grip-base = hand-held broader/base zone
 working-end = working/cutting/chopping end
 ```
@@ -140,7 +176,15 @@ Do not mirror the image casually. A horizontal mirror swaps hand dominance and c
 
 # 5. Scale contract
 
-The handaxe must retain a believable size relative to:
+The handaxe first locks its own physical scale independent of any not-yet-approved body.
+
+Pre-body anchor fields:
+
+- absolute length/width/thickness where a metric interpretation is used,
+- or normalized length:width:thickness ratios tied to the canonical object seed,
+- one stable object-scale fingerprint.
+
+After Player/Aru body approval, validate that same physical object relative to:
 
 - Aru hand
 - Player right hand
@@ -154,10 +198,13 @@ Reject if:
 - it fits in fingertips in one scene but covers the entire forearm in another
 - portrait composition enlarges it into a hero-item card
 - distant SC11 object is too large to belong to the same person/object
+- a grip derivative silently changes the pre-approved object dimensions
 
 ---
 
-# 6. Grip continuity
+# 6. Grip continuity — downstream contact validation
+
+Grip references are produced only after the relevant body master exists.
 
 ## Aru grip
 
@@ -186,6 +233,8 @@ After release:
 - Player right hand owns the same grip-base
 - fingers wrap with believable pressure/contact
 - object does not snap to a new orientation without wrist motion
+
+These grip checks do not reopen the already approved handaxe morphology. If the approved object cannot be gripped plausibly, resolve the body/contact design or version the object anchor explicitly; do not silently deform the object per scene.
 
 ---
 
@@ -303,7 +352,7 @@ Create:
 - master silhouette
 - front-ish route view
 - alternate route view
-- scale reference with Damu
+- scale reference with Damu after Damu identity/body approval
 
 The split itself should function like an object identity feature.
 
@@ -313,15 +362,16 @@ A return-route future view must derive from the same rock, not regenerate anothe
 
 # 13. Responsive object equivalence
 
-L/TP/PP may use separately composed source images, but the object remains identical.
+L/TP/PP are not automatically separate source generations.
 
 Critical checks:
 
-- handaxe fingerprint visible in all families where scale permits
-- no mirroring for layout convenience
-- contact geometry preserved in SC02
-- portrait crop does not cut grip/contact
-- SC10 brace hand and held item can coexist without impossible body geometry
+- use the same approved object master and crop/derive when possible,
+- handaxe fingerprint visible in all families where scale permits,
+- no mirroring for layout convenience,
+- contact geometry preserved in SC02,
+- portrait crop does not cut grip/contact,
+- SC10 brace hand and held item can coexist without impossible body geometry.
 
 ---
 
@@ -332,11 +382,12 @@ Use stable anchor IDs in filenames.
 Examples:
 
 ```text
-DAY1-HANDAXE-V1_master_faceA.png
-DAY1-HANDAXE-V1_master_faceB.png
-DAY1-HANDAXE-V1_master_edge.png
-DAY1-HANDAXE-V1_playerGrip_R.webp
-DAY1-HANDAXE-V1_aruOffer.webp
+DAY1-HANDAXE-V1_face-a.webp
+DAY1-HANDAXE-V1_face-b.webp
+DAY1-HANDAXE-V1_side.webp
+DAY1-HANDAXE-V1_scale.webp
+DAY1-HANDAXE-V1_playerGrip_R.webp   # downstream body/contact derivative
+DAY1-HANDAXE-V1_aruOffer.webp       # downstream body/contact derivative
 
 PROP-TEMP-SHELTER-A_master_L.webp
 LM-SPLIT-ROCK-01_master.webp
@@ -357,16 +408,21 @@ requires DAY1-HANDAXE-V1
 
 `DAY1-HANDAXE-V1` becomes `anchor-approved` only when:
 
-- [ ] face-A approved
-- [ ] face-B approved
-- [ ] side/thickness approved
-- [ ] scale approved
+- [ ] canonical face-A / morphology seed approved
+- [ ] face-B derivative approved against the same object seed
+- [ ] side/thickness derivative approved against the same object seed
+- [ ] absolute/normalized physical scale approved
 - [ ] major scar fingerprint approved
 - [ ] grip-base and working-end documented
-- [ ] Aru grip is anatomically feasible
-- [ ] Player right-hand grip is anatomically feasible
-- [ ] Grounded Illustrative Realism style matches character/world anchors
+- [ ] material/color family approved
+- [ ] Grounded Illustrative Realism style matches STYLE-GIR-V1
 - [ ] no polished Neolithic/fantasy weapon visual drift
 - [ ] approved master paths are registered
 
-# **Scene rasters requiring the handaxe remain runtime-blocked until this anchor passes.**
+After that, downstream grip/contact validation still requires:
+
+- [ ] Player right-hand scale/grip against approved `PLAYER-HUNT-BODY-V1`
+- [ ] Aru grip against approved `ARU-IDENTITY-V1`
+- [ ] `SC02-HANDOFF-GEO-V1` Offer → Shared Contact → Release topology
+
+# **Handaxe anchor approval does not make SC02 runtime-ready. Scene rasters remain blocked until Player/Aru/contact gates also pass.**
