@@ -6,6 +6,7 @@ import { STAGE075_ANATOMY_CONTRACTS } from './stage075AnatomyRegistry';
 import { STAGE075_RASTER_MANIFEST } from './stage075RasterManifest';
 import { STAGE075_STYLE_ANCHOR } from './stage075StyleAnchor';
 import { STAGE075_VISUAL_CONTINUITY_ANCHORS } from './stage075VisualContinuityRegistry';
+import { STAGE075_VISUAL_PRODUCTION_POLICY } from './stage075VisualProductionPolicy';
 
 const priorityVisualAnchorIds = [
   'DAY1-HANDAXE-V1',
@@ -46,6 +47,33 @@ export function Stage075VisualAnchorReviewBoard() {
         </p>
       </header>
 
+      <section
+        className="anchor-review__section"
+        aria-labelledby="canonical-lineage-heading"
+        data-testid="canonical-ratio-policy"
+      >
+        <div className="anchor-review__section-heading">
+          <div>
+            <p>Identity production law</p>
+            <h2 id="canonical-lineage-heading">Canonical body lineage & exact-ratio lock</h2>
+          </div>
+        </div>
+        <div className="anchor-review__two-col">
+          <div>
+            <h3>Production lineage</h3>
+            <p className="anchor-review__mono">
+              {STAGE075_VISUAL_PRODUCTION_POLICY.bodyMasterOrder.join(' → ')}
+            </p>
+            <p>{STAGE075_VISUAL_PRODUCTION_POLICY.canonicalRatioRule}</p>
+          </div>
+          <div>
+            <h3>Projection is not redesign</h3>
+            <p>{STAGE075_VISUAL_PRODUCTION_POLICY.projectionRule}</p>
+            <p>{STAGE075_VISUAL_PRODUCTION_POLICY.verificationRule}</p>
+          </div>
+        </div>
+      </section>
+
       <section className="anchor-review__section" aria-labelledby="bundle-heading">
         <div className="anchor-review__section-heading">
           <div>
@@ -72,6 +100,14 @@ export function Stage075VisualAnchorReviewBoard() {
                         </span>
                       </div>
                       <span>{item.purpose}</span>
+                      {item.parentSlotId ? (
+                        <p
+                          className="anchor-review__mono"
+                          data-testid={`slot-parent-${bundle.anchorId}-${item.id}`}
+                        >
+                          <strong>Derived from:</strong> <code>{item.parentSlotId}</code>
+                        </p>
+                      ) : null}
                       {item.candidateBrief ? (
                         <div className="anchor-review__candidate-brief" data-testid={`candidate-brief-${bundle.anchorId}-${item.id}`}>
                           <p><strong>Mode:</strong> <code>{item.candidateBrief.mode}</code></p>
