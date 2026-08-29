@@ -160,6 +160,19 @@ describe('Stage 07.5 visual anchor review board', () => {
     expect(isStage075StyleAnchorApproved(approvedStyle, incompleteBundle)).toBe(false);
   });
 
+  it('renders canonical-ratio policy and visible parent lineage before image production', () => {
+    render(<Stage075VisualAnchorReviewBoard />);
+
+    const policy = screen.getByTestId('canonical-ratio-policy');
+    expect(policy.textContent).toContain('7.2-head canonical character does not become 6.8-head or 7.5-head');
+    expect(policy.textContent).toContain('Perspective, foreshortening, pose and crop');
+
+    expect(screen.getByTestId('slot-parent-PLAYER-HUNT-BODY-V1-canonical-body').textContent).toContain('structural-scaffold');
+    expect(screen.getByTestId('slot-parent-PLAYER-HUNT-BODY-V1-right-palm').textContent).toContain('canonical-body');
+    expect(screen.getByTestId('slot-parent-ARU-IDENTITY-V1-canonical-identity').textContent).toContain('structural-scaffold');
+    expect(screen.getByTestId('slot-parent-ARU-IDENTITY-V1-front').textContent).toContain('canonical-identity');
+  });
+
   it('renders controlled STYLE-GIR-V1 production briefs, anatomy and downstream readiness without production images', () => {
     render(<Stage075VisualAnchorReviewBoard />);
 
