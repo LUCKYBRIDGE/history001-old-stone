@@ -44,11 +44,14 @@ Responsive Raster Contract = READY
 Visual Identity/Layering/Derivation Policy = SPEC LOCKED
 Functional Anatomy / Stylized Proportion Policy = SPEC LOCKED
 Exact Canonical Ratio Inheritance = SPEC LOCKED
+Serial Anchor Production Queue = ENFORCED
 Raster Media Adapter = INTEGRATED
 Visual Continuity Registry = INTEGRATED
 Anatomy / Contact Registry = INTEGRATED
-Visual Anchor Review Board = INTEGRATED + PARENT LINEAGE VISIBLE
+Visual Anchor Review Board = INTEGRATED + PARENT/QUEUE STATE VISIBLE
 STYLE-GIR-V1 Controlled Packet = PRODUCTION READY
+STYLE-GIR-V1 Approved Slots = 0/5
+Current Single Production Target = STYLE-GIR-V1 / human-mid
 Approved Style Anchors = 0
 Approved Anatomy Contracts = 0
 Approved Raster Assets = 0
@@ -58,6 +61,7 @@ Stage 08 = BLOCKED
 
 Do not move Stage 08 forward.
 Do not declare Human PASS from CI or design approval.
+Do not batch-generate later anchor slots because they are listed in the same packet.
 
 ---
 
@@ -75,14 +79,15 @@ Read before changing anything:
 8. `handoff/STAGE07_5_STYLE_ANCHOR_BIBLE.md`
 9. `handoff/STAGE07_5_VISUAL_IDENTITY_LAYERING_AND_DERIVATION_CONTRACT.md`
 10. `handoff/STAGE07_5_FUNCTIONAL_ANATOMY_AND_STYLIZED_PROPORTION_POLICY.md`
-11. `handoff/STAGE07_5_CHARACTER_IDENTITY_ANCHOR_BIBLE.md`
-12. `handoff/STAGE07_5_ANATOMY_PROPORTION_AND_POSE_MASTER_SPEC.md`
-13. `handoff/STAGE07_5_CONTACT_GEOMETRY_MASTER.md`
-14. `handoff/STAGE07_5_OBJECT_CONTINUITY_BIBLE.md`
-15. `handoff/STAGE07_5_WORLD_CONTINUITY_BIBLE.md`
-16. `handoff/STAGE07_5_RESPONSIVE_VISUAL_PRODUCTION_CONTRACT.md`
-17. `handoff/STAGE07_5_VISUAL_GENERATION_AND_REVIEW_PROTOCOL.md`
-18. `handoff/STAGE07_5_FIRST_PERSON_SCENE_COMPOSITION_BIBLE_V2_1.md`
+11. `handoff/STAGE07_5_SERIAL_ANCHOR_PRODUCTION_QUEUE.md`
+12. `handoff/STAGE07_5_CHARACTER_IDENTITY_ANCHOR_BIBLE.md`
+13. `handoff/STAGE07_5_ANATOMY_PROPORTION_AND_POSE_MASTER_SPEC.md`
+14. `handoff/STAGE07_5_CONTACT_GEOMETRY_MASTER.md`
+15. `handoff/STAGE07_5_OBJECT_CONTINUITY_BIBLE.md`
+16. `handoff/STAGE07_5_WORLD_CONTINUITY_BIBLE.md`
+17. `handoff/STAGE07_5_RESPONSIVE_VISUAL_PRODUCTION_CONTRACT.md`
+18. `handoff/STAGE07_5_VISUAL_GENERATION_AND_REVIEW_PROTOCOL.md`
+19. `handoff/STAGE07_5_FIRST_PERSON_SCENE_COMPOSITION_BIBLE_V2_1.md`
 
 Technical conflicts are resolved by `docs/06_TECH_BLUEPRINT.md`.
 
@@ -102,11 +107,13 @@ Do not reopen these unless a concrete contradiction is found.
 - **Once approved, the canonical ratios are exact P0 identity.** If a canonical neutral master is measured at 7.2 heads, later front/side/back/seated/walking/contact derivatives remain the same underlying 7.2 body rather than becoming 6.8 or 7.5.
 - Perspective, foreshortening, pose, camera/FOV and crop may change apparent screen-space proportions. They never authorize a new underlying body ratio.
 - Derivatives are validated against the canonical structural scaffold and normalized ratio contract, not by treating a perspective-distorted screen silhouette as a new body design.
+- **Only one global anchor slot is active for production at a time.** A slot advances only after the current slot is reviewed and accepted/registered.
 - Reusable hero-character / Player-body / recurring-item masters default to transparent alpha or extraction-safe source + transparent derivative.
 - STYLE-GIR proof references may include simple contextual background because they test actor/world integration; they are not reusable cutout masters by default.
 - Hero characters are P0 identities: face + hair silhouette + exact canonical body proportion/mass + garment silhouette/material zones must remain the same approved person.
 - Player hands/arms/feet/ankles are one P0 body identity and must derive from the same `PLAYER-HUNT-BODY-V1` master family.
-- Same handaxe must preserve morphology, scale and fingerprint.
+- Same handaxe must preserve morphology, scale and fingerprint. It is produced from one canonical face-A/morphology seed, not independent per-view generations.
+- Handaxe morphology/metric scale is locked before Player/Aru grip validation; body-specific grip belongs downstream in Player/SC02 contact work, removing circular dependency.
 - Same world must preserve major geography, landmark and world-space light relationships.
 - Small flyaways/folds/pebbles/grass/smoke/cloud micro-shape may vary when identity/structure is intact.
 - Same moment + same camera direction uses the same high-resolution master crop/zoom/pan first.
@@ -123,6 +130,8 @@ Governing rules:
 # **Functional anatomy is mandatory. Photographic proportion convention is not.**
 
 # **Choose proportions freely before approval; inherit them exactly after approval.**
+
+# **One active production slot at a time. Do not batch the anchor packet.**
 
 ---
 
@@ -142,20 +151,39 @@ Governing rules:
 
 Do not generate complete SC01/SC02 scene art first.
 
-Required order:
+Global required order:
 
 ```text
-0. STYLE-GIR-V1 reference packet
-1. DAY1-HANDAXE-V1 morphology + scale packet
+0. STYLE-GIR-V1 serial reference calibration
+1. DAY1-HANDAXE-V1 morphology + physical scale packet
 2. PLAYER-HUNT-BODY-V1 structural scaffold + canonical body master + body derivatives
 3. PLAYER-HUNT-BODY-PROP-V1 measured exact anatomy/proportion contract
 4. ARU-IDENTITY-V1 structural scaffold + canonical identity master + turnaround derivatives
 5. ARU-PROP-V1 measured exact anatomy/proportion contract
-6. SC02-HANDOFF-GEO-V1 contact geometry master
+6. SC02-HANDOFF-GEO-V1 contact geometry master + Aru/Player grip validation
 7. SC02 unified-contact state master + crop-first L / TP / PP proof
 8. DAMU-IDENTITY-V1 + DAMU-PROP-V1
 9. NUA-IDENTITY-V1 + NUA-PROP-V1
 10. world / landmark / supporting contact anchors
+```
+
+Within STYLE-GIR-V1:
+
+```text
+human-mid
+→ first-person-hand
+→ world
+→ material
+→ responsive-pair
+```
+
+Within DAY1-HANDAXE-V1:
+
+```text
+face-a canonical morphology seed
+→ face-b derivative
+→ side/thickness derivative
+→ metric/normalized scale reference
 ```
 
 The short-term goal is not image count. It is stable upstream masters.
@@ -166,13 +194,19 @@ Do not generate front/side/back/action sets independently and then try to choose
 
 # 7. First review bundles already defined
 
-Machine-readable required slots:
+Machine-readable required slots / production queue:
 
 - `src/experience/production/stage075AnchorReviewBundle.ts`
 - `src/experience/production/stage075VisualProductionPolicy.ts`
 - `src/experience/production/stage075AnatomyRegistry.ts`
 
-`stage075AnchorReviewBundle.ts` enforces lineage integrity: every `parentSlotId` must exist and must occur before its child. A bundle with missing/reversed parent lineage cannot be complete.
+`stage075AnchorReviewBundle.ts` enforces:
+
+- every `parentSlotId` exists and precedes its child,
+- a derived slot requires its parent approval,
+- all earlier required slots must be approved before the next slot is bundle-ready,
+- all earlier bundles must be complete before a downstream bundle becomes the global target,
+- therefore exactly one global `NEXT production target` is exposed.
 
 Dev-only review UI:
 
@@ -190,26 +224,34 @@ The Review Board visibly shows:
 
 - exact canonical-ratio policy,
 - structural→canonical→derivative production order,
-- every derivative slot's `Derived from` parent.
+- every derivative slot's `Derived from` parent,
+- each blocked slot's dependency,
+- the one current `NEXT production target`.
 
 The first bundles are:
 
 ## STYLE-GIR-V1
 
-- human mid-shot
-- first-person hand
-- world plate sample
-- material sample
-- landscape/portrait same-source equivalence sample
+```text
+human-mid
+→ first-person-hand
+→ world
+→ material
+→ responsive-pair
+```
+
+The content of the first four remains anonymous/non-diagnostic style exploration, but the workflow is serial rather than batch production.
 
 ## DAY1-HANDAXE-V1
 
-- face-A
-- face-B
-- side/thickness
-- scale reference
-- Aru grip
-- Player right-hand grip
+```text
+face-a canonical morphology seed
+→ face-b derivative
+→ side/thickness derivative
+→ metric/normalized scale reference
+```
+
+Aru grip and Player right-hand grip are downstream body/contact derivatives, not prerequisites for the morphology anchor.
 
 ## PLAYER-HUNT-BODY-V1
 
@@ -344,9 +386,12 @@ For each SC02 state master, responsive L/TP/PP uses crop first; a separate respo
 
 # 11. Do not repeat these mistakes
 
+- Do not batch-generate all STYLE-GIR slots before reviewing `human-mid`.
 - Do not independently text-to-image each scene and hope identity remains stable.
 - Do not independently generate a front/side/back/action character packet and average it into one person.
 - Do not independently regenerate Player hands/arms/feet after body lock.
+- Do not independently regenerate the handaxe for face-B/side/scale; derive from the canonical morphology seed.
+- Do not require Player grip before Player body exists; morphology and body/contact integration are separate stages.
 - Do not impose a 6/7/8-head adult target as the realism/anatomy gate.
 - Do not change an approved canonical head-count or normalized body ratio between derivatives.
 - Do not explain a 7.2→6.8 body redesign away as pose/style variation; only projection may change apparent measurements.
@@ -356,7 +401,6 @@ For each SC02 state master, responsive L/TP/PP uses crop first; a separate respo
 - Do not make the style more photographic merely because it looks impressive.
 - Do not resize/stretch hands/arms/feet or head/body ratio to solve portrait composition.
 - Do not regenerate the camp/world independently per scene.
-- Do not create a new handaxe morphology per view.
 - Do not create a separate responsive image when the approved source master can be cropped safely.
 - Do not reject/rebuild a valid world only because tiny pebbles, grass, folds, flyaways, smoke, or cloud micro-shapes differ.
 - Do not change runtime Player scenes merely to hide missing approved rasters.
@@ -369,26 +413,37 @@ For each SC02 state master, responsive L/TP/PP uses crop first; a separate respo
 First inspect the latest GitHub `main`, open/read `?anchors=1`, and verify:
 
 - exact canonical-ratio policy,
-- parent lineage display,
-- `stage075AnchorReviewBundle.ts` lineage integrity,
+- serial queue/current target,
+- parent lineage and blocked-by display,
+- `stage075AnchorReviewBundle.ts` queue/lineage integrity,
 - `stage075VisualProductionPolicy.ts`,
 - `stage075AnatomyRegistry.ts`.
 
-Then proceed with the **first actual Visual Anchor Reference Packet**, beginning with `STYLE-GIR-V1`, only when image production is explicitly being performed.
+At the current repository state, the single next production target is:
 
-If generating images, generate only controlled anchor candidates required by the bundle; do not generate full game scenes yet. Reject candidates that violate the style/anatomy/history contracts rather than forcing them into the repository.
+# **`STYLE-GIR-V1 / human-mid`**
 
-When Player/Aru master production begins, create the structural scaffold and one canonical body/identity master before producing the turnaround/action derivatives.
+Do not generate the other four STYLE-GIR slots at the same time.
+
+Only when image production is explicitly being performed:
+
+1. produce/revise `human-mid`,
+2. review it against STYLE-GIR/historical/anatomy boundary,
+3. after Project-owner acceptance, store/register that slot,
+4. let the queue advance to `first-person-hand`.
+
+When Player/Aru master production begins later, create the structural scaffold and one canonical body/identity master before producing the turnaround/action derivatives.
 
 After a candidate is accepted by the project owner:
 
 1. store it at the planned anchor path,
 2. register the approved path,
-3. update the anchor status only when the required packet is complete,
-4. run typecheck/tests/build,
-5. use a PR,
-6. merge only on PASS,
-7. update `PROJECT_STATUS.md` and `CURRENT_HANDOFF.md`.
+3. advance only the next queue slot,
+4. update the anchor status only when the required packet is complete,
+5. run typecheck/tests/build,
+6. use a PR,
+7. merge only on PASS,
+8. update `PROJECT_STATUS.md` and `CURRENT_HANDOFF.md` when Gate truth changes.
 
 ---
 
