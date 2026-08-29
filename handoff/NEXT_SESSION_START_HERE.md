@@ -42,6 +42,7 @@ Scene Composition Design = PASS
 Project-owner Scene Confirmation = PASS
 Responsive Raster Contract = READY
 Visual Identity/Layering/Derivation Policy = SPEC LOCKED
+Functional Anatomy / Stylized Proportion Policy = SPEC LOCKED
 Raster Media Adapter = INTEGRATED
 Visual Continuity Registry = INTEGRATED
 Anatomy / Contact Registry = INTEGRATED
@@ -72,14 +73,15 @@ Read before changing anything:
 7. `handoff/STAGE07_5_VISUAL_CONTINUITY_INDEX.md`
 8. `handoff/STAGE07_5_STYLE_ANCHOR_BIBLE.md`
 9. `handoff/STAGE07_5_VISUAL_IDENTITY_LAYERING_AND_DERIVATION_CONTRACT.md`
-10. `handoff/STAGE07_5_CHARACTER_IDENTITY_ANCHOR_BIBLE.md`
-11. `handoff/STAGE07_5_ANATOMY_PROPORTION_AND_POSE_MASTER_SPEC.md`
-12. `handoff/STAGE07_5_CONTACT_GEOMETRY_MASTER.md`
-13. `handoff/STAGE07_5_OBJECT_CONTINUITY_BIBLE.md`
-14. `handoff/STAGE07_5_WORLD_CONTINUITY_BIBLE.md`
-15. `handoff/STAGE07_5_RESPONSIVE_VISUAL_PRODUCTION_CONTRACT.md`
-16. `handoff/STAGE07_5_VISUAL_GENERATION_AND_REVIEW_PROTOCOL.md`
-17. `handoff/STAGE07_5_FIRST_PERSON_SCENE_COMPOSITION_BIBLE_V2_1.md`
+10. `handoff/STAGE07_5_FUNCTIONAL_ANATOMY_AND_STYLIZED_PROPORTION_POLICY.md`
+11. `handoff/STAGE07_5_CHARACTER_IDENTITY_ANCHOR_BIBLE.md`
+12. `handoff/STAGE07_5_ANATOMY_PROPORTION_AND_POSE_MASTER_SPEC.md`
+13. `handoff/STAGE07_5_CONTACT_GEOMETRY_MASTER.md`
+14. `handoff/STAGE07_5_OBJECT_CONTINUITY_BIBLE.md`
+15. `handoff/STAGE07_5_WORLD_CONTINUITY_BIBLE.md`
+16. `handoff/STAGE07_5_RESPONSIVE_VISUAL_PRODUCTION_CONTRACT.md`
+17. `handoff/STAGE07_5_VISUAL_GENERATION_AND_REVIEW_PROTOCOL.md`
+18. `handoff/STAGE07_5_FIRST_PERSON_SCENE_COMPOSITION_BIBLE_V2_1.md`
 
 Technical conflicts are resolved by `docs/06_TECH_BLUEPRINT.md`.
 
@@ -92,10 +94,14 @@ Do not reopen these unless a concrete contradiction is found.
 - Scene Composition Bible v2.1 is project-owner approved.
 - Final Player-facing visual direction is **raster-first Hybrid Embodied Composite**.
 - CSS/SVG/DOM figures are previsual/debug/UI aids, not final people/hands/tools/world art.
-- Final style target is **Grounded Illustrative Realism**: realistic physical structure with illustratively simplified surface detail; not photographic pore/lens language, not cartoon/chibi, not fantasy-barbarian concept art, not AAA poster grading.
+- Final style target is **Grounded Illustrative Realism**: physically believable joints/contact/depth with illustratively simplified surface detail; not photographic pore/lens language, not cartoon/chibi, not fantasy-barbarian concept art, not AAA poster grading.
+- **Functional anatomy is mandatory; photographic 6-head / 7-head / 8-head body convention is not a requirement.**
+- A hero/Player body may use intentionally stylized canonical proportions, including relatively larger/smaller head, shorter/longer torso or limbs, or mildly emphasized hands/feet, as long as joints/reach/balance/contact remain functional and STYLE-GIR-V1 is preserved.
+- Body proportions are not chosen from a textbook head-count target first. Use `structural scaffold → canonical body/identity master → derivatives → measured proportion contract`.
+- Once the canonical body/identity master is approved, its own head/body, shoulder/pelvis, limb, hand/foot and mass relationships become P0 identity.
 - Reusable hero-character / Player-body / recurring-item masters default to transparent alpha or extraction-safe source + transparent derivative.
 - STYLE-GIR proof references may include simple contextual background because they test actor/world integration; they are not reusable cutout masters by default.
-- Hero characters are P0 identities: face + hair silhouette + body proportion/mass + garment silhouette/material zones must remain the same approved person.
+- Hero characters are P0 identities: face + hair silhouette + canonical body proportion/mass + garment silhouette/material zones must remain the same approved person.
 - Player hands/arms/feet/ankles are one P0 body identity and must derive from the same `PLAYER-HUNT-BODY-V1` master family.
 - Same handaxe must preserve morphology, scale and fingerprint.
 - Same world must preserve major geography, landmark and world-space light relationships.
@@ -107,9 +113,11 @@ Do not reopen these unless a concrete contradiction is found.
 - Contact-heavy scenes require approved contact geometry and may use unified contact rasters when layer purity breaks anatomy.
 - Scene rasters cannot bypass upstream style/visual/anatomy/contact approval gates.
 
-Governing rule:
+Governing rules:
 
 # **Do not regenerate what can be derived from an approved master.**
+
+# **Functional anatomy is mandatory. Photographic proportion convention is not.**
 
 ---
 
@@ -134,10 +142,10 @@ Required order:
 ```text
 0. STYLE-GIR-V1 reference packet
 1. DAY1-HANDAXE-V1 morphology + scale packet
-2. PLAYER-HUNT-BODY-V1 master packet
-3. PLAYER-HUNT-BODY-PROP-V1 measured anatomy contract
-4. ARU-IDENTITY-V1 turnaround packet
-5. ARU-PROP-V1 measured anatomy contract
+2. PLAYER-HUNT-BODY-V1 structural scaffold + canonical body master + body derivatives
+3. PLAYER-HUNT-BODY-PROP-V1 measured anatomy/proportion contract
+4. ARU-IDENTITY-V1 structural scaffold + canonical identity master + turnaround derivatives
+5. ARU-PROP-V1 measured anatomy/proportion contract
 6. SC02-HANDOFF-GEO-V1 contact geometry master
 7. SC02 unified-contact state master + crop-first L / TP / PP proof
 8. DAMU-IDENTITY-V1 + DAMU-PROP-V1
@@ -147,6 +155,8 @@ Required order:
 
 The short-term goal is not image count. It is stable upstream masters.
 
+Do not generate front/side/back/action sets independently and then try to choose the most similar-looking images. One canonical body/identity master must be the parent of the derivative family.
+
 ---
 
 # 7. First review bundles already defined
@@ -155,6 +165,7 @@ Machine-readable required slots:
 
 - `src/experience/production/stage075AnchorReviewBundle.ts`
 - `src/experience/production/stage075VisualProductionPolicy.ts`
+- `src/experience/production/stage075AnatomyRegistry.ts`
 
 Dev-only review UI:
 
@@ -189,6 +200,7 @@ The first bundles are:
 
 ## PLAYER-HUNT-BODY-V1
 
+- structural scaffold / neutral body reference
 - right palm / dorsum
 - left palm / dorsum
 - forearm neutral
@@ -205,11 +217,13 @@ All visible Player limb derivatives must read as one approved body family.
 
 ## ARU-IDENTITY-V1
 
-- front / back
-- 3/4 left / right
-- side left / right
-- seated
-- offer-handaxe
+- structural scaffold
+- one canonical full-body 3/4 identity master
+- front / back derivatives
+- opposite 3/4 derivative
+- side left / right derivatives
+- seated derivative
+- offer-handaxe derivative
 - hand reference
 
 No bundle is approved until the required actual master/reference files exist and are reviewed.
@@ -221,7 +235,7 @@ No bundle is approved until the required actual master/reference files exist and
 PASS means:
 
 ```text
-realistic anatomy / weight / perspective / contact
+functional believable anatomy / weight / perspective / contact
 +
 illustratively simplified surfaces / clean reusable silhouette
 -
@@ -238,13 +252,13 @@ SID-POSTER AAA/cinematic advertising grading
 SID-COMPOSITE actor/world finish mismatch
 ```
 
-Also reject cartoon/chibi, fantasy-barbarian/caveman caricature, generic AI fog hiding information, or speculative exact historical costume/species coding.
+Also reject chibi/bobble-head caricature, fantasy-barbarian/caveman caricature, rubber-hose/impossible limbs, generic AI fog hiding information, or speculative exact historical costume/species coding.
 
 A close-up may reveal more of the same structure but may not become a more photographic rendering tier.
 
 ---
 
-# 9. Anatomy / contact rules
+# 9. Anatomy / proportion / contact rules
 
 Important reject families:
 
@@ -257,6 +271,8 @@ ANAT-SHOULDER
 ANAT-TORSO
 ANAT-PELVIS
 ANAT-LEG-LENGTH
+ANAT-FOOT-SCALE
+ANAT-HEAD-BODY
 ANAT-COM
 ANAT-FOV
 ANAT-POSE-ID
@@ -271,9 +287,9 @@ GEO-CROP
 GEO-TEMPORAL
 ```
 
-Unresolved ANAT/GEO drift in a hero/contact asset is P1 reject.
+Unresolved ANAT/GEO drift in a hero/contact asset is P1 reject. `ANAT-HEAD-BODY` that makes a body read as another identity is also P0.
 
-Numeric production ratios should be measured from an approved master, not invented as archaeological population facts.
+Numeric production ratios should be measured from an approved canonical master, not invented as archaeological population facts and not imposed from a conventional 6/7/8-head adult chart.
 
 ---
 
@@ -309,12 +325,14 @@ For each SC02 state master, responsive L/TP/PP uses crop first; a separate respo
 # 11. Do not repeat these mistakes
 
 - Do not independently text-to-image each scene and hope identity remains stable.
+- Do not independently generate a front/side/back/action character packet and average it into one person.
 - Do not independently regenerate Player hands/arms/feet after body lock.
+- Do not impose a 6/7/8-head adult target as the realism/anatomy gate.
 - Do not trust prompt text such as `same Aru as before` as an asset-management strategy.
 - Do not put generated UI, captions or buttons inside scene raster art.
 - Do not accept a nice-looking frame if identity/anatomy/contact/world continuity is wrong.
 - Do not make the style more photographic merely because it looks impressive.
-- Do not resize/stretch hands/arms/feet to solve portrait composition.
+- Do not resize/stretch hands/arms/feet or head/body ratio to solve portrait composition.
 - Do not regenerate the camp/world independently per scene.
 - Do not create a new handaxe morphology per view.
 - Do not create a separate responsive image when the approved source master can be cropped safely.
@@ -326,11 +344,13 @@ For each SC02 state master, responsive L/TP/PP uses crop first; a separate respo
 
 # 12. Recommended next-session action
 
-First inspect the latest GitHub `main`, open/read `?anchors=1` implementation, and verify the first-bundle definitions plus `stage075VisualProductionPolicy.ts`.
+First inspect the latest GitHub `main`, open/read `?anchors=1` implementation, and verify the first-bundle definitions plus `stage075VisualProductionPolicy.ts` / `stage075AnatomyRegistry.ts`.
 
 Then proceed with the **first actual Visual Anchor Reference Packet**, beginning with `STYLE-GIR-V1`, only when image production is explicitly being performed.
 
 If generating images, generate only controlled anchor candidates required by the bundle; do not generate full game scenes yet. Reject candidates that violate the style/anatomy/history contracts rather than forcing them into the repository.
+
+When Player/Aru master production begins, create the structural scaffold and one canonical body/identity master before producing the turnaround/action derivatives.
 
 After a candidate is accepted by the project owner:
 
