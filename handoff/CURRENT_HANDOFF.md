@@ -19,7 +19,7 @@
 
 현재 판정:
 
-# **Social Runtime Integrated / Automated PASS / Human Gate FAIL / Scene Composition v2.1 Approved / Responsive Raster + Visual Continuity + Anatomy/Contact Gates Integrated / Visual Identity-Layering-Derivation Policy Locked / Functional Anatomy + Exact Canonical Ratio Policy Locked / Visual Anchor Review Board Integrated / STYLE-GIR-V1 Controlled Packet Production-Ready / Approved Raster Assets 0 / Stage 08 BLOCKED**
+# **Social Runtime Integrated / Automated PASS / Human Gate FAIL / Scene Composition v2.1 Approved / Responsive Raster + Visual Continuity + Anatomy/Contact Gates Integrated / Visual Identity-Layering-Derivation Policy Locked / Functional Anatomy + Exact Canonical Ratio Policy Locked / Serial Anchor Production Queue Enforced / Visual Anchor Review Board Integrated / STYLE-GIR-V1 Controlled Packet Production-Ready / Approved Raster Assets 0 / Stage 08 BLOCKED**
 
 최신 exact repository HEAD와 CI는 GitHub가 최종 진실 공급원이다.
 
@@ -37,14 +37,15 @@
 8. `handoff/STAGE07_5_STYLE_ANCHOR_BIBLE.md`
 9. `handoff/STAGE07_5_VISUAL_IDENTITY_LAYERING_AND_DERIVATION_CONTRACT.md`
 10. `handoff/STAGE07_5_FUNCTIONAL_ANATOMY_AND_STYLIZED_PROPORTION_POLICY.md`
-11. `handoff/STAGE07_5_CHARACTER_IDENTITY_ANCHOR_BIBLE.md`
-12. `handoff/STAGE07_5_ANATOMY_PROPORTION_AND_POSE_MASTER_SPEC.md`
-13. `handoff/STAGE07_5_CONTACT_GEOMETRY_MASTER.md`
-14. `handoff/STAGE07_5_OBJECT_CONTINUITY_BIBLE.md`
-15. `handoff/STAGE07_5_WORLD_CONTINUITY_BIBLE.md`
-16. `handoff/STAGE07_5_RESPONSIVE_VISUAL_PRODUCTION_CONTRACT.md`
-17. `handoff/STAGE07_5_VISUAL_GENERATION_AND_REVIEW_PROTOCOL.md`
-18. `handoff/STAGE07_5_FIRST_PERSON_SCENE_COMPOSITION_BIBLE_V2_1.md`
+11. `handoff/STAGE07_5_SERIAL_ANCHOR_PRODUCTION_QUEUE.md`
+12. `handoff/STAGE07_5_CHARACTER_IDENTITY_ANCHOR_BIBLE.md`
+13. `handoff/STAGE07_5_ANATOMY_PROPORTION_AND_POSE_MASTER_SPEC.md`
+14. `handoff/STAGE07_5_CONTACT_GEOMETRY_MASTER.md`
+15. `handoff/STAGE07_5_OBJECT_CONTINUITY_BIBLE.md`
+16. `handoff/STAGE07_5_WORLD_CONTINUITY_BIBLE.md`
+17. `handoff/STAGE07_5_RESPONSIVE_VISUAL_PRODUCTION_CONTRACT.md`
+18. `handoff/STAGE07_5_VISUAL_GENERATION_AND_REVIEW_PROTOCOL.md`
+19. `handoff/STAGE07_5_FIRST_PERSON_SCENE_COMPOSITION_BIBLE_V2_1.md`
 
 STYLE-GIR-V1 실제 후보 제작 시 추가로:
 
@@ -122,6 +123,20 @@ canonical neutral master = 7.2 heads
 
 검증은 화면에 투영된 실루엣을 새 비율로 재측정하는 방식이 아니라 approved structural scaffold와 normalized ratio contract를 기준으로 한다.
 
+Serial anchor rule:
+
+# **한 번에 하나의 global production slot만 active다.**
+
+```text
+current slot candidate
+→ review
+→ reject/revise OR Project-owner accept
+→ approved path register
+→ exactly one next slot
+```
+
+같은 packet의 여러 slot을 한꺼번에 생성한 뒤 비슷한 결과를 골라 맞추는 방식은 금지한다.
+
 생성/파생 우선순위:
 
 ```text
@@ -150,6 +165,7 @@ actual action/world/body state changes
 - hero characters remain the same approved people
 - exact canonical head/body and segment relationships remain fixed after approval
 - every visible Player hand/arm/foot/ankle remains one exact approved Player body family
+- recurring object morphology/fingerprint remains the same approved object
 - reusable actor/body/item master is transparent or extraction-safe
 
 금지:
@@ -164,6 +180,7 @@ actual action/world/body state changes
 - 사람만 사진처럼 보이고 배경만 회화적인 style mismatch
 - viewport 때문에 hand/arm/foot/head-body를 non-uniform stretch/compress
 - 동일인물을 view별로 독립 생성하고 평균 내기
+- 동일 handaxe를 view별로 독립 생성하고 비슷한 것끼리 묶기
 
 ---
 
@@ -189,14 +206,20 @@ http://localhost:5173/?anchors=1
 - exact canonical body lineage / ratio lock
 - `structural-scaffold → canonical master → derivative` production lineage
 - 각 derivative slot의 `Derived from` parent
+- 각 blocked slot의 `Blocked by` dependency
+- bundle production mode
+- one global `NEXT production target`
 - STYLE-GIR-V1
 - priority visual anchors
 - anatomy/contact contracts
-- first required master/reference slots
 - controlled candidate mode / instruction / review focus / reject code
 - planned candidate path와 approved reference path의 구분
 - approved master/reference path count
 - downstream raster dependencies
+
+현재 단일 target:
+
+# **`STYLE-GIR-V1 / human-mid`**
 
 ---
 
@@ -227,7 +250,7 @@ public/assets/stage075/anchors/<ANCHOR-ID>/<slot>.webp
 
 실제 파일이 승인되기 전 path를 승인 상태처럼 등록하지 않는다.
 
-### STYLE-GIR-V1
+## STYLE-GIR-V1
 
 현재 정확한 상태:
 
@@ -235,28 +258,57 @@ public/assets/stage075/anchors/<ANCHOR-ID>/<slot>.webp
 Packet definition = PRODUCTION READY
 Identity/layering/derivation policy = SPEC LOCKED
 Functional anatomy / exact canonical ratio policy = SPEC LOCKED
+Serial queue = ENFORCED
 Required slots = 5
 Approved slots = 0/5
 STYLE-GIR-V1 = reference-pending
 ```
 
-5개 slot:
+Serial order:
 
 ```text
 human-mid
-first-person-hand
-world
-material
-responsive-pair
+→ first-person-hand
+→ world
+→ material
+→ responsive-pair
 ```
 
 통제 원칙:
 
 - 앞의 네 style sample은 anonymous/non-diagnostic exploration으로 Aru/Damu/Nua, DAY1-HANDAXE-V1, WORLD-CAMP-DAWN-A를 조기 lock하지 않는다.
+- 하지만 `human-mid`가 승인되기 전 다른 STYLE-GIR slot을 batch-generate하지 않는다.
+- active slot 내부에서 여러 revision은 허용하지만 rejected revision을 downstream parent처럼 취급하지 않는다.
 - STYLE-GIR proof는 actor/world integration을 보기 위해 contextual background를 포함할 수 있다. 이것은 reusable character cutout policy와 별개다.
 - reusable hero/Player/item masters later default to transparent alpha or extraction-safe source + transparent derivative.
 - `responsive-pair`는 같은 anonymous source moment에서 파생해 L/portrait equivalence를 확인한다. 같은 master crop이 충분하면 crop을 우선한다.
 - STYLE-GIR-V1은 5/5 required approved path가 모두 등록되고 `stage075StyleAnchor.ts`의 approved reference set과 정확히 일치해야만 `anchor-approved`가 유효하다.
+
+## DAY1-HANDAXE-V1
+
+Former circular dependency was removed.
+
+Serial object lineage:
+
+```text
+face-a = canonical morphology seed
+→ face-b derivative
+→ side/thickness derivative
+→ metric/normalized scale reference
+```
+
+Aru grip / Player grip은 handaxe morphology anchor의 선행 required slot이 아니다.
+
+Dependency:
+
+```text
+DAY1-HANDAXE-V1 morphology/physical scale
+→ PLAYER-HUNT-BODY-V1
+→ ARU-IDENTITY-V1
+→ SC02-HANDOFF-GEO-V1에서 body-specific grip/contact 검증
+```
+
+따라서 아직 존재하지 않는 Player palm을 handaxe anchor 승인 조건으로 요구하지 않는다.
 
 ---
 
@@ -274,10 +326,13 @@ Production lineage:
 ```text
 structural-scaffold
 → canonical-body
-→ right-palm / right-dorsum
-→ left-palm / left-dorsum
+→ right-palm
+→ right-dorsum
+→ left-palm
+→ left-dorsum
 → forearm-neutral
-→ right-foot-ankle / left-foot-ankle
+→ right-foot-ankle
+→ left-foot-ankle
 → receive-reach
 → handaxe-grip
 → ground-brace
@@ -319,8 +374,8 @@ Production lineage:
 structural scaffold
 → one canonical full-body identity master
 → appearance / garment lock
-→ turnaround derivatives
-→ action / contact derivatives
+→ serial turnaround derivatives
+→ serial action / contact derivatives
 → measured exact proportion contract
 ```
 
@@ -332,7 +387,8 @@ structural-scaffold
 → front
 → back
 → opposite-three-quarter
-→ side-left / side-right
+→ side-left
+→ side-right
 → seated
 → offer-handaxe
 → hand-reference
@@ -394,6 +450,8 @@ Aru hand
 ```
 
 Offer → Shared Contact → Release는 한 continuous transfer family다.
+
+여기에서 처음으로 승인된 Aru/Player body와 승인된 handaxe의 body-specific grip/relative scale/contact feasibility를 함께 검증한다. grip을 맞추기 위해 handaxe morphology나 canonical body를 장면별로 변형하지 않는다.
 
 SC07:
 
@@ -517,18 +575,25 @@ STYLE-GIR-V1 status = anchor-approved
 style approvedReferencePaths exactly match those five approved paths
 ```
 
+Anchor queue도 우회할 수 없다.
+
+```text
+current slot accepted/registered
+→ next slot production-ready
+```
+
 ---
 
 # 11. Immediate lock order
 
 ```text
-0. STYLE-GIR-V1 reference packet
-1. DAY1-HANDAXE-V1 morphology + scale packet
+0. STYLE-GIR-V1 serial style calibration
+1. DAY1-HANDAXE-V1 morphology + physical scale
 2. PLAYER-HUNT-BODY-V1 structural scaffold + canonical body + derivatives
 3. PLAYER-HUNT-BODY-PROP-V1 measured exact contract
 4. ARU-IDENTITY-V1 structural scaffold + canonical identity + derivatives
 5. ARU-PROP-V1 measured exact contract
-6. SC02-HANDOFF-GEO-V1 contact skeleton/geometry
+6. SC02-HANDOFF-GEO-V1 contact skeleton/geometry + grip validation
 7. SC02 unified-contact state master + crop-first L/TP/PP proof
 8. DAMU-IDENTITY-V1 + DAMU-PROP-V1
 9. NUA-IDENTITY-V1 + NUA-PROP-V1
@@ -537,7 +602,11 @@ style approvedReferencePaths exactly match those five approved paths
 
 SC02 final raster는 0~6이 승인되기 전 제작하지 않는다.
 
-현재 0번의 **packet definition/production controls + identity/layering/derivation + functional anatomy/exact canonical ratio 기준**만 준비 완료되었다. STYLE-GIR-V1 reference lock 자체는 아직 0/5이므로 1번으로 넘어가지 않는다.
+현재 0번의 **packet definition/production controls + identity/layering/derivation + functional anatomy/exact canonical ratio + serial queue 기준**만 준비 완료되었다. STYLE-GIR-V1 reference lock 자체는 아직 0/5이므로 1번으로 넘어가지 않는다.
+
+Machine-readable current target:
+
+# **`STYLE-GIR-V1 / human-mid`**
 
 ---
 
@@ -545,28 +614,32 @@ SC02 final raster는 0~6이 승인되기 전 제작하지 않는다.
 
 1. latest `main` / CI 확인
 2. 필독 문서 읽기
-3. exact canonical ratio / derivation policy 확인
-4. `stage075AnchorReviewBundle.ts`, `STAGE07_5_STYLE_GIR_V1_REFERENCE_PACKET.md`, `?anchors=1` 확인
-5. 현재 Gate가 유지되는지 확인
-6. STYLE-GIR-V1 controlled references 제작/검토
-7. candidate는 packet 전체의 style consistency + P0/P1/P2/P3 policy로 비교
+3. exact canonical ratio / derivation / serial queue policy 확인
+4. `stage075AnchorReviewBundle.ts`, `STAGE07_5_SERIAL_ANCHOR_PRODUCTION_QUEUE.md`, `STAGE07_5_STYLE_GIR_V1_REFERENCE_PACKET.md`, `?anchors=1` 확인
+5. 현재 Gate와 `NEXT production target`이 `STYLE-GIR-V1 / human-mid`인지 확인
+6. 이미지 제작이 명시적으로 시작된 경우에만 `human-mid` 한 slot 제작/검토
+7. 다른 STYLE-GIR slot을 동시에 만들지 않음
 8. 실패 후보는 reject하고 repository에 억지로 넣지 않음
-9. Project-owner가 실제 candidate를 승인한 뒤에만 approved path/status 등록
-10. branch → PR → CI → merge
-11. exact main SHA / main CI 확인
+9. Project-owner가 실제 candidate를 승인한 뒤에만 해당 slot approved path 등록
+10. 그 후 queue가 `first-person-hand`로 이동하는지 확인
+11. branch → PR → CI → merge
+12. exact main SHA / main CI 확인
 
-이미지 생성이 필요할 경우 full game scene이 아니라 anchor bundle candidate만 생성한다.
+이미지 생성이 필요할 경우 full game scene이 아니라 현재 single anchor slot candidate만 생성한다.
 
-Player/Aru master 제작 단계로 가면 반드시 structural scaffold와 one canonical body/identity master를 먼저 확정한 뒤 derivative를 만든다.
+Player/Aru master 제작 단계로 가면 반드시 structural scaffold와 one canonical body/identity master를 먼저 확정한 뒤 derivative를 serial하게 만든다.
 
 ---
 
 # 13. Do not repeat
 
 - Scene Bible을 다시 처음부터 설계하지 말 것
+- STYLE-GIR 5개 slot을 한 번에 batch-generate하지 말 것
 - 장면마다 독립적으로 Aru/Damu/Nua/world를 text-to-image하지 말 것
 - front/back/side/action 이미지를 각각 독립 생성한 뒤 비슷한 것을 모아 동일인물 packet으로 취급하지 말 것
 - Player hand/arm/foot를 장면마다 새 body처럼 생성하지 말 것
+- handaxe face-A/B/side를 서로 독립 물체처럼 생성하지 말 것
+- 아직 존재하지 않는 Player grip을 handaxe morphology anchor의 선행 조건으로 요구하지 말 것
 - canonical ratio를 view/pose마다 다시 결정하지 말 것
 - `same X as before` 프롬프트만으로 consistency를 맡기지 말 것
 - same-angle close-up/portrait를 불필요하게 재생성하지 말 것
@@ -586,8 +659,10 @@ Player/Aru master 제작 단계로 가면 반드시 structural scaffold와 one c
 Visual Identity/Layering/Derivation Policy = SPEC LOCKED
 Functional Anatomy / Stylized Proportion Policy = SPEC LOCKED
 Exact Canonical Ratio Inheritance = SPEC LOCKED
+Serial Anchor Production Queue = ENFORCED
 STYLE-GIR-V1 Packet Definition = PRODUCTION READY
 STYLE-GIR-V1 Approved Slots = 0/5
+Current Single Production Target = STYLE-GIR-V1 / human-mid
 Approved Raster Assets = 0
 Approved Style Anchors = 0
 Approved Anatomy Contracts = 0
@@ -602,9 +677,9 @@ Approved Contact Geometry Contracts = 0
 
 # **Visual Anatomy Reference Lock**
 
-다음 실제 visual-production 산출물:
+다음 실제 visual-production 산출물은 이미지 제작이 명시적으로 시작될 때만:
 
-# **STYLE-GIR-V1 controlled reference packet + packet-level review**
+# **STYLE-GIR-V1 / human-mid single-slot candidate + review**
 
 Human Gate = FAIL.
 Stage 08 = BLOCKED.

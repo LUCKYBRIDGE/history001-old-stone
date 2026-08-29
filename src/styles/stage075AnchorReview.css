@@ -126,6 +126,12 @@
   background: rgba(229, 210, 170, 0.08);
 }
 
+.anchor-review__slot-state--next {
+  color: #f3e7b5;
+  background: rgba(243, 231, 181, 0.16);
+  outline: 1px solid rgba(243, 231, 181, 0.34);
+}
+
 .anchor-review__slot-state--approved {
   color: #cbe6c2;
   background: rgba(203, 230, 194, 0.08);

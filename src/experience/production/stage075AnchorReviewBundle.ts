@@ -9,6 +9,10 @@ export type Stage075AnchorCandidateMode =
   | 'anchor-conditioned'
   | 'locked-keyframe-variation';
 
+export type Stage075AnchorProductionMode =
+  | 'serial-calibration'
+  | 'serial-master-derivation';
+
 export interface Stage075AnchorCandidateBrief {
   mode: Stage075AnchorCandidateMode;
   instruction: string;
@@ -30,7 +34,15 @@ export interface Stage075AnchorReviewSlot {
 export interface Stage075AnchorReviewBundle {
   anchorId: Stage075AnchorReviewBundleId;
   reviewOrder: number;
+  productionMode: Stage075AnchorProductionMode;
   slots: readonly Stage075AnchorReviewSlot[];
+}
+
+export interface Stage075AnchorProductionTarget {
+  anchorId: Stage075AnchorReviewBundleId;
+  slotId: string;
+  label: string;
+  plannedRepositoryPath: string;
 }
 
 function slot(
@@ -85,6 +97,7 @@ export const STAGE075_ANCHOR_REVIEW_BUNDLES: readonly Stage075AnchorReviewBundle
   {
     anchorId: 'STYLE-GIR-V1',
     reviewOrder: 0,
+    productionMode: 'serial-calibration',
     slots: [
       styleSlot(
         'human-mid',
@@ -161,18 +174,41 @@ export const STAGE075_ANCHOR_REVIEW_BUNDLES: readonly Stage075AnchorReviewBundle
   {
     anchorId: 'DAY1-HANDAXE-V1',
     reviewOrder: 1,
+    productionMode: 'serial-master-derivation',
     slots: [
-      slot('DAY1-HANDAXE-V1', 'face-a', 'Face A', '대표 박리흔 fingerprint와 working-end를 잠근다.'),
-      slot('DAY1-HANDAXE-V1', 'face-b', 'Face B', '반대면 morphology와 같은 물체 identity를 잠근다.'),
-      slot('DAY1-HANDAXE-V1', 'side', 'Side / thickness', '두께와 단면을 잠근다.'),
-      slot('DAY1-HANDAXE-V1', 'scale', 'Scale reference', 'Player palm 대비 길이/폭/두께 비율을 측정한다.'),
-      slot('DAY1-HANDAXE-V1', 'aru-grip', 'Aru grip', '건네기 전 grip-base orientation을 잠근다.'),
-      slot('DAY1-HANDAXE-V1', 'player-grip', 'Player right-hand grip', '오른손 palm 대비 grip scale을 잠근다.'),
+      slot(
+        'DAY1-HANDAXE-V1',
+        'face-a',
+        'Canonical Face A / morphology seed',
+        '첫 승인 object seed에서 전체 contour, grip-base, working-end, 대표 face-A scar fingerprint와 재질 family를 잠근다.',
+      ),
+      derivedSlot(
+        'DAY1-HANDAXE-V1',
+        'face-b',
+        'Face B derivative',
+        'canonical face-A seed와 고정된 전체 치수/비대칭을 참조해 반대면을 파생한다. 새 주먹도끼를 재설계하지 않는다.',
+        'face-a',
+      ),
+      derivedSlot(
+        'DAY1-HANDAXE-V1',
+        'side',
+        'Side / thickness derivative',
+        'canonical morphology seed의 길이·폭·비대칭과 일치하는 두께/단면을 파생한다.',
+        'face-a',
+      ),
+      derivedSlot(
+        'DAY1-HANDAXE-V1',
+        'scale',
+        'Metric / normalized scale reference',
+        'Player body와의 순환 의존성을 만들지 않도록 먼저 절대/정규화 길이·폭·두께를 잠근다. Player palm 대비 검증은 PLAYER/SC02 contact 단계에서 수행한다.',
+        'face-a',
+      ),
     ],
   },
   {
     anchorId: 'PLAYER-HUNT-BODY-V1',
     reviewOrder: 2,
+    productionMode: 'serial-master-derivation',
     slots: [
       slot('PLAYER-HUNT-BODY-V1', 'structural-scaffold', 'Structural scaffold', '관절 landmark, segment relationship, reach, center-of-mass와 의도한 canonical proportion silhouette를 먼저 잠근다. 6/7/8등신 목표를 강제하지 않는다.'),
       derivedSlot('PLAYER-HUNT-BODY-V1', 'canonical-body', 'Canonical Player body master', '하나의 Player body identity와 고유 비율을 확정한다. 이후 모든 손/팔/발/동작 reference의 부모다.', 'structural-scaffold'),
@@ -184,7 +220,7 @@ export const STAGE075_ANCHOR_REVIEW_BUNDLES: readonly Stage075AnchorReviewBundle
       derivedSlot('PLAYER-HUNT-BODY-V1', 'right-foot-ankle', 'Right foot / ankle', '오른발 길이·폭·발목 비율과 same-body identity 기준.', 'canonical-body'),
       derivedSlot('PLAYER-HUNT-BODY-V1', 'left-foot-ankle', 'Left foot / ankle', '왼발과 좌우 발/발목 same-body identity 기준.', 'canonical-body'),
       derivedSlot('PLAYER-HUNT-BODY-V1', 'receive-reach', 'Receive reach', 'SC02 도달 pose skeleton 기준.', 'canonical-body'),
-      derivedSlot('PLAYER-HUNT-BODY-V1', 'handaxe-grip', 'Handaxe grip', 'DAY1-HANDAXE-V1과 실제 grip scale 기준.', 'canonical-body'),
+      derivedSlot('PLAYER-HUNT-BODY-V1', 'handaxe-grip', 'Handaxe grip', '승인된 DAY1-HANDAXE-V1의 실제 scale과 canonical Player right hand의 grip 관계를 검증한다.', 'canonical-body'),
       derivedSlot('PLAYER-HUNT-BODY-V1', 'ground-brace', 'Ground brace', 'SC07 왼손 지면 지지 geometry 기준.', 'canonical-body'),
       derivedSlot('PLAYER-HUNT-BODY-V1', 'rock-brace', 'Rock brace', 'SC10 왼손 바위 접촉 geometry 기준.', 'canonical-body'),
       derivedSlot('PLAYER-HUNT-BODY-V1', 'crouch', 'Crouch body edge', '무릎/전완/카메라 관계 기준.', 'canonical-body'),
@@ -194,6 +230,7 @@ export const STAGE075_ANCHOR_REVIEW_BUNDLES: readonly Stage075AnchorReviewBundle
   {
     anchorId: 'ARU-IDENTITY-V1',
     reviewOrder: 3,
+    productionMode: 'serial-master-derivation',
     slots: [
       slot('ARU-IDENTITY-V1', 'structural-scaffold', 'Structural scaffold', 'Aru의 joint landmarks, body segment relationships, center-of-mass와 intended proportion silhouette를 먼저 잠근다. 실사 6/7/8등신 목표를 강제하지 않는다.'),
       derivedSlot('ARU-IDENTITY-V1', 'canonical-identity', 'Canonical identity master', '한 장의 full-body 3/4 master에서 얼굴·머리·체형·고유 head/body ratio·의복 silhouette를 확정한다. 이후 모든 view/pose의 부모다.', 'structural-scaffold'),
@@ -258,6 +295,79 @@ export function getStage075AnchorBundleProgress(bundle: Stage075AnchorReviewBund
     required: required.length,
     missingSlotIds,
   };
+}
+
+export function getStage075AnchorSlotProductionReadiness(
+  bundle: Stage075AnchorReviewBundle,
+  slotId: string,
+) {
+  const index = bundle.slots.findIndex((item) => item.id === slotId);
+  if (index < 0) {
+    return { state: 'blocked' as const, blockedBySlotIds: ['unknown-slot'] };
+  }
+
+  const item = bundle.slots[index];
+  if (item.approvedPath) {
+    return { state: 'approved' as const, blockedBySlotIds: [] as string[] };
+  }
+
+  const lineageIssues = getStage075AnchorBundleLineageIssues(bundle);
+  if (lineageIssues.length > 0) {
+    return { state: 'blocked' as const, blockedBySlotIds: ['lineage-invalid'] };
+  }
+
+  const blockedBySlotIds = bundle.slots
+    .slice(0, index)
+    .filter((prior) => prior.required && !prior.approvedPath)
+    .map((prior) => prior.id);
+
+  if (item.parentSlotId) {
+    const parent = bundle.slots.find((candidate) => candidate.id === item.parentSlotId);
+    if (!parent?.approvedPath && !blockedBySlotIds.includes(item.parentSlotId)) {
+      blockedBySlotIds.push(item.parentSlotId);
+    }
+  }
+
+  return blockedBySlotIds.length === 0
+    ? { state: 'ready' as const, blockedBySlotIds }
+    : { state: 'blocked' as const, blockedBySlotIds };
+}
+
+export function getStage075NextProductionSlot(bundle: Stage075AnchorReviewBundle) {
+  return (
+    bundle.slots.find(
+      (item) =>
+        item.required &&
+        !item.approvedPath &&
+        getStage075AnchorSlotProductionReadiness(bundle, item.id).state === 'ready',
+    ) ?? null
+  );
+}
+
+export function getStage075NextGlobalProductionTarget(
+  bundles: readonly Stage075AnchorReviewBundle[] = STAGE075_ANCHOR_REVIEW_BUNDLES,
+): Stage075AnchorProductionTarget | null {
+  const ordered = [...bundles].sort((a, b) => a.reviewOrder - b.reviewOrder);
+
+  for (const bundle of ordered) {
+    if (isStage075AnchorReviewBundleComplete(bundle)) {
+      continue;
+    }
+
+    const next = getStage075NextProductionSlot(bundle);
+    if (!next) {
+      return null;
+    }
+
+    return {
+      anchorId: bundle.anchorId,
+      slotId: next.id,
+      label: next.label,
+      plannedRepositoryPath: next.plannedRepositoryPath,
+    };
+  }
+
+  return null;
 }
 
 export function isStage075AnchorReviewBundleComplete(bundle: Stage075AnchorReviewBundle) {

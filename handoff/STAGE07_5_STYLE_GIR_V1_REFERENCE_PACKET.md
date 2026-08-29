@@ -10,6 +10,8 @@ This packet operationalizes:
 
 - `STAGE07_5_STYLE_ANCHOR_BIBLE.md`
 - `STAGE07_5_VISUAL_IDENTITY_LAYERING_AND_DERIVATION_CONTRACT.md`
+- `STAGE07_5_FUNCTIONAL_ANATOMY_AND_STYLIZED_PROPORTION_POLICY.md`
+- `STAGE07_5_SERIAL_ANCHOR_PRODUCTION_QUEUE.md`
 
 without designing downstream character, object, or world anchors early.
 
@@ -27,7 +29,7 @@ The first production task is to lock one coherent **Grounded Illustrative Realis
 - rock/earth/garment material,
 - landscape/portrait equivalence.
 
-A single attractive image is insufficient.
+A single attractive image is insufficient, but that does **not** mean all five images should be generated at once.
 
 STYLE-GIR-V1 must prove this exact balance:
 
@@ -63,7 +65,43 @@ Background policy:
 
 ---
 
-## 3. Derivation rule
+## 3. Serial production rule
+
+# **Only one STYLE-GIR slot is production-active at a time.**
+
+Exact order:
+
+```text
+1. human-mid
+2. first-person-hand
+3. world
+4. material
+5. responsive-pair
+```
+
+Current repository truth is approved `0/5`, therefore the only active slot is:
+
+# **`STYLE-GIR-V1 / human-mid`**
+
+Do not generate the other four slots in the same batch.
+
+Workflow:
+
+```text
+active slot candidate
+→ review
+→ reject/revise OR Project-owner accept
+→ store/register that slot's approved path
+→ queue advances to exactly one next slot
+```
+
+Multiple revisions of the **currently active slot** are allowed when necessary. Rejected revisions remain outside approved repository paths and are not used as downstream parent references.
+
+The full STYLE-GIR anchor remains `reference-pending` while individual slots are accepted one by one.
+
+---
+
+## 4. Derivation rule
 
 The derivation rule is intentionally **not identical for all five slots**.
 
@@ -75,7 +113,9 @@ material           = independent-exploration
 responsive-pair    = locked-keyframe-variation
 ```
 
-The first four are Phase-A style exploration samples.
+`independent-exploration` means the slot is not a same-person/same-world derivative of a previous STYLE-GIR slot. It does **not** authorize parallel batch production.
+
+Each later STYLE-GIR slot must still inherit the already accepted art-language boundary established by the preceding slots.
 
 `responsive-pair` must be derived from **one selected anonymous source moment**. Within that locked-source family, use this order:
 
@@ -88,14 +128,15 @@ Two unrelated text-to-image generations cannot be called a responsive pair.
 
 ---
 
-## 4. Shared production constraints
+## 5. Shared production constraints
 
 All candidates are reference candidates, not scene rasters.
 
 Required:
 
-- realistic anatomy/contact/depth,
-- face identity carried primarily by structure/proportion rather than pore detail,
+- functional believable anatomy/contact/depth,
+- no forced textbook 6/7/8-head target,
+- face readability carried primarily by structure/proportion rather than pore detail,
 - hair mass/silhouette before individual-strand detail,
 - restrained illustrative skin/material treatment,
 - broad garment folds/material zones before fiber-level detail,
@@ -126,7 +167,7 @@ Candidate files do not become approved references merely because a planned path 
 
 ---
 
-## 5. Slot A — `human-mid`
+## 6. Slot A — `human-mid`
 
 Planned approved path:
 
@@ -136,10 +177,12 @@ public/assets/stage075/anchors/STYLE-GIR-V1/human-mid.webp
 
 Mode: `independent-exploration`
 
+This is the **current single production target** while approved slots remain `0/5`.
+
 Controlled instruction:
 
 - use an unnamed fictional community member at medium distance,
-- natural human proportions,
+- use functionally believable but not textbook-mandated human proportions,
 - face structure/proportion before microtexture,
 - hair mass/silhouette before individual strand field,
 - restrained skin/hair/low-specificity garment treatment,
@@ -150,7 +193,7 @@ Controlled instruction:
 
 Review focus:
 
-1. realistic anatomy before surface polish,
+1. functional anatomy before surface polish,
 2. same-person readability comes from structure rather than photographic skin detail,
 3. natural but non-photographic skin,
 4. hair mass/silhouette before strand simulation,
@@ -171,9 +214,11 @@ SID-CARTOON
 SID-DETAIL
 ```
 
+Only after this slot is accepted/registered does `first-person-hand` become the next STYLE-GIR target.
+
 ---
 
-## 6. Slot B — `first-person-hand`
+## 7. Slot B — `first-person-hand`
 
 Planned approved path:
 
@@ -183,12 +228,15 @@ public/assets/stage075/anchors/STYLE-GIR-V1/first-person-hand.webp
 
 Mode: `independent-exploration`
 
+Blocked until `human-mid` is accepted/registered.
+
 Controlled instruction:
 
 - one plausible anonymous hand + wrist + forearm,
 - touch a non-diagnostic rough stone,
 - five readable fingers and believable contact pressure,
 - detail should read through palm/knuckle/nail planes rather than photo-macro texture,
+- match the accepted STYLE-GIR surface/detail boundary established by `human-mid`,
 - do **not** define `PLAYER-HUNT-BODY-V1` identity yet,
 - do **not** define `DAY1-HANDAXE-V1` contour, scale, face-A/B, grip-base, working-end, or flake-scar fingerprint.
 
@@ -199,7 +247,8 @@ Review focus:
 3. restrained gameplay-distance hand detail,
 4. skin and stone share one rendering language,
 5. contact reads before texture polish,
-6. hand/forearm silhouette does not depend on blurry photographic edge effects.
+6. hand/forearm silhouette does not depend on blurry photographic edge effects,
+7. detail tier matches the accepted `human-mid` boundary.
 
 Reject:
 
@@ -216,7 +265,7 @@ ANAT-HAND-SCALE
 
 ---
 
-## 7. Slot C — `world`
+## 8. Slot C — `world`
 
 Planned approved path:
 
@@ -226,12 +275,15 @@ public/assets/stage075/anchors/STYLE-GIR-V1/world.webp
 
 Mode: `independent-exploration`
 
+Blocked until the preceding STYLE-GIR slots are accepted/registered.
+
 Controlled instruction:
 
 - non-canonical dawn environment vignette,
 - low terrain / rocks / vegetation masses permitted,
 - small local warm fire contribution permitted,
 - use value/occlusion/perspective rather than lens blur to create depth,
+- match the accepted person/hand detail-density boundary,
 - do not lock `WORLD-CAMP-DAWN-A`, shelter footprint, route exit, `LM-SPLIT-ROCK-01`, or horizon fingerprint.
 
 Review focus:
@@ -240,7 +292,7 @@ Review focus:
 2. readable restrained terrain palette,
 3. plausible cool dawn + local warm contribution,
 4. no blockbuster rim/HDR treatment,
-5. detail density matches person/hand samples.
+5. detail density matches accepted person/hand samples.
 
 Reject:
 
@@ -256,7 +308,7 @@ SID-DETAIL
 
 ---
 
-## 8. Slot D — `material`
+## 9. Slot D — `material`
 
 Planned approved path:
 
@@ -266,11 +318,14 @@ public/assets/stage075/anchors/STYLE-GIR-V1/material.webp
 
 Mode: `independent-exploration`
 
+Blocked until the preceding STYLE-GIR slots are accepted/registered.
+
 Controlled instruction:
 
 - rock + earth + low-specificity garment material under natural scene light,
 - scene-distance treatment rather than macro product photography,
 - use broad surface plane/roughness/fold/weight differences before microtexture,
+- preserve the already accepted STYLE-GIR brush/detail density,
 - no labeled textbook specimen plate,
 - no speculative exact textile/stitching claim.
 
@@ -279,7 +334,7 @@ Review focus:
 1. rock roughness without polished/glossy finish,
 2. earth readable without noisy microtexture,
 3. garment weight/fold without fiber-level or invented manufacturing detail,
-4. one brush/detail density across materials,
+4. one brush/detail density across materials and prior STYLE-GIR slots,
 5. no pasted-together rendering pipelines.
 
 Reject:
@@ -295,7 +350,7 @@ SID-COLOR
 
 ---
 
-## 9. Slot E — `responsive-pair`
+## 10. Slot E — `responsive-pair`
 
 Planned approved path:
 
@@ -305,7 +360,9 @@ public/assets/stage075/anchors/STYLE-GIR-V1/responsive-pair.webp
 
 Mode: `locked-keyframe-variation`
 
-Parent rule:
+Blocked until the preceding four STYLE-GIR slots are accepted/registered.
+
+Parent/source rule:
 
 - select one anonymous style-test source moment,
 - first try to derive Landscape and Portrait from the same high-resolution source through crop/zoom,
@@ -356,15 +413,17 @@ If production later requires physically separate L/TP/PP files for this proof, r
 
 ---
 
-## 10. Packet review order
+## 11. Slot review order
+
+Each active slot is reviewed before the queue advances.
 
 ```text
 Gate 1 Technical cleanliness
 → Gate 2 Structural/anatomy readability
-→ Gate 3 Cross-slot STYLE-GIR hard-boundary consistency
+→ Gate 3 STYLE-GIR hard-boundary consistency with already accepted slots
 → Gate 4 Historical/reconstruction boundary
-→ Gate 5 Responsive same-source equivalence
-→ Gate 6 Project-owner visual review
+→ Gate 5 Responsive same-source equivalence when applicable
+→ Gate 6 Project-owner slot review
 ```
 
 Use D0–D3 drift severity:
@@ -376,22 +435,24 @@ Use D0–D3 drift severity:
 
 Stop early when structure is wrong. Do not polish or repository-register a candidate with unresolved anatomy/style drift.
 
+After all five individual slots are accepted, perform one final packet-level cross-check before changing the anchor status.
+
 ---
 
-## 11. Approval checklist
+## 12. Approval checklist
 
 STYLE-GIR-V1 remains `reference-pending` until all are true:
 
 - [ ] `human-mid` approved,
-- [ ] `first-person-hand` approved,
-- [ ] `world` approved,
-- [ ] `material` approved,
-- [ ] `responsive-pair` approved,
+- [ ] `first-person-hand` approved after `human-mid`,
+- [ ] `world` approved after the preceding slots,
+- [ ] `material` approved after the preceding slots,
+- [ ] `responsive-pair` approved last,
 - [ ] all five actual approved files stored at registered repository paths,
 - [ ] all five pass the exact STYLE-GIR hard boundary,
 - [ ] responsive-pair proves same-source crop/controlled derivation rather than independent generation,
 - [ ] no unresolved D2/D3 drift,
-- [ ] Project-owner explicitly approves the packet,
+- [ ] final packet-level Project-owner review passes,
 - [ ] `stage075AnchorReviewBundle.ts` has approved paths for every required slot,
 - [ ] `stage075StyleAnchor.ts` has the same complete approved reference set,
 - [ ] automated gate tests pass.
@@ -405,21 +466,26 @@ reference-pending → anchor-approved
 
 be committed.
 
-Packet preparation alone does not advance `DAY1-HANDAXE-V1`, Player body, Aru identity, SC02 final contact art, Human Gate, or Stage 08.
+Packet preparation or one accepted slot does not advance `DAY1-HANDAXE-V1`, Player body, Aru identity, SC02 final contact art, Human Gate, or Stage 08.
 
 ---
 
-## 12. Current repository truth
+## 13. Current repository truth
 
 ```text
 Visual Identity/Layering/Derivation Policy = SPEC LOCKED
+Functional Anatomy / Exact Canonical Ratio Policy = SPEC LOCKED
+Serial Anchor Production Queue = ENFORCED
 STYLE-GIR-V1 status = reference-pending
 Required slots = 5
 Approved slots = 0
+Current single production target = human-mid
 Approved style reference files = 0
 Approved raster assets = 0
 Human Gate = FAIL
 Stage 08 = BLOCKED
 ```
 
-The next visual-production action, when image production is explicitly started, is to create controlled candidates for these five slots, review them as one packet, and reject any candidate that violates the contracts above. Do not generate full game scenes first.
+The next visual-production action, **only when image production is explicitly started**, is to create/revise the `human-mid` candidate, review that single slot, and wait for Project-owner acceptance before the queue advances.
+
+Do not generate the five-slot packet as one batch and do not generate full game scenes first.
