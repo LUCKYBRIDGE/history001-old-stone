@@ -32,6 +32,34 @@ export const STAGE075_VISUAL_PRODUCTION_POLICY = {
     'Preserve identity strictly. Preserve structure strongly. Allow harmless micro-variation.',
   derivationRule: 'Do not regenerate what can be derived from an approved master.',
   framingRule: 'Crop first. Derive only when crop fails.',
+  anatomyRule:
+    'Functional anatomy is mandatory. Photographic 6/7/8-head proportion convention is not.',
+  proportionRule:
+    'Choose the canonical proportion with the approved master, then measure and lock that design instead of imposing a textbook head-count target first.',
+  bodyMasterOrder: [
+    'structural-scaffold',
+    'canonical-body-or-identity-master',
+    'appearance-or-garment-lock',
+    'turnaround-derivatives',
+    'motion-and-contact-derivatives',
+    'measured-proportion-contract',
+  ],
+  allowedProportionStylization: [
+    'relatively larger or smaller head',
+    'shorter or longer torso',
+    'shorter or longer limbs',
+    'slightly emphasized hands or feet',
+    'broader or narrower shoulder-to-pelvis relationship',
+    'compact or elongated body silhouette',
+  ],
+  hardProportionRejects: [
+    'required 6-head/7-head/8-head target imposed before canonical master approval',
+    'chibi or bobble-head caricature',
+    'rubber-hose or mechanically impossible limb structure',
+    'scene-by-scene head/body ratio redesign',
+    'limb stretching or compression to fit viewport composition',
+    'same face placed on a materially different body proportion family',
+  ],
   continuityPriorities: {
     'P0-identity': [
       'Aru/Damu/Nua face identity',
