@@ -25,7 +25,7 @@ A character master is not a face reference.
 A usable master packet must lock:
 
 - skeleton proportions,
-- head-to-body ratio selected for that canonical design,
+- exact canonical head-to-body ratio selected for that design,
 - shoulder/torso/pelvis relationship,
 - arm/forearm/hand relationship,
 - thigh/shin/foot relationship,
@@ -39,6 +39,8 @@ A usable master packet must lock:
 Scene assets may vary pose, camera, crop and lighting. They may not silently redesign anatomy.
 
 # **Functional anatomy is mandatory. Photographic 6-head / 7-head / 8-head proportion convention is not.**
+
+# **After approval, one identity has one exact canonical proportion fingerprint.**
 
 ---
 
@@ -60,7 +62,7 @@ Required:
 - no chibi/bobble-head caricature,
 - no arbitrary limb stretching to fit a frame.
 
-Allowed after deliberate master design and Project-owner review:
+Allowed before deliberate master approval:
 
 - relatively larger or smaller head,
 - shorter or longer torso,
@@ -71,7 +73,15 @@ Allowed after deliberate master design and Project-owner review:
 
 The goal is stable believable **functional embodiment**, not photographic body-proportion conformity.
 
-No candidate fails merely because it is not 6/7/8 heads tall. It fails when anatomy cannot function, identity changes, or the design leaves STYLE-GIR-V1.
+No candidate fails merely because it is not 6/7/8 heads tall. But once a specific design is approved, its own measured proportion values are fixed identity data.
+
+Example:
+
+```text
+approved canonical head-count = 7.2
+```
+
+means the underlying body remains 7.2-head across front/back/side/action derivatives. A later underlying 6.8-head body is drift, not acceptable variation.
 
 ---
 
@@ -102,7 +112,7 @@ PLAYER STRUCTURAL SCAFFOLD
 
 The structural scaffold locks joints, segment relationships, reach envelope, center-of-mass logic and intended silhouette family.
 The canonical identity/body master locks the actual approved fictional design.
-Numeric ratios are measured **after** that approval and then become production locks.
+Numeric ratios are measured **once after that approval** and then become immutable production locks.
 
 ---
 
@@ -147,7 +157,7 @@ foot-length                 = locked local ratio
 ankle-width                 = locked local ratio
 ```
 
-Do not invent these numbers first. Measure the chosen approved Player body, record the result, then enforce it consistently.
+Do not invent these numbers first. Measure the chosen approved Player body once, record the result, then require every derivative to inherit that same underlying ratio set.
 
 ## 4.3 First-person perspective rules
 
@@ -157,6 +167,7 @@ Do not invent these numbers first. Measure the chosen approved Player body, reco
 - Wrist articulation must stay within believable joint range.
 - Forearm foreshortening must come from camera geometry, not arbitrary per-scene scaling.
 - Feet/ankles, when visible, must belong to the same Player body family as the hands/arms.
+- Screen-projected limb length may change under perspective, but canonical hand/arm/foot relationships may not.
 - Skin/contamination range must stay within the approved master packet.
 - Garment cuff/sleeve/ankle edge, if visible, must not change silhouette between scenes without an in-world cause.
 
@@ -204,23 +215,32 @@ The sheet should use a neutral height unit `H = 1.00` and record relative landma
 Example schema:
 
 ```text
-character-height H = 1.00
-head-height / H      = measured from approved master
-shoulder-width / H   = measured from approved master
-shoulder-y / H       = measured from approved master
-pelvis-y / H         = measured from approved master
-knee-y / H           = measured from approved master
-arm-span / H         = measured from approved master
-upper-arm / H        = measured from approved master
-forearm / H          = measured from approved master
-hand-length / H      = measured from approved master
-thigh / H            = measured from approved master
-shin / H             = measured from approved master
-foot-length / H      = measured from approved master
+character-height H      = 1.00
+canonical-head-count    = measured from approved master
+head-height / H         = measured from approved master
+shoulder-width / H      = measured from approved master
+shoulder-y / H          = measured from approved master
+pelvis-y / H            = measured from approved master
+knee-y / H              = measured from approved master
+arm-span / H            = measured from approved master
+upper-arm / H           = measured from approved master
+forearm / H             = measured from approved master
+hand-length / H         = measured from approved master
+thigh / H               = measured from approved master
+shin / H                = measured from approved master
+foot-length / H         = measured from approved master
 ```
 
-There is no required `heads tall` value.
-If head-count is later recorded for convenience, it is descriptive metadata for the approved fictional design only, not a target and not a historical population statistic.
+There is no universal required `heads tall` target.
+However, if head-count is recorded from the approved neutral master, that recorded value becomes canonical identity metadata and may not change across derivatives.
+
+Example:
+
+```text
+Aru canonical-head-count = 7.2
+```
+
+is a lock, not a suggestion. It must not become a new underlying 6.8 or 7.5 value in another generated view.
 
 ## 5.2 Movement identity
 
@@ -253,6 +273,17 @@ These movement habits are identity constraints. They may not be reinterpreted in
 
 After a Player or hero master is approved, its own chosen proportions become P0 identity.
 
+Canonical locked values include:
+
+- canonical head-count, when recorded,
+- head-height/H,
+- shoulder-width/H,
+- shoulder/pelvis relationships,
+- upper-arm/forearm relationship,
+- thigh/shin relationship,
+- hand/foot scale relationships,
+- body-mass distribution family.
+
 Allowed changes:
 
 - pose,
@@ -265,10 +296,11 @@ Allowed changes:
 Not allowed:
 
 - head/body ratio reset,
-- shoulder/pelvis width-family reset,
+- canonical head-count drift,
+- shoulder/pelvis width relationship reset,
 - upper-arm/forearm relationship change,
 - thigh/shin relationship change,
-- hand/foot scale-family reset,
+- hand/foot scale relationship reset,
 - body-mass distribution becoming another body,
 - front/side/back turnaround using incompatible skeleton proportions.
 
@@ -276,7 +308,35 @@ A candidate that looks like the same face placed on a different body is a P0 ide
 
 ---
 
-# 7. Pose Family IDs
+# 7. Canonical ratio vs projected appearance
+
+Do not confuse body identity with screen-space measurement.
+
+The canonical fingerprint is measured in the neutral master/scaffold and remains fixed.
+
+A rendered frame can show different apparent ratios because of:
+
+- perspective,
+- foreshortening,
+- camera yaw/pitch,
+- seated/crouched pose,
+- partial occlusion,
+- crop.
+
+These are projection effects only.
+
+Review rule:
+
+```text
+same canonical scaffold + different camera/pose = allowed
+new canonical scaffold/body ratio disguised as camera/pose = reject
+```
+
+Do not re-measure a perspective-distorted frame and use that result to redefine the character's canonical proportion.
+
+---
+
+# 8. Pose Family IDs
 
 Player:
 
@@ -329,7 +389,7 @@ A new pose that cannot be derived from an approved family requires a new pose re
 
 ---
 
-# 8. Camera / body interaction
+# 9. Camera / body interaction
 
 Body proportion validation is meaningless without camera validation.
 
@@ -348,7 +408,7 @@ A stylized canonical body may project differently under perspective; camera proj
 
 ---
 
-# 9. Anatomy Drift Codes
+# 10. Anatomy Drift Codes
 
 ```text
 ANAT-HAND-SCALE      hand size changed relative to forearm/object
@@ -360,23 +420,26 @@ ANAT-TORSO           torso length/volume drift
 ANAT-PELVIS          pelvis/hip relationship drift
 ANAT-LEG-LENGTH      thigh/shin relationship drift
 ANAT-FOOT-SCALE      foot/ankle scale changed relative to Player/body master
-ANAT-HEAD-BODY       canonical head/body proportion changed between derivatives
+ANAT-HEAD-BODY       canonical head/body proportion or recorded head-count changed between derivatives
 ANAT-COM             impossible center-of-mass / balance
 ANAT-FOV             limb scale changed because FOV/camera was not preserved
 ANAT-POSE-ID         pose no longer matches approved pose-family skeleton
 ```
 
-`ANAT-*` is a P1 structural reject for hero/contact assets; `ANAT-HEAD-BODY` that makes a hero/Player read as a different body is also a P0 identity failure.
+`ANAT-*` is a P1 structural reject for hero/contact assets; `ANAT-HEAD-BODY` that changes the canonical body fingerprint is also a P0 identity failure.
 
 ---
 
-# 10. Approval packet checklist
+# 11. Approval packet checklist
 
 A master body/character anchor cannot reach `anchor-approved` until:
 
 - structural scaffold exists,
 - one canonical body/identity master is selected,
+- canonical normalized ratios are measured once and recorded,
+- canonical head-count is recorded if used as an identity metric,
 - turnaround views are derivatives of that same master family,
+- all derivative skeletons remain explainable by the exact canonical proportion fingerprint,
 - limb ratios agree with the measured canonical proportion fingerprint,
 - hands/feet agree with the same body family,
 - pose-family silhouettes remain coherent,
@@ -388,19 +451,19 @@ A master body/character anchor cannot reach `anchor-approved` until:
 
 ---
 
-# 11. Current lock order
+# 12. Current lock order
 
 ```text
 STYLE-GIR-V1
 → DAY1-HANDAXE-V1 morphology/scale
 → PLAYER-HUNT-BODY-V1 structural scaffold + canonical body master
-→ PLAYER-HUNT-BODY-PROP-V1 measured contract
+→ PLAYER-HUNT-BODY-PROP-V1 measured exact-ratio contract
 → ARU-IDENTITY-V1 structural scaffold + canonical identity master + derivatives
-→ ARU-PROP-V1 measured contract
+→ ARU-PROP-V1 measured exact-ratio contract
 → SC02 Contact Geometry Master
 → DAMU-IDENTITY-V1
 → NUA-IDENTITY-V1
 → remaining scene families
 ```
 
-This order minimizes cascading rework and prevents multi-image identity averaging.
+This order minimizes cascading rework and prevents multi-image identity averaging or proportion drift.

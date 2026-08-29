@@ -8,7 +8,7 @@ import {
 describe('Stage 07.5 visual production policy', () => {
   it('keeps hero and Player identity above incidental micro-detail continuity', () => {
     expect(STAGE075_VISUAL_PRODUCTION_POLICY.continuityPriorities['P0-identity']).toContain(
-      'Player hand/arm/foot identity and proportion family',
+      'Player exact canonical hand/arm/foot/body proportion fingerprint',
     );
     expect(STAGE075_VISUAL_PRODUCTION_POLICY.continuityPriorities['P3-incidental']).toContain(
       'incidental pebbles and grass blades',
@@ -28,6 +28,25 @@ describe('Stage 07.5 visual production policy', () => {
     expect(STAGE075_VISUAL_PRODUCTION_POLICY.hardProportionRejects).toContain(
       'required 6-head/7-head/8-head target imposed before canonical master approval',
     );
+  });
+
+  it('locks one exact canonical proportion fingerprint after approval', () => {
+    expect(STAGE075_VISUAL_PRODUCTION_POLICY.canonicalRatioRule).toContain('exact same canonical proportion fingerprint');
+    expect(STAGE075_VISUAL_PRODUCTION_POLICY.canonicalRatioRule).toContain('7.2-head');
+    expect(STAGE075_VISUAL_PRODUCTION_POLICY.canonicalRatioRule).toContain('6.8-head');
+    expect(STAGE075_VISUAL_PRODUCTION_POLICY.hardProportionRejects).toContain(
+      'canonical head-count or normalized body ratio changed between derivatives',
+    );
+    expect(STAGE075_VISUAL_PRODUCTION_POLICY.continuityPriorities['P0-identity']).toContain(
+      'hero exact canonical body proportion fingerprint',
+    );
+  });
+
+  it('distinguishes canonical ratios from camera-projected apparent ratios', () => {
+    expect(STAGE075_VISUAL_PRODUCTION_POLICY.projectionRule).toContain('apparent projected measurements');
+    expect(STAGE075_VISUAL_PRODUCTION_POLICY.projectionRule).toContain('underlying head/body or limb ratio');
+    expect(STAGE075_VISUAL_PRODUCTION_POLICY.verificationRule).toContain('canonical structural scaffold');
+    expect(STAGE075_VISUAL_PRODUCTION_POLICY.verificationRule).toContain('perspective-distorted');
   });
 
   it('locks structure first and measures ratios only after a canonical body or identity master exists', () => {

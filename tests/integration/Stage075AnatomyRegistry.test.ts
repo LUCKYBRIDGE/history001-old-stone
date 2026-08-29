@@ -23,6 +23,7 @@ describe('Stage 07.5 anatomy and contact registry', () => {
     for (const id of ['ARU-PROP-V1', 'DAMU-PROP-V1', 'NUA-PROP-V1'] as const) {
       const contract = getStage075AnatomyContract(id);
       expect(contract).toBeTruthy();
+      expect(contract?.proportionKeys).toContain('canonical-head-count');
       expect(contract?.proportionKeys).toContain('head-height/H');
       expect(contract?.proportionKeys).toContain('shoulder-width/H');
       expect(contract?.proportionKeys).toContain('upper-arm/H');
@@ -34,13 +35,33 @@ describe('Stage 07.5 anatomy and contact registry', () => {
     }
   });
 
-  it('keeps Player feet and ankles inside the same measured body family as hands and arms', () => {
+  it('treats the approved canonical head-count and normalized ratios as immutable P0 identity', () => {
+    const aru = getStage075AnatomyContract('ARU-PROP-V1');
+    const damu = getStage075AnatomyContract('DAMU-PROP-V1');
+    const nua = getStage075AnatomyContract('NUA-PROP-V1');
+
+    expect(aru?.immutableRules.join(' ')).toContain('7.2');
+    expect(aru?.immutableRules.join(' ')).toContain('6.8');
+    expect(aru?.immutableRules.join(' ')).toContain('P0 identity');
+    expect(damu?.immutableRules.join(' ')).toContain('P0 identity');
+    expect(nua?.immutableRules.join(' ')).toContain('P0 identity');
+  });
+
+  it('keeps apparent camera/pose projection separate from the underlying canonical ratio', () => {
+    const aru = getStage075AnatomyContract('ARU-PROP-V1');
+    expect(aru?.immutableRules.join(' ')).toContain('apparent ratio');
+    expect(aru?.immutableRules.join(' ')).toContain('camera/pose');
+    expect(aru?.immutableRules.join(' ')).toContain('새 canonical ratio');
+  });
+
+  it('keeps Player feet and ankles inside the same exact measured body family as hands and arms', () => {
     const player = getStage075AnatomyContract('PLAYER-HUNT-BODY-PROP-V1');
     expect(player).toBeTruthy();
     expect(player?.proportionKeys).toContain('foot-length');
     expect(player?.proportionKeys).toContain('ankle-width');
     expect(player?.forbiddenDriftCodes).toContain('ANAT-FOOT-SCALE');
     expect(player?.immutableRules.join(' ')).toContain('canonical body master');
+    expect(player?.immutableRules.join(' ')).toContain('정확히 동일한 underlying ratio');
   });
 
   it('requires every raster anatomy dependency to resolve', () => {

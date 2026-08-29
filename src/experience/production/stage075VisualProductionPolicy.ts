@@ -36,6 +36,12 @@ export const STAGE075_VISUAL_PRODUCTION_POLICY = {
     'Functional anatomy is mandatory. Photographic 6/7/8-head proportion convention is not.',
   proportionRule:
     'Choose the canonical proportion with the approved master, then measure and lock that design instead of imposing a textbook head-count target first.',
+  canonicalRatioRule:
+    'After approval, every derivative inherits the exact same canonical proportion fingerprint. A 7.2-head canonical character does not become 6.8-head or 7.5-head in another view or pose.',
+  projectionRule:
+    'Perspective, foreshortening, pose and crop may change apparent projected measurements, but they never authorize a new underlying head/body or limb ratio.',
+  verificationRule:
+    'Validate derivatives against the canonical structural scaffold and recorded normalized ratios, not by re-measuring a perspective-distorted screen silhouette as a new body design.',
   bodyMasterOrder: [
     'structural-scaffold',
     'canonical-body-or-identity-master',
@@ -54,6 +60,8 @@ export const STAGE075_VISUAL_PRODUCTION_POLICY = {
   ],
   hardProportionRejects: [
     'required 6-head/7-head/8-head target imposed before canonical master approval',
+    'canonical head-count or normalized body ratio changed between derivatives',
+    'canonical head/body relationship changed and explained away as style variation',
     'chibi or bobble-head caricature',
     'rubber-hose or mechanically impossible limb structure',
     'scene-by-scene head/body ratio redesign',
@@ -64,9 +72,10 @@ export const STAGE075_VISUAL_PRODUCTION_POLICY = {
     'P0-identity': [
       'Aru/Damu/Nua face identity',
       'hero hair silhouette',
-      'hero body proportion/mass family',
+      'hero exact canonical body proportion fingerprint',
+      'hero body mass family',
       'hero garment silhouette and major material zones',
-      'Player hand/arm/foot identity and proportion family',
+      'Player exact canonical hand/arm/foot/body proportion fingerprint',
     ],
     'P1-contact-object': [
       'DAY1-HANDAXE-V1 morphology and scale fingerprint',
