@@ -29,7 +29,8 @@ export interface Stage075AnatomyContract {
 /**
  * Anatomy and contact geometry are upstream dependencies for hero/body/contact rasters.
  * Numeric ratios are deliberately not invented here; they are measured from approved
- * production masters, then the contract can move to `contract-approved`.
+ * canonical production masters, then the contract can move to `contract-approved`.
+ * Functional anatomy is mandatory; conventional 6/7/8-head proportion targets are not.
  */
 export const STAGE075_ANATOMY_CONTRACTS: readonly Stage075AnatomyContract[] = [
   {
@@ -57,13 +58,17 @@ export const STAGE075_ANATOMY_CONTRACTS: readonly Stage075AnatomyContract[] = [
       'wrist-width',
       'visible-forearm-length-by-pose',
       'handaxe-grip-width-vs-palm',
+      'foot-length',
+      'ankle-width',
     ],
     immutableRules: [
+      'PLAYER-HUNT-BODY-V1 structural scaffold와 canonical body master를 먼저 승인한 뒤 실제 비율을 측정한다.',
       '오른손 dominant continuity를 유지한다.',
-      '손/손가락/손목/전완 비율을 장면별로 재설계하지 않는다.',
+      '손/손가락/손목/전완/발/발목 비율을 장면별로 재설계하지 않는다.',
       'foreground limb scale 변화는 camera/FOV 변화로 설명되어야 한다.',
+      '가독성을 위해 손/발을 장면별로 임의 확대하지 않는다.',
     ],
-    forbiddenDriftCodes: ['ANAT-HAND-SCALE', 'ANAT-FINGER', 'ANAT-WRIST', 'ANAT-ARM-LENGTH', 'ANAT-FOV', 'ANAT-POSE-ID'],
+    forbiddenDriftCodes: ['ANAT-HAND-SCALE', 'ANAT-FINGER', 'ANAT-WRIST', 'ANAT-ARM-LENGTH', 'ANAT-FOOT-SCALE', 'ANAT-FOV', 'ANAT-POSE-ID'],
   },
   {
     id: 'ARU-PROP-V1',
@@ -71,13 +76,15 @@ export const STAGE075_ANATOMY_CONTRACTS: readonly Stage075AnatomyContract[] = [
     scenes: ['SC01', 'SC02', 'SC03', 'SC04', 'SC05', 'SC11'],
     requiredAnchorIds: ['ARU-IDENTITY-V1'],
     requiredPoseFamilies: ['A-NEAR-FIRE-NEUTRAL', 'A-OFFER-HANDAXE', 'A-SHARED-CONTACT', 'A-RELEASE-HANDAXE', 'A-WATCH-DEPARTURE'],
-    proportionKeys: ['head-height/H', 'shoulder-y/H', 'pelvis-y/H', 'knee-y/H', 'arm-span/H', 'hand-length/H', 'foot-length/H'],
+    proportionKeys: ['head-height/H', 'shoulder-width/H', 'shoulder-y/H', 'pelvis-y/H', 'knee-y/H', 'arm-span/H', 'upper-arm/H', 'forearm/H', 'hand-length/H', 'thigh/H', 'shin/H', 'foot-length/H'],
     immutableRules: [
+      'structural scaffold → canonical identity master → turnaround derivative 순서를 사용한다.',
+      '6/7/8등신 같은 외부 목표를 먼저 강제하지 않고 승인된 canonical master의 비율을 측정해 잠근다.',
       'turnaround views use one skeleton/proportion master.',
-      'handoff pose may rotate/lean but may not change limb lengths or shoulder width.',
+      'handoff pose may rotate/lean but may not change limb lengths, head/body relationship or shoulder width.',
       'garment silhouette may not conceal a changed body design.',
     ],
-    forbiddenDriftCodes: ['ANAT-ARM-LENGTH', 'ANAT-SHOULDER', 'ANAT-TORSO', 'ANAT-PELVIS', 'ANAT-LEG-LENGTH', 'ANAT-COM', 'ANAT-POSE-ID'],
+    forbiddenDriftCodes: ['ANAT-HEAD-BODY', 'ANAT-ARM-LENGTH', 'ANAT-SHOULDER', 'ANAT-TORSO', 'ANAT-PELVIS', 'ANAT-LEG-LENGTH', 'ANAT-FOOT-SCALE', 'ANAT-COM', 'ANAT-POSE-ID'],
   },
   {
     id: 'DAMU-PROP-V1',
@@ -85,12 +92,14 @@ export const STAGE075_ANATOMY_CONTRACTS: readonly Stage075AnatomyContract[] = [
     scenes: ['SC01', 'SC03', 'SC04', 'SC05', 'SC06', 'SC07', 'SC08', 'SC09'],
     requiredAnchorIds: ['DAMU-IDENTITY-V1'],
     requiredPoseFamilies: ['D-PREPARE', 'D-WALK', 'D-WAIT', 'D-STOP', 'D-CROUCH', 'D-GROUND-OBSERVE'],
-    proportionKeys: ['head-height/H', 'shoulder-y/H', 'pelvis-y/H', 'knee-y/H', 'arm-span/H', 'hand-length/H', 'foot-length/H'],
+    proportionKeys: ['head-height/H', 'shoulder-width/H', 'shoulder-y/H', 'pelvis-y/H', 'knee-y/H', 'arm-span/H', 'upper-arm/H', 'forearm/H', 'hand-length/H', 'thigh/H', 'shin/H', 'foot-length/H'],
     immutableRules: [
+      'structural scaffold와 canonical identity master를 먼저 정하고 이후 view/pose를 파생한다.',
+      '6/7/8등신 같은 외부 목표를 먼저 강제하지 않고 승인된 canonical master의 비율을 측정해 잠근다.',
       'standing/walking/crouching all derive from one body master.',
-      'crouch changes joint angles and center of mass, not limb length.',
+      'crouch changes joint angles and center of mass, not limb length or head/body relationship.',
     ],
-    forbiddenDriftCodes: ['ANAT-ARM-LENGTH', 'ANAT-TORSO', 'ANAT-PELVIS', 'ANAT-LEG-LENGTH', 'ANAT-COM', 'ANAT-POSE-ID'],
+    forbiddenDriftCodes: ['ANAT-HEAD-BODY', 'ANAT-ARM-LENGTH', 'ANAT-TORSO', 'ANAT-PELVIS', 'ANAT-LEG-LENGTH', 'ANAT-FOOT-SCALE', 'ANAT-COM', 'ANAT-POSE-ID'],
   },
   {
     id: 'NUA-PROP-V1',
@@ -98,12 +107,14 @@ export const STAGE075_ANATOMY_CONTRACTS: readonly Stage075AnatomyContract[] = [
     scenes: ['SC01', 'SC03', 'SC04', 'SC05', 'SC08', 'SC09'],
     requiredAnchorIds: ['NUA-IDENTITY-V1'],
     requiredPoseFamilies: ['N-OUTWARD-IDLE', 'N-WALK', 'N-ATTENTION-HEAD', 'N-ATTENTION-SHOULDER', 'N-ATTENTION-TORSO'],
-    proportionKeys: ['head-height/H', 'shoulder-y/H', 'pelvis-y/H', 'knee-y/H', 'arm-span/H', 'hand-length/H', 'foot-length/H'],
+    proportionKeys: ['head-height/H', 'shoulder-width/H', 'shoulder-y/H', 'pelvis-y/H', 'knee-y/H', 'arm-span/H', 'upper-arm/H', 'forearm/H', 'hand-length/H', 'thigh/H', 'shin/H', 'foot-length/H'],
     immutableRules: [
+      'structural scaffold와 canonical identity master를 먼저 정하고 이후 attention/motion view를 파생한다.',
+      '6/7/8등신 같은 외부 목표를 먼저 강제하지 않고 승인된 canonical master의 비율을 측정해 잠근다.',
       'attention sequence rotates one consistent skeleton.',
-      'head→shoulder→torso sequence may not resize the neck/shoulders between frames.',
+      'head→shoulder→torso sequence may not resize the neck/shoulders or head/body relationship between frames.',
     ],
-    forbiddenDriftCodes: ['ANAT-SHOULDER', 'ANAT-TORSO', 'ANAT-COM', 'ANAT-POSE-ID'],
+    forbiddenDriftCodes: ['ANAT-HEAD-BODY', 'ANAT-SHOULDER', 'ANAT-TORSO', 'ANAT-FOOT-SCALE', 'ANAT-COM', 'ANAT-POSE-ID'],
   },
   {
     id: 'SC02-HANDOFF-GEO-V1',

@@ -15,6 +15,32 @@ describe('Stage 07.5 visual production policy', () => {
     );
   });
 
+  it('requires functional anatomy without imposing a textbook 6/7/8-head body target', () => {
+    expect(STAGE075_VISUAL_PRODUCTION_POLICY.anatomyRule).toContain('Functional anatomy');
+    expect(STAGE075_VISUAL_PRODUCTION_POLICY.anatomyRule).toContain('6/7/8-head');
+    expect(STAGE075_VISUAL_PRODUCTION_POLICY.proportionRule).toContain('canonical proportion');
+    expect(STAGE075_VISUAL_PRODUCTION_POLICY.allowedProportionStylization).toContain(
+      'relatively larger or smaller head',
+    );
+    expect(STAGE075_VISUAL_PRODUCTION_POLICY.allowedProportionStylization).toContain(
+      'slightly emphasized hands or feet',
+    );
+    expect(STAGE075_VISUAL_PRODUCTION_POLICY.hardProportionRejects).toContain(
+      'required 6-head/7-head/8-head target imposed before canonical master approval',
+    );
+  });
+
+  it('locks structure first and measures ratios only after a canonical body or identity master exists', () => {
+    expect(STAGE075_VISUAL_PRODUCTION_POLICY.bodyMasterOrder).toEqual([
+      'structural-scaffold',
+      'canonical-body-or-identity-master',
+      'appearance-or-garment-lock',
+      'turnaround-derivatives',
+      'motion-and-contact-derivatives',
+      'measured-proportion-contract',
+    ]);
+  });
+
   it('crops from the same master when moment, camera direction, coverage and resolution remain valid', () => {
     expect(
       chooseStage075ResponsiveDerivationMode({

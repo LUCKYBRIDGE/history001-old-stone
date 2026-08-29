@@ -20,21 +20,23 @@ This file does not replace the technical SSOT (`docs/06_TECH_BLUEPRINT.md`). It 
    - STYLE-GIR-V1 realism/detail/lighting target
 5. `handoff/STAGE07_5_VISUAL_IDENTITY_LAYERING_AND_DERIVATION_CONTRACT.md`
    - exact P0→P3 continuity tolerances, non-photographic surface boundary, alpha/layer policy, crop-first/angle/state derivation rules
-6. `handoff/STAGE07_5_CHARACTER_IDENTITY_ANCHOR_BIBLE.md`
+6. `handoff/STAGE07_5_FUNCTIONAL_ANATOMY_AND_STYLIZED_PROPORTION_POLICY.md`
+   - functional anatomy hard requirements, no forced 6/7/8-head target, structure→canonical master→measured-ratio workflow
+7. `handoff/STAGE07_5_CHARACTER_IDENTITY_ANCHOR_BIBLE.md`
    - Aru/Damu/Nua/B1/B2/Player identity packets
-7. `handoff/STAGE07_5_ANATOMY_PROPORTION_AND_POSE_MASTER_SPEC.md`
+8. `handoff/STAGE07_5_ANATOMY_PROPORTION_AND_POSE_MASTER_SPEC.md`
    - skeleton/turnaround/hand/limb ratio and pose-family master requirements
-8. `handoff/STAGE07_5_CONTACT_GEOMETRY_MASTER.md`
+9. `handoff/STAGE07_5_CONTACT_GEOMETRY_MASTER.md`
    - SC02/SC07/SC10 contact topology, camera/body/object geometry
-9. `handoff/STAGE07_5_WORLD_CONTINUITY_BIBLE.md`
+10. `handoff/STAGE07_5_WORLD_CONTINUITY_BIBLE.md`
    - Day 1 geography/light/landmark continuity
-10. `handoff/STAGE07_5_OBJECT_CONTINUITY_BIBLE.md`
+11. `handoff/STAGE07_5_OBJECT_CONTINUITY_BIBLE.md`
    - DAY1-HANDAXE-V1 and recurring prop continuity
-11. `handoff/STAGE07_5_RESPONSIVE_VISUAL_PRODUCTION_CONTRACT.md`
+12. `handoff/STAGE07_5_RESPONSIVE_VISUAL_PRODUCTION_CONTRACT.md`
    - L/TP/PP composition families and viewport QA
-12. `handoff/STAGE07_5_RASTER_ASSET_PRODUCTION_BRIEFS.md`
+13. `handoff/STAGE07_5_RASTER_ASSET_PRODUCTION_BRIEFS.md`
    - PV/scene-specific production requirements
-13. `handoff/STAGE07_5_VISUAL_GENERATION_AND_REVIEW_PROTOCOL.md`
+14. `handoff/STAGE07_5_VISUAL_GENERATION_AND_REVIEW_PROTOCOL.md`
    - Generation Job Card / derivation / drift / approval process
 
 Historical uncertainty review:
@@ -49,7 +51,7 @@ Historical uncertainty review:
 
 - `src/experience/production/stage075StyleAnchor.ts`
 
-## Visual identity / layering / derivation policy
+## Visual identity / layering / derivation / body-proportion policy
 
 - `src/experience/production/stage075VisualProductionPolicy.ts`
 
@@ -116,10 +118,10 @@ Recommended order:
 ```text
 0. STYLE-GIR-V1
 1. DAY1-HANDAXE-V1 morphology + scale packet
-2. PLAYER-HUNT-BODY-V1 reference packet
-3. PLAYER-HUNT-BODY-PROP-V1 anatomy/proportion contract
-4. ARU-IDENTITY-V1 reference packet
-5. ARU-PROP-V1 turnaround/proportion contract
+2. PLAYER-HUNT-BODY-V1 structural scaffold + canonical body master + body derivatives
+3. PLAYER-HUNT-BODY-PROP-V1 measured proportion contract
+4. ARU-IDENTITY-V1 structural scaffold + canonical identity master + turnaround derivatives
+5. ARU-PROP-V1 measured proportion contract
 6. SC02-HANDOFF-GEO-V1 contact geometry
 7. DAMU-IDENTITY-V1 + DAMU-PROP-V1
 8. NUA-IDENTITY-V1 + NUA-PROP-V1
@@ -135,11 +137,12 @@ Recommended order:
 Reason:
 
 - style must not drift while other anchors are created,
-- the handaxe defines a real scale relationship for the Player hand,
-- Player hand/forearm proportions must be locked before SC02,
-- Aru body/arm proportions must be locked before the handoff keyframe,
+- the handaxe defines a stable scale relationship for the Player hand,
+- Player/Aru are not multi-image averages: each gets a structural scaffold, then one canonical master, then derivatives,
+- no conventional 6/7/8-head target is imposed before master approval,
+- measured ratios come from the approved canonical master and then become production locks,
 - contact geometry should be solved before any final SC02 scene raster,
-- Damu/Nua and world families can then inherit the same scale/anatomy discipline.
+- Damu/Nua and world families inherit the same functional-anatomy and master-derivation discipline.
 
 ---
 
@@ -214,10 +217,11 @@ It includes:
 STYLE
 + FACE
 + HAIR SILHOUETTE
++ CANONICAL HEAD/BODY RELATIONSHIP
 + SKELETON PROPORTION
 + BODY PROPORTION
 + GARMENT SILHOUETTE
-+ HAND ANATOMY
++ HAND/FOOT ANATOMY
 + JOINT ARTICULATION
 + CENTER OF MASS
 + POSE FAMILY
@@ -243,29 +247,33 @@ P3 incidental micro-detail = harmless drift allowed
 
 A candidate is not rejected merely because a pebble, cloth wrinkle, hair flyaway, smoke curl, or tiny vegetation detail changed. It is rejected when the change breaks P0/P1 or materially contradicts P2.
 
+A body is not rejected merely because it is not a textbook 6/7/8-head adult. Once a canonical master is approved, however, that master's own proportion fingerprint is P0 identity and may not drift between derivatives.
+
 ---
 
 # 7. Do not solve continuity with text prompts alone
 
-Forbidden production assumption:
+Forbidden production assumptions:
 
 > "The model will remember Aru from previous generations."
 
-Also forbidden:
-
 > "We can fix the hand/arm scale later in CSS."
+
+> "Make every adult 7.5 heads tall so anatomy is realistic."
 
 Required:
 
 - approved anchor reference files,
-- approved anatomy/proportion master packet,
+- structural scaffold,
+- one canonical identity/body master,
+- measured anatomy/proportion master packet,
 - approved contact geometry where applicable,
 - derivation lineage,
 - Job Card,
 - side-by-side comparison,
 - registry dependency.
 
-Model memory is not an asset management strategy. CSS scaling is not an anatomy correction strategy.
+Model memory is not an asset management strategy. CSS scaling is not an anatomy correction strategy. Textbook head-count conformity is not the project's anatomy criterion.
 
 ---
 
@@ -291,6 +299,8 @@ ANAT-SHOULDER
 ANAT-TORSO
 ANAT-PELVIS
 ANAT-LEG-LENGTH
+ANAT-FOOT-SCALE
+ANAT-HEAD-BODY
 ANAT-COM
 ANAT-FOV
 ANAT-POSE-ID
@@ -309,7 +319,7 @@ GEO-CROP
 GEO-TEMPORAL
 ```
 
-Unresolved `ANAT-*` or `GEO-*` is P1 for hero/contact production assets.
+Unresolved `ANAT-*` or `GEO-*` is P1 for hero/contact production assets. `ANAT-HEAD-BODY` that changes who the body appears to be is also P0 identity failure.
 
 ---
 
@@ -331,7 +341,7 @@ NUA-IDENTITY-V1              reference-pending
 NUA-PROP-V1                  reference-pending
 WORLD-CAMP-DAWN-A            reference-pending
 WORLD-DEPARTURE-PATH-A       reference-pending
-WORLD-GROUND-OBS-A            reference-pending
+WORLD-GROUND-OBS-A           reference-pending
 WORLD-ROCK-SHELTER-A         reference-pending
 SC07-GROUND-BRACE-GEO-V1     reference-pending
 SC10-ROCK-BRACE-GEO-V1       reference-pending
@@ -351,18 +361,18 @@ It is:
 
 # **Visual Anatomy Reference Lock**
 
-The identity/layering/derivation policy is now a prerequisite production contract. It does not itself approve any image.
+The identity/layering/derivation policy and functional-anatomy/stylized-proportion policy are prerequisite production contracts. They do not themselves approve any image.
 
 First review bundle should contain only a small coherent master pack:
 
 1. `STYLE-GIR-V1` style reference packet
 2. `DAY1-HANDAXE-V1` master object packet
-3. `PLAYER-HUNT-BODY-V1` hand/forearm/body reference packet
+3. `PLAYER-HUNT-BODY-V1` structural scaffold + canonical body/reference packet
 4. `PLAYER-HUNT-BODY-PROP-V1` measured production ratios
-5. `ARU-IDENTITY-V1` turnaround packet
+5. `ARU-IDENTITY-V1` structural scaffold + canonical identity + turnaround packet
 6. `ARU-PROP-V1` measured production ratios
 7. `SC02-HANDOFF-GEO-V1` skeleton/contact rough
 
 Only after these seven align should the SC02 final contact keyframe be produced.
 
-This deliberately trades short-term image count for long-term anatomical and visual consistency.
+This deliberately trades short-term image count for long-term identity, functional anatomy, and visual consistency.
