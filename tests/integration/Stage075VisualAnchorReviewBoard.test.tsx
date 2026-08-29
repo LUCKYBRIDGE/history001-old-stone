@@ -66,17 +66,20 @@ describe('Stage 07.5 visual anchor review board', () => {
     expect(combinedInstructions).toContain('crop/zoom');
     expect(combinedInstructions).toContain('pore-field');
     expect(combinedInstructions).toContain('lens');
+    expect(combinedInstructions).toContain('6/7/8등신');
 
     const responsive = styleBundle!.slots.find((slot) => slot.id === 'responsive-pair');
     expect(responsive?.candidateBrief?.rejectCodes).toContain('GEO-CROP');
     expect(responsive?.candidateBrief?.rejectCodes).toContain('SID-LENS');
   });
 
-  it('locks Player hands, forearms, feet and ankles into one required body-master packet', () => {
+  it('locks Player structure first, then one canonical body, then all limb/action derivatives', () => {
     const playerBundle = getStage075AnchorReviewBundle('PLAYER-HUNT-BODY-V1');
 
     expect(playerBundle).toBeTruthy();
     expect(playerBundle!.slots.map((slot) => slot.id)).toEqual([
+      'structural-scaffold',
+      'canonical-body',
       'right-palm',
       'right-dorsum',
       'left-palm',
@@ -91,6 +94,34 @@ describe('Stage 07.5 visual anchor review board', () => {
       'crouch',
       'walk-carry',
     ]);
+
+    expect(playerBundle!.slots.find((slot) => slot.id === 'canonical-body')?.parentSlotId).toBe('structural-scaffold');
+    for (const slot of playerBundle!.slots.slice(2)) {
+      expect(slot.parentSlotId, slot.id).toBe('canonical-body');
+    }
+  });
+
+  it('locks Aru structure and one canonical identity before turnaround/action derivatives', () => {
+    const aruBundle = getStage075AnchorReviewBundle('ARU-IDENTITY-V1');
+
+    expect(aruBundle).toBeTruthy();
+    expect(aruBundle!.slots.map((slot) => slot.id)).toEqual([
+      'structural-scaffold',
+      'canonical-identity',
+      'front',
+      'back',
+      'opposite-three-quarter',
+      'side-left',
+      'side-right',
+      'seated',
+      'offer-handaxe',
+      'hand-reference',
+    ]);
+
+    expect(aruBundle!.slots.find((slot) => slot.id === 'canonical-identity')?.parentSlotId).toBe('structural-scaffold');
+    for (const slot of aruBundle!.slots.slice(2)) {
+      expect(slot.parentSlotId, slot.id).toBe('canonical-identity');
+    }
   });
 
   it('keeps the first anchor review bundles incomplete until approved master files are registered', () => {
