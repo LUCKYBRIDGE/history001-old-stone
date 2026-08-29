@@ -22,6 +22,7 @@ export interface Stage075AnchorReviewSlot {
   purpose: string;
   plannedRepositoryPath: string;
   required: boolean;
+  parentSlotId?: string;
   approvedPath?: string;
   candidateBrief?: Stage075AnchorCandidateBrief;
 }
@@ -44,6 +45,19 @@ function slot(
     purpose,
     required: true,
     plannedRepositoryPath: `public/assets/stage075/anchors/${anchorId}/${id}.webp`,
+  };
+}
+
+function derivedSlot(
+  anchorId: string,
+  id: string,
+  label: string,
+  purpose: string,
+  parentSlotId: string,
+): Stage075AnchorReviewSlot {
+  return {
+    ...slot(anchorId, id, label, purpose),
+    parentSlotId,
   };
 }
 
@@ -76,9 +90,10 @@ export const STAGE075_ANCHOR_REVIEW_BUNDLES: readonly Stage075AnchorReviewBundle
         'human-mid',
         'Human mid-shot',
         '인물 해부·surface treatment·배경 분리 가능성의 사실성 상한을 잠근다.',
-        '이름 없는 fictional community member를 중간 거리에서 보여주는 style-only test. 자연스러운 사람 비율, 구조 중심 얼굴, mass/silhouette 우선의 머리, broad-fold low-specificity covering을 사용한다. 단순 contextual background는 actor/world integration 확인용으로 허용하지만 이 이미지를 reusable hero cutout이나 Aru/Damu/Nua identity로 취급하지 않는다. pore-field, beauty-photo skin, photographic bokeh/DOF/lens language를 사용하지 않는다.',
+        '이름 없는 fictional community member를 중간 거리에서 보여주는 style-only test. 기능적으로 납득되는 관절/무게/접촉을 유지하되 6/7/8등신 같은 photographic proportion target을 강제하지 않는다. 구조 중심 얼굴, mass/silhouette 우선의 머리, broad-fold low-specificity covering을 사용한다. 단순 contextual background는 actor/world integration 확인용으로 허용하지만 이 이미지를 reusable hero cutout이나 Aru/Damu/Nua identity로 취급하지 않는다. pore-field, beauty-photo skin, photographic bokeh/DOF/lens language를 사용하지 않는다.',
         [
-          'realistic anatomy while face identity reads from structure rather than pores',
+          'functional anatomy without imposing a textbook 6/7/8-head target',
+          'face identity reads from structure rather than pores',
           'hair mass/silhouette before individual-strand field',
           'broad garment fold/material readability without fiber-photo detail',
           'natural restrained environment light without photographic lens language',
@@ -90,9 +105,9 @@ export const STAGE075_ANCHOR_REVIEW_BUNDLES: readonly Stage075AnchorReviewBundle
         'first-person-hand',
         'First-person hand',
         '손/피부/손톱/오염 detail density와 first-person 신체 surface tier를 잠근다.',
-        '특정 Player identity를 아직 잠그지 않는 anonymous hand + wrist + forearm style test. 비진단적인 거친 석재를 자연스럽게 만지며 손가락 수·관절·손목·압력 접촉은 현실적으로 유지한다. DAY1-HANDAXE-V1 morphology/scale/fingerprint는 정의하지 않는다. skin pore-field, glossy photo skin, shallow photographic DOF, lens bokeh를 피하고 손/전완 외곽은 재사용 자산 제작에 적합하게 읽혀야 한다.',
+        '특정 Player identity를 아직 잠그지 않는 anonymous hand + wrist + forearm style test. 비진단적인 거친 석재를 자연스럽게 만지며 손가락 수·관절·손목·압력 접촉은 기능적으로 납득되게 유지한다. DAY1-HANDAXE-V1 morphology/scale/fingerprint는 정의하지 않는다. skin pore-field, glossy photo skin, shallow photographic DOF, lens bokeh를 피하고 손/전완 외곽은 재사용 자산 제작에 적합하게 읽혀야 한다.',
         [
-          'five-finger anatomy and believable wrist articulation',
+          'five-finger functional anatomy and believable wrist articulation',
           'palm/knuckle/nail detail remains illustrative rather than photo-macro',
           'skin and stone share the same illustrative finish',
           'contact pressure reads before texture polish',
@@ -159,34 +174,37 @@ export const STAGE075_ANCHOR_REVIEW_BUNDLES: readonly Stage075AnchorReviewBundle
     anchorId: 'PLAYER-HUNT-BODY-V1',
     reviewOrder: 2,
     slots: [
-      slot('PLAYER-HUNT-BODY-V1', 'right-palm', 'Right palm', '오른손 손바닥/손가락 비율 master.'),
-      slot('PLAYER-HUNT-BODY-V1', 'right-dorsum', 'Right dorsum', '오른손 손등/손목 비율 master.'),
-      slot('PLAYER-HUNT-BODY-V1', 'left-palm', 'Left palm', '왼손 손바닥과 ground/rock brace 기준.'),
-      slot('PLAYER-HUNT-BODY-V1', 'left-dorsum', 'Left dorsum', '좌우 손이 같은 body family인지 검증.'),
-      slot('PLAYER-HUNT-BODY-V1', 'forearm-neutral', 'Forearm neutral', '손목 폭·전완 길이·taper 기준.'),
-      slot('PLAYER-HUNT-BODY-V1', 'right-foot-ankle', 'Right foot / ankle', '오른발 길이·폭·발목 비율과 same-body identity 기준.'),
-      slot('PLAYER-HUNT-BODY-V1', 'left-foot-ankle', 'Left foot / ankle', '왼발과 좌우 발/발목 same-body identity 기준.'),
-      slot('PLAYER-HUNT-BODY-V1', 'receive-reach', 'Receive reach', 'SC02 도달 pose skeleton 기준.'),
-      slot('PLAYER-HUNT-BODY-V1', 'handaxe-grip', 'Handaxe grip', 'DAY1-HANDAXE-V1과 실제 grip scale 기준.'),
-      slot('PLAYER-HUNT-BODY-V1', 'ground-brace', 'Ground brace', 'SC07 왼손 지면 지지 geometry 기준.'),
-      slot('PLAYER-HUNT-BODY-V1', 'rock-brace', 'Rock brace', 'SC10 왼손 바위 접촉 geometry 기준.'),
-      slot('PLAYER-HUNT-BODY-V1', 'crouch', 'Crouch body edge', '무릎/전완/카메라 관계 기준.'),
-      slot('PLAYER-HUNT-BODY-V1', 'walk-carry', 'Walk carry', '도구를 낮춰 든 이동 pose 기준.'),
+      slot('PLAYER-HUNT-BODY-V1', 'structural-scaffold', 'Structural scaffold', '관절 landmark, segment relationship, reach, center-of-mass와 의도한 canonical proportion silhouette를 먼저 잠근다. 6/7/8등신 목표를 강제하지 않는다.'),
+      derivedSlot('PLAYER-HUNT-BODY-V1', 'canonical-body', 'Canonical Player body master', '하나의 Player body identity와 고유 비율을 확정한다. 이후 모든 손/팔/발/동작 reference의 부모다.', 'structural-scaffold'),
+      derivedSlot('PLAYER-HUNT-BODY-V1', 'right-palm', 'Right palm', '오른손 손바닥/손가락 비율 reference.', 'canonical-body'),
+      derivedSlot('PLAYER-HUNT-BODY-V1', 'right-dorsum', 'Right dorsum', '오른손 손등/손목 비율 reference.', 'canonical-body'),
+      derivedSlot('PLAYER-HUNT-BODY-V1', 'left-palm', 'Left palm', '왼손 손바닥과 ground/rock brace 기준.', 'canonical-body'),
+      derivedSlot('PLAYER-HUNT-BODY-V1', 'left-dorsum', 'Left dorsum', '좌우 손이 같은 body family인지 검증.', 'canonical-body'),
+      derivedSlot('PLAYER-HUNT-BODY-V1', 'forearm-neutral', 'Forearm neutral', '손목 폭·전완 길이·taper 기준.', 'canonical-body'),
+      derivedSlot('PLAYER-HUNT-BODY-V1', 'right-foot-ankle', 'Right foot / ankle', '오른발 길이·폭·발목 비율과 same-body identity 기준.', 'canonical-body'),
+      derivedSlot('PLAYER-HUNT-BODY-V1', 'left-foot-ankle', 'Left foot / ankle', '왼발과 좌우 발/발목 same-body identity 기준.', 'canonical-body'),
+      derivedSlot('PLAYER-HUNT-BODY-V1', 'receive-reach', 'Receive reach', 'SC02 도달 pose skeleton 기준.', 'canonical-body'),
+      derivedSlot('PLAYER-HUNT-BODY-V1', 'handaxe-grip', 'Handaxe grip', 'DAY1-HANDAXE-V1과 실제 grip scale 기준.', 'canonical-body'),
+      derivedSlot('PLAYER-HUNT-BODY-V1', 'ground-brace', 'Ground brace', 'SC07 왼손 지면 지지 geometry 기준.', 'canonical-body'),
+      derivedSlot('PLAYER-HUNT-BODY-V1', 'rock-brace', 'Rock brace', 'SC10 왼손 바위 접촉 geometry 기준.', 'canonical-body'),
+      derivedSlot('PLAYER-HUNT-BODY-V1', 'crouch', 'Crouch body edge', '무릎/전완/카메라 관계 기준.', 'canonical-body'),
+      derivedSlot('PLAYER-HUNT-BODY-V1', 'walk-carry', 'Walk carry', '도구를 낮춰 든 이동 pose 기준.', 'canonical-body'),
     ],
   },
   {
     anchorId: 'ARU-IDENTITY-V1',
     reviewOrder: 3,
     slots: [
-      slot('ARU-IDENTITY-V1', 'front', 'Full body front', '전체 H와 skeleton landmark 기준.'),
-      slot('ARU-IDENTITY-V1', 'back', 'Full body back', '후면 체형/의복 silhouette 기준.'),
-      slot('ARU-IDENTITY-V1', 'three-quarter-left', '3/4 left', '얼굴/머리/어깨 identity 기준.'),
-      slot('ARU-IDENTITY-V1', 'three-quarter-right', '3/4 right', '반대 방향 identity consistency.'),
-      slot('ARU-IDENTITY-V1', 'side-left', 'Side left', '머리-흉곽-골반 alignment 기준.'),
-      slot('ARU-IDENTITY-V1', 'side-right', 'Side right', '좌우 skeleton consistency.'),
-      slot('ARU-IDENTITY-V1', 'seated', 'Seated near fire', '앉은 중심/다리 비율 기준.'),
-      slot('ARU-IDENTITY-V1', 'offer-handaxe', 'Offer handaxe', 'SC02 reach/handoff pose 기준.'),
-      slot('ARU-IDENTITY-V1', 'hand-reference', 'Hand reference', '손 크기와 손가락 anatomy 기준.'),
+      slot('ARU-IDENTITY-V1', 'structural-scaffold', 'Structural scaffold', 'Aru의 joint landmarks, body segment relationships, center-of-mass와 intended proportion silhouette를 먼저 잠근다. 실사 6/7/8등신 목표를 강제하지 않는다.'),
+      derivedSlot('ARU-IDENTITY-V1', 'canonical-identity', 'Canonical identity master', '한 장의 full-body 3/4 master에서 얼굴·머리·체형·고유 head/body ratio·의복 silhouette를 확정한다. 이후 모든 view/pose의 부모다.', 'structural-scaffold'),
+      derivedSlot('ARU-IDENTITY-V1', 'front', 'Full body front', 'canonical identity에서 파생한 전체 H/skeleton landmark 정면 기준.', 'canonical-identity'),
+      derivedSlot('ARU-IDENTITY-V1', 'back', 'Full body back', 'canonical identity에서 파생한 후면 체형/의복 silhouette 기준.', 'canonical-identity'),
+      derivedSlot('ARU-IDENTITY-V1', 'opposite-three-quarter', 'Opposite 3/4', 'canonical identity 반대 방향에서도 동일 얼굴/머리/체형인지 검증.', 'canonical-identity'),
+      derivedSlot('ARU-IDENTITY-V1', 'side-left', 'Side left', '머리-흉곽-골반 alignment 기준.', 'canonical-identity'),
+      derivedSlot('ARU-IDENTITY-V1', 'side-right', 'Side right', '좌우 skeleton consistency.', 'canonical-identity'),
+      derivedSlot('ARU-IDENTITY-V1', 'seated', 'Seated near fire', '앉은 중심/다리 비율 기준.', 'canonical-identity'),
+      derivedSlot('ARU-IDENTITY-V1', 'offer-handaxe', 'Offer handaxe', 'SC02 reach/handoff pose 기준.', 'canonical-identity'),
+      derivedSlot('ARU-IDENTITY-V1', 'hand-reference', 'Hand reference', '손 크기와 손가락 anatomy 기준.', 'canonical-identity'),
     ],
   },
 ] as const;
