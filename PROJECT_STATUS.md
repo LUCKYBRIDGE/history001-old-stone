@@ -10,7 +10,7 @@
 
 현재 정확한 상태:
 
-# **Social Runtime Integrated / Automated PASS / Human Gate FAIL / Scene Composition v2.1 Approved / Responsive Raster + Visual Continuity + Anatomy/Contact Gates Integrated / Visual Identity-Layering-Derivation Policy Locked / Visual Anchor Review Board Integrated / STYLE-GIR-V1 Controlled Packet Production-Ready / Approved Raster Assets 0 / Stage 08 BLOCKED**
+# **Social Runtime Integrated / Automated PASS / Human Gate FAIL / Scene Composition v2.1 Approved / Responsive Raster + Visual Continuity + Anatomy/Contact Gates Integrated / Visual Identity-Layering-Derivation Policy Locked / Functional Anatomy + Exact Canonical Ratio Policy Locked / Visual Anchor Review Board Integrated / STYLE-GIR-V1 Controlled Packet Production-Ready / Approved Raster Assets 0 / Stage 08 BLOCKED**
 
 최신 exact main/PR/Actions는 GitHub가 최종 진실 공급원이다.
 
@@ -21,31 +21,31 @@
 현재 raster production에서 명시적으로 관리하는 핵심 위험:
 
 - R2UX-021 Visual identity drift — 장면별 독립 생성 시 인물/배경/도구/스타일 일관성 붕괴 위험
-- R2UX-022 Anatomy/proportion drift — 손·팔·어깨·몸통·다리 비율이 장면/포즈/portrait마다 바뀔 위험
+- R2UX-022 Anatomy/proportion drift — 동일인물의 canonical head/body·팔·다리·손·발 비율이 view/pose/portrait마다 달라질 위험
 - R2UX-023 Contact geometry drift — 손/도구/바위/지면 접촉을 장면별로 별도 해결하면서 물리 관계가 깨질 위험
 
-현재 확인된 P0는 없다.
+현재 확인된 P0 runtime defect는 없다.
 
-# **승인된 anatomy master와 coherent raster proof가 아직 없으므로 Human Gate는 계속 FAIL이다.**
+# **승인된 visual/anatomy master와 coherent raster proof가 아직 없으므로 Human Gate는 계속 FAIL이다.**
 
 ---
 
 # 2. Project-owner direction
 
-최종 raster 제작은 `좋은 장면 이미지 여러 장`을 만드는 방식이 아니다.
+최종 raster 제작은 `좋은 장면 이미지 여러 장`을 독립 생성하는 방식이 아니다.
 
-우선순위:
-
-# **Consistency-first + Anatomy-first + Master-derived Production**
+핵심 production lineage:
 
 ```text
-style anchor
-+ object scale anchor
-+ Player body skeleton/proportion master
-+ character turnaround/proportion masters
-+ world geography anchors
-+ contact geometry masters
-→ state/angle derivatives
+STYLE-GIR-V1
+→ recurring object scale anchor
+→ structural scaffold
+→ one canonical body / identity master
+→ appearance / garment lock
+→ turnaround / limb / action derivatives
+→ measured exact proportion contract
+→ contact geometry master
+→ state / angle derivatives
 → crop-first responsive framing
 ```
 
@@ -58,13 +58,17 @@ P2 major world structure / lighting   = STRONG LOCK
 P3 flyaway/fold/pebble/grass/smoke 등 = harmless variation allowed
 ```
 
-핵심 production rule:
+핵심 production rules:
 
 # **Do not regenerate what can be derived from an approved master.**
 
+# **Choose proportions freely before approval; inherit them exactly after approval.**
+
+예를 들어 승인된 canonical character가 7.2등신이면 이후 underlying body가 6.8 또는 7.5등신으로 바뀌면 안 된다. 다만 pose, perspective, foreshortening, camera distance/crop 때문에 화면상 투영 비율이 달라 보이는 것은 허용한다. 검증은 distorted frame의 겉보기 등신을 새 비율로 재정의하는 방식이 아니라 canonical structural scaffold와 normalized ratio contract를 기준으로 한다.
+
 같은 순간·같은 시선 방향의 확대/portrait는 crop/zoom/pan을 먼저 사용한다. source coverage/resolution이 부족하면 같은 master에서 outpaint/upscale하고, 실제 카메라 방향이 크게 달라질 때만 같은 world master/topology/landmark/light를 참조한 Angle Master를 만든다.
 
-장면 이미지를 먼저 만들고 나중에 손·팔·비율을 수정하는 방식은 금지한다.
+장면 이미지를 먼저 만들고 나중에 손·팔·발·등신을 수정하는 방식은 금지한다.
 
 Scene Composition Bible v2.1은 이미 Project-owner 승인 PASS다. 현재 작업은 Scene Bible 재설계가 아니다.
 
@@ -86,6 +90,7 @@ Art-production 진입점:
 
 - `handoff/STAGE07_5_STYLE_ANCHOR_BIBLE.md`
 - `handoff/STAGE07_5_VISUAL_IDENTITY_LAYERING_AND_DERIVATION_CONTRACT.md`
+- `handoff/STAGE07_5_FUNCTIONAL_ANATOMY_AND_STYLIZED_PROPORTION_POLICY.md`
 - `handoff/STAGE07_5_CHARACTER_IDENTITY_ANCHOR_BIBLE.md`
 - `handoff/STAGE07_5_ANATOMY_PROPORTION_AND_POSE_MASTER_SPEC.md`
 - `handoff/STAGE07_5_CONTACT_GEOMETRY_MASTER.md`
@@ -118,6 +123,8 @@ Machine-readable:
 
 여기서 다음을 한 화면에서 확인한다.
 
+- exact canonical body lineage / ratio-lock policy
+- required slot의 `Derived from` parent lineage
 - STYLE-GIR-V1 상태
 - priority visual anchors 상태
 - anatomy/contact contract 상태
@@ -174,26 +181,24 @@ STYLE-GIR-V1은 추가로 **5개 required slot 전부가 approved path를 가져
 3. ARU-IDENTITY-V1
 ```
 
-현재 approved slot count는 0이다.
+현재 모든 required slot의 approved path count = 0.
 
 ### STYLE-GIR-V1
 
-필수 예:
+Required slots:
 
-- human mid-shot
-- first-person hand
-- world sample
-- material sample
-- landscape/portrait equivalence
+- `human-mid`
+- `first-person-hand`
+- `world`
+- `material`
+- `responsive-pair`
 
-현재 이 5개 slot은 controlled production brief가 준비되어 있다.
+운영 원칙:
 
-- `human-mid`, `first-person-hand`, `world`, `material`은 upstream style exploration으로만 사용한다.
-- anonymous/non-diagnostic subject를 사용해 Aru/Damu/Nua, DAY1-HANDAXE-V1, WORLD-CAMP-DAWN-A를 조기 확정하지 않는다.
-- `responsive-pair`는 동일 source moment에서 `locked-keyframe-variation`으로 L/portrait equivalence를 검증한다.
+- 앞의 네 style sample은 anonymous/non-diagnostic exploration으로 Aru/Damu/Nua, DAY1-HANDAXE-V1, WORLD-CAMP-DAWN-A를 조기 lock하지 않는다.
+- `responsive-pair`는 동일 source moment에서 파생한다.
 - STYLE-GIR proof는 actor/world integration 검토를 위해 contextual background를 포함할 수 있다.
-- STYLE-GIR proof가 곧 reusable actor cutout이라는 뜻은 아니다.
-- planned path는 승인 경로가 아니다.
+- STYLE-GIR proof가 reusable actor cutout을 의미하지는 않는다.
 - 실제 Project-owner 승인 전에는 `reference-pending`, approved slots `0/5`를 유지한다.
 
 운영 Job Card:
@@ -202,7 +207,7 @@ STYLE-GIR-V1은 추가로 **5개 required slot 전부가 approved path를 가져
 
 ### DAY1-HANDAXE-V1
 
-필수 예:
+Required:
 
 - face-A / face-B
 - side/thickness
@@ -212,30 +217,43 @@ STYLE-GIR-V1은 추가로 **5개 required slot 전부가 approved path를 가져
 
 ### PLAYER-HUNT-BODY-V1
 
-필수 예:
+독립 이미지 묶음으로 만들지 않는다.
 
-- right/left palm + dorsum
-- neutral right/left forearm
-- receive reach
-- handaxe grip
-- ground brace
-- rock brace
-- crouch edge
-- walk carry
-- visible foot/ankle neutral + action reference if final scenes expose feet
+```text
+structural-scaffold
+→ canonical-body
+→ right/left palm+dorsum
+→ forearm
+→ right/left foot+ankle
+→ receive-reach
+→ handaxe-grip
+→ ground-brace
+→ rock-brace
+→ crouch
+→ walk-carry
+```
 
-모든 visible hand/arm/foot/ankle는 하나의 `PLAYER-HUNT-BODY-V1` body family에서 파생한다.
+`canonical-body`는 `structural-scaffold`의 derivative이며, 이후 모든 limb/action slot은 `canonical-body`를 parent로 가진다.
+
+모든 visible hand/arm/foot/ankle는 동일한 exact canonical Player body fingerprint를 상속한다.
 
 ### ARU-IDENTITY-V1
 
-필수 예:
+독립 front/back/side 생성 묶음으로 만들지 않는다.
 
-- front/back
-- 3/4 left/right
-- strict side left/right
-- seated
-- offer-handaxe
-- hand reference
+```text
+structural-scaffold
+→ canonical-identity (full-body 3/4)
+→ front
+→ back
+→ opposite 3/4
+→ side-left / side-right
+→ seated
+→ offer-handaxe
+→ hand-reference
+```
+
+모든 derivative는 같은 canonical face/head/body/garment identity와 exact canonical proportion fingerprint를 상속한다.
 
 Reusable hero/Player/item master는 기본적으로 transparent alpha 또는 extraction-safe neutral source + transparent derivative로 관리한다.
 
@@ -255,7 +273,7 @@ PLAYER-HUNT-BODY-PROP-V1    reference-pending
 STYLE-GIR-V1 exact boundary:
 
 ```text
-realistic anatomy / weight / perspective / contact
+functional believable anatomy / weight / perspective / contact
 +
 illustratively simplified surfaces / clean reusable silhouette
 -
@@ -274,9 +292,11 @@ photographic pore-field / individual-hair field / lens language / beauty skin / 
 추가 핵심 규칙:
 
 - hyper-photoreal / AAA poster / cartoon-chibi / fantasy barbarian 금지
+- 6/7/8등신 같은 textbook target을 realism gate로 강제하지 않음
+- canonical master 승인 후에는 실제 head/body 및 segment ratio를 정확히 측정해 P0 identity로 고정
 - handaxe morphology와 scale을 먼저 잠가 Player grip 기준으로 사용
-- Player hand/palm/finger/wrist/forearm/foot/ankle 비율을 master packet에서 측정 후 고정
-- portrait fitting을 위해 손/팔/발을 임의 확대·축소하지 않음
+- Player hand/palm/finger/wrist/forearm/foot/ankle 비율을 canonical body에서 측정 후 고정
+- portrait fitting을 위해 손/팔/발/머리-몸 비율을 임의 확대·축소하지 않음
 
 ---
 
@@ -293,23 +313,36 @@ NUA-IDENTITY-V1  reference-pending
 NUA-PROP-V1      reference-pending
 ```
 
-Hero character는 portrait 한 장으로 승인하지 않는다.
+Hero character는 portrait 한 장이나 독립 turnaround 여러 장으로 승인하지 않는다.
 
-필수 master packet 방향:
+필수 production lineage:
 
-- front/back
-- 3/4 left/right
-- strict side left/right
-- seated/crouched/walking
-- relevant reach/contact pose
-- hand close-up
-- head silhouette
-- skeleton landmark overlay
-- normalized proportion record (`H = 1.00`)
+```text
+structural scaffold
+→ one canonical identity master
+→ derived turnaround/action family
+→ measured exact proportion contract
+```
 
-Numeric ratio는 approved master에서 측정한 production lock이며 고고학적 인구집단 사실 주장이 아니다.
+Measured contract 최소:
 
-P0 identity는 얼굴만이 아니라 face + hair silhouette + body proportion/mass + garment silhouette/material zones까지 포함한다. expression, minor folds, dirt, flyaway는 허용되지만 다른 사람처럼 보이면 D3 reject다.
+- `canonical-head-count`
+- `head-height/H`
+- `shoulder-width/H`
+- `shoulder-y/H`
+- `pelvis-y/H`
+- `knee-y/H`
+- `arm-span/H`
+- `upper-arm/H`
+- `forearm/H`
+- `hand-length/H`
+- `thigh/H`
+- `shin/H`
+- `foot-length/H`
+
+Numeric ratio는 approved canonical master에서 측정한 production lock이며 고고학적 인구집단 사실 주장이 아니다.
+
+비율을 어떤 값으로 설계할지는 approval 전 자유지만, approval 후에는 exact underlying ratio가 P0 identity다. 같은 인물의 canonical 7.2등신을 다른 view에서 underlying 6.8등신으로 바꾸는 것은 `ANAT-HEAD-BODY` + P0 identity failure다.
 
 ---
 
@@ -345,7 +378,7 @@ SC10:
 
 - 왼손이 같은 rock-shelter edge를 짚음
 - 오른손은 같은 handaxe 유지
-- 바위/팔 anatomy를 접촉에 맞춰 임의 변형하지 않음
+- 바위/팔 anatomy를 contact에 맞춰 임의 변형하지 않음
 
 접촉 부위를 투명 layer 여러 개로 억지 분리했을 때 topology가 깨지면 unified contact raster를 사용한다.
 
@@ -362,6 +395,8 @@ ANAT-SHOULDER
 ANAT-TORSO
 ANAT-PELVIS
 ANAT-LEG-LENGTH
+ANAT-FOOT-SCALE
+ANAT-HEAD-BODY
 ANAT-COM
 ANAT-FOV
 ANAT-POSE-ID
@@ -376,7 +411,7 @@ GEO-CROP
 GEO-TEMPORAL
 ```
 
-Hero/contact asset에 unresolved `ANAT-*` 또는 `GEO-*`가 있으면 P1 reject다.
+Hero/contact asset에 unresolved `ANAT-*` 또는 `GEO-*`가 있으면 P1 reject다. `ANAT-HEAD-BODY` 또는 body fingerprint drift가 다른 몸으로 읽히는 경우 P0 identity failure도 함께 적용한다.
 
 ---
 
@@ -421,7 +456,7 @@ approved masters → state derivative
 
 L / TP / PP는 다른 인물/다른 세계가 아니다. 같은 사건을 우선 같은 source master에서 framing한다.
 
-Portrait 때문에 anatomy나 world-space 위치를 임의 변형하면 안 된다.
+Portrait 때문에 anatomy, exact canonical ratio, world-space 위치를 임의 변형하면 안 된다.
 
 작은 풀, 돌, 구름, 연기, 옷주름 같은 P3 variation은 허용한다. 주요 landmark/route/shelter/fire/terrain/light 같은 P2 contradiction은 허용하지 않는다.
 
@@ -450,10 +485,10 @@ Approved Raster Asset count:
 ```text
 0. STYLE-GIR-V1 reference packet
 1. DAY1-HANDAXE-V1 morphology + scale packet
-2. PLAYER-HUNT-BODY-V1 reference packet
-3. PLAYER-HUNT-BODY-PROP-V1 measured anatomy contract
-4. ARU-IDENTITY-V1 turnaround packet
-5. ARU-PROP-V1 measured anatomy contract
+2. PLAYER-HUNT-BODY-V1 structural scaffold + canonical body + derivatives
+3. PLAYER-HUNT-BODY-PROP-V1 measured exact anatomy/proportion contract
+4. ARU-IDENTITY-V1 structural scaffold + canonical identity + derivatives
+5. ARU-PROP-V1 measured exact anatomy/proportion contract
 6. SC02-HANDOFF-GEO-V1 contact skeleton/geometry master
 7. SC02 unified contact state master + crop-first L/TP/PP proof
 8. DAMU-IDENTITY-V1 + DAMU-PROP-V1
@@ -463,7 +498,7 @@ Approved Raster Asset count:
 
 SC02 final art는 0~6이 승인되기 전 만들지 않는다.
 
-STYLE-GIR-V1의 **production packet 준비와 identity/layering/derivation 기준 lock은 완료**되었지만 reference lock은 아직 `0/5`다. 따라서 1번으로 넘어가지 않는다.
+STYLE-GIR-V1의 **production packet 준비와 visual identity/layering/derivation + functional anatomy/exact canonical ratio 기준 lock은 완료**되었지만 reference lock은 아직 `0/5`다. 따라서 1번으로 넘어가지 않는다.
 
 ---
 
@@ -478,10 +513,12 @@ Scene Composition Design = PASS
 Project-owner Scene Confirmation = PASS
 Responsive Raster Contract = READY
 Visual Identity/Layering/Derivation Policy = SPEC LOCKED
+Functional Anatomy / Stylized Proportion Policy = SPEC LOCKED
+Exact Canonical Ratio Inheritance = SPEC LOCKED
 Raster Media Adapter = INTEGRATED
 Visual Continuity Registry = INTEGRATED
 Anatomy/Contact Registry = INTEGRATED
-Visual Anchor Review Board = INTEGRATED
+Visual Anchor Review Board = INTEGRATED + PARENT LINEAGE VISIBLE
 STYLE-GIR-V1 Controlled Packet = PRODUCTION READY
 Style Anchor = REFERENCE PENDING (0/5 approved)
 Character/Player Anchors = REFERENCE PENDING
@@ -494,6 +531,6 @@ Human Gate = FAIL
 Stage 08 = BLOCKED
 ```
 
-다음 실제 visual-production 행동은 `handoff/STAGE07_5_STYLE_GIR_V1_REFERENCE_PACKET.md`, 새 derivation contract, `?anchors=1`을 기준으로 STYLE-GIR-V1의 controlled references를 제작·검토하는 것이다. 이 상태 업데이트 자체는 어떤 image도 승인하지 않는다.
+다음 실제 visual-production 행동은 `handoff/STAGE07_5_STYLE_GIR_V1_REFERENCE_PACKET.md`, exact derivation/anatomy contracts, `?anchors=1`을 기준으로 STYLE-GIR-V1의 controlled references를 제작·검토하는 것이다. 이 상태 업데이트 자체는 어떤 image도 승인하지 않는다.
 
-# **장면 수보다 동일인물·동일 Player body·모체 파생·접촉·세계 구조 일관성을 우선한다.**
+# **장면 수보다 동일인물·동일 Player body·exact canonical ratio·모체 파생·접촉·세계 구조 일관성을 우선한다.**

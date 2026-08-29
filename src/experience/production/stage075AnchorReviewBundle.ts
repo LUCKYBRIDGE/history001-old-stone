@@ -213,6 +213,41 @@ export function getStage075AnchorReviewBundle(anchorId: Stage075AnchorReviewBund
   return STAGE075_ANCHOR_REVIEW_BUNDLES.find((bundle) => bundle.anchorId === anchorId) ?? null;
 }
 
+export function getStage075AnchorBundleLineageIssues(bundle: Stage075AnchorReviewBundle) {
+  const issues: string[] = [];
+  const slotIndexById = new Map<string, number>();
+
+  bundle.slots.forEach((item, index) => {
+    if (slotIndexById.has(item.id)) {
+      issues.push(`${item.id}:duplicate-slot-id`);
+      return;
+    }
+    slotIndexById.set(item.id, index);
+  });
+
+  bundle.slots.forEach((item, index) => {
+    if (!item.parentSlotId) {
+      return;
+    }
+
+    const parentIndex = slotIndexById.get(item.parentSlotId);
+    if (parentIndex === undefined) {
+      issues.push(`${item.id}:missing-parent:${item.parentSlotId}`);
+      return;
+    }
+
+    if (parentIndex >= index) {
+      issues.push(`${item.id}:parent-must-precede-child:${item.parentSlotId}`);
+    }
+  });
+
+  return issues;
+}
+
+export function isStage075AnchorBundleLineageValid(bundle: Stage075AnchorReviewBundle) {
+  return getStage075AnchorBundleLineageIssues(bundle).length === 0;
+}
+
 export function getStage075AnchorBundleProgress(bundle: Stage075AnchorReviewBundle) {
   const required = bundle.slots.filter((item) => item.required);
   const approved = required.filter((item) => Boolean(item.approvedPath));
@@ -227,7 +262,11 @@ export function getStage075AnchorBundleProgress(bundle: Stage075AnchorReviewBund
 
 export function isStage075AnchorReviewBundleComplete(bundle: Stage075AnchorReviewBundle) {
   const progress = getStage075AnchorBundleProgress(bundle);
-  return progress.required > 0 && progress.approved === progress.required;
+  return (
+    isStage075AnchorBundleLineageValid(bundle) &&
+    progress.required > 0 &&
+    progress.approved === progress.required
+  );
 }
 
 export function getStage075AnchorBundleApprovedPaths(bundle: Stage075AnchorReviewBundle) {

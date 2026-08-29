@@ -3,8 +3,11 @@ import { describe, expect, it } from 'vitest';
 import { Stage075VisualAnchorReviewBoard } from '../../src/experience/production/Stage075VisualAnchorReviewBoard';
 import {
   STAGE075_ANCHOR_REVIEW_BUNDLES,
+  getStage075AnchorBundleLineageIssues,
   getStage075AnchorBundleProgress,
   getStage075AnchorReviewBundle,
+  isStage075AnchorBundleLineageValid,
+  isStage075AnchorReviewBundleComplete,
   type Stage075AnchorReviewBundle,
 } from '../../src/experience/production/stage075AnchorReviewBundle';
 import {
@@ -124,6 +127,35 @@ describe('Stage 07.5 visual anchor review board', () => {
     }
   });
 
+  it('requires every derived slot parent to exist and precede the child', () => {
+    for (const bundle of STAGE075_ANCHOR_REVIEW_BUNDLES) {
+      expect(getStage075AnchorBundleLineageIssues(bundle), bundle.anchorId).toEqual([]);
+      expect(isStage075AnchorBundleLineageValid(bundle), bundle.anchorId).toBe(true);
+    }
+  });
+
+  it('blocks bundle completion when a derivative parent is missing or appears after the child', () => {
+    const source = getStage075AnchorReviewBundle('PLAYER-HUNT-BODY-V1');
+    expect(source).toBeTruthy();
+
+    const approvedSlots = source!.slots.map((slot) => ({
+      ...slot,
+      approvedPath: slot.plannedRepositoryPath,
+    }));
+
+    const invalid: Stage075AnchorReviewBundle = {
+      ...source!,
+      slots: approvedSlots.map((slot) =>
+        slot.id === 'right-palm' ? { ...slot, parentSlotId: 'missing-parent' } : slot,
+      ),
+    };
+
+    expect(getStage075AnchorBundleLineageIssues(invalid)).toContain(
+      'right-palm:missing-parent:missing-parent',
+    );
+    expect(isStage075AnchorReviewBundleComplete(invalid)).toBe(false);
+  });
+
   it('keeps the first anchor review bundles incomplete until approved master files are registered', () => {
     for (const bundle of STAGE075_ANCHOR_REVIEW_BUNDLES) {
       const progress = getStage075AnchorBundleProgress(bundle);
@@ -158,6 +190,19 @@ describe('Stage 07.5 visual anchor review board', () => {
       ),
     };
     expect(isStage075StyleAnchorApproved(approvedStyle, incompleteBundle)).toBe(false);
+  });
+
+  it('renders canonical-ratio policy and visible parent lineage before image production', () => {
+    render(<Stage075VisualAnchorReviewBoard />);
+
+    const policy = screen.getByTestId('canonical-ratio-policy');
+    expect(policy.textContent).toContain('7.2-head canonical character does not become 6.8-head or 7.5-head');
+    expect(policy.textContent).toContain('Perspective, foreshortening, pose and crop');
+
+    expect(screen.getByTestId('slot-parent-PLAYER-HUNT-BODY-V1-canonical-body').textContent).toContain('structural-scaffold');
+    expect(screen.getByTestId('slot-parent-PLAYER-HUNT-BODY-V1-right-palm').textContent).toContain('canonical-body');
+    expect(screen.getByTestId('slot-parent-ARU-IDENTITY-V1-canonical-identity').textContent).toContain('structural-scaffold');
+    expect(screen.getByTestId('slot-parent-ARU-IDENTITY-V1-front').textContent).toContain('canonical-identity');
   });
 
   it('renders controlled STYLE-GIR-V1 production briefs, anatomy and downstream readiness without production images', () => {

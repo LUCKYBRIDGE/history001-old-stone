@@ -43,10 +43,11 @@ Project-owner Scene Confirmation = PASS
 Responsive Raster Contract = READY
 Visual Identity/Layering/Derivation Policy = SPEC LOCKED
 Functional Anatomy / Stylized Proportion Policy = SPEC LOCKED
+Exact Canonical Ratio Inheritance = SPEC LOCKED
 Raster Media Adapter = INTEGRATED
 Visual Continuity Registry = INTEGRATED
 Anatomy / Contact Registry = INTEGRATED
-Visual Anchor Review Board = INTEGRATED
+Visual Anchor Review Board = INTEGRATED + PARENT LINEAGE VISIBLE
 STYLE-GIR-V1 Controlled Packet = PRODUCTION READY
 Approved Style Anchors = 0
 Approved Anatomy Contracts = 0
@@ -98,10 +99,12 @@ Do not reopen these unless a concrete contradiction is found.
 - **Functional anatomy is mandatory; photographic 6-head / 7-head / 8-head body convention is not a requirement.**
 - A hero/Player body may use intentionally stylized canonical proportions, including relatively larger/smaller head, shorter/longer torso or limbs, or mildly emphasized hands/feet, as long as joints/reach/balance/contact remain functional and STYLE-GIR-V1 is preserved.
 - Body proportions are not chosen from a textbook head-count target first. Use `structural scaffold → canonical body/identity master → derivatives → measured proportion contract`.
-- Once the canonical body/identity master is approved, its own head/body, shoulder/pelvis, limb, hand/foot and mass relationships become P0 identity.
+- **Once approved, the canonical ratios are exact P0 identity.** If a canonical neutral master is measured at 7.2 heads, later front/side/back/seated/walking/contact derivatives remain the same underlying 7.2 body rather than becoming 6.8 or 7.5.
+- Perspective, foreshortening, pose, camera/FOV and crop may change apparent screen-space proportions. They never authorize a new underlying body ratio.
+- Derivatives are validated against the canonical structural scaffold and normalized ratio contract, not by treating a perspective-distorted screen silhouette as a new body design.
 - Reusable hero-character / Player-body / recurring-item masters default to transparent alpha or extraction-safe source + transparent derivative.
 - STYLE-GIR proof references may include simple contextual background because they test actor/world integration; they are not reusable cutout masters by default.
-- Hero characters are P0 identities: face + hair silhouette + canonical body proportion/mass + garment silhouette/material zones must remain the same approved person.
+- Hero characters are P0 identities: face + hair silhouette + exact canonical body proportion/mass + garment silhouette/material zones must remain the same approved person.
 - Player hands/arms/feet/ankles are one P0 body identity and must derive from the same `PLAYER-HUNT-BODY-V1` master family.
 - Same handaxe must preserve morphology, scale and fingerprint.
 - Same world must preserve major geography, landmark and world-space light relationships.
@@ -118,6 +121,8 @@ Governing rules:
 # **Do not regenerate what can be derived from an approved master.**
 
 # **Functional anatomy is mandatory. Photographic proportion convention is not.**
+
+# **Choose proportions freely before approval; inherit them exactly after approval.**
 
 ---
 
@@ -143,9 +148,9 @@ Required order:
 0. STYLE-GIR-V1 reference packet
 1. DAY1-HANDAXE-V1 morphology + scale packet
 2. PLAYER-HUNT-BODY-V1 structural scaffold + canonical body master + body derivatives
-3. PLAYER-HUNT-BODY-PROP-V1 measured anatomy/proportion contract
+3. PLAYER-HUNT-BODY-PROP-V1 measured exact anatomy/proportion contract
 4. ARU-IDENTITY-V1 structural scaffold + canonical identity master + turnaround derivatives
-5. ARU-PROP-V1 measured anatomy/proportion contract
+5. ARU-PROP-V1 measured exact anatomy/proportion contract
 6. SC02-HANDOFF-GEO-V1 contact geometry master
 7. SC02 unified-contact state master + crop-first L / TP / PP proof
 8. DAMU-IDENTITY-V1 + DAMU-PROP-V1
@@ -167,6 +172,8 @@ Machine-readable required slots:
 - `src/experience/production/stage075VisualProductionPolicy.ts`
 - `src/experience/production/stage075AnatomyRegistry.ts`
 
+`stage075AnchorReviewBundle.ts` enforces lineage integrity: every `parentSlotId` must exist and must occur before its child. A bundle with missing/reversed parent lineage cannot be complete.
+
 Dev-only review UI:
 
 ```text
@@ -178,6 +185,12 @@ Expected local URL example:
 ```text
 http://localhost:5173/?anchors=1
 ```
+
+The Review Board visibly shows:
+
+- exact canonical-ratio policy,
+- structural→canonical→derivative production order,
+- every derivative slot's `Derived from` parent.
 
 The first bundles are:
 
@@ -200,31 +213,36 @@ The first bundles are:
 
 ## PLAYER-HUNT-BODY-V1
 
-- structural scaffold / neutral body reference
-- right palm / dorsum
-- left palm / dorsum
-- forearm neutral
-- right foot / ankle
-- left foot / ankle
-- receive reach
-- handaxe grip
-- ground brace
-- rock brace
-- crouch body edge
-- walk carry
+```text
+structural-scaffold
+→ canonical-body
+→ right palm / dorsum
+→ left palm / dorsum
+→ forearm neutral
+→ right foot / ankle
+→ left foot / ankle
+→ receive reach
+→ handaxe grip
+→ ground brace
+→ rock brace
+→ crouch body edge
+→ walk carry
+```
 
-All visible Player limb derivatives must read as one approved body family.
+All visible Player limb derivatives must inherit from `canonical-body` and read as one exact approved body family.
 
 ## ARU-IDENTITY-V1
 
-- structural scaffold
-- one canonical full-body 3/4 identity master
-- front / back derivatives
-- opposite 3/4 derivative
-- side left / right derivatives
-- seated derivative
-- offer-handaxe derivative
-- hand reference
+```text
+structural-scaffold
+→ canonical-identity (one full-body 3/4 master)
+→ front / back
+→ opposite 3/4
+→ side left / right
+→ seated
+→ offer-handaxe
+→ hand reference
+```
 
 No bundle is approved until the required actual master/reference files exist and are reviewed.
 
@@ -291,6 +309,8 @@ Unresolved ANAT/GEO drift in a hero/contact asset is P1 reject. `ANAT-HEAD-BODY`
 
 Numeric production ratios should be measured from an approved canonical master, not invented as archaeological population facts and not imposed from a conventional 6/7/8-head adult chart.
 
+Once measured, `canonical-head-count`, head/body relationship, limb segment ratios, hand/foot ratios and mass relationships are exact canonical identity values. The apparent ratio may change under projection; the underlying ratios may not.
+
 ---
 
 # 10. SC02 contact dependency
@@ -328,6 +348,8 @@ For each SC02 state master, responsive L/TP/PP uses crop first; a separate respo
 - Do not independently generate a front/side/back/action character packet and average it into one person.
 - Do not independently regenerate Player hands/arms/feet after body lock.
 - Do not impose a 6/7/8-head adult target as the realism/anatomy gate.
+- Do not change an approved canonical head-count or normalized body ratio between derivatives.
+- Do not explain a 7.2→6.8 body redesign away as pose/style variation; only projection may change apparent measurements.
 - Do not trust prompt text such as `same Aru as before` as an asset-management strategy.
 - Do not put generated UI, captions or buttons inside scene raster art.
 - Do not accept a nice-looking frame if identity/anatomy/contact/world continuity is wrong.
@@ -344,7 +366,13 @@ For each SC02 state master, responsive L/TP/PP uses crop first; a separate respo
 
 # 12. Recommended next-session action
 
-First inspect the latest GitHub `main`, open/read `?anchors=1` implementation, and verify the first-bundle definitions plus `stage075VisualProductionPolicy.ts` / `stage075AnatomyRegistry.ts`.
+First inspect the latest GitHub `main`, open/read `?anchors=1`, and verify:
+
+- exact canonical-ratio policy,
+- parent lineage display,
+- `stage075AnchorReviewBundle.ts` lineage integrity,
+- `stage075VisualProductionPolicy.ts`,
+- `stage075AnatomyRegistry.ts`.
 
 Then proceed with the **first actual Visual Anchor Reference Packet**, beginning with `STYLE-GIR-V1`, only when image production is explicitly being performed.
 
@@ -368,7 +396,7 @@ After a candidate is accepted by the project owner:
 
 Before ending the next session:
 
-- reconcile `AGENTS.md`, `docs/00_CANONICAL_BASELINE.md`, `PROJECT_STATUS.md`, `handoff/CURRENT_HANDOFF.md`, and this file if the Gate changed,
+- reconcile `AGENTS.md`, `docs/00_CANONICAL_BASELINE.md`, `PROJECT_STATUS.md`, `handoff/CURRENT_HANDOFF.md`, and this file if the Gate or production policy changed,
 - verify exact main SHA,
 - verify main CI,
 - do not leave a completed current-stage task described as future work,
