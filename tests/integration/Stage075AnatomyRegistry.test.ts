@@ -19,6 +19,30 @@ describe('Stage 07.5 anatomy and contact registry', () => {
     }
   });
 
+  it('measures hero proportions from canonical masters instead of imposing 6/7/8-head targets', () => {
+    for (const id of ['ARU-PROP-V1', 'DAMU-PROP-V1', 'NUA-PROP-V1'] as const) {
+      const contract = getStage075AnatomyContract(id);
+      expect(contract).toBeTruthy();
+      expect(contract?.proportionKeys).toContain('head-height/H');
+      expect(contract?.proportionKeys).toContain('shoulder-width/H');
+      expect(contract?.proportionKeys).toContain('upper-arm/H');
+      expect(contract?.proportionKeys).toContain('forearm/H');
+      expect(contract?.proportionKeys).toContain('thigh/H');
+      expect(contract?.proportionKeys).toContain('shin/H');
+      expect(contract?.immutableRules.join(' ')).toContain('6/7/8등신');
+      expect(contract?.forbiddenDriftCodes).toContain('ANAT-HEAD-BODY');
+    }
+  });
+
+  it('keeps Player feet and ankles inside the same measured body family as hands and arms', () => {
+    const player = getStage075AnatomyContract('PLAYER-HUNT-BODY-PROP-V1');
+    expect(player).toBeTruthy();
+    expect(player?.proportionKeys).toContain('foot-length');
+    expect(player?.proportionKeys).toContain('ankle-width');
+    expect(player?.forbiddenDriftCodes).toContain('ANAT-FOOT-SCALE');
+    expect(player?.immutableRules.join(' ')).toContain('canonical body master');
+  });
+
   it('requires every raster anatomy dependency to resolve', () => {
     for (const record of STAGE075_RASTER_MANIFEST) {
       for (const contractId of record.requiredAnatomyContractIds) {
