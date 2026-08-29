@@ -10,6 +10,7 @@ Depends on:
 
 - `handoff/STAGE07_5_STYLE_ANCHOR_BIBLE.md`
 - `handoff/STAGE07_5_CHARACTER_IDENTITY_ANCHOR_BIBLE.md`
+- `handoff/STAGE07_5_FUNCTIONAL_ANATOMY_AND_STYLIZED_PROPORTION_POLICY.md`
 - `handoff/STAGE07_5_OBJECT_CONTINUITY_BIBLE.md`
 - `handoff/STAGE07_5_WORLD_CONTINUITY_BIBLE.md`
 - `handoff/STAGE07_5_VISUAL_GENERATION_AND_REVIEW_PROTOCOL.md`
@@ -24,7 +25,7 @@ A character master is not a face reference.
 A usable master packet must lock:
 
 - skeleton proportions,
-- head-to-body ratio,
+- head-to-body ratio selected for that canonical design,
 - shoulder/torso/pelvis relationship,
 - arm/forearm/hand relationship,
 - thigh/shin/foot relationship,
@@ -37,54 +38,103 @@ A usable master packet must lock:
 
 Scene assets may vary pose, camera, crop and lighting. They may not silently redesign anatomy.
 
+# **Functional anatomy is mandatory. Photographic 6-head / 7-head / 8-head proportion convention is not.**
+
 ---
 
 # 2. Production-neutral anatomical policy
 
-Do not lock a modern population stereotype, exact hominin species morphology, exact age, or exact sex without evidence.
+Do not lock a modern population stereotype, exact hominin species morphology, exact age, exact sex, or conventional textbook/fashion head-count target without a production reason.
 
-Therefore these constraints are **relative production constraints**, not claims about a single archaeologically proven body type.
+Therefore these constraints are **relative production constraints**, not claims about a single archaeologically proven body type and not instructions to reproduce a modern photographic adult proportion chart.
 
-Use:
+Required:
 
-- natural human skeletal logic,
+- mechanically plausible skeletal/joint logic,
 - believable joint articulation,
-- moderate non-heroic body proportions,
+- coherent reach and contact geometry,
+- stable center-of-mass/balance,
+- stable character-specific proportion fingerprint,
 - no exaggerated primitive/caveman anatomy,
-- no fashion-illustration long limbs,
-- no superhero shoulder/torso proportions,
-- no childlike chibi head scale.
+- no superhero/fashion-illustration anatomy imposed only to look impressive,
+- no chibi/bobble-head caricature,
+- no arbitrary limb stretching to fit a frame.
 
-The goal is stable believable embodiment, not a pseudo-scientific reconstruction of a specific individual.
+Allowed after deliberate master design and Project-owner review:
+
+- relatively larger or smaller head,
+- shorter or longer torso,
+- shorter or longer limbs,
+- slightly emphasized hands or feet,
+- broader or narrower shoulder-to-pelvis relationship,
+- compact or elongated overall silhouette.
+
+The goal is stable believable **functional embodiment**, not photographic body-proportion conformity.
+
+No candidate fails merely because it is not 6/7/8 heads tall. It fails when anatomy cannot function, identity changes, or the design leaves STYLE-GIR-V1.
 
 ---
 
-# 3. Required Master Packet — Player Hunt Body
+# 3. Master creation order — structure first, identity second
+
+Do not independently generate front / side / back / action images and then try to average them into one person.
+
+Hero-character order:
+
+```text
+STRUCTURAL SCAFFOLD
+→ CANONICAL IDENTITY MASTER
+→ APPEARANCE / GARMENT LOCK
+→ TURNAROUND DERIVATIVES
+→ MOTION / CONTACT DERIVATIVES
+→ MEASURED PROPORTION CONTRACT
+```
+
+Player order:
+
+```text
+PLAYER STRUCTURAL SCAFFOLD
+→ PLAYER NEUTRAL BODY MASTER
+→ HAND / ARM / FOOT / ANKLE REFERENCE DERIVATIVES
+→ ACTION DERIVATIVES
+→ MEASURED PROPORTION CONTRACT
+```
+
+The structural scaffold locks joints, segment relationships, reach envelope, center-of-mass logic and intended silhouette family.
+The canonical identity/body master locks the actual approved fictional design.
+Numeric ratios are measured **after** that approval and then become production locks.
+
+---
+
+# 4. Required Master Packet — Player Hunt Body
 
 Anchor: `PLAYER-HUNT-BODY-V1`
 
-## 3.1 Required master views
+## 4.1 Required master views
 
 Before approval, the packet must include:
 
-1. first-person neutral standing hand/forearm reference,
-2. right-hand palm and dorsum reference,
-3. left-hand palm and dorsum reference,
-4. right forearm relaxed,
-5. right forearm reaching,
-6. right hand closed around `DAY1-HANDAXE-V1` grip-base,
-7. left hand ground-brace pose,
-8. left hand rock-brace pose,
-9. seated lower-body edge reference,
-10. crouched knee/forearm relationship reference,
-11. walking-carry view,
-12. receive-tool view.
+1. Player structural scaffold / neutral body proportion reference,
+2. first-person neutral standing hand/forearm reference,
+3. right-hand palm and dorsum reference,
+4. left-hand palm and dorsum reference,
+5. right forearm relaxed,
+6. right forearm reaching,
+7. right hand closed around `DAY1-HANDAXE-V1` grip-base,
+8. left hand ground-brace pose,
+9. left hand rock-brace pose,
+10. right foot/ankle reference,
+11. left foot/ankle reference,
+12. seated lower-body edge reference,
+13. crouched knee/forearm relationship reference,
+14. walking-carry view,
+15. receive-tool view.
 
-## 3.2 Immutable body relationships
+## 4.2 Immutable body relationships
 
-The approved master must record normalized ratios using `palm-length = 1.00` as local reference.
+The approved master must record normalized ratios using `palm-length = 1.00` as a useful local hand reference, plus foot/ankle relationships where visible.
 
-Required fields:
+Required fields include:
 
 ```text
 palm-length                 = 1.00
@@ -93,34 +143,37 @@ palm-width                  = locked ratio
 wrist-width                 = locked ratio
 visible-forearm-length      = locked ratio by pose family
 handaxe-grip-width          = locked against DAY1-HANDAXE-V1
+foot-length                 = locked local ratio
+ankle-width                 = locked local ratio
 ```
 
-Do not hard-code archaeological claims into these ratios. Lock the chosen production body after review, then enforce it consistently.
+Do not invent these numbers first. Measure the chosen approved Player body, record the result, then enforce it consistently.
 
-## 3.3 First-person perspective rules
+## 4.3 First-person perspective rules
 
 - Hand size must be consistent with camera/FOV, not enlarged for readability without documenting a camera change.
 - Two symmetric arms at the lower edge are forbidden as a default HUD pose.
 - A hand enters frame because an action requires it.
 - Wrist articulation must stay within believable joint range.
 - Forearm foreshortening must come from camera geometry, not arbitrary per-scene scaling.
+- Feet/ankles, when visible, must belong to the same Player body family as the hands/arms.
 - Skin/contamination range must stay within the approved master packet.
-- Garment cuff/sleeve edge, if visible, must not change silhouette between scenes without an in-world cause.
+- Garment cuff/sleeve/ankle edge, if visible, must not change silhouette between scenes without an in-world cause.
 
 ---
 
-# 4. Required Master Packet — Aru / Damu / Nua
+# 5. Required Master Packet — Aru / Damu / Nua
 
-Each hero character requires a complete turnaround/proportion sheet before scene-specific production.
+Each hero character requires a coherent canonical identity/body master and derived turnaround/proportion sheet before scene-specific production.
 
 Required views:
 
-1. full-body front,
-2. full-body back,
-3. 3/4 left,
-4. 3/4 right,
-5. strict left profile,
-6. strict right profile,
+1. canonical full-body 3/4 identity master,
+2. full-body front derivative,
+3. full-body back derivative,
+4. opposite 3/4 derivative,
+5. strict left profile derivative,
+6. strict right profile derivative,
 7. seated neutral,
 8. low crouch,
 9. walking stride,
@@ -128,7 +181,9 @@ Required views:
 11. hand close-up,
 12. head silhouette strip.
 
-## 4.1 Skeleton landmarks to lock
+Every derivative must inherit from the same structural scaffold + canonical identity master. A view that becomes another person/body is rejected even when the face remains superficially similar.
+
+## 5.1 Skeleton landmarks to lock
 
 Each packet must explicitly mark:
 
@@ -144,24 +199,30 @@ Each packet must explicitly mark:
 - foot length,
 - center-of-mass reference.
 
-The sheet should use a neutral height unit `H = 1.00` and record relative vertical landmarks.
+The sheet should use a neutral height unit `H = 1.00` and record relative landmarks from the approved design.
 
 Example schema:
 
 ```text
 character-height H = 1.00
-head-height          = locked
-shoulder-y           = locked
-pelvis-y             = locked
-knee-y               = locked
-arm-span / H         = locked
-hand-length / H      = locked
-foot-length / H      = locked
+head-height / H      = measured from approved master
+shoulder-width / H   = measured from approved master
+shoulder-y / H       = measured from approved master
+pelvis-y / H         = measured from approved master
+knee-y / H           = measured from approved master
+arm-span / H         = measured from approved master
+upper-arm / H        = measured from approved master
+forearm / H          = measured from approved master
+hand-length / H      = measured from approved master
+thigh / H            = measured from approved master
+shin / H             = measured from approved master
+foot-length / H      = measured from approved master
 ```
 
-The numeric values are chosen after master review. They are production locks, not historical population statistics.
+There is no required `heads tall` value.
+If head-count is later recorded for convenience, it is descriptive metadata for the approved fictional design only, not a target and not a historical population statistic.
 
-## 4.2 Movement identity
+## 5.2 Movement identity
 
 Aru:
 
@@ -188,7 +249,34 @@ These movement habits are identity constraints. They may not be reinterpreted in
 
 ---
 
-# 5. Pose Family IDs
+# 6. Canonical proportion fingerprint
+
+After a Player or hero master is approved, its own chosen proportions become P0 identity.
+
+Allowed changes:
+
+- pose,
+- expression,
+- gaze,
+- perspective foreshortening,
+- camera distance,
+- minor cloth/hair deformation.
+
+Not allowed:
+
+- head/body ratio reset,
+- shoulder/pelvis width-family reset,
+- upper-arm/forearm relationship change,
+- thigh/shin relationship change,
+- hand/foot scale-family reset,
+- body-mass distribution becoming another body,
+- front/side/back turnaround using incompatible skeleton proportions.
+
+A candidate that looks like the same face placed on a different body is a P0 identity failure.
+
+---
+
+# 7. Pose Family IDs
 
 Player:
 
@@ -241,7 +329,7 @@ A new pose that cannot be derived from an approved family requires a new pose re
 
 ---
 
-# 6. Camera / body interaction
+# 8. Camera / body interaction
 
 Body proportion validation is meaningless without camera validation.
 
@@ -256,9 +344,11 @@ Every body/contact candidate must record:
 
 Reject if a candidate appears to fix composition by simply enlarging/shrinking a limb independently of the camera.
 
+A stylized canonical body may project differently under perspective; camera projection does not authorize changing the underlying master ratios.
+
 ---
 
-# 7. Anatomy Drift Codes
+# 9. Anatomy Drift Codes
 
 ```text
 ANAT-HAND-SCALE      hand size changed relative to forearm/object
@@ -269,41 +359,48 @@ ANAT-SHOULDER        shoulder width/placement drift
 ANAT-TORSO           torso length/volume drift
 ANAT-PELVIS          pelvis/hip relationship drift
 ANAT-LEG-LENGTH      thigh/shin relationship drift
+ANAT-FOOT-SCALE      foot/ankle scale changed relative to Player/body master
+ANAT-HEAD-BODY       canonical head/body proportion changed between derivatives
 ANAT-COM             impossible center-of-mass / balance
 ANAT-FOV             limb scale changed because FOV/camera was not preserved
 ANAT-POSE-ID         pose no longer matches approved pose-family skeleton
 ```
 
-`ANAT-*` is a P1 reject for hero/contact assets.
+`ANAT-*` is a P1 structural reject for hero/contact assets; `ANAT-HEAD-BODY` that makes a hero/Player read as a different body is also a P0 identity failure.
 
 ---
 
-# 8. Approval packet checklist
+# 10. Approval packet checklist
 
 A master body/character anchor cannot reach `anchor-approved` until:
 
-- turnaround views agree,
-- limb ratios agree,
-- hands agree,
-- pose-family silhouettes agree,
+- structural scaffold exists,
+- one canonical body/identity master is selected,
+- turnaround views are derivatives of that same master family,
+- limb ratios agree with the measured canonical proportion fingerprint,
+- hands/feet agree with the same body family,
+- pose-family silhouettes remain coherent,
 - garment silhouette does not hide anatomy drift,
 - L/TP/PP test framing does not require anatomy rescaling,
+- no required 6/7/8-head target was imposed as a realism gate,
 - no `ANAT-*` P1 remains,
 - source/master file path is recorded.
 
 ---
 
-# 9. Current lock order
+# 11. Current lock order
 
 ```text
 STYLE-GIR-V1
 → DAY1-HANDAXE-V1 morphology/scale
-→ PLAYER-HUNT-BODY-V1 anatomy packet
-→ ARU-IDENTITY-V1 anatomy/turnaround packet
+→ PLAYER-HUNT-BODY-V1 structural scaffold + canonical body master
+→ PLAYER-HUNT-BODY-PROP-V1 measured contract
+→ ARU-IDENTITY-V1 structural scaffold + canonical identity master + derivatives
+→ ARU-PROP-V1 measured contract
 → SC02 Contact Geometry Master
 → DAMU-IDENTITY-V1
 → NUA-IDENTITY-V1
 → remaining scene families
 ```
 
-This order minimizes cascading rework.
+This order minimizes cascading rework and prevents multi-image identity averaging.
