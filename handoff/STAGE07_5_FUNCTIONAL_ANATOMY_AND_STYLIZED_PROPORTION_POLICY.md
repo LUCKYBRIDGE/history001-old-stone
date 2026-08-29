@@ -35,7 +35,17 @@ The governing rule is:
 
 And:
 
-# **Once a canonical body proportion is approved, that proportion becomes identity.**
+# **Once a canonical body proportion is approved, that exact proportion becomes identity.**
+
+Example:
+
+```text
+If an approved fictional character measures 7.2 heads tall in the canonical neutral master,
+7.2 is thereafter the canonical head/body fingerprint for that identity.
+A later 6.8-head or 7.5-head underlying body is not harmless variation; it is identity drift.
+```
+
+The project is flexible about **which** proportion is selected, but strict about preserving that selected proportion afterward.
 
 ---
 
@@ -78,9 +88,11 @@ These choices are allowed when all of the following remain true:
 4. every later view/pose derives from the same proportion master;
 5. camera framing does not silently alter the underlying proportions.
 
+Stylization freedom exists **before approval**. After approval, the selected canonical ratio set is immutable unless the Project-owner explicitly opens a new identity revision.
+
 ---
 
-# 4. No universal head-count target
+# 4. No universal head-count target, but exact per-character lock
 
 Do **not** assign a required `heads tall` value before the identity/body master is selected.
 
@@ -90,12 +102,30 @@ The workflow is:
 structural scaffold
 → canonical body/identity master
 → project-owner approval
-→ measure the approved design
+→ measure the approved design once
 → record normalized production ratios
-→ derive all later views/poses from those ratios
+→ lock one canonical proportion fingerprint
+→ derive all later views/poses from that same fingerprint
 ```
 
-If a useful descriptive head-count is recorded after approval, it is only a measurement of that approved fictional design. It is not a target that the design must conform to and not a historical claim.
+If a useful descriptive head-count is recorded after approval, it becomes part of that approved fictional design's canonical metadata.
+
+Example:
+
+```text
+ARU canonical head-count = 7.2
+```
+
+means:
+
+```text
+front / back / 3Q / side / seated / walking / handoff
+all use the same underlying 7.2 canonical body structure.
+```
+
+It does **not** mean every rendered silhouette must measure 7.2 heads directly on screen. Perspective, pose, foreshortening, crop, partial occlusion and camera pitch can change the visible projection. Those effects must come from the same underlying canonical scaffold rather than from redesigning the body.
+
+A derivative must never create a new head-count merely because the generated image happens to look better at that proportion.
 
 ---
 
@@ -117,7 +147,7 @@ A skeleton/body scaffold does not itself define visual identity.
 - face/head identity,
 - hair silhouette,
 - body mass distribution,
-- canonical body proportions,
+- exact canonical body proportions,
 - garment silhouette,
 - overall character silhouette.
 
@@ -148,7 +178,7 @@ Do not independently generate a packet of front/side/back/action images and then
 
 # 6. Canonical proportion fingerprint
 
-After approval, record the chosen body's own normalized ratios.
+After approval, record the chosen body's exact normalized ratios.
 
 For hero characters, use `H = 1.00` as the whole-body normalization unit and record at minimum:
 
@@ -167,13 +197,72 @@ shin / H
 foot-length / H
 ```
 
+Optionally record a descriptive canonical head-count:
+
+```text
+canonical-head-count = H / head-height
+```
+
 For Player first-person limbs, use local reference units such as palm length and foot length where more practical.
 
-These numbers are **derived from the approved master**, never invented first and imposed on it.
+These numbers are **derived from the approved master once**, never invented first and never re-measured into a different canonical fingerprint for each derivative.
+
+Rule:
+
+# **One identity → one canonical proportion fingerprint.**
+
+If a derivative implies a different underlying ratio set, the derivative is wrong. The master is not silently updated to match it.
 
 ---
 
-# 7. Identity priority
+# 7. Canonical ratio vs apparent projected ratio
+
+This distinction is mandatory.
+
+## Canonical ratio
+
+The underlying body structure stored in the approved scaffold/master.
+
+Examples:
+
+- canonical head/body ratio,
+- upper-arm/forearm ratio,
+- thigh/shin ratio,
+- hand/forearm ratio,
+- foot/leg ratio.
+
+These are P0 identity locks and remain unchanged.
+
+## Apparent projected ratio
+
+What can be measured directly from a particular rendered frame after:
+
+- perspective,
+- foreshortening,
+- pose,
+- camera pitch/yaw,
+- crop,
+- partial occlusion.
+
+Apparent projected measurements may differ without implying a new body.
+
+Therefore review must not say:
+
+```text
+"this seated image measures only 6.8 heads on screen, so redefine the character as 6.8 heads"
+```
+
+Instead review asks:
+
+```text
+"does this image remain geometrically explainable as the same approved canonical scaffold under this pose/camera?"
+```
+
+If yes, the identity is intact. If no, reject the derivative as proportion drift.
+
+---
+
+# 8. Identity priority
 
 For Aru / Damu / Nua, body proportion is part of P0 identity.
 
@@ -190,18 +279,21 @@ The same character may change:
 The same character may **not** change:
 
 - canonical head/body relationship,
-- shoulder/pelvis width family,
+- canonical head-count if recorded,
+- shoulder/pelvis width relationship,
 - upper-arm/forearm relationship,
 - thigh/shin relationship,
-- hand and foot scale family,
+- hand and foot scale relationship,
 - body-mass distribution,
 - underlying skeletal silhouette.
 
 If a candidate looks like the same face placed on a different body, it is a P0 identity failure.
 
+A 7.2-head canonical character becoming an underlying 6.8-head body is explicitly a P0 failure even if the face is otherwise identical.
+
 ---
 
-# 8. Player embodiment priority
+# 9. Player embodiment priority
 
 `PLAYER-HUNT-BODY-V1` is one body, not a collection of unrelated first-person limbs.
 
@@ -218,13 +310,15 @@ The following must all derive from the same approved Player structural/body mast
 - ankles,
 - recurring wrist/ankle garment edges.
 
-A Player hand that becomes larger only because a scene needs readability is not acceptable unless the difference is explained by camera/FOV and remains geometrically coherent.
+The Player may use stylized proportions, but once its canonical hand/arm/leg/foot ratios are approved, those ratios are exact identity locks.
+
+A Player hand that becomes larger only because a scene needs readability is not acceptable unless the difference is fully explained by camera/FOV projection and the underlying canonical hand/arm relationship remains unchanged.
 
 ---
 
-# 9. Stylization boundary
+# 10. Stylization boundary
 
-Allowed:
+Allowed before canonical approval:
 
 - intentionally compact body,
 - intentionally larger readable head,
@@ -232,8 +326,17 @@ Allowed:
 - non-photographic silhouette proportions,
 - simplified surface anatomy.
 
-Reject:
+Allowed after approval:
 
+- pose change,
+- perspective/foreshortening,
+- camera-distance change,
+- expression and surface-level variation that does not change the canonical scaffold.
+
+Reject after approval:
+
+- canonical head-count drift,
+- canonical normalized-ratio drift,
 - chibi proportions,
 - bobble-head caricature,
 - rubber-hose limbs,
@@ -243,25 +346,27 @@ Reject:
 - limb stretching/compression to fit portrait layout,
 - a different head/body ratio between front and side turnaround views.
 
-The boundary is not `realistic head count`; the boundary is **functional anatomy + stable identity + STYLE-GIR-V1 coherence**.
+The boundary is not `realistic head count`; the boundary is **functional anatomy + exact canonical identity + STYLE-GIR-V1 coherence**.
 
 ---
 
-# 10. Review decision rule
+# 11. Review decision rule
 
 When reviewing a body candidate, ask in this order:
 
 1. Does it read as the same approved person/body?
-2. Are its joints, reach, balance and contacts functional?
-3. Does it preserve the approved canonical proportion fingerprint?
-4. Does camera/FOV explain apparent foreshortening?
+2. Does it inherit the exact canonical proportion fingerprint?
+3. Are its joints, reach, balance and contacts functional?
+4. Does camera/FOV/pose explain any apparent projected-ratio difference?
 5. Does it remain inside STYLE-GIR-V1?
 
 Do **not** ask whether the figure is sufficiently close to a textbook 7-head or 8-head adult.
 
+Do **not** accept a new underlying ratio simply because the derivative looks plausible in isolation.
+
 ---
 
-# 11. Approval effect
+# 12. Approval effect
 
 This policy does not approve any body, character, STYLE-GIR reference, or scene raster.
 
