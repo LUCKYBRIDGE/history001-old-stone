@@ -1,6 +1,8 @@
 import {
   STAGE075_ANCHOR_REVIEW_BUNDLES,
   getStage075AnchorBundleProgress,
+  getStage075AnchorSlotProductionReadiness,
+  getStage075NextGlobalProductionTarget,
 } from './stage075AnchorReviewBundle';
 import { STAGE075_ANATOMY_CONTRACTS } from './stage075AnatomyRegistry';
 import { STAGE075_RASTER_MANIFEST } from './stage075RasterManifest';
@@ -35,6 +37,8 @@ export function Stage075VisualAnchorReviewBoard() {
   const priorityAnatomyContracts = priorityAnatomyContractIds
     .map((id) => STAGE075_ANATOMY_CONTRACTS.find((contract) => contract.id === id))
     .filter((contract): contract is NonNullable<typeof contract> => Boolean(contract));
+
+  const nextGlobalProductionTarget = getStage075NextGlobalProductionTarget();
 
   return (
     <section className="anchor-review" aria-label="Stage 07.5 visual anchor review board">
@@ -77,10 +81,30 @@ export function Stage075VisualAnchorReviewBoard() {
       <section className="anchor-review__section" aria-labelledby="bundle-heading">
         <div className="anchor-review__section-heading">
           <div>
-            <p>First production bundle</p>
+            <p>Serial production queue</p>
             <h2 id="bundle-heading">Required master/reference slots</h2>
           </div>
         </div>
+
+        <div className="anchor-review__card" data-testid="next-production-target">
+          <h3>Current single production target</h3>
+          {nextGlobalProductionTarget ? (
+            <>
+              <p className="anchor-review__mono">
+                <strong>{nextGlobalProductionTarget.anchorId}</strong> → <code>{nextGlobalProductionTarget.slotId}</code>
+              </p>
+              <p>{nextGlobalProductionTarget.label}</p>
+              <code>{nextGlobalProductionTarget.plannedRepositoryPath}</code>
+              <p>
+                이 slot을 검토·승인하기 전에는 뒤쪽 slot을 batch-generate하지 않는다. 같은 identity/object family의 파생은
+                승인된 parent reference를 실제 입력으로 사용한다.
+              </p>
+            </>
+          ) : (
+            <p>No production target is currently ready. Resolve lineage or approval dependencies first.</p>
+          )}
+        </div>
+
         <div className="anchor-review__cards">
           {STAGE075_ANCHOR_REVIEW_BUNDLES.map((bundle) => {
             const progress = getStage075AnchorBundleProgress(bundle);
@@ -90,42 +114,65 @@ export function Stage075VisualAnchorReviewBoard() {
                   <h3>{bundle.reviewOrder}. {bundle.anchorId}</h3>
                   <span className="anchor-review__progress">{progress.approved}/{progress.required}</span>
                 </div>
+                <p className="anchor-review__meta">Production mode: {bundle.productionMode}</p>
                 <ul className="anchor-review__slot-list">
-                  {bundle.slots.map((item) => (
-                    <li key={item.id}>
-                      <div className="anchor-review__slot-heading">
-                        <strong>{item.label}</strong>
-                        <span className={`anchor-review__slot-state anchor-review__slot-state--${item.approvedPath ? 'approved' : 'planned'}`}>
-                          {item.approvedPath ? 'approved reference' : 'planned candidate path'}
-                        </span>
-                      </div>
-                      <span>{item.purpose}</span>
-                      {item.parentSlotId ? (
-                        <p
-                          className="anchor-review__mono"
-                          data-testid={`slot-parent-${bundle.anchorId}-${item.id}`}
-                        >
-                          <strong>Derived from:</strong> <code>{item.parentSlotId}</code>
-                        </p>
-                      ) : null}
-                      {item.candidateBrief ? (
-                        <div className="anchor-review__candidate-brief" data-testid={`candidate-brief-${bundle.anchorId}-${item.id}`}>
-                          <p><strong>Mode:</strong> <code>{item.candidateBrief.mode}</code></p>
-                          <p><strong>Controlled instruction:</strong> {item.candidateBrief.instruction}</p>
-                          <div>
-                            <strong>Review focus</strong>
-                            <ul>
-                              {item.candidateBrief.reviewFocus.map((focus) => <li key={focus}>{focus}</li>)}
-                            </ul>
-                          </div>
-                          <p className="anchor-review__mono">
-                            <strong>Reject:</strong> {item.candidateBrief.rejectCodes.join(' · ')}
-                          </p>
+                  {bundle.slots.map((item) => {
+                    const readiness = getStage075AnchorSlotProductionReadiness(bundle, item.id);
+                    const isGlobalTarget =
+                      nextGlobalProductionTarget?.anchorId === bundle.anchorId &&
+                      nextGlobalProductionTarget.slotId === item.id;
+                    const slotState = item.approvedPath
+                      ? 'approved reference'
+                      : isGlobalTarget
+                        ? 'NEXT production target'
+                        : readiness.state === 'ready'
+                          ? 'bundle-ready / upstream-blocked'
+                          : 'blocked';
+
+                    return (
+                      <li key={item.id}>
+                        <div className="anchor-review__slot-heading">
+                          <strong>{item.label}</strong>
+                          <span
+                            className={`anchor-review__slot-state anchor-review__slot-state--${item.approvedPath ? 'approved' : isGlobalTarget ? 'next' : 'planned'}`}
+                            data-testid={`slot-state-${bundle.anchorId}-${item.id}`}
+                          >
+                            {slotState}
+                          </span>
                         </div>
-                      ) : null}
-                      <code>{item.approvedPath ?? item.plannedRepositoryPath}</code>
-                    </li>
-                  ))}
+                        <span>{item.purpose}</span>
+                        {item.parentSlotId ? (
+                          <p
+                            className="anchor-review__mono"
+                            data-testid={`slot-parent-${bundle.anchorId}-${item.id}`}
+                          >
+                            <strong>Derived from:</strong> <code>{item.parentSlotId}</code>
+                          </p>
+                        ) : null}
+                        {!item.approvedPath && readiness.blockedBySlotIds.length > 0 ? (
+                          <p className="anchor-review__mono" data-testid={`slot-blocked-by-${bundle.anchorId}-${item.id}`}>
+                            <strong>Blocked by:</strong> {readiness.blockedBySlotIds.join(' · ')}
+                          </p>
+                        ) : null}
+                        {item.candidateBrief ? (
+                          <div className="anchor-review__candidate-brief" data-testid={`candidate-brief-${bundle.anchorId}-${item.id}`}>
+                            <p><strong>Mode:</strong> <code>{item.candidateBrief.mode}</code></p>
+                            <p><strong>Controlled instruction:</strong> {item.candidateBrief.instruction}</p>
+                            <div>
+                              <strong>Review focus</strong>
+                              <ul>
+                                {item.candidateBrief.reviewFocus.map((focus) => <li key={focus}>{focus}</li>)}
+                              </ul>
+                            </div>
+                            <p className="anchor-review__mono">
+                              <strong>Reject:</strong> {item.candidateBrief.rejectCodes.join(' · ')}
+                            </p>
+                          </div>
+                        ) : null}
+                        <code>{item.approvedPath ?? item.plannedRepositoryPath}</code>
+                      </li>
+                    );
+                  })}
                 </ul>
               </article>
             );
