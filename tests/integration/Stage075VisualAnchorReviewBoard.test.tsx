@@ -3,8 +3,11 @@ import { describe, expect, it } from 'vitest';
 import { Stage075VisualAnchorReviewBoard } from '../../src/experience/production/Stage075VisualAnchorReviewBoard';
 import {
   STAGE075_ANCHOR_REVIEW_BUNDLES,
+  getStage075AnchorBundleLineageIssues,
   getStage075AnchorBundleProgress,
   getStage075AnchorReviewBundle,
+  isStage075AnchorBundleLineageValid,
+  isStage075AnchorReviewBundleComplete,
   type Stage075AnchorReviewBundle,
 } from '../../src/experience/production/stage075AnchorReviewBundle';
 import {
@@ -122,6 +125,35 @@ describe('Stage 07.5 visual anchor review board', () => {
     for (const slot of aruBundle!.slots.slice(2)) {
       expect(slot.parentSlotId, slot.id).toBe('canonical-identity');
     }
+  });
+
+  it('requires every derived slot parent to exist and precede the child', () => {
+    for (const bundle of STAGE075_ANCHOR_REVIEW_BUNDLES) {
+      expect(getStage075AnchorBundleLineageIssues(bundle), bundle.anchorId).toEqual([]);
+      expect(isStage075AnchorBundleLineageValid(bundle), bundle.anchorId).toBe(true);
+    }
+  });
+
+  it('blocks bundle completion when a derivative parent is missing or appears after the child', () => {
+    const source = getStage075AnchorReviewBundle('PLAYER-HUNT-BODY-V1');
+    expect(source).toBeTruthy();
+
+    const approvedSlots = source!.slots.map((slot) => ({
+      ...slot,
+      approvedPath: slot.plannedRepositoryPath,
+    }));
+
+    const invalid: Stage075AnchorReviewBundle = {
+      ...source!,
+      slots: approvedSlots.map((slot) =>
+        slot.id === 'right-palm' ? { ...slot, parentSlotId: 'missing-parent' } : slot,
+      ),
+    };
+
+    expect(getStage075AnchorBundleLineageIssues(invalid)).toContain(
+      'right-palm:missing-parent:missing-parent',
+    );
+    expect(isStage075AnchorReviewBundleComplete(invalid)).toBe(false);
   });
 
   it('keeps the first anchor review bundles incomplete until approved master files are registered', () => {
