@@ -1,6 +1,7 @@
 import {
   getStage075AnchorReviewBundle,
   getStage075NextGlobalProductionTarget,
+  type Stage075AnchorReviewBundle,
 } from './stage075AnchorReviewBundle';
 
 export type Stage075ProductionJobStatus =
@@ -111,12 +112,24 @@ export function getStage075HumanMidLifecycleIssues(
     issues.push('candidate-must-use-staging-path-before-registration');
   }
 
+  if (job.candidateStagingPath?.startsWith('public/assets/stage075/anchors/')) {
+    issues.push('candidate-staging-path-must-not-use-approved-anchor-directory');
+  }
+
   if (job.status === 'pending-production' && hasCandidate) {
     issues.push('pending-production-cannot-have-candidate');
   }
 
   if (job.status !== 'pending-production' && job.status !== 'candidate-rejected' && !hasCandidate) {
     issues.push('candidate-path-required-after-production');
+  }
+
+  if (job.ownerDecision === 'approved' && !['owner-approved', 'registered'].includes(job.status)) {
+    issues.push('approved-owner-decision-requires-approved-status');
+  }
+
+  if (job.ownerDecision === 'rejected' && job.status !== 'candidate-rejected') {
+    issues.push('rejected-owner-decision-requires-rejected-status');
   }
 
   if (job.status === 'review-passed' && (!reviewPassed || job.driftCodes.length > 0)) {
@@ -191,11 +204,15 @@ export function canStage075HumanMidCandidateBeRegistered(
 
 export function canStage075HumanMidUnlockNextSlot(
   job: Stage075HumanMidProductionJob,
+  bundle: Stage075AnchorReviewBundle | null = getStage075AnchorReviewBundle('STYLE-GIR-V1'),
 ) {
+  const bundleSlot = bundle?.slots.find((slot) => slot.id === job.slotId);
+
   return (
     job.status === 'registered' &&
     job.ownerDecision === 'approved' &&
     job.registeredApprovedPath === job.plannedApprovedPath &&
+    bundleSlot?.approvedPath === job.registeredApprovedPath &&
     areStage075HumanMidReviewChecksPassed(job.reviewChecks) &&
     job.driftCodes.length === 0 &&
     getStage075HumanMidLifecycleIssues(job).length === 0
