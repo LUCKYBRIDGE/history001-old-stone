@@ -1,6 +1,6 @@
 # Stage 07.5 — STYLE-GIR-V1 / first-person-hand Production Job Card
 
-Status: **ACTIVE PRODUCTION SLOT / CANDIDATE NOT YET PRODUCED**
+Status: **ACTIVE PRODUCTION SLOT / r01 REJECTED / r02 PENDING**
 
 ## 1. Job identity
 
@@ -8,7 +8,8 @@ Status: **ACTIVE PRODUCTION SLOT / CANDIDATE NOT YET PRODUCED**
 JOB ID: GIR-FIRST-PERSON-HAND-001
 TARGET: STYLE-GIR-V1 / first-person-hand
 OUTPUT ROLE: anonymous first-person body style proof
-DERIVATION MODE: independent-exploration constrained by approved STYLE-GIR human rendering tier
+CURRENT REVISION: r02
+GENERATION STRATEGY: anchor-conditioned-style-match
 ```
 
 Required upstream style reference:
@@ -23,76 +24,130 @@ Planned approved path:
 public/assets/stage075/anchors/STYLE-GIR-V1/first-person-hand.webp
 ```
 
-The approved `human-mid.webp` supplies **surface/detail/rendering language only**. It does not make this hand belong to that anonymous person and it does not define the Player.
+The approved `human-mid.webp` supplies rendering language only. This hand does not define the Player or any named character.
 
 ---
 
 ## 2. Exact production objective
 
-Produce one first-person style-proof image showing an anonymous adult **hand + wrist + enough forearm to judge continuity** while naturally contacting a rough, non-diagnostic stone.
+Produce exactly one current candidate at a time showing an anonymous adult **hand + wrist + enough forearm to judge continuity** while naturally contacting one rough, non-diagnostic natural stone.
 
-This image exists to lock:
+The slot locks:
 
 - five-finger functional anatomy,
-- finger segment and joint readability,
-- palm/knuckle/nail detail tier,
+- finger segment/joint readability,
 - wrist-to-forearm transition,
-- believable contact pressure,
+- believable pressure/contact,
 - skin/stone finish compatibility,
-- clean reusable limb silhouette,
-- the same Grounded Illustrative Realism detail boundary already approved in `human-mid.webp`.
+- clean limb silhouette,
+- the same Grounded Illustrative Realism boundary already approved in `human-mid.webp`.
 
-This image does **not** define `PLAYER-HUNT-BODY-V1` and the stone does **not** define `DAY1-HANDAXE-V1`.
-
----
-
-## 3. Controlled visual instruction
-
-- First-person camera.
-- One anonymous adult hand, wrist and forearm are the primary subject.
-- Use a neutral, plausible hand size and shape; do not design a distinctive hero hand yet.
-- Five fingers must be anatomically legible with correct joint sequence and plausible tendon/knuckle placement.
-- Wrist must transition naturally into the forearm with no pinching, ballooning, or arbitrary scale change.
-- Hand lightly grips, braces against, or rests on one rough natural stone.
-- The stone must remain **non-diagnostic**: no handaxe contour, no face-A/B, no grip-base, no working-end, no repeated flake-scar fingerprint.
-- Contact must read through finger placement, compression and occlusion rather than texture effects.
-- Skin uses broad planes, restrained creases and limited microtexture.
-- Nails are visible enough to read anatomy but must not become macro-photographic detail.
-- Hair is not relevant and no other person should dominate the frame.
-- Background should be low-information earth/rock value masses, not a canonical Day 1 location.
-- Match `human-mid.webp` in brush/detail density, edge hierarchy, natural light restraint and non-photographic finish.
-- No jewelry, wrist bands, tattoos, modern accessories, manicure coding, logos or text.
+It must not define `PLAYER-HUNT-BODY-V1` or `DAY1-HANDAXE-V1`.
 
 ---
 
-## 4. Explicit reject conditions
+## 3. r01 review — REJECTED
 
-Reject immediately for:
+The r01 generation family was retried several times under the same slot because the first outputs missed the style boundary.
+
+What consistently worked:
 
 ```text
-ANAT-FINGER       missing/extra/fused/malformed fingers or broken joint sequence
-ANAT-WRIST        implausible wrist transition or rotation
-ANAT-HAND-SCALE   hand/forearm scale relation visibly incoherent
-GEO-CONTACT-POINT fingers do not actually meet the same stone surface
-SID-PHOTO         photo-macro skin/pore/nail rendering dominates
-SID-LENS          bokeh/shallow photographic DOF/lens effects drive separation
-SID-EDGE          hand/forearm outer edge is contaminated or dissolves into background
-SID-DETAIL        microdetail overwhelms broad form
-SID-COMPOSITE     hand and stone appear to come from different rendering languages
+technicalCleanliness = PASS
+handAnatomy = PASS
+contactReadability = PASS
+extractionViability = PASS
+historicalRestraint = PASS
 ```
 
-Also reject if:
+What failed:
 
-- the stone accidentally becomes a canonical handaxe design,
-- the result implies a fixed Player identity,
-- contact is hidden by crop/effects,
-- the hand is anatomically correct only because problematic fingers are hidden,
-- skin becomes glossy beauty photography,
-- strong cinematic rim light or HDR/poster treatment replaces readable form.
+```text
+styleBoundary = FAIL
+SID-PHOTO
+SID-LENS
+SID-DETAIL
+```
+
+Reason:
+
+- five fingers, wrist continuity and stone contact were generally coherent;
+- however skin and rock repeatedly became photographic/macro-detailed;
+- scenic depth repeatedly used camera/lens-like separation;
+- the result no longer matched the accepted `human-mid.webp` broad painted surface/detail tier.
+
+No r01 retry is approved. **No r01 binary is committed to the repository.**
+
+Machine-readable ledger:
+
+```text
+src/experience/production/stage075FirstPersonHandCandidateReviews.ts
+```
 
 ---
 
-## 5. Review checks
+## 4. r02 controlled production instruction
+
+r02 is not another free scenic first-person image. It is an **anchor-conditioned style-match** attempt.
+
+Required:
+
+- use `human-mid.webp` as the actual visual style parent/reference;
+- first-person camera;
+- one anonymous bare hand, wrist and forearm;
+- all five fingers anatomically legible;
+- plausible tendon/knuckle/joint sequence;
+- natural wrist-to-forearm taper;
+- light grip/brace/rest against one rough natural stone;
+- clear contact pressure and occlusion;
+- broad painted skin planes and restrained creases;
+- stone represented through broad planes/roughness groups, not mineral macro photography;
+- low-information earth/rock background only;
+- edges and detail density must visually belong to the same family as `human-mid.webp`.
+
+Explicitly reduce:
+
+- pores and fine skin relief,
+- individual arm hair,
+- nail macro detail,
+- high-frequency lichen/mineral texture,
+- cinematic landscape spectacle,
+- bokeh / shallow photographic DOF,
+- lens-like foreground/background separation,
+- HDR/key-art grading.
+
+Do not include:
+
+- clothing/jewelry/tattoo/modern accessory,
+- handaxe-like shaped stone,
+- distinctive Player identity,
+- named character identity,
+- canonical Day 1 geography,
+- UI/text/logo.
+
+---
+
+## 5. Immediate reject conditions
+
+```text
+ANAT-FINGER
+ANAT-WRIST
+ANAT-HAND-SCALE
+GEO-CONTACT-POINT
+SID-PHOTO
+SID-LENS
+SID-EDGE
+SID-DETAIL
+SID-COMPOSITE
+```
+
+Any unresolved code blocks approval.
+
+A technically attractive image is still rejected if it looks more photographic than the approved human reference.
+
+---
+
+## 6. Acceptance checks
 
 All must pass:
 
@@ -105,18 +160,23 @@ extractionViability
 historicalRestraint
 ```
 
-Acceptance does not require photographic realism. It requires **functional anatomy + same approved illustrative rendering tier**.
+Only after a clean PASS may the binary be stored at:
 
-Minor dirt marks, crease placement, incidental stone texture, or tiny background differences are P3 and may vary.
+```text
+public/assets/stage075/anchors/STYLE-GIR-V1/first-person-hand.webp
+```
+
+Then the serial queue advances to `STYLE-GIR-V1 / world`.
 
 ---
 
-## 6. Current gate truth
+## 7. Current gate truth
 
 ```text
 STYLE-GIR-V1 approved slots = 1 / 5
 human-mid = APPROVED / REGISTERED
-first-person-hand = ACTIVE / NEXT
+first-person-hand r01 = REJECTED
+first-person-hand r02 = ACTIVE / NEXT / pending-production
 world = BLOCKED
 material = BLOCKED
 responsive-pair = BLOCKED

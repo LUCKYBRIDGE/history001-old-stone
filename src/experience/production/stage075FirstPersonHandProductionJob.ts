@@ -18,6 +18,7 @@ export interface Stage075FirstPersonHandProductionJob {
   readonly anchorId: 'STYLE-GIR-V1';
   readonly slotId: 'first-person-hand';
   readonly outputRole: 'style-proof';
+  readonly generationStrategy: 'anchor-conditioned-style-match';
   readonly status: 'pending-production' | 'candidate-produced' | 'review-passed' | 'candidate-rejected' | 'registered';
   readonly candidateRevision: number;
   readonly candidateStagingPath: string | null;
@@ -42,8 +43,9 @@ export const STAGE075_FIRST_PERSON_HAND_PRODUCTION_JOB: Stage075FirstPersonHandP
   anchorId: 'STYLE-GIR-V1',
   slotId: 'first-person-hand',
   outputRole: 'style-proof',
+  generationStrategy: 'anchor-conditioned-style-match',
   status: 'pending-production',
-  candidateRevision: 1,
+  candidateRevision: 2,
   candidateStagingPath: null,
   registeredApprovedPath: null,
   plannedApprovedPath: handSlot.plannedRepositoryPath,
