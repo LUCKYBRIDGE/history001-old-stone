@@ -178,30 +178,26 @@ describe('Stage 07.5 visual anchor review board', () => {
     expect(isStage075AnchorReviewBundleComplete(invalid)).toBe(false);
   });
 
-  it('allows only one serial production slot at a time inside a bundle', () => {
+  it('advances the STYLE serial queue from approved human-mid to first-person-hand', () => {
     const styleBundle = getStage075AnchorReviewBundle('STYLE-GIR-V1')!;
 
-    expect(getStage075NextProductionSlot(styleBundle)?.id).toBe('human-mid');
-    expect(getStage075AnchorSlotProductionReadiness(styleBundle, 'human-mid').state).toBe('ready');
+    expect(getStage075AnchorSlotProductionReadiness(styleBundle, 'human-mid').state).toBe('approved');
+    expect(getStage075NextProductionSlot(styleBundle)?.id).toBe('first-person-hand');
     expect(getStage075AnchorSlotProductionReadiness(styleBundle, 'first-person-hand')).toEqual({
-      state: 'blocked',
-      blockedBySlotIds: ['human-mid'],
+      state: 'ready',
+      blockedBySlotIds: [],
     });
-
-    const humanApproved: Stage075AnchorReviewBundle = {
-      ...styleBundle,
-      slots: styleBundle.slots.map((slot) =>
-        slot.id === 'human-mid' ? { ...slot, approvedPath: slot.plannedRepositoryPath } : slot,
-      ),
-    };
-    expect(getStage075NextProductionSlot(humanApproved)?.id).toBe('first-person-hand');
+    expect(getStage075AnchorSlotProductionReadiness(styleBundle, 'world')).toEqual({
+      state: 'blocked',
+      blockedBySlotIds: ['first-person-hand'],
+    });
   });
 
-  it('keeps downstream bundles globally blocked until the earlier bundle is complete', () => {
+  it('keeps downstream bundles globally blocked until the STYLE bundle is complete', () => {
     const initialTarget = getStage075NextGlobalProductionTarget();
     expect(initialTarget).toMatchObject({
       anchorId: 'STYLE-GIR-V1',
-      slotId: 'human-mid',
+      slotId: 'first-person-hand',
     });
 
     const styleApproved = makeApprovedStyleBundle();
@@ -236,12 +232,18 @@ describe('Stage 07.5 visual anchor review board', () => {
     });
   });
 
-  it('keeps the first anchor review bundles incomplete until approved master files are registered', () => {
+  it('tracks one approved STYLE slot while all downstream bundles remain unapproved', () => {
     for (const bundle of STAGE075_ANCHOR_REVIEW_BUNDLES) {
       const progress = getStage075AnchorBundleProgress(bundle);
       expect(progress.required).toBeGreaterThan(0);
-      expect(progress.approved).toBe(0);
-      expect(progress.missingSlotIds).toHaveLength(progress.required);
+      if (bundle.anchorId === 'STYLE-GIR-V1') {
+        expect(progress.approved).toBe(1);
+        expect(progress.missingSlotIds).toHaveLength(progress.required - 1);
+        expect(progress.missingSlotIds).not.toContain('human-mid');
+      } else {
+        expect(progress.approved).toBe(0);
+        expect(progress.missingSlotIds).toHaveLength(progress.required);
+      }
     }
   });
 
@@ -272,7 +274,7 @@ describe('Stage 07.5 visual anchor review board', () => {
     expect(isStage075StyleAnchorApproved(approvedStyle, incompleteBundle)).toBe(false);
   });
 
-  it('renders canonical-ratio policy, parent lineage and the one active production target', () => {
+  it('renders canonical-ratio policy, approved human-mid and the next first-person-hand target', () => {
     render(<Stage075VisualAnchorReviewBoard />);
 
     const policy = screen.getByTestId('canonical-ratio-policy');
@@ -281,9 +283,10 @@ describe('Stage 07.5 visual anchor review board', () => {
 
     const target = screen.getByTestId('next-production-target');
     expect(target.textContent).toContain('STYLE-GIR-V1');
-    expect(target.textContent).toContain('human-mid');
-    expect(screen.getByTestId('slot-state-STYLE-GIR-V1-human-mid').textContent).toBe('NEXT production target');
-    expect(screen.getByTestId('slot-blocked-by-STYLE-GIR-V1-first-person-hand').textContent).toContain('human-mid');
+    expect(target.textContent).toContain('first-person-hand');
+    expect(screen.getByTestId('slot-state-STYLE-GIR-V1-human-mid').textContent).toBe('approved reference');
+    expect(screen.getByTestId('slot-state-STYLE-GIR-V1-first-person-hand').textContent).toBe('NEXT production target');
+    expect(screen.getByTestId('slot-blocked-by-STYLE-GIR-V1-world').textContent).toContain('first-person-hand');
 
     expect(screen.getByTestId('slot-parent-DAY1-HANDAXE-V1-face-b').textContent).toContain('face-a');
     expect(screen.getByTestId('slot-parent-PLAYER-HUNT-BODY-V1-canonical-body').textContent).toContain('structural-scaffold');
@@ -292,7 +295,7 @@ describe('Stage 07.5 visual anchor review board', () => {
     expect(screen.getByTestId('slot-parent-ARU-IDENTITY-V1-front').textContent).toContain('canonical-identity');
   });
 
-  it('renders controlled STYLE-GIR-V1 production briefs, anatomy and downstream readiness without production images', () => {
+  it('renders controlled STYLE-GIR-V1 production briefs, anatomy and downstream readiness', () => {
     render(<Stage075VisualAnchorReviewBoard />);
 
     expect(screen.getByRole('heading', { name: 'Stage 07.5 Visual Anatomy Reference Lock' })).toBeTruthy();
@@ -305,6 +308,5 @@ describe('Stage 07.5 visual anchor review board', () => {
     expect(screen.getByTestId('candidate-brief-STYLE-GIR-V1-responsive-pair')).toBeTruthy();
     expect(screen.getByTestId('visual-anchor-PLAYER-HUNT-BODY-V1')).toBeTruthy();
     expect(screen.getByTestId('anatomy-contract-SC02-HANDOFF-GEO-V1')).toBeTruthy();
-    expect(document.querySelector('img')).toBeNull();
   });
 });

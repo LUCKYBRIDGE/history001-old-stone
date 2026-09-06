@@ -56,6 +56,29 @@ export const STAGE075_HUMAN_MID_CANDIDATE_REVIEWS: readonly Stage075HumanMidCand
       'Do not use this revision as a downstream style parent or approved reference.',
     ],
   },
+  {
+    revision: 3,
+    candidateLabel: 'GIR-HUMAN-MID-001-r03.webp',
+    decision: 'approved',
+    reviewChecks: {
+      technicalCleanliness: 'pass',
+      structuralAnatomy: 'pass',
+      styleBoundary: 'pass',
+      extractionViability: 'pass',
+      historicalRestraint: 'pass',
+    },
+    driftCodes: [],
+    binaryCommittedToRepo: true,
+    reviewedOn: '2026-09-06',
+    notes: [
+      'Approved as the STYLE-GIR-V1 human rendering tier, not as Aru/Damu/Nua or Player identity.',
+      'Painterly surface planes, hair mass and restrained material detail remain clearly illustrative while anatomy stays functional.',
+      'No photographic shallow-DOF/lens language dominates the subject and the outer silhouette remains usable for extraction-oriented later production.',
+      'Low-specificity clothing is treated as reconstruction and does not establish a canonical archaeological costume.',
+      'Minor incidental hair/fold/background variation is P3 and does not block this style-proof approval.',
+      'Canonical approved asset: public/assets/stage075/anchors/STYLE-GIR-V1/human-mid.webp.',
+    ],
+  },
 ] as const;
 
 export function getStage075HumanMidLatestCandidateReview() {

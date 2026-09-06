@@ -99,21 +99,24 @@ export const STAGE075_ANCHOR_REVIEW_BUNDLES: readonly Stage075AnchorReviewBundle
     reviewOrder: 0,
     productionMode: 'serial-calibration',
     slots: [
-      styleSlot(
-        'human-mid',
-        'Human mid-shot',
-        '인물 해부·surface treatment·배경 분리 가능성의 사실성 상한을 잠근다.',
-        '이름 없는 fictional community member를 중간 거리에서 보여주는 style-only test. 기능적으로 납득되는 관절/무게/접촉을 유지하되 6/7/8등신 같은 photographic proportion target을 강제하지 않는다. 구조 중심 얼굴, mass/silhouette 우선의 머리, broad-fold low-specificity covering을 사용한다. 단순 contextual background는 actor/world integration 확인용으로 허용하지만 이 이미지를 reusable hero cutout이나 Aru/Damu/Nua identity로 취급하지 않는다. pore-field, beauty-photo skin, photographic bokeh/DOF/lens language를 사용하지 않는다.',
-        [
-          'functional anatomy without imposing a textbook 6/7/8-head target',
-          'face identity reads from structure rather than pores',
-          'hair mass/silhouette before individual-strand field',
-          'broad garment fold/material readability without fiber-photo detail',
-          'natural restrained environment light without photographic lens language',
-          'outer silhouette remains suitable for later extraction-oriented production',
-        ],
-        ['SID-PHOTO', 'SID-LENS', 'SID-EDGE', 'SID-3D', 'SID-POSTER', 'SID-FANTASY', 'SID-CARTOON', 'SID-DETAIL'],
-      ),
+      {
+        ...styleSlot(
+          'human-mid',
+          'Human mid-shot',
+          '인물 해부·surface treatment·배경 분리 가능성의 사실성 상한을 잠근다.',
+          '이름 없는 fictional community member를 중간 거리에서 보여주는 style-only test. 기능적으로 납득되는 관절/무게/접촉을 유지하되 6/7/8등신 같은 photographic proportion target을 강제하지 않는다. 구조 중심 얼굴, mass/silhouette 우선의 머리, broad-fold low-specificity covering을 사용한다. 단순 contextual background는 actor/world integration 확인용으로 허용하지만 이 이미지를 reusable hero cutout이나 Aru/Damu/Nua identity로 취급하지 않는다. pore-field, beauty-photo skin, photographic bokeh/DOF/lens language를 사용하지 않는다.',
+          [
+            'functional anatomy without imposing a textbook 6/7/8-head target',
+            'face identity reads from structure rather than pores',
+            'hair mass/silhouette before individual-strand field',
+            'broad garment fold/material readability without fiber-photo detail',
+            'natural restrained environment light without photographic lens language',
+            'outer silhouette remains suitable for later extraction-oriented production',
+          ],
+          ['SID-PHOTO', 'SID-LENS', 'SID-EDGE', 'SID-3D', 'SID-POSTER', 'SID-FANTASY', 'SID-CARTOON', 'SID-DETAIL'],
+        ),
+        approvedPath: 'public/assets/stage075/anchors/STYLE-GIR-V1/human-mid.webp',
+      },
       styleSlot(
         'first-person-hand',
         'First-person hand',
