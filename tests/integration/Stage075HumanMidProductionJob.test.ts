@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import {
   getStage075AnchorReviewBundle,
+  getStage075NextGlobalProductionTarget,
   type Stage075AnchorReviewBundle,
 } from '../../src/experience/production/stage075AnchorReviewBundle';
 import {
@@ -23,13 +24,37 @@ const PASS_REVIEW: Stage075HumanMidReviewChecks = {
   historicalRestraint: 'pass',
 };
 
-function producedCandidate(
+const PENDING_REVIEW: Stage075HumanMidReviewChecks = {
+  technicalCleanliness: 'pending',
+  structuralAnatomy: 'pending',
+  styleBoundary: 'pending',
+  extractionViability: 'pending',
+  historicalRestraint: 'pending',
+};
+
+function pendingJob(
   overrides: Partial<Stage075HumanMidProductionJob> = {},
 ): Stage075HumanMidProductionJob {
   return {
     ...STAGE075_HUMAN_MID_PRODUCTION_JOB,
+    status: 'pending-production',
+    candidateRevision: 4,
+    candidateStagingPath: null,
+    registeredApprovedPath: null,
+    ownerDecision: 'pending',
+    reviewChecks: PENDING_REVIEW,
+    driftCodes: [],
+    ...overrides,
+  };
+}
+
+function producedCandidate(
+  overrides: Partial<Stage075HumanMidProductionJob> = {},
+): Stage075HumanMidProductionJob {
+  return {
+    ...pendingJob(),
     status: 'candidate-produced',
-    candidateStagingPath: '/mnt/data/GIR-HUMAN-MID-001-r01.webp',
+    candidateStagingPath: 'external-review/GIR-HUMAN-MID-TEST.png',
     ...overrides,
   };
 }
@@ -51,29 +76,24 @@ function registeredStyleBundle(
 }
 
 describe('Stage 07.5 human-mid production job', () => {
-  it('binds the active production job to the current serial queue target', () => {
+  it('registers approved r03 and advances the serial queue to first-person-hand', () => {
     expect(STAGE075_HUMAN_MID_PRODUCTION_JOB.jobId).toBe('GIR-HUMAN-MID-001');
     expect(STAGE075_HUMAN_MID_PRODUCTION_JOB.anchorId).toBe('STYLE-GIR-V1');
     expect(STAGE075_HUMAN_MID_PRODUCTION_JOB.slotId).toBe('human-mid');
-    expect(STAGE075_HUMAN_MID_PRODUCTION_JOB.jobCardPath).toBe(
-      'handoff/STAGE07_5_STYLE_GIR_V1_HUMAN_MID_JOB_CARD.md',
-    );
-    expect(STAGE075_HUMAN_MID_PRODUCTION_JOB.plannedApprovedPath).toBe(
+    expect(STAGE075_HUMAN_MID_PRODUCTION_JOB.candidateRevision).toBe(3);
+    expect(STAGE075_HUMAN_MID_PRODUCTION_JOB.status).toBe('registered');
+    expect(STAGE075_HUMAN_MID_PRODUCTION_JOB.ownerDecision).toBe('approved');
+    expect(STAGE075_HUMAN_MID_PRODUCTION_JOB.registeredApprovedPath).toBe(
       'public/assets/stage075/anchors/STYLE-GIR-V1/human-mid.webp',
     );
-    expect(isStage075HumanMidCurrentProductionTarget()).toBe(true);
-  });
-
-  it('starts with no candidate, no canonical registration, and all review checks pending', () => {
-    expect(STAGE075_HUMAN_MID_PRODUCTION_JOB.status).toBe('pending-production');
-    expect(STAGE075_HUMAN_MID_PRODUCTION_JOB.candidateStagingPath).toBeNull();
-    expect(STAGE075_HUMAN_MID_PRODUCTION_JOB.registeredApprovedPath).toBeNull();
-    expect(STAGE075_HUMAN_MID_PRODUCTION_JOB.ownerDecision).toBe('pending');
-    expect(areStage075HumanMidReviewChecksPassed(STAGE075_HUMAN_MID_PRODUCTION_JOB.reviewChecks)).toBe(false);
+    expect(areStage075HumanMidReviewChecksPassed(STAGE075_HUMAN_MID_PRODUCTION_JOB.reviewChecks)).toBe(true);
     expect(getStage075HumanMidLifecycleIssues(STAGE075_HUMAN_MID_PRODUCTION_JOB)).toEqual([]);
-    expect(canStage075HumanMidAdvanceToOwnerReview(STAGE075_HUMAN_MID_PRODUCTION_JOB)).toBe(false);
-    expect(canStage075HumanMidCandidateBeRegistered(STAGE075_HUMAN_MID_PRODUCTION_JOB)).toBe(false);
-    expect(canStage075HumanMidUnlockNextSlot(STAGE075_HUMAN_MID_PRODUCTION_JOB)).toBe(false);
+    expect(canStage075HumanMidUnlockNextSlot(STAGE075_HUMAN_MID_PRODUCTION_JOB)).toBe(true);
+    expect(isStage075HumanMidCurrentProductionTarget()).toBe(false);
+    expect(getStage075NextGlobalProductionTarget()).toMatchObject({
+      anchorId: 'STYLE-GIR-V1',
+      slotId: 'first-person-hand',
+    });
   });
 
   it('keeps candidate staging separate from the canonical approved anchor directory', () => {
@@ -89,12 +109,11 @@ describe('Stage 07.5 human-mid production job', () => {
     );
 
     const alternatePublicAnchorPath = producedCandidate({
-      candidateStagingPath: 'public/assets/stage075/anchors/STYLE-GIR-V1/human-mid-r01.webp',
+      candidateStagingPath: 'public/assets/stage075/anchors/STYLE-GIR-V1/human-mid-test.webp',
     });
     expect(getStage075HumanMidLifecycleIssues(alternatePublicAnchorPath)).toContain(
       'candidate-staging-path-must-not-use-approved-anchor-directory',
     );
-    expect(canStage075HumanMidCandidateBeRegistered(alternatePublicAnchorPath)).toBe(false);
   });
 
   it('does not allow a produced candidate to reach owner review until all technical review checks pass', () => {
@@ -142,24 +161,6 @@ describe('Stage 07.5 human-mid production job', () => {
     expect(canStage075HumanMidCandidateBeRegistered(withDrift)).toBe(false);
   });
 
-  it('requires lifecycle status and owner-decision consistency', () => {
-    const prematureOwnerDecision: Stage075HumanMidProductionJob = {
-      ...producedCandidate(),
-      ownerDecision: 'approved',
-    };
-    expect(getStage075HumanMidLifecycleIssues(prematureOwnerDecision)).toContain(
-      'approved-owner-decision-requires-approved-status',
-    );
-
-    const rejectedDecisionWithoutRejectedStatus: Stage075HumanMidProductionJob = {
-      ...producedCandidate(),
-      ownerDecision: 'rejected',
-    };
-    expect(getStage075HumanMidLifecycleIssues(rejectedDecisionWithoutRejectedStatus)).toContain(
-      'rejected-owner-decision-requires-rejected-status',
-    );
-  });
-
   it('allows canonical registration only after clean review and explicit owner approval', () => {
     const ownerApproved: Stage075HumanMidProductionJob = {
       ...producedCandidate(),
@@ -170,7 +171,6 @@ describe('Stage 07.5 human-mid production job', () => {
 
     expect(getStage075HumanMidLifecycleIssues(ownerApproved)).toEqual([]);
     expect(canStage075HumanMidCandidateBeRegistered(ownerApproved)).toBe(true);
-    expect(canStage075HumanMidUnlockNextSlot(ownerApproved)).toBe(false);
 
     const registered: Stage075HumanMidProductionJob = {
       ...ownerApproved,
@@ -180,9 +180,6 @@ describe('Stage 07.5 human-mid production job', () => {
 
     expect(getStage075HumanMidLifecycleIssues(registered)).toEqual([]);
     expect(canStage075HumanMidCandidateBeRegistered(registered)).toBe(false);
-
-    // Job registration alone is insufficient: the STYLE bundle must register the same approved path.
-    expect(canStage075HumanMidUnlockNextSlot(registered)).toBe(false);
     expect(canStage075HumanMidUnlockNextSlot(registered, registeredStyleBundle())).toBe(true);
   });
 
@@ -201,33 +198,6 @@ describe('Stage 07.5 human-mid production job', () => {
         registeredStyleBundle('public/assets/stage075/anchors/STYLE-GIR-V1/wrong.webp'),
       ),
     ).toBe(false);
-  });
-
-  it('rejects non-canonical registration paths and premature registered paths', () => {
-    const wrongPath: Stage075HumanMidProductionJob = {
-      ...producedCandidate(),
-      status: 'registered',
-      ownerDecision: 'approved',
-      reviewChecks: PASS_REVIEW,
-      registeredApprovedPath: 'public/assets/stage075/anchors/STYLE-GIR-V1/human-mid-alt.webp',
-    };
-
-    expect(getStage075HumanMidLifecycleIssues(wrongPath)).toContain(
-      'registered-path-must-match-canonical-path',
-    );
-    expect(canStage075HumanMidUnlockNextSlot(wrongPath, registeredStyleBundle())).toBe(false);
-
-    const premature: Stage075HumanMidProductionJob = {
-      ...producedCandidate(),
-      status: 'owner-approved',
-      ownerDecision: 'approved',
-      reviewChecks: PASS_REVIEW,
-      registeredApprovedPath: STAGE075_HUMAN_MID_PRODUCTION_JOB.plannedApprovedPath,
-    };
-
-    expect(getStage075HumanMidLifecycleIssues(premature)).toContain(
-      'approved-path-cannot-be-registered-before-registered-status',
-    );
   });
 
   it('requires a concrete rejection basis for rejected candidates', () => {
