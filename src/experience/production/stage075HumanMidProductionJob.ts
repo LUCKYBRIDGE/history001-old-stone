@@ -67,7 +67,7 @@ export const STAGE075_HUMAN_MID_PRODUCTION_JOB: Stage075HumanMidProductionJob = 
   jobCardPath: 'handoff/STAGE07_5_STYLE_GIR_V1_HUMAN_MID_JOB_CARD.md',
   plannedApprovedPath: humanMidSlot.plannedRepositoryPath,
   status: 'pending-production',
-  candidateRevision: 1,
+  candidateRevision: 3,
   candidateStagingPath: null,
   registeredApprovedPath: null,
   ownerDecision: 'pending',

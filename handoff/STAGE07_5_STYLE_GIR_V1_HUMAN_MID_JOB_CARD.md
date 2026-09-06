@@ -1,6 +1,6 @@
 # Stage 07.5 — STYLE-GIR-V1 / human-mid Production Job Card
 
-Status: **ACTIVE PRODUCTION SLOT / CANDIDATE NOT YET APPROVED**
+Status: **ACTIVE PRODUCTION SLOT / r03 PENDING / NO APPROVED CANDIDATE**
 
 This file is the execution record for the current single active Stage 07.5 production slot.
 
@@ -10,13 +10,11 @@ This file is the execution record for the current single active Stage 07.5 produ
 JOB ID: GIR-HUMAN-MID-001
 TARGET ASSET ID: STYLE-GIR-V1 / human-mid
 SCENE / BEAT: N/A — style proof only
-PV ID: N/A
 MOMENT ID: STYLE-GIR-HUMAN-MID-A
-COMPOSITION FAMILY: N
 OUTPUT ROLE: style-proof / anonymous human
 DERIVATION MODE: independent-exploration
+CURRENT REVISION: r03
 PARENT ASSET: none — root style exploration slot
-PARENT REVISION: none
 ```
 
 Canonical approved repository path:
@@ -26,8 +24,6 @@ public/assets/stage075/anchors/STYLE-GIR-V1/human-mid.webp
 ```
 
 A candidate under review must **not** use that canonical path.
-
-Candidate lifecycle uses two different path concepts:
 
 ```text
 candidateStagingPath
@@ -40,7 +36,7 @@ registeredApprovedPath
 = may exist only after clean review + explicit Project-owner approval
 ```
 
-Do not copy a candidate into the canonical approved path merely because it was generated successfully.
+Rejected candidate binaries remain outside the repository-approved asset path.
 
 ---
 
@@ -50,7 +46,7 @@ Produce exactly **one current candidate at a time** that establishes the human r
 
 The candidate is not Aru, Damu, Nua, or the Player. It is an unnamed fictional community member used only to decide the project-wide human rendering language.
 
-The candidate must establish this balance:
+Required balance:
 
 ```text
 functional believable anatomy / weight / depth
@@ -66,23 +62,46 @@ photographic lens language / shallow-DOF dependence / AAA poster grading
 
 ---
 
-## 3. Exact production instruction
+## 3. Current r03 instruction — tightened from r01/r02 review
 
-Create one anonymous adult fictional community member in a **medium-distance / mid-shot to three-quarter-body framing**.
+Create one anonymous adult fictional community member in a medium-distance / mid-shot to three-quarter-body framing.
+
+r03 must preserve what worked in r01/r02 while correcting both failure classes:
+
+### Preserve
+
+- believable head/neck/shoulder/arm structure,
+- grounded body weight and posture,
+- face specificity carried by feature structure rather than caricature,
+- restrained natural earth palette,
+- simple non-canonical natural background,
+- broad low-specificity covering masses,
+- no modern object, logo, UI, caption, or recurring hero prop.
+
+### Reduce from r02
+
+- photographic skin sheen and pore-like surface information,
+- individually resolved hair strands,
+- photographic depth-of-field blur,
+- camera/lens-like subject separation,
+- high-frequency garment/fiber surface detail.
+
+### Keep corrected from r01
+
+- no necklace, pendant, bead string, decorative personal ornament, or other unnecessary culture-specific identity marker,
+- no overconfident garment construction/stitching claim,
+- no exact ethnicity/species/costume reconstruction claim.
 
 Required visual treatment:
 
 - Grounded Illustrative Realism.
-- Human structure and joints must be plausible, but no textbook 6/7/8-head target is imposed.
-- Head/body relationship may be mildly stylized; it must read as intentional, coherent, and reusable rather than caricatured.
-- Face identity should read from facial structure, feature placement, planes, and silhouette rather than pore-level skin detail.
-- Hair should read primarily as mass, silhouette, large locks/clumps, and broad value groups rather than individually simulated strands.
-- Skin should use broad form, restrained creases, controlled tonal variation, and limited microtexture.
-- Clothing/covering should be historically low-specificity reconstruction: broad material masses and folds, no confident invented stitching/manufacturing details.
-- Hands, wrists, shoulders, neck, and visible joints must be structurally plausible.
-- Background may be a simple low-information natural setting only to test actor/world integration and lighting. It must not define canonical Day 1 geography.
-- Use natural restrained light. No blockbuster rim light, dramatic poster grade, glossy beauty lighting, or atmospheric effects that hide anatomy.
-- Outer silhouette around hair, shoulders, arms, and garment must remain readable enough that a later production master could be extracted/masked cleanly.
+- Anatomy and joints must be functionally plausible; no textbook 6/7/8-head target is imposed at this style-proof stage.
+- Face should read from facial structure, feature placement, broad planes and silhouette.
+- Hair should read as mass, silhouette, large locks/clumps and broad value groups.
+- Skin should use broad form, restrained creases and limited microtexture.
+- Clothing/covering should use broad material masses and folds with historically low specificity.
+- Background depth should come from overlap, value grouping, perspective and edge hierarchy, **not photographic shallow DOF**.
+- Hair/shoulder/arm/garment boundaries must remain sufficiently readable for later extraction-oriented production.
 
 ---
 
@@ -103,14 +122,14 @@ No handaxe or distinctive recurring prop should appear.
 
 ---
 
-## 5. Explicit negatives / reject direction
+## 5. Explicit reject direction
 
-Reject the candidate if any of the following dominates normal viewing:
+Reject if any of the following dominates normal viewing:
 
 ```text
 SID-PHOTO     photographic skin / pore / beauty-photo tier
-SID-LENS      bokeh, lens flare, chromatic aberration, cinematic shallow DOF
-SID-EDGE      hair/fur/background edges too contaminated for later extraction
+SID-LENS      bokeh, lens flare, cinematic shallow DOF, camera-like optical separation
+SID-EDGE      hair/fur/background edges unsuitable for later extraction
 SID-3D        generic rendered-game-character / plastic 3D look
 SID-POSTER    AAA key-art / advertising composition or grade
 SID-FANTASY   fantasy barbarian / caveman concept-art coding
@@ -120,176 +139,119 @@ SID-DETAIL    microdetail density overwhelms readable form
 
 Also reject:
 
-- malformed fingers or visible joint errors,
-- asymmetry that appears accidental rather than character design,
-- face that depends on photographic microtexture to feel specific,
-- hair that dissolves into thousands of realistic strands,
-- fur/fabric that reads like macro product photography,
+- malformed visible anatomy,
 - modern jewelry/accessories,
-- explicit UI, captions, text, logos, borders, or dashboard elements inside the image.
+- speculative cultural decoration used as factual coding,
+- individual-hair simulation dominating the silhouette,
+- fiber/product-photo material treatment,
+- explicit UI/text/logo/border inside the image.
 
 ---
 
-## 6. Composition and background contract
-
-Preferred framing:
-
-```text
-subject occupies roughly 55–75% of image height
-head and upper torso clearly readable
-at least one shoulder/arm relationship visible
-no extreme close-up
-no tiny full-body environmental shot
-```
-
-Background:
-
-- simple earth/rock/vegetation value masses,
-- low specificity,
-- no landmark identity,
-- no canonical shelter/fire layout,
-- no heavy fog,
-- no lens blur used to fake depth.
-
-Depth should come from:
-
-- overlap,
-- value grouping,
-- atmospheric restraint,
-- perspective,
-- edge hierarchy.
-
----
-
-## 7. Historical confidence
-
-```text
-[H] none at individual identity level
-[C] broad human anatomy / natural material behavior
-[R] fictional anonymous community member, low-specificity covering, natural setting
-[D] exact species, ethnicity, hairstyle convention, garment construction, settlement geography
-```
-
-This image is an educational production style proof, not a claim of one historically documented individual.
-
----
-
-## 8. Candidate lifecycle — mandatory
+## 6. Review checks
 
 Machine-readable source:
 
 ```text
 src/experience/production/stage075HumanMidProductionJob.ts
+src/experience/production/stage075HumanMidCandidateReviews.ts
 ```
 
-Exact lifecycle:
+Every candidate is reviewed in this order:
+
+1. `technicalCleanliness`
+2. `structuralAnatomy`
+3. `styleBoundary`
+4. `extractionViability`
+5. `historicalRestraint`
+
+Each check is `pending | pass | fail`.
+
+A single fail or unresolved drift code blocks owner approval and canonical registration.
+
+---
+
+## 7. Candidate review history
+
+Rejected candidate binary files are intentionally **not committed** to approved repository asset directories.
+
+| Revision | Candidate label | Technical | Anatomy | Style | Extraction | Historical restraint | Drift codes | Decision |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| r01 | `GIR-HUMAN-MID-001-r01.png` | PASS | PASS | PASS | PASS | FAIL | none | REJECTED |
+| r02 | `GIR-HUMAN-MID-001-r02.png` | PASS | PASS | FAIL | FAIL | PASS | `SID-PHOTO`, `SID-LENS`, `SID-EDGE` | REJECTED |
+| r03 | not produced | pending | pending | pending | pending | pending | none | ACTIVE / PENDING |
+
+### r01 decision
+
+Promising painterly/illustrative direction, but necklace/adornment and relatively specific garment coding exceeded the low-specificity historical restraint required for an anonymous style proof. It was revised rather than promoted.
+
+### r02 decision
+
+The historical-specificity problem improved, but the revision moved too far toward photographic rendering. Skin and hair became more photograph-like, background separation relied too much on shallow-DOF language, and hair/background edges became less suitable for the later extraction-oriented asset pipeline.
+
+Formal rejection codes:
+
+```text
+SID-PHOTO
+SID-LENS
+SID-EDGE
+```
+
+r02 must not be used as a downstream style parent or approved reference.
+
+---
+
+## 8. Candidate lifecycle
 
 ```text
 pending-production
-      ↓
-candidate-produced
-      ↓
-review-passed
-      ↓
-owner-approved
-      ↓
-registered
-      ↓
-STYLE-GIR-V1 / first-person-hand may unlock
+→ candidate-produced
+→ review-passed
+→ owner-approved
+→ registered
+→ first-person-hand unlock
 ```
 
 Reject branch:
 
 ```text
 candidate-produced / review
-      ↓
-candidate-rejected
-      ↓
-new revision, still human-mid
+→ candidate-rejected
+→ new revision of human-mid
 ```
 
-Rules:
-
-1. `candidate-produced` requires a real `candidateStagingPath`.
-2. `candidateStagingPath` must not equal the canonical approved path.
-3. `review-passed` requires all five technical review checks = `pass` and `driftCodes = []`.
-4. `owner-approved` requires the clean technical review **and** explicit Project-owner decision = `approved`.
-5. `registered` requires the canonical `registeredApprovedPath` exactly equal to the planned approved path.
-6. A rejected candidate needs a concrete rejection basis: owner rejection, failed review check, or drift code.
-7. Only `registered` may unlock the next serial slot.
-
-Generation success is not review success. Review success is not owner approval. Owner approval is not canonical registration.
-
----
-
-## 9. Review order / machine check IDs
-
-Review in this exact order:
-
-### `technicalCleanliness`
-
-- no text/UI/logo
-- no obvious generation corruption
-- no broken anatomy hidden by crop
-
-### `structuralAnatomy`
-
-- head/neck/shoulder relationship
-- arm/wrist/hand if visible
-- center of mass and posture
-
-### `styleBoundary`
-
-- clearly illustrative, not photographic
-- not cartoon/chibi/fantasy/poster
-
-### `extractionViability`
-
-- readable silhouette
-- no background-edge contamination dominating hair/garment
-
-### `historicalRestraint`
-
-- no over-specific unsupported costume/species claim
-
-Each check is one of:
+Current lifecycle truth after r02 review:
 
 ```text
-pending
-pass
-fail
+r01 = rejected
+r02 = rejected
+r03 = pending-production
+human-mid remains the single global NEXT slot
 ```
-
-A single `fail`, or any unresolved `SID-*` / anatomy drift code, blocks `review-passed`.
-
-After all five checks pass with zero unresolved drift, the candidate may be submitted for Project-owner review.
-
-Do not continue polishing a D2/D3 candidate.
 
 ---
 
-## 10. Acceptance criteria
+## 9. Acceptance criteria for r03 or later
 
 The slot can be accepted only when all are true:
 
-- [ ] A real candidate exists at a staging/review location, not the canonical approved path.
-- [ ] `technicalCleanliness = pass`.
-- [ ] `structuralAnatomy = pass`.
-- [ ] `styleBoundary = pass`.
-- [ ] `extractionViability = pass`.
-- [ ] `historicalRestraint = pass`.
-- [ ] Candidate is visibly non-photographic while retaining functional anatomy.
-- [ ] Candidate is not cartoon/chibi/fantasy-barbarian/AAA poster.
-- [ ] Face reads through structure, not pore detail.
-- [ ] Hair reads through mass/silhouette, not strand simulation.
-- [ ] Garment/material reads through broad form, not fiber-level rendering.
-- [ ] Background supports light/integration without becoming a canonical world anchor.
-- [ ] No unresolved `SID-*` or anatomy failure remains.
-- [ ] Project-owner explicitly says this is a suitable human rendering tier.
-- [ ] The approved file is copied/stored at the exact canonical path only after approval.
-- [ ] The canonical approved path is registered in the STYLE-GIR-V1 bundle.
+- [ ] real candidate exists at a staging/review location, not canonical approved path,
+- [ ] `technicalCleanliness = pass`,
+- [ ] `structuralAnatomy = pass`,
+- [ ] `styleBoundary = pass`,
+- [ ] `extractionViability = pass`,
+- [ ] `historicalRestraint = pass`,
+- [ ] no unresolved `SID-*` / anatomy drift remains,
+- [ ] face reads through structure rather than photo microtexture,
+- [ ] hair reads through mass/silhouette rather than strand simulation,
+- [ ] background depth does not depend on photographic shallow DOF,
+- [ ] garment/material reads through broad form rather than fiber-level rendering,
+- [ ] no unsupported specific cultural/ethnic/species/costume claim,
+- [ ] Project-owner explicitly approves the human rendering tier,
+- [ ] approved binary is then stored at the exact canonical path,
+- [ ] canonical path is registered in the STYLE-GIR-V1 bundle.
 
-Only then may the serial queue move to:
+Only then may the queue move to:
 
 ```text
 STYLE-GIR-V1 / first-person-hand
@@ -297,29 +259,18 @@ STYLE-GIR-V1 / first-person-hand
 
 ---
 
-## 11. Candidate ledger
-
-No candidate is currently approved or registered.
-
-| Revision | Candidate staging path | Lifecycle status | Drift codes | Owner decision | Registered approved path | Notes |
-| --- | --- | --- | --- | --- | --- | --- |
-| r01 | none | pending-production | none | pending | none | Current active production attempt |
-
-Rejected candidates remain outside the approved asset path and do not unlock the next slot.
-
----
-
-## 12. Gate truth
+## 10. Gate truth
 
 ```text
 STYLE-GIR-V1 status = reference-pending
 human-mid = ACTIVE / NEXT
-human-mid candidate staging path = none
-human-mid registered approved path = none
+current revision = r03
+approved human-mid = none
+registered approved path = none
 STYLE approved slots = 0 / 5
 Approved raster assets = 0
 Human Gate = FAIL
 Stage 08 = BLOCKED
 ```
 
-This Job Card starts actual production control for `human-mid`; it does not approve an image by itself.
+The two reviewed candidates do not advance the gate.
