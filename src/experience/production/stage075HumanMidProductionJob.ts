@@ -60,7 +60,7 @@ export const STAGE075_HUMAN_MID_PRODUCTION_JOB: Stage075HumanMidProductionJob = 
   plannedApprovedPath: humanMidSlot.plannedRepositoryPath,
   status: 'registered',
   candidateRevision: 3,
-  candidateStagingPath: '/mnt/data/황혼의_바위_들판에_선_여인.png',
+  candidateStagingPath: 'external-review/GIR-HUMAN-MID-001-r03.png',
   registeredApprovedPath: humanMidSlot.plannedRepositoryPath,
   ownerDecision: 'approved',
   reviewChecks: {
