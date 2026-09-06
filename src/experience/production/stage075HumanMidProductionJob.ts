@@ -49,14 +49,6 @@ if (!humanMidSlot) {
   throw new Error('STYLE-GIR-V1 / human-mid slot must exist before production job initialization');
 }
 
-const PENDING_REVIEW_CHECKS: Stage075HumanMidReviewChecks = {
-  technicalCleanliness: 'pending',
-  structuralAnatomy: 'pending',
-  styleBoundary: 'pending',
-  extractionViability: 'pending',
-  historicalRestraint: 'pending',
-};
-
 export const STAGE075_HUMAN_MID_PRODUCTION_JOB: Stage075HumanMidProductionJob = {
   jobId: 'GIR-HUMAN-MID-001',
   anchorId: 'STYLE-GIR-V1',
@@ -66,12 +58,18 @@ export const STAGE075_HUMAN_MID_PRODUCTION_JOB: Stage075HumanMidProductionJob = 
   derivationMode: 'independent-exploration',
   jobCardPath: 'handoff/STAGE07_5_STYLE_GIR_V1_HUMAN_MID_JOB_CARD.md',
   plannedApprovedPath: humanMidSlot.plannedRepositoryPath,
-  status: 'pending-production',
+  status: 'registered',
   candidateRevision: 3,
-  candidateStagingPath: null,
-  registeredApprovedPath: null,
-  ownerDecision: 'pending',
-  reviewChecks: PENDING_REVIEW_CHECKS,
+  candidateStagingPath: '/mnt/data/황혼의_바위_들판에_선_여인.png',
+  registeredApprovedPath: humanMidSlot.plannedRepositoryPath,
+  ownerDecision: 'approved',
+  reviewChecks: {
+    technicalCleanliness: 'pass',
+    structuralAnatomy: 'pass',
+    styleBoundary: 'pass',
+    extractionViability: 'pass',
+    historicalRestraint: 'pass',
+  },
   driftCodes: [],
   mustNotDefine: [
     'ARU-IDENTITY-V1',
