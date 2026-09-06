@@ -1,5 +1,3 @@
-import type { Stage075VisualContinuityAnchorId } from './stage075VisualContinuityRegistry';
-
 export type Stage075AnchorReviewBundleId =
   | 'STYLE-GIR-V1'
   | 'DAY1-HANDAXE-V1'
@@ -12,184 +10,167 @@ export type Stage075AnchorCandidateMode =
   | 'locked-keyframe-variation';
 
 export type Stage075AnchorProductionMode =
-  | 'serial-slot'
+  | 'serial-calibration'
   | 'serial-master-derivation';
 
 export interface Stage075AnchorCandidateBrief {
-  readonly mode: Stage075AnchorCandidateMode;
-  readonly instruction: string;
-  readonly reviewFocus: readonly string[];
-  readonly rejectCodes: readonly string[];
+  mode: Stage075AnchorCandidateMode;
+  instruction: string;
+  reviewFocus: readonly string[];
+  rejectCodes: readonly string[];
 }
 
 export interface Stage075AnchorReviewSlot {
-  readonly id: string;
-  readonly label: string;
-  readonly note: string;
-  readonly required: boolean;
-  readonly plannedRepositoryPath: string;
-  readonly approvedPath: string | null;
-  readonly parentSlotId: string | null;
-  readonly candidateBrief: Stage075AnchorCandidateBrief | null;
+  id: string;
+  label: string;
+  purpose: string;
+  plannedRepositoryPath: string;
+  required: boolean;
+  parentSlotId?: string;
+  approvedPath?: string;
+  candidateBrief?: Stage075AnchorCandidateBrief;
 }
 
 export interface Stage075AnchorReviewBundle {
-  readonly anchorId: Stage075AnchorReviewBundleId;
-  readonly reviewOrder: number;
-  readonly productionMode: Stage075AnchorProductionMode;
-  readonly slots: readonly Stage075AnchorReviewSlot[];
+  anchorId: Stage075AnchorReviewBundleId;
+  reviewOrder: number;
+  productionMode: Stage075AnchorProductionMode;
+  slots: readonly Stage075AnchorReviewSlot[];
 }
 
 export interface Stage075AnchorProductionTarget {
-  readonly anchorId: Stage075AnchorReviewBundleId;
-  readonly slotId: string;
-  readonly label: string;
-  readonly plannedRepositoryPath: string;
+  anchorId: Stage075AnchorReviewBundleId;
+  slotId: string;
+  label: string;
+  plannedRepositoryPath: string;
 }
 
 function slot(
-  anchorId: Stage075AnchorReviewBundleId,
+  anchorId: string,
   id: string,
   label: string,
-  note: string,
-  candidateBrief: Stage075AnchorCandidateBrief | null = null,
+  purpose: string,
 ): Stage075AnchorReviewSlot {
   return {
     id,
     label,
-    note,
+    purpose,
     required: true,
     plannedRepositoryPath: `public/assets/stage075/anchors/${anchorId}/${id}.webp`,
-    approvedPath: null,
-    parentSlotId: null,
-    candidateBrief,
   };
 }
 
 function derivedSlot(
-  anchorId: Stage075AnchorReviewBundleId,
+  anchorId: string,
   id: string,
   label: string,
-  note: string,
+  purpose: string,
   parentSlotId: string,
-  candidateBrief: Stage075AnchorCandidateBrief | null = null,
 ): Stage075AnchorReviewSlot {
   return {
-    ...slot(anchorId, id, label, note, candidateBrief),
+    ...slot(anchorId, id, label, purpose),
     parentSlotId,
   };
 }
 
-const STYLE_REJECT_CODES = [
-  'SID-PHOTO',
-  'SID-3D',
-  'SID-POSTER',
-  'SID-FANTASY',
-  'SID-CARTOON',
-  'SID-TEXTBOOK',
-  'SID-FOG',
-  'SID-DETAIL',
-  'SID-LIGHT',
-  'SID-COLOR',
-  'SID-COMPOSITE',
-  'SID-EDGE',
-  'SID-LENS',
-] as const;
-
-const STYLE_SHARED_REVIEW = [
-  'Grounded Illustrative Realism 유지',
-  '실사 인간 등신을 외부 정답처럼 강제하지 않되 functional anatomy는 자연스럽게 유지',
-  'skin/hair/material의 photographic micro-detail을 피하고 silhouette/readability를 우선',
-  'Aru/Damu/Nua/Player/handaxe/world anchor를 조기 lock하지 않기',
-] as const;
+function styleSlot(
+  id: string,
+  label: string,
+  purpose: string,
+  instruction: string,
+  reviewFocus: readonly string[],
+  rejectCodes: readonly string[],
+  mode: Stage075AnchorCandidateMode = 'independent-exploration',
+): Stage075AnchorReviewSlot {
+  return {
+    ...slot('STYLE-GIR-V1', id, label, purpose),
+    candidateBrief: {
+      mode,
+      instruction,
+      reviewFocus,
+      rejectCodes,
+    },
+  };
+}
 
 export const STAGE075_ANCHOR_REVIEW_BUNDLES: readonly Stage075AnchorReviewBundle[] = [
   {
     anchorId: 'STYLE-GIR-V1',
     reviewOrder: 0,
-    productionMode: 'serial-slot',
+    productionMode: 'serial-calibration',
     slots: [
       {
-        ...slot(
-          'STYLE-GIR-V1',
+        ...styleSlot(
           'human-mid',
-          'Human mid',
-          '익명의 중간 거리 인물에서 사람 표면/머리/의복 detail tier를 잠근다.',
-          {
-            mode: 'independent-exploration',
-            instruction:
-              '익명의 성인 공동체 구성원 1명을 중간 거리로 그린다. 얼굴/신체 구조와 자연스러운 관절/무게감은 유지하되 피부 모공, 개별 머리카락 field, beauty-photo skin, shallow photographic DOF는 피한다. 의복은 broad material mass/fold 위주로 낮은 특정성으로 두고 Aru/Damu/Nua identity나 Player body를 정의하지 않는다.',
-            reviewFocus: [
-              ...STYLE_SHARED_REVIEW,
-              '얼굴은 microtexture보다 구조/비율로 읽힐 것',
-              '머리카락은 strand simulation보다 mass/silhouette로 읽힐 것',
-              'outer silhouette가 추출/합성에 충분히 깨끗할 것',
-            ],
-            rejectCodes: STYLE_REJECT_CODES,
-          },
+          'Human mid-shot',
+          '인물 해부·surface treatment·배경 분리 가능성의 사실성 상한을 잠근다.',
+          '이름 없는 fictional community member를 중간 거리에서 보여주는 style-only test. 기능적으로 납득되는 관절/무게/접촉을 유지하되 6/7/8등신 같은 photographic proportion target을 강제하지 않는다. 구조 중심 얼굴, mass/silhouette 우선의 머리, broad-fold low-specificity covering을 사용한다. 단순 contextual background는 actor/world integration 확인용으로 허용하지만 이 이미지를 reusable hero cutout이나 Aru/Damu/Nua identity로 취급하지 않는다. pore-field, beauty-photo skin, photographic bokeh/DOF/lens language를 사용하지 않는다.',
+          [
+            'functional anatomy without imposing a textbook 6/7/8-head target',
+            'face identity reads from structure rather than pores',
+            'hair mass/silhouette before individual-strand field',
+            'broad garment fold/material readability without fiber-photo detail',
+            'natural restrained environment light without photographic lens language',
+            'outer silhouette remains suitable for later extraction-oriented production',
+          ],
+          ['SID-PHOTO', 'SID-LENS', 'SID-EDGE', 'SID-3D', 'SID-POSTER', 'SID-FANTASY', 'SID-CARTOON', 'SID-DETAIL'],
         ),
         approvedPath: 'public/assets/stage075/anchors/STYLE-GIR-V1/human-mid.webp',
       },
-      slot(
-        'STYLE-GIR-V1',
+      styleSlot(
         'first-person-hand',
         'First-person hand',
-        '익명의 1인칭 손/손목/전완에서 anatomy/contact/style detail tier를 검증한다. Player body나 DAY1-HANDAXE를 lock하지 않는다.',
-        {
-          mode: 'independent-exploration',
-          instruction:
-            '익명의 손+손목+전완 1개가 비진단적 거친 돌에 닿는 1인칭 reference를 만든다. five fingers/joints/wrist/contact pressure는 명확히 하고 photo-macro texture는 피한다. accepted human-mid의 surface/detail boundary를 상속하되 PLAYER-HUNT-BODY-V1 또는 DAY1-HANDAXE-V1 형태/scale을 정의하지 않는다.',
-          reviewFocus: [
-            ...STYLE_SHARED_REVIEW,
-            'finger count/joint/wrist transition 정상',
-            'hand/stone이 같은 rendering language',
-            'accepted human-mid와 detail tier 일치',
-          ],
-          rejectCodes: [...STYLE_REJECT_CODES, 'ANAT-FINGER', 'ANAT-WRIST', 'GEO-CONTACT-POINT'],
-        },
+        '손/피부/손톱/오염 detail density와 first-person 신체 surface tier를 잠근다.',
+        '특정 Player identity를 아직 잠그지 않는 anonymous hand + wrist + forearm style test. 비진단적인 거친 석재를 자연스럽게 만지며 손가락 수·관절·손목·압력 접촉은 기능적으로 납득되게 유지한다. DAY1-HANDAXE-V1 morphology/scale/fingerprint는 정의하지 않는다. skin pore-field, glossy photo skin, shallow photographic DOF, lens bokeh를 피하고 손/전완 외곽은 재사용 자산 제작에 적합하게 읽혀야 한다.',
+        [
+          'five-finger functional anatomy and believable wrist articulation',
+          'palm/knuckle/nail detail remains illustrative rather than photo-macro',
+          'skin and stone share the same illustrative finish',
+          'contact pressure reads before texture polish',
+          'hand/forearm silhouette is clean enough for later reusable body-master production',
+        ],
+        ['SID-PHOTO', 'SID-LENS', 'SID-EDGE', 'SID-DETAIL', 'SID-COMPOSITE', 'ANAT-FINGER', 'ANAT-WRIST', 'ANAT-HAND-SCALE'],
       ),
-      slot(
-        'STYLE-GIR-V1',
+      styleSlot(
         'world',
-        'World',
-        '낮은 특정성의 dawn natural setting으로 depth/light/environment detail tier를 잠근다.',
-        {
-          mode: 'independent-exploration',
-          instruction:
-            '구체 Day 1 geography를 정의하지 않는 low-specificity 자연환경 reference를 만든다. dawn light, overlap, perspective, broad earth/rock/vegetation masses로 깊이를 만들고 generic AI fog/HDR/game-poster grading을 피한다.',
-          reviewFocus: [...STYLE_SHARED_REVIEW, 'depth가 fog가 아니라 overlap/value/perspective로 읽힐 것'],
-          rejectCodes: STYLE_REJECT_CODES,
-        },
+        'World plate sample',
+        '풍경과 인물이 같은 미술 언어인지 검증한다.',
+        'canonical Day 1 geography를 고정하지 않는 dawn environment style vignette. 낮은 지형·암석·식생 mass와 작은 warm fire contribution을 사용해 depth와 natural light를 검증하되 WORLD-CAMP-DAWN-A, shelter footprint, route, landmark를 이 이미지로 확정하지 않는다. cinematic bokeh/flare/HDR가 아니라 value/occlusion/perspective로 깊이를 만든다.',
+        [
+          'depth through value/occlusion/perspective rather than generic fog or lens blur',
+          'restrained earth palette and readable terrain',
+          'cool dawn ambient plus local warm fire without blockbuster grading',
+          'environment detail density compatible with the human/hand samples',
+        ],
+        ['SID-FOG', 'SID-LENS', 'SID-POSTER', 'SID-FANTASY', 'SID-LIGHT', 'SID-COLOR', 'SID-DETAIL'],
       ),
-      slot(
-        'STYLE-GIR-V1',
+      styleSlot(
         'material',
-        'Material',
-        'stone/soil/garment의 gameplay-distance material language를 잠근다.',
-        {
-          mode: 'independent-exploration',
-          instruction:
-            'stone/soil/low-specificity garment material이 gameplay viewing distance에서 broad form과 material zone으로 읽히는 reference를 만든다. macro product photography, fiber-level simulation, glossy beauty surface를 피한다.',
-          reviewFocus: [...STYLE_SHARED_REVIEW, 'material이 microtexture가 아니라 broad plane/fold로 읽힐 것'],
-          rejectCodes: STYLE_REJECT_CODES,
-        },
+        'Rock / earth / garment material',
+        '재질의 brush/detail density를 비교한다.',
+        '자연광 아래 rock, earth, low-specificity garment material이 한 미술 언어로 읽히는 material style test. 라벨이 붙은 교과서 표본판이나 macro product shot이 아니라 실제 장면에 들어갈 거리와 edge treatment를 유지한다. pore/fiber/product-photo microdetail이 아니라 broad surface planes, roughness, fold/weight로 재질을 구분한다.',
+        [
+          'rock roughness and flake-like surface cues without polished/glossy finish',
+          'earth texture remains readable without noisy microdetail',
+          'garment material reads through broad folds/weight rather than fiber or speculative stitching',
+          'all materials share restrained brush/texture density',
+        ],
+        ['SID-TEXTBOOK', 'SID-PHOTO', 'SID-LENS', 'SID-DETAIL', 'SID-COMPOSITE', 'SID-COLOR'],
       ),
-      slot(
-        'STYLE-GIR-V1',
+      styleSlot(
         'responsive-pair',
-        'Responsive pair',
-        '한 anonymous source moment에서 landscape/portrait framing equivalence를 검증한다.',
-        {
-          mode: 'locked-keyframe-variation',
-          instruction:
-            '한 개의 익명 canonical source moment를 먼저 선택하고 landscape와 portrait를 그 source에서 crop/zoom/pan으로 파생한다. coverage가 부족할 때만 controlled outpaint를 사용하며 서로 unrelated text-to-image 두 장을 responsive pair로 만들지 않는다.',
-          reviewFocus: [
-            ...STYLE_SHARED_REVIEW,
-            'L/portrait가 same moment/same people/same world일 것',
-            'portrait 때문에 human/hand/arm 비율을 변형하지 않을 것',
-          ],
-          rejectCodes: [...STYLE_REJECT_CODES, 'ANAT-HEAD-BODY', 'ANAT-HAND-SCALE'],
-        },
+        'Landscape / portrait equivalence',
+        '같은 사건이 L/portrait에서 같은 source identity와 스타일로 유지되는지 본다.',
+        '같은 anonymous style-test moment/source에서 Landscape와 Portrait를 한 쌍으로 파생한다. 먼저 같은 high-resolution source의 crop/zoom으로 두 framing을 해결하고, crop이 action/identity/safe-region을 보존하지 못할 때만 같은 source를 사용한 controlled locked-keyframe variation/outpaint를 허용한다. 두 unrelated text-to-image generation은 금지한다. 인체·손·도구 비율, light direction, color grade, brush/detail density를 바꾸지 않는다.',
+        [
+          'same source moment and same subject identity across both frames',
+          'crop-first derivation is used when geometrically sufficient',
+          'no anatomy rescaling or world-space actor relocation to solve portrait',
+          'same light direction, material simplification and color grade',
+          'portrait does not become more photographic because the subject is larger',
+        ],
+        ['SID-PHOTO', 'SID-LENS', 'SID-DETAIL', 'SID-LIGHT', 'SID-COLOR', 'SID-COMPOSITE', 'ANAT-FOV', 'GEO-CROP'],
+        'locked-keyframe-variation',
       ),
     ],
   },
@@ -198,10 +179,33 @@ export const STAGE075_ANCHOR_REVIEW_BUNDLES: readonly Stage075AnchorReviewBundle
     reviewOrder: 1,
     productionMode: 'serial-master-derivation',
     slots: [
-      slot('DAY1-HANDAXE-V1', 'face-a', 'Face A', 'DAY1-HANDAXE-V1 canonical morphology seed. face-A/working-end/grip-base/flake-scar fingerprint를 먼저 잠근다.'),
-      derivedSlot('DAY1-HANDAXE-V1', 'face-b', 'Face B', '동일 object master의 반대 면 morphology/flake-scar 관계.', 'face-a'),
-      derivedSlot('DAY1-HANDAXE-V1', 'side-thickness', 'Side / thickness', '같은 object의 side profile과 thickness relationship.', 'face-a'),
-      derivedSlot('DAY1-HANDAXE-V1', 'metric-scale', 'Metric / normalized scale', '실제/정규화 길이·폭·두께와 morphology fingerprint를 함께 잠근다. body-specific grip은 아직 요구하지 않는다.', 'face-a'),
+      slot(
+        'DAY1-HANDAXE-V1',
+        'face-a',
+        'Canonical Face A / morphology seed',
+        '첫 승인 object seed에서 전체 contour, grip-base, working-end, 대표 face-A scar fingerprint와 재질 family를 잠근다.',
+      ),
+      derivedSlot(
+        'DAY1-HANDAXE-V1',
+        'face-b',
+        'Face B derivative',
+        'canonical face-A seed와 고정된 전체 치수/비대칭을 참조해 반대면을 파생한다. 새 주먹도끼를 재설계하지 않는다.',
+        'face-a',
+      ),
+      derivedSlot(
+        'DAY1-HANDAXE-V1',
+        'side',
+        'Side / thickness derivative',
+        'canonical morphology seed의 길이·폭·비대칭과 일치하는 두께/단면을 파생한다.',
+        'face-a',
+      ),
+      derivedSlot(
+        'DAY1-HANDAXE-V1',
+        'scale',
+        'Metric / normalized scale reference',
+        'Player body와의 순환 의존성을 만들지 않도록 먼저 절대/정규화 길이·폭·두께를 잠근다. Player palm 대비 검증은 PLAYER/SC02 contact 단계에서 수행한다.',
+        'face-a',
+      ),
     ],
   },
   {
@@ -209,13 +213,13 @@ export const STAGE075_ANCHOR_REVIEW_BUNDLES: readonly Stage075AnchorReviewBundle
     reviewOrder: 2,
     productionMode: 'serial-master-derivation',
     slots: [
-      slot('PLAYER-HUNT-BODY-V1', 'structural-scaffold', 'Structural scaffold', 'Player의 joint landmarks, body segment relationships, center-of-mass와 intended proportion silhouette를 먼저 잠근다. 실사 6/7/8등신 목표를 강제하지 않는다.'),
-      derivedSlot('PLAYER-HUNT-BODY-V1', 'canonical-body', 'Canonical body master', '한 장의 neutral full-body master에서 head/body ratio, shoulder/pelvis/limb/hand/foot relationships를 확정한다. 이후 모든 Player limb/action의 부모다.', 'structural-scaffold'),
-      derivedSlot('PLAYER-HUNT-BODY-V1', 'right-palm', 'Right palm', '오른손 palm/finger/wrist 비율 기준.', 'canonical-body'),
-      derivedSlot('PLAYER-HUNT-BODY-V1', 'right-dorsum', 'Right dorsum', '같은 오른손의 dorsum 기준.', 'canonical-body'),
-      derivedSlot('PLAYER-HUNT-BODY-V1', 'left-palm', 'Left palm', '왼손 palm/finger/wrist 비율 기준.', 'canonical-body'),
-      derivedSlot('PLAYER-HUNT-BODY-V1', 'left-dorsum', 'Left dorsum', '같은 왼손의 dorsum 기준.', 'canonical-body'),
-      derivedSlot('PLAYER-HUNT-BODY-V1', 'forearm-neutral', 'Forearm neutral', '손목-전완 taper와 arm segment 기준.', 'canonical-body'),
+      slot('PLAYER-HUNT-BODY-V1', 'structural-scaffold', 'Structural scaffold', '관절 landmark, segment relationship, reach, center-of-mass와 의도한 canonical proportion silhouette를 먼저 잠근다. 6/7/8등신 목표를 강제하지 않는다.'),
+      derivedSlot('PLAYER-HUNT-BODY-V1', 'canonical-body', 'Canonical Player body master', '하나의 Player body identity와 고유 비율을 확정한다. 이후 모든 손/팔/발/동작 reference의 부모다.', 'structural-scaffold'),
+      derivedSlot('PLAYER-HUNT-BODY-V1', 'right-palm', 'Right palm', '오른손 손바닥/손가락 비율 reference.', 'canonical-body'),
+      derivedSlot('PLAYER-HUNT-BODY-V1', 'right-dorsum', 'Right dorsum', '오른손 손등/손목 비율 reference.', 'canonical-body'),
+      derivedSlot('PLAYER-HUNT-BODY-V1', 'left-palm', 'Left palm', '왼손 손바닥과 ground/rock brace 기준.', 'canonical-body'),
+      derivedSlot('PLAYER-HUNT-BODY-V1', 'left-dorsum', 'Left dorsum', '좌우 손이 같은 body family인지 검증.', 'canonical-body'),
+      derivedSlot('PLAYER-HUNT-BODY-V1', 'forearm-neutral', 'Forearm neutral', '손목 폭·전완 길이·taper 기준.', 'canonical-body'),
       derivedSlot('PLAYER-HUNT-BODY-V1', 'right-foot-ankle', 'Right foot / ankle', '오른발 길이·폭·발목 비율과 same-body identity 기준.', 'canonical-body'),
       derivedSlot('PLAYER-HUNT-BODY-V1', 'left-foot-ankle', 'Left foot / ankle', '왼발과 좌우 발/발목 same-body identity 기준.', 'canonical-body'),
       derivedSlot('PLAYER-HUNT-BODY-V1', 'receive-reach', 'Receive reach', 'SC02 도달 pose skeleton 기준.', 'canonical-body'),
