@@ -8,10 +8,13 @@ import {
 } from '../../src/experience/production/stage075FirstPersonHandProductionJob';
 
 describe('Stage 07.5 first-person-hand production job', () => {
-  it('activates only after the approved human-mid style reference is registered', () => {
+  it('stays active after r01 rejection and requires the approved human-mid style reference', () => {
     expect(STAGE075_FIRST_PERSON_HAND_PRODUCTION_JOB.jobId).toBe('GIR-FIRST-PERSON-HAND-001');
     expect(STAGE075_FIRST_PERSON_HAND_PRODUCTION_JOB.status).toBe('pending-production');
-    expect(STAGE075_FIRST_PERSON_HAND_PRODUCTION_JOB.candidateRevision).toBe(1);
+    expect(STAGE075_FIRST_PERSON_HAND_PRODUCTION_JOB.candidateRevision).toBe(2);
+    expect(STAGE075_FIRST_PERSON_HAND_PRODUCTION_JOB.generationStrategy).toBe(
+      'anchor-conditioned-style-match',
+    );
     expect(STAGE075_FIRST_PERSON_HAND_PRODUCTION_JOB.requiredStyleReferencePaths).toEqual([
       'public/assets/stage075/anchors/STYLE-GIR-V1/human-mid.webp',
     ]);
@@ -21,7 +24,7 @@ describe('Stage 07.5 first-person-hand production job', () => {
     expect(isStage075FirstPersonHandCurrentProductionTarget()).toBe(true);
   });
 
-  it('starts with all review checks pending and no candidate path', () => {
+  it('starts r02 with all review checks pending and no candidate path', () => {
     expect(STAGE075_FIRST_PERSON_HAND_PRODUCTION_JOB.candidateStagingPath).toBeNull();
     expect(STAGE075_FIRST_PERSON_HAND_PRODUCTION_JOB.registeredApprovedPath).toBeNull();
     expect(areStage075FirstPersonHandReviewChecksPassed(STAGE075_FIRST_PERSON_HAND_PRODUCTION_JOB.reviewChecks)).toBe(false);
@@ -32,7 +35,7 @@ describe('Stage 07.5 first-person-hand production job', () => {
     const reviewed: Stage075FirstPersonHandProductionJob = {
       ...STAGE075_FIRST_PERSON_HAND_PRODUCTION_JOB,
       status: 'review-passed',
-      candidateStagingPath: 'external-review/GIR-FIRST-PERSON-HAND-001-r01.png',
+      candidateStagingPath: 'external-review/GIR-FIRST-PERSON-HAND-001-r02.png',
       reviewChecks: {
         technicalCleanliness: 'pass',
         handAnatomy: 'pass',
@@ -45,7 +48,7 @@ describe('Stage 07.5 first-person-hand production job', () => {
 
     expect(areStage075FirstPersonHandReviewChecksPassed(reviewed.reviewChecks)).toBe(true);
     expect(canStage075FirstPersonHandBeRegistered(reviewed)).toBe(true);
-    expect(canStage075FirstPersonHandBeRegistered({ ...reviewed, driftCodes: ['ANAT-FINGER'] })).toBe(false);
+    expect(canStage075FirstPersonHandBeRegistered({ ...reviewed, driftCodes: ['SID-PHOTO'] })).toBe(false);
   });
 
   it('does not prematurely define Player identity, the handaxe, or named characters', () => {
