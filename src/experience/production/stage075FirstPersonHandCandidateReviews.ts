@@ -31,9 +31,10 @@ export const STAGE075_FIRST_PERSON_HAND_CANDIDATE_REVIEWS: readonly Stage075Firs
     reviewedOn: '2026-09-07',
     notes: [
       'Repeated controlled retries consistently preserved five-finger anatomy, wrist continuity and stone contact.',
-      'The generation family nevertheless converged on photographic skin/rock microdetail and lens-like scenic depth instead of the approved human-mid painterly tier.',
+      'The generation family nevertheless converged on photographic skin/rock microdetail and lens-like scenic depth.',
+      'The later GIR-SURFACE-30 decision confirms this family was substantially too realistic for the intended project surface tier.',
       'No r01 retry is eligible for the canonical first-person-hand path and no rejected binary is committed to the repository.',
-      'The next revision must be explicitly anchor-conditioned by the approved human-mid rendering language and use a low-information non-canonical background rather than cinematic landscape spectacle.',
+      'r02 remains the next revision number, but production is blocked until a new GIR-SURFACE-30 human-mid reference is approved and registered.',
     ],
   },
 ] as const;

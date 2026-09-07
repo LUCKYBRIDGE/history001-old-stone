@@ -39,6 +39,7 @@ export function Stage075VisualAnchorReviewBoard() {
     .filter((contract): contract is NonNullable<typeof contract> => Boolean(contract));
 
   const nextGlobalProductionTarget = getStage075NextGlobalProductionTarget();
+  const surfacePolicy = STAGE075_VISUAL_PRODUCTION_POLICY.surfaceRealismPolicy;
 
   return (
     <section className="anchor-review" aria-label="Stage 07.5 visual anchor review board">
@@ -50,6 +51,37 @@ export function Stage075VisualAnchorReviewBoard() {
           실제 reference path와 함께 잠긴 뒤 scene raster를 승인한다.
         </p>
       </header>
+
+      <section
+        className="anchor-review__section"
+        aria-labelledby="surface-realism-heading"
+        data-testid="surface-realism-policy"
+      >
+        <div className="anchor-review__section-heading">
+          <div>
+            <p>Style calibration law</p>
+            <h2 id="surface-realism-heading">GIR-SURFACE-30</h2>
+          </div>
+        </div>
+        <div className="anchor-review__two-col">
+          <div>
+            <h3>Surface / rendering realism</h3>
+            <p className="anchor-review__mono">
+              target <strong>{surfacePolicy.target}/100</strong> · acceptance {surfacePolicy.acceptanceMin}–{surfacePolicy.acceptanceMax}
+            </p>
+            <p>{surfacePolicy.targetRead}</p>
+            <p>{surfacePolicy.axis}</p>
+          </div>
+          <div>
+            <h3>Do not confuse this with anatomy</h3>
+            <p>
+              관절·무게·접촉·원근은 기능적으로 현실적이어야 한다. 단순화 대상은 피부·머리·손톱·재질·배경의
+              photographic micro-detail이다.
+            </p>
+            <p className="anchor-review__mono">{surfacePolicy.simplify.join(' · ')}</p>
+          </div>
+        </div>
+      </section>
 
       <section
         className="anchor-review__section"

@@ -30,6 +30,10 @@ export interface Stage075HumanMidProductionJob {
   readonly momentId: 'STYLE-GIR-HUMAN-MID-A';
   readonly outputRole: 'style-proof';
   readonly derivationMode: 'independent-exploration';
+  readonly stylePolicyRevision: 'GIR-SURFACE-30';
+  readonly targetSurfaceRealism: 30;
+  readonly acceptanceSurfaceRealismBand: readonly [25, 35];
+  readonly supersededRevision: number | null;
   readonly jobCardPath: string;
   readonly plannedApprovedPath: string;
   readonly status: Stage075ProductionJobStatus;
@@ -56,19 +60,23 @@ export const STAGE075_HUMAN_MID_PRODUCTION_JOB: Stage075HumanMidProductionJob = 
   momentId: 'STYLE-GIR-HUMAN-MID-A',
   outputRole: 'style-proof',
   derivationMode: 'independent-exploration',
+  stylePolicyRevision: 'GIR-SURFACE-30',
+  targetSurfaceRealism: 30,
+  acceptanceSurfaceRealismBand: [25, 35],
+  supersededRevision: 3,
   jobCardPath: 'handoff/STAGE07_5_STYLE_GIR_V1_HUMAN_MID_JOB_CARD.md',
   plannedApprovedPath: humanMidSlot.plannedRepositoryPath,
-  status: 'registered',
-  candidateRevision: 3,
-  candidateStagingPath: 'external-review/GIR-HUMAN-MID-001-r03.png',
-  registeredApprovedPath: humanMidSlot.plannedRepositoryPath,
-  ownerDecision: 'approved',
+  status: 'pending-production',
+  candidateRevision: 4,
+  candidateStagingPath: null,
+  registeredApprovedPath: null,
+  ownerDecision: 'pending',
   reviewChecks: {
-    technicalCleanliness: 'pass',
-    structuralAnatomy: 'pass',
-    styleBoundary: 'pass',
-    extractionViability: 'pass',
-    historicalRestraint: 'pass',
+    technicalCleanliness: 'pending',
+    structuralAnatomy: 'pending',
+    styleBoundary: 'pending',
+    extractionViability: 'pending',
+    historicalRestraint: 'pending',
   },
   driftCodes: [],
   mustNotDefine: [
@@ -101,6 +109,18 @@ export function getStage075HumanMidLifecycleIssues(
   const hasCandidate = Boolean(job.candidateStagingPath);
   const reviewPassed = areStage075HumanMidReviewChecksPassed(job.reviewChecks);
   const hasFailedReview = Object.values(job.reviewChecks).some((state) => state === 'fail');
+
+  if (job.stylePolicyRevision !== 'GIR-SURFACE-30') {
+    issues.push('style-policy-revision-mismatch');
+  }
+
+  if (
+    job.targetSurfaceRealism !== 30 ||
+    job.acceptanceSurfaceRealismBand[0] !== 25 ||
+    job.acceptanceSurfaceRealismBand[1] !== 35
+  ) {
+    issues.push('surface-realism-target-mismatch');
+  }
 
   if (job.candidateRevision < 1 || !Number.isInteger(job.candidateRevision)) {
     issues.push('candidate-revision-invalid');

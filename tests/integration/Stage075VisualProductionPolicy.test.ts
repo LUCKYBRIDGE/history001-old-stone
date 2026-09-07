@@ -3,9 +3,41 @@ import {
   STAGE075_VISUAL_PRODUCTION_POLICY,
   chooseStage075ResponsiveDerivationMode,
   getStage075ReusableAssetRole,
+  isStage075SurfaceRealismWithinTarget,
 } from '../../src/experience/production/stage075VisualProductionPolicy';
 
 describe('Stage 07.5 visual production policy', () => {
+  it('locks GIR-SURFACE-30 as a rendering-surface target distinct from anatomy correctness', () => {
+    const policy = STAGE075_VISUAL_PRODUCTION_POLICY.surfaceRealismPolicy;
+
+    expect(policy.policyId).toBe('GIR-SURFACE-30');
+    expect(policy.minimum).toBe(0);
+    expect(policy.maximum).toBe(100);
+    expect(policy.target).toBe(30);
+    expect(policy.acceptanceMin).toBe(25);
+    expect(policy.acceptanceMax).toBe(35);
+    expect(policy.axis).toContain('surface/rendering realism only');
+    expect(policy.axis).toContain('does not lower anatomy');
+    expect(policy.targetRead).toContain('immediately read as an illustration');
+    expect(isStage075SurfaceRealismWithinTarget(24)).toBe(false);
+    expect(isStage075SurfaceRealismWithinTarget(25)).toBe(true);
+    expect(isStage075SurfaceRealismWithinTarget(30)).toBe(true);
+    expect(isStage075SurfaceRealismWithinTarget(35)).toBe(true);
+    expect(isStage075SurfaceRealismWithinTarget(36)).toBe(false);
+  });
+
+  it('simplifies photographic micro-detail while preserving physical structure', () => {
+    const policy = STAGE075_VISUAL_PRODUCTION_POLICY.surfaceRealismPolicy;
+    expect(policy.preserve).toContain('five-finger and joint correctness');
+    expect(policy.preserve).toContain('contact pressure, occlusion and object depth');
+    expect(policy.simplify.some((item) => item.includes('skin'))).toBe(true);
+    expect(policy.simplify.some((item) => item.includes('nails'))).toBe(true);
+    expect(policy.simplify.some((item) => item.includes('rock/earth'))).toBe(true);
+    expect(STAGE075_VISUAL_PRODUCTION_POLICY.hardStyleRejects).toContain(
+      'surface/rendering realism materially above the GIR-SURFACE-30 acceptance band',
+    );
+  });
+
   it('keeps hero and Player identity above incidental micro-detail continuity', () => {
     expect(STAGE075_VISUAL_PRODUCTION_POLICY.continuityPriorities['P0-identity']).toContain(
       'Player exact canonical hand/arm/foot/body proportion fingerprint',

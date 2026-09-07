@@ -1,6 +1,6 @@
 # Stage 07.5 — STYLE-GIR-V1 / first-person-hand Production Job Card
 
-Status: **ACTIVE PRODUCTION SLOT / r01 REJECTED / r02 PENDING**
+Status: **BLOCKED UPSTREAM / r01 REJECTED / r02 RESERVED**
 
 ## 1. Job identity
 
@@ -8,14 +8,12 @@ Status: **ACTIVE PRODUCTION SLOT / r01 REJECTED / r02 PENDING**
 JOB ID: GIR-FIRST-PERSON-HAND-001
 TARGET: STYLE-GIR-V1 / first-person-hand
 OUTPUT ROLE: anonymous first-person body style proof
-CURRENT REVISION: r02
+STYLE POLICY: GIR-SURFACE-30
+TARGET SURFACE REALISM: 30 / 100
+CURRENT REVISION NUMBER: r02
 GENERATION STRATEGY: anchor-conditioned-style-match
-```
-
-Required upstream style reference:
-
-```text
-public/assets/stage075/anchors/STYLE-GIR-V1/human-mid.webp
+STATUS: blocked-upstream
+BLOCKED BY: STYLE-GIR-V1 / human-mid
 ```
 
 Planned approved path:
@@ -24,33 +22,31 @@ Planned approved path:
 public/assets/stage075/anchors/STYLE-GIR-V1/first-person-hand.webp
 ```
 
-The approved `human-mid.webp` supplies rendering language only. This hand does not define the Player or any named character.
+There is currently **no approved upstream human style reference**. Therefore r02 must not be generated yet.
 
 ---
 
-## 2. Exact production objective
+## 2. Why this slot is blocked again
 
-Produce exactly one current candidate at a time showing an anonymous adult **hand + wrist + enough forearm to judge continuity** while naturally contacting one rough, non-diagnostic natural stone.
+The former `human-mid r03` reference was approved under an older qualitative STYLE-GIR boundary. The Project-owner later fixed the intended **surface/rendering realism at about 30/100**, with a 25–35 acceptance band.
 
-The slot locks:
+r03 is now superseded under `GIR-SURFACE-30`, and its former canonical binary has been removed from the approved anchor path.
 
-- five-finger functional anatomy,
-- finger segment/joint readability,
-- wrist-to-forearm transition,
-- believable pressure/contact,
-- skin/stone finish compatibility,
-- clean limb silhouette,
-- the same Grounded Illustrative Realism boundary already approved in `human-mid.webp`.
+Therefore:
 
-It must not define `PLAYER-HUNT-BODY-V1` or `DAY1-HANDAXE-V1`.
+```text
+human-mid r04 GIR-30 approval
+→ required first
+→ then first-person-hand r02 may resume
+```
+
+Do not use the superseded r03 binary as a visual parent.
 
 ---
 
 ## 3. r01 review — REJECTED
 
-The r01 generation family was retried several times under the same slot because the first outputs missed the style boundary.
-
-What consistently worked:
+What worked:
 
 ```text
 technicalCleanliness = PASS
@@ -69,65 +65,66 @@ SID-LENS
 SID-DETAIL
 ```
 
-Reason:
+The generated family repeatedly used:
 
-- five fingers, wrist continuity and stone contact were generally coherent;
-- however skin and rock repeatedly became photographic/macro-detailed;
-- scenic depth repeatedly used camera/lens-like separation;
-- the result no longer matched the accepted `human-mid.webp` broad painted surface/detail tier.
+- photographic skin texture,
+- visible veins/creases/hair at photo density,
+- highly detailed nails,
+- macro-like rock/mineral texture,
+- scenic lens separation and shallow DOF.
 
-No r01 retry is approved. **No r01 binary is committed to the repository.**
-
-Machine-readable ledger:
-
-```text
-src/experience/production/stage075FirstPersonHandCandidateReviews.ts
-```
+This failure is even clearer under GIR-SURFACE-30. No r01 binary is approved or committed.
 
 ---
 
-## 4. r02 controlled production instruction
+## 4. r02 target after upstream unlock
 
-r02 is not another free scenic first-person image. It is an **anchor-conditioned style-match** attempt.
+When a new `human-mid` is approved, r02 must use that exact approved GIR-30 reference as the style parent.
 
-Required:
+Required physical logic:
 
-- use `human-mid.webp` as the actual visual style parent/reference;
-- first-person camera;
-- one anonymous bare hand, wrist and forearm;
-- all five fingers anatomically legible;
-- plausible tendon/knuckle/joint sequence;
-- natural wrist-to-forearm taper;
-- light grip/brace/rest against one rough natural stone;
-- clear contact pressure and occlusion;
-- broad painted skin planes and restrained creases;
-- stone represented through broad planes/roughness groups, not mineral macro photography;
-- low-information earth/rock background only;
-- edges and detail density must visually belong to the same family as `human-mid.webp`.
+- first-person camera,
+- one anonymous hand + wrist + enough forearm,
+- five readable fingers,
+- plausible joints/knuckles,
+- natural wrist-to-forearm taper,
+- believable pressure/occlusion against one rough non-diagnostic stone.
 
-Explicitly reduce:
+Required surface simplification:
 
-- pores and fine skin relief,
-- individual arm hair,
-- nail macro detail,
-- high-frequency lichen/mineral texture,
-- cinematic landscape spectacle,
-- bokeh / shallow photographic DOF,
-- lens-like foreground/background separation,
-- HDR/key-art grading.
+- broad skin planes,
+- only a few representative creases,
+- minimal or no visible body hair,
+- veins only if needed for large form, not decorative texture,
+- simple nail shape/value with no macro reflection/cuticle rendering,
+- rock described by major planes/roughness groups, not exhaustive cracks/grain,
+- low-information shape/value background,
+- no lens bokeh or cinematic vista.
 
-Do not include:
-
-- clothing/jewelry/tattoo/modern accessory,
-- handaxe-like shaped stone,
-- distinctive Player identity,
-- named character identity,
-- canonical Day 1 geography,
-- UI/text/logo.
+The result must read immediately as an illustration near **30/100 surface realism**, not as a game cinematic or photo.
 
 ---
 
-## 5. Immediate reject conditions
+## 5. Must not define
+
+- `PLAYER-HUNT-BODY-V1`,
+- `DAY1-HANDAXE-V1`,
+- `ARU-IDENTITY-V1`,
+- `DAMU-IDENTITY-V1`,
+- `NUA-IDENTITY-V1`,
+- canonical Day 1 geography.
+
+The stone must remain non-diagnostic:
+
+- no handaxe contour,
+- no face-A/B,
+- no grip-base,
+- no working-end,
+- no canonical scar fingerprint.
+
+---
+
+## 6. Immediate reject conditions after unlock
 
 ```text
 ANAT-FINGER
@@ -141,45 +138,22 @@ SID-DETAIL
 SID-COMPOSITE
 ```
 
-Any unresolved code blocks approval.
-
-A technically attractive image is still rejected if it looks more photographic than the approved human reference.
-
----
-
-## 6. Acceptance checks
-
-All must pass:
-
-```text
-technicalCleanliness
-handAnatomy
-styleBoundary
-contactReadability
-extractionViability
-historicalRestraint
-```
-
-Only after a clean PASS may the binary be stored at:
-
-```text
-public/assets/stage075/anchors/STYLE-GIR-V1/first-person-hand.webp
-```
-
-Then the serial queue advances to `STYLE-GIR-V1 / world`.
+Also reject if the assigned surface realism is clearly outside the GIR-30 25–35 band.
 
 ---
 
 ## 7. Current gate truth
 
 ```text
-STYLE-GIR-V1 approved slots = 1 / 5
-human-mid = APPROVED / REGISTERED
+STYLE-GIR-V1 approved slots = 0 / 5
+human-mid r04 = ACTIVE / NEXT
 first-person-hand r01 = REJECTED
-first-person-hand r02 = ACTIVE / NEXT / pending-production
+first-person-hand r02 = BLOCKED UPSTREAM
 world = BLOCKED
 material = BLOCKED
 responsive-pair = BLOCKED
 Human Gate = FAIL
 Stage 08 = BLOCKED
 ```
+
+No hand image should be generated until the upstream GIR-30 human reference is approved and registered.
