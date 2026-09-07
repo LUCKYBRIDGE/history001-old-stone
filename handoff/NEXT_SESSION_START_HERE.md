@@ -1,6 +1,6 @@
 # NEXT SESSION — START HERE
 
-Status: **ACTIVE SESSION BOOTSTRAP / R2 Stage 07.5 Visual Anatomy Reference Lock**
+Status: **ACTIVE SESSION BOOTSTRAP / R2 Stage 07.5 Visual Anatomy Reference Lock / GIR-SURFACE-30 RECALIBRATION**
 
 GitHub `main` is the source of truth. At the start of every work session, verify exact latest `main` SHA and Project CI before writing.
 
@@ -27,8 +27,6 @@ Player is an existing member of the community, not a modern visitor.
 
 # **R2 Stage 07.5 Visual Anatomy Reference Lock**
 
-Current truth:
-
 ```text
 Scene Composition Design = PASS
 Project-owner Scene Confirmation = PASS
@@ -36,12 +34,15 @@ Responsive Raster Contract = READY
 Visual Identity/Layering/Derivation Policy = SPEC LOCKED
 Functional Anatomy / Stylized Proportion Policy = SPEC LOCKED
 Exact Canonical Ratio Inheritance = SPEC LOCKED
+GIR-SURFACE-30 = SPEC LOCKED
 Serial Anchor Production Queue = ENFORCED
 Visual Anchor Review Board = INTEGRATED
 STYLE-GIR-V1 = REFERENCE PENDING
-STYLE-GIR-V1 Approved Slots = 1/5
-human-mid = APPROVED / REGISTERED
-Current Single Production Target = STYLE-GIR-V1 / first-person-hand
+STYLE-GIR-V1 Approved Slots = 0/5
+human-mid r03 = SUPERSEDED old-policy approval
+Current Single Production Target = STYLE-GIR-V1 / human-mid r04
+first-person-hand r02 = BLOCKED UPSTREAM
+Approved STYLE Reference Paths = 0
 Approved Scene Raster Assets = 0
 Human Gate = FAIL
 Stage 08 = BLOCKED
@@ -50,122 +51,157 @@ Stage 08 = BLOCKED
 Do not move Stage 08 forward.
 Do not declare Human PASS from CI.
 Do not batch-generate later anchor slots.
-Do not generate another `human-mid` portrait unless the approved reference is explicitly revoked.
+Do not use the old r03 `human-mid` binary as a current style reference.
+Do not generate `first-person-hand r02` before a new GIR-30 human-mid is approved.
 
 ---
 
-# 3. Approved style reference
+# 3. Critical new style law
 
-Canonical asset:
+Official style remains:
+
+# **Grounded Illustrative Realism**
+
+but Stage 07.5 now narrows it with:
+
+# **GIR-SURFACE-30**
+
+```text
+surface/rendering realism target = 30 / 100
+acceptance band = 25–35
+```
+
+Scale:
+
+```text
+0    very simple graphic/cartoon
+15   strongly simplified animation-like
+30   grounded structural illustration  ← TARGET
+45   semireal illustration
+60   realistic illustration
+80   game/cinematic realism
+100  photograph
+```
+
+This is **not an anatomy score**.
+
+Keep highly functional:
+
+- digits/joints
+- wrist/ankle/limb articulation
+- balance/weight
+- reach/contact pressure/depth
+- perspective
+- exact canonical identity/proportions after approval
+- object/world continuity
+
+Simplify strongly:
+
+- pores and fine skin grain
+- veins/body hair
+- nail/cuticle/specular detail
+- individual hair strands
+- fibers/stitches
+- rock/soil micro-cracks and grains
+- photo-density foliage/pebbles
+- bokeh/shallow DOF/lens language
+
+At normal viewing distance, production art should immediately read as **illustration**.
+
+---
+
+# 4. human-mid history and current state
+
+```text
+r01 = rejected / historical restraint
+r02 = rejected / SID-PHOTO + SID-LENS + SID-EDGE
+r03 = approved under former qualitative STYLE-GIR boundary
+```
+
+After GIR-SURFACE-30 was locked, r03 was re-reviewed:
+
+```text
+technicalCleanliness = PASS
+structuralAnatomy = PASS
+styleBoundary = FAIL under GIR-SURFACE-30
+extractionViability = PASS
+historicalRestraint = PASS
+drift = SID-PHOTO + SID-DETAIL
+decision = SUPERSEDED
+```
+
+The old approval is preserved as history, but r03 is no longer a current style parent.
+
+The old canonical binary was removed from:
 
 ```text
 public/assets/stage075/anchors/STYLE-GIR-V1/human-mid.webp
 ```
 
-Approved revision:
-
-```text
-GIR-HUMAN-MID-001 r03
-```
-
-This locks the human rendering tier only:
-
-```text
-functional believable anatomy / weight
-+
-painterly broad skin planes
-+
-hair mass / silhouette
-+
-broad low-specificity garment folds
-+
-clean reusable silhouette
--
-photographic pore field / beauty skin
--
-individual-hair simulation
--
-photographic shallow DOF / bokeh / lens language
--
-AAA poster / fantasy barbarian / cartoon-chibi
-```
-
-It is NOT Aru/Damu/Nua/Player and is not a factual reconstruction of one historical individual or costume.
-
-Previous rejected attempts:
-
-```text
-r01 = historical restraint fail
-r02 = SID-PHOTO / SID-LENS / SID-EDGE
-r03 = approved
-```
+That path is now empty/pending until a new current-policy reference is approved.
 
 ---
 
-# 4. Current single production target
+# 5. Current single production target
 
-# **STYLE-GIR-V1 / first-person-hand**
+# **STYLE-GIR-V1 / human-mid r04**
 
 Required files:
 
-- `handoff/STAGE07_5_STYLE_GIR_V1_FIRST_PERSON_HAND_JOB_CARD.md`
-- `src/experience/production/stage075FirstPersonHandProductionJob.ts`
-
-Required upstream style reference:
-
-- `public/assets/stage075/anchors/STYLE-GIR-V1/human-mid.webp`
+- `handoff/STAGE07_5_STYLE_GIR_V1_HUMAN_MID_JOB_CARD.md`
+- `src/experience/production/stage075HumanMidProductionJob.ts`
+- `src/experience/production/stage075HumanMidCandidateReviews.ts`
 
 Target:
 
 ```text
-anonymous first-person adult hand
-+ wrist
-+ enough forearm to judge continuity
-+ rough non-diagnostic natural stone contact
+anonymous fictional community member
++ medium shot
++ functional believable anatomy
++ GIR-30 surface treatment
++ face from structure/large planes
++ hair from mass/silhouette
++ broad low-specificity garment folds
++ clean silhouette
++ low-information contextual natural background
 ```
-
-The hand must inherit **style/detail level**, not identity, from `human-mid.webp`.
 
 Do not define:
 
-- `PLAYER-HUNT-BODY-V1`
-- `DAY1-HANDAXE-V1`
 - Aru/Damu/Nua identity
+- Player identity
+- handaxe morphology
+- canonical Day 1 geography
+- exact ethnicity/species/costume certainty
 
-The stone must not become a handaxe design.
-
-Review checks:
-
-```text
-technicalCleanliness
-handAnatomy
-styleBoundary
-contactReadability
-extractionViability
-historicalRestraint
-```
-
-Reject codes include:
-
-```text
-ANAT-FINGER
-ANAT-WRIST
-ANAT-HAND-SCALE
-GEO-CONTACT-POINT
-SID-PHOTO
-SID-LENS
-SID-EDGE
-SID-DETAIL
-SID-COMPOSITE
-```
-
-If a candidate fails, record reject/revision and create another **hand candidate**, not another anonymous human portrait.
+Do not produce multiple downstream STYLE slots in parallel.
 
 ---
 
-# 5. Mandatory reading order
+# 6. first-person-hand status
 
-Read before changing anything:
+`first-person-hand r01` remains rejected for:
+
+```text
+SID-PHOTO
+SID-LENS
+SID-DETAIL
+```
+
+Its anatomy/contact were generally acceptable, but its surface treatment repeatedly landed near game/photo realism rather than the desired illustration tier.
+
+`first-person-hand r02` is reserved but:
+
+```text
+status = BLOCKED UPSTREAM
+blocked by = STYLE-GIR-V1 / human-mid
+```
+
+Only after a new human-mid is approved under GIR-SURFACE-30 may r02 resume using that exact approved style parent.
+
+---
+
+# 7. Mandatory reading order
 
 1. `AGENTS.md`
 2. `docs/00_CANONICAL_BASELINE.md`
@@ -186,17 +222,15 @@ Read before changing anything:
 17. `handoff/STAGE07_5_RESPONSIVE_VISUAL_PRODUCTION_CONTRACT.md`
 18. `handoff/STAGE07_5_VISUAL_GENERATION_AND_REVIEW_PROTOCOL.md`
 19. `handoff/STAGE07_5_FIRST_PERSON_SCENE_COMPOSITION_BIBLE_V2_1.md`
-20. `handoff/STAGE07_5_STYLE_GIR_V1_FIRST_PERSON_HAND_JOB_CARD.md`
+20. `handoff/STAGE07_5_STYLE_GIR_V1_HUMAN_MID_JOB_CARD.md`
 
 Technical conflicts are resolved by `docs/06_TECH_BLUEPRINT.md`.
 
+If older art documents use vague words such as `semireal`, the current Stage 07.5 `GIR-SURFACE-30` policy is the controlling interpretation for production.
+
 ---
 
-# 6. Governing visual laws
-
-Official style:
-
-# **Grounded Illustrative Realism**
+# 8. Governing identity / body laws
 
 Continuity priority:
 
@@ -204,31 +238,31 @@ Continuity priority:
 P0 hero + Player identity           = HARD LOCK
 P1 contact + recurring hero object = HARD LOCK
 P2 world structure + world light   = STRONG LOCK
-P3 flyaway/fold/pebble/grass/smoke = harmless variation allowed
+P3 incidental microvariation       = flexible
 ```
 
 Rules:
 
 # **Do not regenerate what can be derived from an approved master.**
 
-# **Functional anatomy is mandatory. Photographic proportion convention is not.**
+# **Functional anatomy is mandatory. Photographic surface realism is not.**
 
 # **Choose proportions freely before approval; inherit them exactly after approval.**
 
 # **One active production slot at a time.**
 
-Same person means same canonical ratios. If an approved body is 7.2 heads, derivatives keep the same underlying 7.2 body; 6.8/7.5 redesign is identity drift. Perspective/foreshortening/pose/FOV/crop may alter apparent screen-space ratio only.
+If a canonical character is 7.2 heads, all derivatives retain the same underlying 7.2 body. Apparent screen-space changes caused by perspective/foreshortening/pose/FOV/crop are allowed; structural 6.8/7.5 redesign is not.
 
 ---
 
-# 7. Derivation rules
+# 9. Derivation rules
 
 ```text
 same moment + same camera direction
 → crop / zoom / pan
 
 coverage/resolution insufficient
-→ controlled outpaint / upscale from same master
+→ controlled outpaint / upscale
 
 materially different camera direction
 → Angle Master from same world/topology/landmark/light
@@ -237,14 +271,14 @@ actual action/world/body state change
 → State Master derivative
 
 contact-heavy interlocked state
-→ unified contact derivative if separate layers break topology
+→ Unified Contact derivative if separate layers break topology
 ```
 
 ---
 
-# 8. Anchor order after STYLE-GIR-V1
+# 10. Anchor order after STYLE-GIR-V1
 
-Do not start these until STYLE-GIR-V1 reaches 5/5.
+Do not start these until STYLE-GIR-V1 reaches current-policy 5/5.
 
 ```text
 0. STYLE-GIR-V1
@@ -260,47 +294,33 @@ Do not start these until STYLE-GIR-V1 reaches 5/5.
 10. world / landmark / supporting-contact anchors
 ```
 
-DAY1-HANDAXE lineage:
+Identity master rule:
 
 ```text
-face-a canonical morphology seed
-→ face-b
-→ side/thickness
-→ metric/normalized scale
-```
-
-Player lineage:
-
-```text
-structural-scaffold
-→ canonical-body
-→ hands/arms/feet/ankles/actions
-```
-
-Aru lineage:
-
-```text
-structural-scaffold
-→ canonical-identity
-→ turnaround/action derivatives
+structural scaffold
+→ one canonical master
+→ derivatives from that master
+→ measured exact ratio lock
 ```
 
 Never independently generate a view set and pick the most similar results.
 
 ---
 
-# 9. Historical / curriculum locks
+# 11. Historical / curriculum locks
 
 - `뗀석기` is the parent concept.
 - `주먹도끼` is a representative example, not a synonym.
 - Official visual framing = **Korean Paleolithic Educational Composite / Element-level Provenance**.
 - `[H] Historical`, `[C] Comparative`, `[R] Reconstruction`, `[D] Deferred/non-diagnostic`.
 - Do not overclaim exact face/species/clothing/vegetation.
-- Do not mix highly specific reconstructions from different periods/sites merely because all are Paleolithic.
+- Do not mix highly specific reconstructions merely because all are Paleolithic.
+
+Lower surface realism does not mean freer historical invention. Historical restraint remains unchanged.
 
 ---
 
-# 10. Dev review
+# 12. Dev review truth
 
 ```text
 ?anchors=1
@@ -308,27 +328,28 @@ Never independently generate a view set and pick the most similar results.
 ?raster=1
 ```
 
-`?anchors=1` must currently show:
+`?anchors=1` must show:
 
 ```text
-STYLE-GIR-V1 = 1/5
-human-mid = approved reference
-first-person-hand = NEXT production target
-world = blocked by first-person-hand
+GIR-SURFACE-30 target = 30/100
+acceptance = 25–35
+STYLE-GIR-V1 = 0/5
+human-mid = NEXT production target
+first-person-hand = blocked by human-mid
 ```
 
 ---
 
-# 11. Immediate execution rule
+# 13. Immediate execution rule
 
-When visual production is requested, do exactly this:
+When image production is explicitly requested:
 
 ```text
-create one first-person-hand candidate
-→ evaluate against Job Card
-→ if fail: record reject and revise hand candidate
-→ if pass: register canonical first-person-hand.webp
-→ advance exactly one slot to world
+create exactly one human-mid r04 candidate
+→ evaluate anatomy + GIR-30 + extraction + history
+→ if fail: record reject and revise human-mid
+→ if pass: owner approval + canonical human-mid.webp registration
+→ then and only then activate first-person-hand r02
 ```
 
-Do not generate unrelated people or later anchors in parallel.
+Do not generate a hand, world, material, handaxe, Player, or named character before that unlock.
