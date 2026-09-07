@@ -18,6 +18,8 @@ export type Stage075VisualDerivationMode =
   | 'state-derivative'
   | 'unified-contact-derivative';
 
+export type Stage075SurfaceRealismPolicyId = 'GIR-SURFACE-30';
+
 export interface Stage075ResponsiveDerivationInput {
   sameApprovedContinuityGroup: boolean;
   sameWorldMoment: boolean;
@@ -42,6 +44,35 @@ export const STAGE075_VISUAL_PRODUCTION_POLICY = {
     'Perspective, foreshortening, pose and crop may change apparent projected measurements, but they never authorize a new underlying head/body or limb ratio.',
   verificationRule:
     'Validate derivatives against the canonical structural scaffold and recorded normalized ratios, not by re-measuring a perspective-distorted screen silhouette as a new body design.',
+  surfaceRealismPolicy: {
+    policyId: 'GIR-SURFACE-30' as Stage075SurfaceRealismPolicyId,
+    axis:
+      '0-100 surface/rendering realism only. This score does not lower anatomy, contact, weight, perspective or continuity requirements.',
+    minimum: 0,
+    maximum: 100,
+    target: 30,
+    acceptanceMin: 25,
+    acceptanceMax: 35,
+    targetRead:
+      'At normal viewing distance the image must immediately read as an illustration, while joints, weight, contact and spatial logic remain believable.',
+    preserve: [
+      'five-finger and joint correctness',
+      'believable wrist/forearm and limb articulation',
+      'weight, balance and center-of-mass logic',
+      'contact pressure, occlusion and object depth',
+      'coherent perspective and world-space light',
+      'exact approved character/Player/object/world continuity',
+    ],
+    simplify: [
+      'skin into broad value/color planes with only representative creases',
+      'hair into grouped masses and silhouette instead of individual strands',
+      'nails into simple shape/value cues without macro reflection detail',
+      'veins and body hair to only the few cues needed for form, usually none at medium distance',
+      'garments into silhouette, weight and major fold groups instead of fiber/stitch microdetail',
+      'rock/earth into major planes, roughness groups and representative marks instead of exhaustive cracks/grains',
+      'background vegetation and terrain into readable shape/value groups instead of photo-density texture',
+    ],
+  },
   bodyMasterOrder: [
     'structural-scaffold',
     'canonical-body-or-identity-master',
@@ -105,15 +136,27 @@ export const STAGE075_VISUAL_PRODUCTION_POLICY = {
     contactHeavy: 'unified-contact-master',
   } satisfies Record<string, Stage075ReusableAssetRole>,
   hardStyleRejects: [
+    'surface/rendering realism materially above the GIR-SURFACE-30 acceptance band',
     'photographic pore-field or beauty-photo facial rendering',
     'photographic individual-hair field instead of grouped hair masses',
+    'macro nail/vein/body-hair detail becoming a defining cue',
+    'rock, soil, fur or fabric rendered at product-photo or macro texture density',
     'baked photographic lens bokeh/flare/chromatic-aberration/sensor-noise language',
     'shallow photographic depth-of-field that dissolves a reusable silhouette',
     'photographic actor against illustrative world or the reverse',
     'visible alpha halo/background contamination at intended display size',
     'AAA poster/HDR grading that harms information readability',
+    'surface simplification so extreme that the result becomes cartoon/chibi rather than grounded illustration',
   ],
 } as const;
+
+export function isStage075SurfaceRealismWithinTarget(score: number) {
+  return (
+    Number.isFinite(score) &&
+    score >= STAGE075_VISUAL_PRODUCTION_POLICY.surfaceRealismPolicy.acceptanceMin &&
+    score <= STAGE075_VISUAL_PRODUCTION_POLICY.surfaceRealismPolicy.acceptanceMax
+  );
+}
 
 export function chooseStage075ResponsiveDerivationMode(
   input: Stage075ResponsiveDerivationInput,
