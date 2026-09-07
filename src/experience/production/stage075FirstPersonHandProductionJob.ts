@@ -19,12 +19,21 @@ export interface Stage075FirstPersonHandProductionJob {
   readonly slotId: 'first-person-hand';
   readonly outputRole: 'style-proof';
   readonly generationStrategy: 'anchor-conditioned-style-match';
-  readonly status: 'pending-production' | 'candidate-produced' | 'review-passed' | 'candidate-rejected' | 'registered';
+  readonly stylePolicyRevision: 'GIR-SURFACE-30';
+  readonly targetSurfaceRealism: 30;
+  readonly status:
+    | 'blocked-upstream'
+    | 'pending-production'
+    | 'candidate-produced'
+    | 'review-passed'
+    | 'candidate-rejected'
+    | 'registered';
   readonly candidateRevision: number;
   readonly candidateStagingPath: string | null;
   readonly registeredApprovedPath: string | null;
   readonly plannedApprovedPath: string;
   readonly requiredStyleReferencePaths: readonly string[];
+  readonly blockedBy: readonly string[];
   readonly reviewChecks: Stage075FirstPersonHandReviewChecks;
   readonly driftCodes: readonly string[];
   readonly mustNotDefine: readonly string[];
@@ -34,9 +43,11 @@ const styleBundle = getStage075AnchorReviewBundle('STYLE-GIR-V1');
 const handSlot = styleBundle?.slots.find((slot) => slot.id === 'first-person-hand');
 const humanMidSlot = styleBundle?.slots.find((slot) => slot.id === 'human-mid');
 
-if (!handSlot || !humanMidSlot?.approvedPath) {
-  throw new Error('first-person-hand production requires registered STYLE-GIR-V1 / human-mid');
+if (!handSlot || !humanMidSlot) {
+  throw new Error('STYLE-GIR-V1 human-mid and first-person-hand slots must exist');
 }
+
+const approvedHumanMidPath = humanMidSlot.approvedPath ?? null;
 
 export const STAGE075_FIRST_PERSON_HAND_PRODUCTION_JOB: Stage075FirstPersonHandProductionJob = {
   jobId: 'GIR-FIRST-PERSON-HAND-001',
@@ -44,12 +55,15 @@ export const STAGE075_FIRST_PERSON_HAND_PRODUCTION_JOB: Stage075FirstPersonHandP
   slotId: 'first-person-hand',
   outputRole: 'style-proof',
   generationStrategy: 'anchor-conditioned-style-match',
-  status: 'pending-production',
+  stylePolicyRevision: 'GIR-SURFACE-30',
+  targetSurfaceRealism: 30,
+  status: approvedHumanMidPath ? 'pending-production' : 'blocked-upstream',
   candidateRevision: 2,
   candidateStagingPath: null,
   registeredApprovedPath: null,
   plannedApprovedPath: handSlot.plannedRepositoryPath,
-  requiredStyleReferencePaths: [humanMidSlot.approvedPath],
+  requiredStyleReferencePaths: approvedHumanMidPath ? [approvedHumanMidPath] : [],
+  blockedBy: approvedHumanMidPath ? [] : ['STYLE-GIR-V1/human-mid'],
   reviewChecks: {
     technicalCleanliness: 'pending',
     handAnatomy: 'pending',
@@ -73,6 +87,16 @@ export function isStage075FirstPersonHandCurrentProductionTarget() {
   return target?.anchorId === 'STYLE-GIR-V1' && target.slotId === 'first-person-hand';
 }
 
+export function isStage075FirstPersonHandUpstreamReady(
+  job: Stage075FirstPersonHandProductionJob = STAGE075_FIRST_PERSON_HAND_PRODUCTION_JOB,
+) {
+  return (
+    job.status !== 'blocked-upstream' &&
+    job.requiredStyleReferencePaths.length === 1 &&
+    job.blockedBy.length === 0
+  );
+}
+
 export function areStage075FirstPersonHandReviewChecksPassed(
   checks: Stage075FirstPersonHandReviewChecks,
 ) {
@@ -84,6 +108,7 @@ export function canStage075FirstPersonHandBeRegistered(
 ) {
   return (
     job.status === 'review-passed' &&
+    isStage075FirstPersonHandUpstreamReady(job) &&
     Boolean(job.candidateStagingPath) &&
     !job.registeredApprovedPath &&
     areStage075FirstPersonHandReviewChecksPassed(job.reviewChecks) &&
