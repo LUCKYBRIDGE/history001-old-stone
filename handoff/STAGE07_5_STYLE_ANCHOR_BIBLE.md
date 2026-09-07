@@ -1,6 +1,6 @@
 # Stage 07.5 — Style Anchor Bible
 
-Status: **STYLE-GIR-V1 SPEC LOCKED / REFERENCE SHEET PENDING**
+Status: **STYLE-GIR-V1 SPEC LOCKED / GIR-SURFACE-30 RECALIBRATION ACTIVE / REFERENCE SHEET PENDING**
 
 Anchor ID:
 
@@ -8,7 +8,13 @@ Anchor ID:
 STYLE-GIR-V1
 ```
 
-Purpose: keep every Stage 07.5 raster inside the same **Grounded Illustrative Realism** visual language so character/world/object continuity is not broken by realism-level drift.
+Surface policy ID:
+
+```text
+GIR-SURFACE-30
+```
+
+Purpose: keep every Stage 07.5 raster inside one **Grounded Illustrative Realism** language while deliberately limiting photographic surface detail so identity continuity, compositing and historical restraint remain stronger than micro-realism.
 
 Depends on:
 
@@ -19,376 +25,468 @@ Depends on:
 - `src/experience/production/stage075StyleAnchor.ts`
 - `src/experience/production/stage075VisualProductionPolicy.ts`
 
+The Stage 07.5 rule below **narrows** earlier qualitative `semireal / illustrative realism` wording. When older prose is ambiguous, this GIR-SURFACE-30 contract controls Stage 07.5 production.
+
 ---
 
-# 1. Target position on the realism spectrum
+# 1. Exact target on the realism spectrum
 
-Official target:
+`30` is the Project-owner selected target for **surface/rendering realism**.
 
 ```text
-cartoon ────── illustrative realism ──●──── photoreal
-                                     ↑
-                              STYLE-GIR-V1
+0    very simple graphic/cartoon
+15   strongly simplified animation-like treatment
+30   grounded structural illustration  ← TARGET
+45   semireal illustration
+60   realistic illustration
+80   game/cinematic realism
+100  photograph
 ```
 
-The image should feel physically believable, but not like a photograph, movie still, or AAA marketing screenshot.
+Machine-readable acceptance band:
 
-## Required qualities
+```text
+25–35
+```
 
-- realistic anatomy
-- believable weight/contact
-- coherent perspective
-- natural light
-- readable material differences
-- restrained surface texture
-- painterly/illustrative surface simplification
-- child-appropriate visual clarity
+Interpretation:
 
-## Explicitly not the target
+- target center = `30/100`
+- `25–35` = acceptable surface band
+- `<25` = inspect for excessive cartoon/graphic simplification
+- `>35` = inspect for semireal/photographic drift
 
-- documentary photo
-- hyper-real 3D render
-- cinematic poster
-- fantasy concept-art hero shot
-- children's cartoon
-- museum textbook cutaway
+# **This score applies to surface/rendering treatment, not to anatomy correctness.**
+
+The image should immediately read as an illustration at normal viewing distance.
 
 ---
 
-# 2. Why photorealism is intentionally limited
+# 2. Two independent requirements
 
-High photorealism creates three problems for this project:
+The project separates **physical plausibility** from **surface realism**.
 
-1. historical uncertainty looks falsely certain
-2. face/hand/generation inconsistency becomes more obvious
-3. isolated generated layers look pasted together when detail density differs
+## A. Physical / structural logic — keep strong
 
-Therefore realism is used for **physical logic**, not for photographic surface imitation.
+Required:
 
-Identity continuity and clean compositing are higher priorities than photographic micro-detail.
+- correct finger count and joint sequence,
+- believable wrist/forearm articulation,
+- coherent limb/body relationship,
+- believable weight and center of mass,
+- plausible reach/contact,
+- coherent perspective,
+- readable object depth/occlusion,
+- coherent world-space light,
+- exact approved identity/body/object/world continuity after lock.
+
+## B. Surface / rendering realism — deliberately around 30
+
+Simplify:
+
+- skin microtexture,
+- individual hair,
+- veins/body hair,
+- nail reflections/cuticles,
+- fabric fibers/stitching,
+- rock/soil grains and micro-cracks,
+- leaf/grass/pebble density,
+- photographic depth-of-field cues.
+
+Core formula:
+
+```text
+functional believable anatomy / weight / perspective / contact
++
+GIR-SURFACE-30 simplified planes / grouped texture / clean silhouette
+-
+photographic micro-detail / lens language / material macro-detail
+```
 
 ---
 
-# 2A. Hard STYLE-GIR-V1 acceptance boundary
+# 3. Why photorealism is intentionally limited
 
-The target is no longer interpreted through vague phrases such as `somewhat realistic` or `moderately painterly`.
+High photorealism creates project-specific problems:
 
-A candidate must pass all of these:
+1. historical uncertainty looks falsely certain;
+2. face/hand/body inconsistency becomes more obvious;
+3. multiple generated angles drift in pores, hair, wrinkles and lighting;
+4. Player hands/arms/feet are harder to keep as one body family;
+5. extracted layers look pasted together when detail density differs;
+6. background removal becomes harder around photographic hair/fiber edges;
+7. style-conditioned generation tends to escalate toward cinematic/photo language.
 
-1. anatomy/perspective/contact are physically believable;
-2. face identity comes from shape/proportion before microtexture;
-3. hair reads as mass + silhouette before individual strand detail;
-4. skin reads as broad planes/creases/value before pores;
-5. garments read as silhouette/drape/fold groups/material zones before fibers;
-6. actor/body/object/world share one finish/detail-density language;
-7. reusable actor/body/item assets can produce a clean separated silhouette;
-8. lighting remains physically coherent without fashion-photo or poster staging.
+Therefore realism is used for **physical logic**, not photographic surface imitation.
 
-Automatic reject if any of the following becomes a defining visual cue:
+Identity continuity and derivability are higher priorities than micro-detail.
+
+---
+
+# 4. Hard GIR-SURFACE-30 acceptance boundary
+
+A candidate must satisfy all of these:
+
+1. anatomy/perspective/contact are functionally believable;
+2. assigned surface realism is approximately 30 and within 25–35;
+3. face identity comes from shape/proportion/large planes before microtexture;
+4. hair reads as mass + silhouette before individual strands;
+5. skin reads as broad planes/value + representative creases before pores;
+6. garments read as silhouette/drape/fold groups/material zones before fibers;
+7. stone/soil read from major planes/roughness groups before micro-cracks/grain;
+8. actor/body/object/world share one GIR-30 finish/detail-density language;
+9. reusable actor/body/item assets can produce a clean separated silhouette;
+10. lighting remains physically coherent without photo/lens/poster staging.
+
+Automatic reject or mandatory revision if any of these defines the image:
 
 - pore-field / beauty-photo facial rendering,
 - photographic individual-hair field,
+- visible body-hair/vein field used as realism texture,
+- macro nail/cuticle/specular detail,
+- macro rock/mineral/fiber/soil texture,
 - lens bokeh,
 - lens flare,
 - chromatic aberration,
 - sensor/film-noise simulation,
-- shallow photographic depth-of-field that dissolves a reusable silhouette,
+- shallow photographic DOF,
 - glossy beauty/wet skin treatment,
-- micro-fiber fur/fabric photography,
 - photographic actor against painterly world or the reverse,
-- visible alpha halo/background contamination on a reusable transparent asset at intended display size,
-- AAA poster/HDR grading that harms information readability.
+- visible alpha halo/background contamination on reusable assets,
+- AAA poster/HDR grading,
+- excessive cartoon/chibi simplification that breaks grounded form.
 
-A close-up may reveal more of the same approved structure. It may not move the asset into a more photographic rendering tier.
-
----
-
-# 3. Skin rendering
-
-Target:
-
-- natural broad form
-- simple pore suggestion at most, never a dominant pore field
-- soft microtexture
-- dirt/dust can be visible but restrained
-- believable hand creases at action scale
-
-Avoid:
-
-- visible pores across whole face
-- beauty-photo skin
-- wet glossy cinematic skin
-- extreme subsurface-scattering look
-- 8K portrait texture emphasis
-
-## Review question
-
-> 피부가 실제 사람처럼 납득되지만, 사진 확대를 보는 느낌은 아닌가?
+A close-up may reveal larger **shapes**, not a higher photographic rendering tier.
 
 ---
 
-# 4. Face rendering
+# 5. Skin rendering
 
 Target:
 
-- realistic proportions
-- natural asymmetry
-- readable gaze and expression
-- softened micro-detail
+- large color/value planes,
+- simplified volume,
+- a few action-relevant creases,
+- limited dirt/dust marks,
+- minimal local texture.
 
-Avoid:
+Normally omit or strongly suppress:
 
-- fashion portrait lighting
-- beauty retouching
-- ultra-sharp eyelashes/pores
-- exaggerated primitive facial coding
-- random AI attractiveness drift between scenes
+- pore field,
+- fine skin grain,
+- many tiny blemishes,
+- individual body hair,
+- decorative veins,
+- wet/glossy skin,
+- subsurface-scattering showcase.
 
-Face identity must come from structure, not photo-level detail.
+Review question:
+
+> 형태는 사람답지만 표면은 확실히 그림으로 정리되어 있는가?
 
 ---
 
-# 5. Hair rendering
+# 6. Face rendering
 
 Target:
 
-- mass and silhouette first
-- a limited number of strand groups for texture
-- movement readable at medium distance
-- outer contour remains extraction/composite-friendly for reusable masters
+- readable head shape,
+- clear eye/nose/mouth placement,
+- natural asymmetry,
+- jaw/cheek structure,
+- readable gaze/expression,
+- large light/shadow planes.
 
 Avoid:
 
-- individually rendered every hair strand
-- feathery photographic hair edge as the primary silhouette
-- glossy shampoo-ad highlight
-- modern styled hair appearance unless justified as low-specificity natural arrangement
+- pore/eyelash/micro-wrinkle realism,
+- beauty portrait lighting,
+- beauty retouching,
+- photo-attractiveness drift,
+- exaggerated primitive coding.
 
-Hair silhouette is an identity anchor, not a decorative texture field. Minor flyaways may vary and may be simplified in an alpha derivative.
+# **Face identity must survive even if all pore-level detail is removed.**
 
 ---
 
-# 6. Garment/material rendering
+# 7. Hair rendering
 
 Target:
 
-- broad folds
-- weight and drape
-- rough natural-material impression
-- restrained edge fraying where useful
-- major material zones that remain readable across scenes
+- mass and silhouette first,
+- a few grouped locks only when needed,
+- movement readable through large shape,
+- stable extraction-friendly contour.
 
 Avoid:
 
-- fantasy fur armor
-- glossy leather costume
-- fiber-level product photography
-- hyper-detailed stitching presented as archaeological fact
-- modern tailoring grammar
+- individual strand field,
+- feathery photographic edge,
+- shampoo-ad highlights,
+- random strand complexity as identity.
 
-Material should read clearly without pretending we know exact garment construction.
+Hair silhouette is P0 identity for named characters; individual flyaways are P3.
 
 ---
 
-# 7. Hand rendering
+# 8. Hand / arm / foot rendering
 
-Hands are high-priority because they carry first-person embodiment.
+Hands and limbs are high priority because they carry first-person embodiment.
 
-Target:
+Must preserve:
 
-- anatomically correct finger count/proportion
-- believable pressure/contact
-- readable knuckles and palm planes
-- restrained surface texture
-- same Player-body identity across every visible hand/arm/foot derivative
+- correct digits,
+- finger segment sequence,
+- hand width/length relationship,
+- wrist transition,
+- forearm taper,
+- pressure/contact,
+- later exact Player body family.
+
+Surface target:
+
+- broad skin planes,
+- a few key knuckle/palm creases,
+- simple nails,
+- minimal hair/veins,
+- no macro skin texture.
 
 Avoid:
 
-- photo-real hand against painterly world
-- oversized knuckle detail
-- glossy skin
-- extra/merged fingers
-- floating grip
-- scene-specific hand redesign
+- photographic hand against illustrative world,
+- vein/hair/crease overload,
+- glossy skin,
+- cuticle/nail macro detail,
+- extra/merged fingers,
+- floating grip,
+- scene-specific hand redesign.
 
-Player and NPC hands must share the same illustration/detail level. Player limbs additionally inherit from one approved `PLAYER-HUNT-BODY-V1` family.
+Player and NPC hands share the same GIR-30 rendering tier. Player limbs additionally inherit one approved `PLAYER-HUNT-BODY-V1` identity.
 
 ---
 
-# 8. Stone / handaxe rendering
+# 9. Garment/material rendering
 
 Target:
 
-- clear flake-scar structure
-- rough stone surface
-- believable thickness
-- moderate edge sharpness
-- material readable at gameplay distance
+- silhouette,
+- weight/drape,
+- broad folds,
+- large material zones,
+- only a few representative fray/roughness marks.
 
 Avoid:
 
-- knife-like polished edge
-- jewelry/gloss reflection
-- macro product-photo rendering
-- gray blob with no flake structure
+- fiber-level product photography,
+- detailed stitching as archaeological fact,
+- glossy leather costume,
+- fantasy fur armor,
+- repeated micro-fray texture.
 
-The handaxe must look tactile without becoming a product showcase.
+Historical uncertainty should be handled by **low specificity**, not photoreal certainty.
 
 ---
 
-# 9. World rendering
+# 10. Stone / handaxe rendering
 
 Target:
 
-- depth through value/occlusion/perspective
-- enough environmental texture to feel lived-in
-- terrain readable for movement
-- horizon and landmark silhouettes legible
+- clear large flake-scar structure where relevant,
+- readable thickness,
+- major planes,
+- grouped roughness,
+- representative surface marks,
+- moderate edge sharpness.
 
 Avoid:
 
-- ultra-detailed foliage noise everywhere
-- fantasy matte-painting atmosphere
-- giant scenic vistas that overpower people/action
-- generic AI mist hiding geography
+- every grain/crack/lichen spot rendered,
+- macro mineral photography,
+- product showcase lighting,
+- jewelry/gloss reflection,
+- polished knife-like edge.
 
-The world exists to support embodied history, not to be a wallpaper painting.
+The handaxe must preserve morphology/fingerprint after lock while still using GIR-30 surface density.
 
 ---
 
-# 10. Lighting
+# 11. World rendering
 
 Target:
 
-- one coherent world-space light direction
-- dawn ambience
-- fire creates local warm contribution
-- actor/body/object light belongs to the same environment
+- depth through value, overlap, scale and perspective,
+- grouped terrain masses,
+- readable movement space,
+- simplified vegetation clusters,
+- legible horizon/landmarks,
+- consistent material palette.
 
 Avoid:
 
-- rim light added only to make a character look cool
-- HDR highlight clipping
-- orange/teal blockbuster grade
-- every actor independently lit
-- portrait version with different sun direction
+- leaf-by-leaf or pebble-by-pebble photo density,
+- giant scenic vista as the purpose of the frame,
+- fantasy matte-painting atmosphere,
+- generic AI mist hiding geography,
+- bokeh/lens separation as depth logic.
+
+The world supports embodied history; it is not a landscape wallpaper showcase.
 
 ---
 
-# 11. Contrast and dynamic range
+# 12. Lighting / contrast / color
 
-Target:
+Lighting target:
 
-- readable in ordinary classroom/display environments
-- shadows contain enough information to understand action
-- highlights remain controlled
-
-Avoid:
-
-- crushed cinematic blacks
-- blinding bloom
-- dramatic vignette baked into raster
-- action-critical hands disappearing in shadow
-
-Runtime screen treatment may add subtle emphasis; base raster should remain information-readable.
-
----
-
-# 12. Color policy
-
-Target:
-
-- restrained natural earth range
-- cool dawn ambient + warm local fire contrast
-- skin/garment/rock remain distinguishable without neon separation
+- one coherent world-space direction,
+- readable local volume,
+- natural ambient/local contrast,
+- controlled highlights,
+- shadows with action information.
 
 Avoid:
 
-- saturation used to label characters
-- modern game rarity colors
-- fantasy teal/orange palette
-- scene-by-scene palette reset
+- glamour rim light,
+- HDR clipping,
+- orange/teal blockbuster grade,
+- crushed blacks,
+- baked vignette,
+- bloom used to hide structure.
+
+Color target:
+
+- restrained natural earth range,
+- enough separation for skin/garment/rock readability,
+- no rarity/game-code colors.
 
 ---
 
 # 13. Detail density hierarchy
 
-Detail follows this required perceptual priority:
+Required perceptual priority:
 
 ```text
 contact/action area > hero actor > Player body/tool > nearby world > distant background
 ```
 
-Do not render every part of the frame at the same micro-detail density.
+But even the highest-priority contact area remains GIR-30. A close-up does **not** unlock photo-macro texture.
 
-This helps consistency, compositing, identity retention, and mobile readability.
+Good close-up change:
+
+```text
+larger joint shape
+clearer contact point
+clearer representative crease
+```
+
+Bad close-up change:
+
+```text
+new pore field
+individual hair field
+cuticle detail
+micro-crack field
+```
 
 ---
 
-# 14. L / TP / PP style equivalence
+# 14. Identity and canonical proportion
 
-Portrait variants must not become more photographic simply because the face/hand is larger in frame.
+Surface simplification does not relax identity.
+
+For approved characters/Player:
+
+```text
+same face structure
+same hair silhouette
+same canonical head/body ratio
+same limb ratios
+same body mass family
+same garment silhouette/material zones
+```
+
+must remain fixed.
+
+If a canonical character is 7.2 heads, a later derivative does not become 6.8 or 7.5. Apparent screen-space differences from perspective/foreshortening are allowed; underlying structure changes are not.
+
+---
+
+# 15. Extraction / layering
+
+GIR-30 is chosen partly because it supports production continuity.
+
+Reusable hero/body/item masters should favor:
+
+- grouped edges,
+- stable silhouette,
+- low photographic hair/fiber complexity,
+- manageable masks,
+- consistent lighting/material density.
+
+This does not mean every final contact scene must be transparent-layer purity. Contact-heavy moments may use unified rasters when anatomy/contact breaks under separate layers.
+
+---
+
+# 16. L / TP / PP style equivalence
+
+Portrait variants must not become more photographic because the subject is larger.
 
 Maintain the same:
 
-- brush/texture character
-- skin detail level
-- contrast
-- color grade
-- material simplification
-- edge treatment
+- GIR-30 surface tier,
+- brush/texture character,
+- skin simplification,
+- contrast,
+- color grade,
+- material simplification,
+- edge treatment.
 
-For the same approved moment, crop/zoom from the same high-resolution master is the first choice when meaning remains intact. If a dedicated derivative is necessary, its style tier may not change.
-
-Side-by-side review:
+Same moment + same camera direction:
 
 ```text
-L | TP | PP
+crop / zoom / pan from same high-resolution master first
 ```
 
-should look like one art team, one renderer, one world.
+If a dedicated derivative is necessary, its surface realism remains inside the same 25–35 band.
 
 ---
 
-# 15. Style Anchor Reference Packet
+# 17. STYLE-GIR-V1 reference packet
 
-`STYLE-GIR-V1` becomes `anchor-approved` only after a small reference packet is approved.
-
-Minimum packet should include:
-
-1. one human medium shot
-2. one first-person hand/tool close action
-3. one camp/environment frame
-4. one rock/ground material frame
-5. one landscape/portrait paired example
-
-The packet should prove one consistent treatment across:
-
-- skin
-- hair
-- garment
-- stone
-- fire
-- terrain
-- atmospheric depth
-
-Reference frames may be purpose-made style tests; they do not need to be final scenes.
-
-A contextual background is allowed in a style proof because actor/world integration must be reviewable. This does not change the rule that reusable hero-character/Player/item masters later default to transparent or extraction-safe authoring sources.
-
----
-
-# 16. Style drift taxonomy
+The packet contains five serial slots:
 
 ```text
-SID-PHOTO     too photographic / skin-camera realism
+1. human-mid
+2. first-person-hand
+3. world
+4. material
+5. responsive-pair
+```
+
+Current calibration was reset after GIR-SURFACE-30 was locked.
+
+Current truth:
+
+```text
+human-mid r03 = superseded old-policy reference
+human-mid r04 = ACTIVE / NEXT
+approved slots = 0 / 5
+```
+
+The packet becomes `anchor-approved` only when all five current-policy references are approved and their canonical paths are registered.
+
+---
+
+# 18. Style drift taxonomy
+
+```text
+SID-PHOTO     surface realism too high / photographic rendering
 SID-3D        synthetic high-end 3D render look
 SID-POSTER    movie/game marketing poster grading
 SID-FANTASY   fantasy barbarian/concept-art look
 SID-CARTOON   excessive simplification/cartooning
 SID-TEXTBOOK  educational diagram/cutaway look
 SID-FOG       generic AI fog/bloom obscures information
-SID-DETAIL    inconsistent detail density between layers/scenes
+SID-DETAIL    detail density inconsistent with GIR-30 or between layers/scenes
 SID-LIGHT     style-level lighting mismatch
 SID-COLOR     palette/grading drift
 SID-COMPOSITE pasted-layer mismatch in finish/detail
@@ -396,25 +494,28 @@ SID-EDGE      reusable asset has unstable/contaminated extraction edge
 SID-LENS      photographic lens-language drift
 ```
 
-D2/D3 style drift blocks scene approval.
+For GIR-30 calibration, `SID-PHOTO` and `SID-DETAIL` can apply even when anatomy is excellent.
 
 ---
 
-# 17. Style approval checklist
+# 19. Style approval checklist
 
-- [ ] people are physically believable but not photographic portraits
-- [ ] face identity is carried by structure rather than pore-level detail
-- [ ] hair is mass/silhouette-first rather than photographic strand-field-first
+- [ ] assigned surface realism is 25–35, centered near 30
+- [ ] image reads immediately as illustration at normal viewing distance
+- [ ] anatomy/contact/perspective are functionally believable
+- [ ] face identity is carried by structure rather than microtexture
+- [ ] skin uses large planes and limited representative creases
+- [ ] hair is mass/silhouette-first
+- [ ] nails/veins/body hair are not photo-macro cues
+- [ ] stone/soil/garment detail uses grouped planes/roughness/folds
 - [ ] reusable character/body/item silhouettes can be cleanly separated
-- [ ] no baked photographic lens-language cue dominates
-- [ ] hands match character/world illustration level
-- [ ] stone texture is readable but not product photography
-- [ ] background supports action and does not become fantasy matte art
-- [ ] dawn/fire lighting is natural and restrained
-- [ ] no cinematic poster grading
+- [ ] no photographic lens-language cue dominates
+- [ ] actor/body/object/world use one GIR-30 density
+- [ ] background supports action and does not become cinematic landscape art
+- [ ] no poster/HDR grading
 - [ ] no caveman stereotype coding
 - [ ] no hyper-detailed uncertain historical garment claims
 - [ ] L/TP/PP retain same treatment
-- [ ] reference packet paths are registered
+- [ ] reference packet paths are registered only for current-policy approvals
 
-# **No production scene raster becomes runtime-ready before STYLE-GIR-V1 is anchor-approved.**
+# **No production scene raster becomes runtime-ready before STYLE-GIR-V1 is anchor-approved under GIR-SURFACE-30.**
