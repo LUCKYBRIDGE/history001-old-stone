@@ -48,7 +48,7 @@ describe('Stage 07.5 visual anchor review board', () => {
     expect(plannedPaths.every((path) => path.startsWith('public/assets/stage075/anchors/'))).toBe(true);
   });
 
-  it('defines five controlled STYLE-GIR-V1 slots as a serial calibration queue', () => {
+  it('defines five STYLE-GIR-V1 slots as a serial GIR-30 calibration queue', () => {
     const styleBundle = getStage075AnchorReviewBundle('STYLE-GIR-V1');
 
     expect(styleBundle).toBeTruthy();
@@ -61,18 +61,22 @@ describe('Stage 07.5 visual anchor review board', () => {
       'material',
       'responsive-pair',
     ]);
-    expect(styleBundle!.slots.slice(0, 4).every((slot) => slot.candidateBrief?.mode === 'independent-exploration')).toBe(true);
+    expect(styleBundle!.slots[0].candidateBrief?.mode).toBe('independent-exploration');
+    expect(styleBundle!.slots[1].candidateBrief?.mode).toBe('anchor-conditioned');
+    expect(styleBundle!.slots[2].candidateBrief?.mode).toBe('anchor-conditioned');
+    expect(styleBundle!.slots[3].candidateBrief?.mode).toBe('anchor-conditioned');
     expect(styleBundle!.slots[4].candidateBrief?.mode).toBe('locked-keyframe-variation');
 
     const combinedInstructions = styleBundle!.slots
       .map((slot) => slot.candidateBrief?.instruction ?? '')
       .join(' ');
+    expect(combinedInstructions).toContain('30/100');
+    expect(combinedInstructions).toContain('25–35');
     expect(combinedInstructions).toContain('Aru/Damu/Nua');
     expect(combinedInstructions).toContain('DAY1-HANDAXE-V1');
     expect(combinedInstructions).toContain('WORLD-CAMP-DAWN-A');
     expect(combinedInstructions).toContain('crop/zoom');
-    expect(combinedInstructions).toContain('pore-field');
-    expect(combinedInstructions).toContain('lens');
+    expect(combinedInstructions).toContain('모공');
     expect(combinedInstructions).toContain('6/7/8등신');
   });
 
@@ -178,18 +182,18 @@ describe('Stage 07.5 visual anchor review board', () => {
     expect(isStage075AnchorReviewBundleComplete(invalid)).toBe(false);
   });
 
-  it('advances the STYLE serial queue from approved human-mid to first-person-hand', () => {
+  it('resets the STYLE serial queue to human-mid after GIR-30 recalibration', () => {
     const styleBundle = getStage075AnchorReviewBundle('STYLE-GIR-V1')!;
 
-    expect(getStage075AnchorSlotProductionReadiness(styleBundle, 'human-mid').state).toBe('approved');
-    expect(getStage075NextProductionSlot(styleBundle)?.id).toBe('first-person-hand');
+    expect(getStage075AnchorSlotProductionReadiness(styleBundle, 'human-mid').state).toBe('ready');
+    expect(getStage075NextProductionSlot(styleBundle)?.id).toBe('human-mid');
     expect(getStage075AnchorSlotProductionReadiness(styleBundle, 'first-person-hand')).toEqual({
-      state: 'ready',
-      blockedBySlotIds: [],
+      state: 'blocked',
+      blockedBySlotIds: ['human-mid'],
     });
     expect(getStage075AnchorSlotProductionReadiness(styleBundle, 'world')).toEqual({
       state: 'blocked',
-      blockedBySlotIds: ['first-person-hand'],
+      blockedBySlotIds: ['human-mid', 'first-person-hand'],
     });
   });
 
@@ -197,7 +201,7 @@ describe('Stage 07.5 visual anchor review board', () => {
     const initialTarget = getStage075NextGlobalProductionTarget();
     expect(initialTarget).toMatchObject({
       anchorId: 'STYLE-GIR-V1',
-      slotId: 'first-person-hand',
+      slotId: 'human-mid',
     });
 
     const styleApproved = makeApprovedStyleBundle();
@@ -232,18 +236,12 @@ describe('Stage 07.5 visual anchor review board', () => {
     });
   });
 
-  it('tracks one approved STYLE slot while all downstream bundles remain unapproved', () => {
+  it('tracks zero approved STYLE slots after the policy reset while all downstream bundles remain unapproved', () => {
     for (const bundle of STAGE075_ANCHOR_REVIEW_BUNDLES) {
       const progress = getStage075AnchorBundleProgress(bundle);
       expect(progress.required).toBeGreaterThan(0);
-      if (bundle.anchorId === 'STYLE-GIR-V1') {
-        expect(progress.approved).toBe(1);
-        expect(progress.missingSlotIds).toHaveLength(progress.required - 1);
-        expect(progress.missingSlotIds).not.toContain('human-mid');
-      } else {
-        expect(progress.approved).toBe(0);
-        expect(progress.missingSlotIds).toHaveLength(progress.required);
-      }
+      expect(progress.approved).toBe(0);
+      expect(progress.missingSlotIds).toHaveLength(progress.required);
     }
   });
 
@@ -274,8 +272,14 @@ describe('Stage 07.5 visual anchor review board', () => {
     expect(isStage075StyleAnchorApproved(approvedStyle, incompleteBundle)).toBe(false);
   });
 
-  it('renders canonical-ratio policy, approved human-mid and the next first-person-hand target', () => {
+  it('renders GIR-30, canonical-ratio policy and the reset human-mid target', () => {
     render(<Stage075VisualAnchorReviewBoard />);
+
+    const surfacePolicy = screen.getByTestId('surface-realism-policy');
+    expect(surfacePolicy.textContent).toContain('GIR-SURFACE-30');
+    expect(surfacePolicy.textContent).toContain('30/100');
+    expect(surfacePolicy.textContent).toContain('25–35');
+    expect(surfacePolicy.textContent).toContain('관절');
 
     const policy = screen.getByTestId('canonical-ratio-policy');
     expect(policy.textContent).toContain('7.2-head canonical character does not become 6.8-head or 7.5-head');
@@ -283,10 +287,10 @@ describe('Stage 07.5 visual anchor review board', () => {
 
     const target = screen.getByTestId('next-production-target');
     expect(target.textContent).toContain('STYLE-GIR-V1');
-    expect(target.textContent).toContain('first-person-hand');
-    expect(screen.getByTestId('slot-state-STYLE-GIR-V1-human-mid').textContent).toBe('approved reference');
-    expect(screen.getByTestId('slot-state-STYLE-GIR-V1-first-person-hand').textContent).toBe('NEXT production target');
-    expect(screen.getByTestId('slot-blocked-by-STYLE-GIR-V1-world').textContent).toContain('first-person-hand');
+    expect(target.textContent).toContain('human-mid');
+    expect(screen.getByTestId('slot-state-STYLE-GIR-V1-human-mid').textContent).toBe('NEXT production target');
+    expect(screen.getByTestId('slot-state-STYLE-GIR-V1-first-person-hand').textContent).toBe('blocked');
+    expect(screen.getByTestId('slot-blocked-by-STYLE-GIR-V1-first-person-hand').textContent).toContain('human-mid');
 
     expect(screen.getByTestId('slot-parent-DAY1-HANDAXE-V1-face-b').textContent).toContain('face-a');
     expect(screen.getByTestId('slot-parent-PLAYER-HUNT-BODY-V1-canonical-body').textContent).toContain('structural-scaffold');
