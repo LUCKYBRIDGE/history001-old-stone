@@ -1,12 +1,14 @@
 # Stage 07.5 — STYLE-GIR-V1 Controlled Reference Packet
 
-Status: **SERIAL PRODUCTION ACTIVE / 1 OF 5 APPROVED**
+Status: **GIR-SURFACE-30 RECALIBRATION / 0 OF 5 APPROVED**
 
 Anchor ID: `STYLE-GIR-V1`
 
+Surface policy: `GIR-SURFACE-30`
+
 Current Gate: **R2 Stage 07.5 Visual Anatomy Reference Lock**
 
-STYLE-GIR-V1 remains `reference-pending` until all five required slots are approved and registered.
+STYLE-GIR-V1 remains `reference-pending` until all five required slots are approved and registered under the current GIR-SURFACE-30 policy.
 
 ---
 
@@ -23,24 +25,53 @@ Lock one coherent **Grounded Illustrative Realism** treatment across:
 Exact target:
 
 ```text
+SURFACE / RENDERING REALISM = 30 / 100
+ACCEPTANCE BAND = 25–35
+```
+
+This is not anatomy realism. The required combination is:
+
+```text
 functional believable anatomy / weight / perspective / contact
 +
-illustratively simplified surfaces / clean reusable silhouette
+GIR-30 simplified surfaces / grouped texture / clean silhouette
 -
-photographic pore field / individual-hair field / photographic lens language
+photographic pore / hair / nail / material micro-detail
+-
+photographic lens language
 ```
 
 ---
 
-## 2. Serial production rule
+## 2. Why the packet was reset
+
+The prior `human-mid r03` was approved under an older qualitative STYLE-GIR boundary.
+
+After Project-owner review, the desired visible realism level was fixed at **about 30/100**, which is substantially more illustrative than the old accepted r03.
+
+Therefore:
+
+```text
+r03 historical approval = preserved in review history
+r03 current status = SUPERSEDED
+former human-mid canonical binary = removed from approved path
+STYLE approved slots = reset 1/5 → 0/5
+first-person-hand r02 = BLOCKED until new human-mid approval
+```
+
+This is a policy recalibration, not an anatomy failure.
+
+---
+
+## 3. Serial production rule
 
 # **Only one STYLE-GIR slot is production-active at a time.**
 
 Current order/status:
 
 ```text
-1. human-mid          APPROVED / REGISTERED
-2. first-person-hand  ACTIVE / NEXT
+1. human-mid          ACTIVE / NEXT / r04
+2. first-person-hand  BLOCKED UPSTREAM / r02 reserved
 3. world              BLOCKED
 4. material           BLOCKED
 5. responsive-pair    BLOCKED
@@ -49,7 +80,7 @@ Current order/status:
 Approved count:
 
 ```text
-1 / 5
+0 / 5
 ```
 
 Do not batch-generate later slots.
@@ -58,61 +89,71 @@ Workflow:
 
 ```text
 active candidate
-→ review
-→ reject/revise OR accept
+→ GIR-30 + structure review
+→ reject/revise OR owner accept
 → canonical registration
 → exactly one next slot
 ```
 
 ---
 
-## 3. Approved Slot A — `human-mid`
+## 4. Active Slot A — `human-mid` r04
 
-Canonical path:
+Planned approved path:
 
 ```text
 public/assets/stage075/anchors/STYLE-GIR-V1/human-mid.webp
 ```
 
-Approved revision:
+There is currently no file at this canonical approved path.
 
-```text
-GIR-HUMAN-MID-001 r03
-```
+Goal:
 
-This image establishes the accepted human rendering tier:
+- anonymous fictional community member,
+- medium shot,
+- unmistakably illustrated at normal viewing distance,
+- surface realism near 30/100,
+- functional anatomy,
+- face structure before skin microtexture,
+- hair mass/silhouette before strands,
+- broad low-specificity garment folds,
+- clean edge,
+- simple contextual natural background.
 
-- functional anatomy and believable weight,
-- painterly broad skin planes,
-- hair mass/silhouette before individual strands,
-- broad garment/material folds,
-- natural restrained light,
-- clean extraction-oriented silhouette,
-- no photographic shallow DOF / bokeh / lens language.
+Strongly simplify:
 
-It does not define:
+- pores,
+- fine skin grain,
+- veins/body hair,
+- nail/cuticle reflections,
+- individual hair,
+- fiber/stitch microdetail,
+- background leaf/rock grain density.
+
+Must not define:
 
 - Aru / Damu / Nua identity,
 - Player body identity,
 - handaxe morphology,
 - canonical Day 1 geography,
-- a specific historical ethnicity/species/costume.
+- specific historical ethnicity/species/costume certainty.
 
-Rejected history:
+Candidate history:
 
 ```text
-r01 → historical restraint failure
-r02 → SID-PHOTO / SID-LENS / SID-EDGE
-r03 → approved
+r01 → rejected / historical restraint
+r02 → rejected / SID-PHOTO + SID-LENS + SID-EDGE
+r03 → superseded after GIR-SURFACE-30 reset
+r04 → ACTIVE / NEXT
 ```
 
-Closed Job Card:
+Active Job Card:
 
 - `handoff/STAGE07_5_STYLE_GIR_V1_HUMAN_MID_JOB_CARD.md`
 
 ---
 
-## 4. Active Slot B — `first-person-hand`
+## 5. Slot B — `first-person-hand` / blocked
 
 Planned approved path:
 
@@ -120,121 +161,84 @@ Planned approved path:
 public/assets/stage075/anchors/STYLE-GIR-V1/first-person-hand.webp
 ```
 
-Machine-readable job:
+r01 was rejected for:
 
-- `src/experience/production/stage075FirstPersonHandProductionJob.ts`
+```text
+SID-PHOTO
+SID-LENS
+SID-DETAIL
+```
+
+r02 is reserved but **must not be produced** until a new GIR-30 `human-mid` is approved and registered.
+
+After unlock, r02 must use the new approved human reference as the actual style parent and preserve:
+
+- five-finger anatomy,
+- wrist/forearm continuity,
+- contact pressure,
+
+while simplifying:
+
+- pores/veins/body hair,
+- nail microdetail,
+- rock microtexture,
+- cinematic depth/lens language.
 
 Job Card:
 
 - `handoff/STAGE07_5_STYLE_GIR_V1_FIRST_PERSON_HAND_JOB_CARD.md`
 
-Required upstream style reference:
-
-```text
-public/assets/stage075/anchors/STYLE-GIR-V1/human-mid.webp
-```
-
-Mode:
-
-```text
-independent-exploration constrained by approved STYLE-GIR rendering tier
-```
-
-The hand does not need to belong to the anonymous `human-mid` person. The approved image supplies **rendering/detail language only**.
-
-Target:
-
-- first-person camera,
-- anonymous adult hand,
-- wrist,
-- enough forearm to judge proportion/transition,
-- contact with one rough non-diagnostic natural stone,
-- five readable fingers,
-- plausible joints/knuckles/tendons,
-- natural wrist-to-forearm transition,
-- contact pressure through placement/compression/occlusion,
-- illustrative skin/nail detail at gameplay distance,
-- low-information natural background.
-
-Must not define:
-
-- `PLAYER-HUNT-BODY-V1`,
-- `DAY1-HANDAXE-V1`,
-- named character identity.
-
-The rough stone must not acquire:
-
-- handaxe contour,
-- face-A/B,
-- grip-base,
-- working-end,
-- canonical scar fingerprint.
-
-Review checks:
-
-```text
-technicalCleanliness
-handAnatomy
-styleBoundary
-contactReadability
-extractionViability
-historicalRestraint
-```
-
-Reject:
-
-```text
-ANAT-FINGER
-ANAT-WRIST
-ANAT-HAND-SCALE
-GEO-CONTACT-POINT
-SID-PHOTO
-SID-LENS
-SID-EDGE
-SID-DETAIL
-SID-COMPOSITE
-```
-
 ---
 
-## 5. Later STYLE slots — do not produce yet
+## 6. Later STYLE slots — do not produce yet
 
 ### `world`
 
+Mode: `anchor-conditioned`
+
 Purpose:
 
-- low-specificity dawn environment,
-- depth through overlap/value/perspective,
-- same rendering tier as accepted human/hand references,
+- same GIR-30 rendering tier,
+- grouped terrain/vegetation masses,
+- depth via overlap/value/perspective,
+- no photo-density foliage or cinematic bokeh,
 - no canonical Day 1 geography lock.
 
 ### `material`
 
+Mode: `anchor-conditioned`
+
 Purpose:
 
-- stone / earth / garment material language,
+- stone / earth / garment language,
 - broad planes/roughness/folds,
-- no macro product-photo treatment.
+- no macro product-photo treatment,
+- no exhaustive crack/grain/fiber detail.
 
 ### `responsive-pair`
+
+Mode: `locked-keyframe-variation`
 
 Purpose:
 
 - one anonymous source moment,
-- Landscape + Portrait derived from the same source,
+- Landscape + Portrait from the same source,
 - crop/zoom/pan first,
-- controlled outpaint only when crop is insufficient,
-- no independent unrelated generations.
+- controlled outpaint only when needed,
+- no unrelated generations,
+- no increase in surface realism when portrait enlarges the subject.
 
 ---
 
-## 6. Shared constraints
+## 7. Shared GIR-30 constraints
 
 Required:
 
+- surface realism 25–35 centered near 30,
+- image clearly reads as illustration,
 - functional anatomy/contact/depth,
 - no forced 6/7/8-head photographic convention,
-- structure before photographic microtexture,
+- structure before microtexture,
 - comparable detail density across human/hand/material/world,
 - clean readable silhouettes,
 - natural readable light,
@@ -258,17 +262,18 @@ SID-COLOR
 SID-COMPOSITE
 ```
 
-Historical specifics that are uncertain remain `[R]` reconstruction or `[D]` deferred/non-diagnostic rather than being presented as facts.
+Historical specifics that are uncertain remain `[R]` reconstruction or `[D]` deferred/non-diagnostic.
 
 ---
 
-## 7. Gate truth
+## 8. Gate truth
 
 ```text
 STYLE-GIR-V1 = reference-pending
-approved slots = 1 / 5
-human-mid = approved / registered
-first-person-hand = active / next
+surface policy = GIR-SURFACE-30
+approved slots = 0 / 5
+human-mid r04 = active / next
+first-person-hand r02 = blocked-upstream
 world = blocked
 material = blocked
 responsive-pair = blocked
@@ -276,4 +281,4 @@ Human Gate = FAIL
 Stage 08 = BLOCKED
 ```
 
-Only after all five STYLE-GIR slots are approved and the exact approved reference path set is registered may `STYLE-GIR-V1` become `anchor-approved` and the global queue move to `DAY1-HANDAXE-V1`.
+Only after all five GIR-30 STYLE slots are approved and the exact approved path set is registered may `STYLE-GIR-V1` become `anchor-approved` and the global queue move to `DAY1-HANDAXE-V1`.
