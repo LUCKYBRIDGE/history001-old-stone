@@ -4,170 +4,213 @@
 
 # **R2 Stage 07.5 Visual Anatomy Reference Lock**
 
-장기 공식 기준선:
+Long-term baseline:
 
 # **Design Reboot R2 / Stage 07 Curriculum-Hardened Baseline**
 
-최신 exact repository HEAD / PR / Actions 상태는 GitHub가 최종 진실 공급원이다.
+Latest exact repository HEAD / PR / Actions state is always determined from GitHub.
 
 ---
 
 # 1. Current exact production truth
 
-현재 판정:
-
-# **Social Runtime Integrated / Automated PASS / Scene Composition v2.1 Approved / Visual Production Contracts Locked / STYLE-GIR-V1 human-mid APPROVED 1/5 / first-person-hand ACTIVE / Human Gate FAIL / Stage 08 BLOCKED**
-
-현재 승인 상태:
+# **Social Runtime Integrated / Automated PASS / Scene Composition v2.1 Approved / GIR-SURFACE-30 Locked / STYLE-GIR-V1 Recalibration 0/5 / human-mid r04 ACTIVE / Human Gate FAIL / Stage 08 BLOCKED**
 
 ```text
-STYLE-GIR-V1                    reference-pending
-STYLE-GIR-V1 / human-mid        APPROVED / REGISTERED
-STYLE-GIR-V1 / first-person-hand ACTIVE / NEXT
-STYLE-GIR-V1 / world            BLOCKED
-STYLE-GIR-V1 / material         BLOCKED
-STYLE-GIR-V1 / responsive-pair  BLOCKED
-
-STYLE approved slots            1 / 5
-Approved scene raster assets    0
-Human Gate                      FAIL
-Stage 08                        BLOCKED
+STYLE-GIR-V1                     reference-pending
+Surface policy                   GIR-SURFACE-30
+Surface realism target           30 / 100
+Surface acceptance band          25–35
+STYLE approved slots             0 / 5
+STYLE-GIR-V1 / human-mid r04     ACTIVE / NEXT
+STYLE-GIR-V1 / first-person-hand r02 BLOCKED UPSTREAM
+STYLE-GIR-V1 / world             BLOCKED
+STYLE-GIR-V1 / material          BLOCKED
+STYLE-GIR-V1 / responsive-pair   BLOCKED
+Approved STYLE reference paths   0
+Approved scene raster assets     0
+Human Gate                       FAIL
+Stage 08                         BLOCKED
 ```
 
-승인된 첫 style reference:
+Current machine-readable global production target:
+
+# **`STYLE-GIR-V1 / human-mid`**
+
+The former canonical file:
 
 ```text
 public/assets/stage075/anchors/STYLE-GIR-V1/human-mid.webp
 ```
 
-`human-mid.webp`는 **사람 rendering tier의 style proof**다. Aru/Damu/Nua/Player identity 또는 특정 역사 인물/민족/복식의 사실 복원이 아니다.
-
-현재 machine-readable global production target:
-
-# **`STYLE-GIR-V1 / first-person-hand`**
+was removed from the current approved path after the style-policy recalibration. Do not use the old r03 binary as a downstream style parent.
 
 ---
 
-# 2. What was approved in `human-mid`
+# 2. GIR-SURFACE-30 — exact visual target
 
-승인 revision:
+`30/100` is **surface/rendering realism**, not anatomy correctness.
+
+Project scale:
 
 ```text
-GIR-HUMAN-MID-001 r03
+0    very simple graphic/cartoon
+15   strongly simplified animation-like treatment
+30   grounded structural illustration  ← TARGET
+45   semireal illustration
+60   realistic illustration
+80   game/cinematic realism
+100  photograph
 ```
 
-검수 결과:
+Acceptance:
+
+```text
+25–35 = acceptable surface band
+```
+
+Core formula:
+
+```text
+functional believable anatomy / weight / perspective / contact
++
+GIR-30 simplified large planes / grouped texture / clean silhouette
+-
+photographic micro-detail / material macro-detail / lens language
+```
+
+## Must remain physically strong
+
+- correct digit/joint structure
+- believable wrist/ankle/limb articulation
+- weight and center of mass
+- reach/contact pressure/occlusion
+- coherent perspective
+- coherent light direction
+- exact identity/body/object/world continuity after lock
+
+## Must be visually simplified
+
+- skin pores and fine skin grain
+- dense veins/body hair
+- nail/cuticle/specular macro detail
+- individual hair strand fields
+- garment fibers/stitch fields
+- exhaustive rock/soil cracks and grain
+- leaf-by-leaf / pebble-by-pebble background texture
+- photographic shallow DOF / bokeh / lens effects
+
+At normal viewing distance, the image must read immediately as **an illustration**, not a game cinematic or photograph.
+
+---
+
+# 3. Why human-mid r03 is no longer approved
+
+Historical truth is preserved:
+
+```text
+r01 = rejected / historical restraint
+r02 = rejected / SID-PHOTO + SID-LENS + SID-EDGE
+r03 = approved under the former qualitative STYLE-GIR boundary
+```
+
+After the Project-owner fixed the intended surface level at GIR-SURFACE-30, r03 was re-evaluated:
 
 ```text
 technicalCleanliness = PASS
 structuralAnatomy = PASS
-styleBoundary = PASS
+styleBoundary = FAIL under GIR-SURFACE-30
 extractionViability = PASS
 historicalRestraint = PASS
-driftCodes = []
+current drift = SID-PHOTO + SID-DETAIL
+current decision = SUPERSEDED
 ```
 
-r01/r02는 rejected history로 보존한다.
+This is **not an anatomy failure**. r03 carries too much semireal surface information for the new 25–35 band.
+
+Therefore:
 
 ```text
-r01 = historical-restraint failure
-r02 = SID-PHOTO + SID-LENS + SID-EDGE
-r03 = APPROVED
+old r03 historical approval retained in review ledger
+→ current canonical approval revoked by policy supersession
+→ old approved binary removed from canonical path
+→ STYLE progress reset 1/5 → 0/5
+→ human-mid r04 reopened
+→ first-person-hand r02 blocked until r04 replacement is approved
 ```
-
-승인된 rendering boundary:
-
-```text
-functional believable anatomy / weight / depth
-+
-illustratively simplified skin planes / hair masses / garment folds
-+
-clean reusable silhouette
--
-photographic pore field / beauty-photo skin
--
-individual-hair simulation
--
-photographic bokeh / shallow DOF / lens language
--
-AAA poster / fantasy barbarian / cartoon-chibi drift
-```
-
-P3 수준의 작은 머리카락/주름/배경 차이는 허용한다.
 
 ---
 
-# 3. Current next production job — first-person-hand
+# 4. Current production job — human-mid r04
 
 Machine-readable:
 
-- `src/experience/production/stage075FirstPersonHandProductionJob.ts`
+- `src/experience/production/stage075HumanMidProductionJob.ts`
+- `src/experience/production/stage075HumanMidCandidateReviews.ts`
 
 Job Card:
 
-- `handoff/STAGE07_5_STYLE_GIR_V1_FIRST_PERSON_HAND_JOB_CARD.md`
+- `handoff/STAGE07_5_STYLE_GIR_V1_HUMAN_MID_JOB_CARD.md`
 
-정확한 목적:
+Required target:
 
 ```text
-anonymous first-person hand + wrist + forearm
-+
-rough non-diagnostic natural stone contact
-+
-approved human-mid rendering tier inheritance
+anonymous fictional community member
++ medium shot
++ functional anatomy
++ surface realism near 30/100
++ face structure before microtexture
++ grouped hair mass/silhouette
++ broad low-specificity garment folds
++ clean extraction-friendly subject edge
++ low-information contextual natural background
 ```
 
-이 단계에서 반드시 잠글 것:
+Do not define:
 
-- five-finger functional anatomy
-- finger segment / joint readability
-- wrist → forearm transition
-- plausible contact pressure / occlusion
-- gameplay-distance palm/knuckle/nail detail tier
-- skin / stone rendering-language consistency
-- clean extraction-oriented limb silhouette
-
-이 단계에서 **잠그면 안 되는 것**:
-
-- `PLAYER-HUNT-BODY-V1`
-- `DAY1-HANDAXE-V1`
 - `ARU-IDENTITY-V1`
 - `DAMU-IDENTITY-V1`
 - `NUA-IDENTITY-V1`
+- `PLAYER-HUNT-BODY-V1`
+- `DAY1-HANDAXE-V1`
+- `WORLD-CAMP-DAWN-A`
+- exact ethnicity/species/costume certainty
 
-거친 돌은 handaxe가 아니다. 따라서 다음을 만들지 않는다.
-
-- canonical handaxe contour
-- face-A / face-B
-- grip-base
-- working-end
-- repeated flake-scar fingerprint
-
-주요 reject:
-
-```text
-ANAT-FINGER
-ANAT-WRIST
-ANAT-HAND-SCALE
-GEO-CONTACT-POINT
-SID-PHOTO
-SID-LENS
-SID-EDGE
-SID-DETAIL
-SID-COMPOSITE
-```
+Only after r04 or a later human-mid revision passes GIR-30 review, owner approval, and canonical registration may the queue move forward.
 
 ---
 
-# 4. Visual continuity law
+# 5. first-person-hand status
 
-최종 Player-facing visual:
+r01 remains rejected:
+
+```text
+technicalCleanliness = PASS
+handAnatomy = PASS
+contactReadability = PASS
+extractionViability = PASS
+historicalRestraint = PASS
+styleBoundary = FAIL
+SID-PHOTO
+SID-LENS
+SID-DETAIL
+```
+
+r02 revision number is reserved but currently:
+
+# **BLOCKED UPSTREAM**
+
+because there is no approved current-policy `human-mid` style parent.
+
+After unlock, r02 must use the new GIR-30 human reference and preserve hand anatomy/contact while strongly simplifying pores, veins, arm hair, nail detail, rock microtexture, and cinematic depth effects.
+
+---
+
+# 6. Visual continuity law
+
+Final Player-facing visual:
 
 # **raster-first Hybrid Embodied Composite + Anchor-conditioned Continuity + Anatomy-locked Master Derivation**
-
-공식 style:
-
-# **Grounded Illustrative Realism**
 
 Continuity priority:
 
@@ -178,41 +221,43 @@ P2 world structure + world light   = STRONG LOCK
 P3 flyaway/fold/pebble/grass/smoke = harmless variation allowed
 ```
 
-핵심 법칙:
+Governing laws:
 
 # **Do not regenerate what can be derived from an approved master.**
 
-# **Choose proportions freely before approval; inherit them exactly after approval.**
+# **Physical plausibility and GIR-30 surface realism are separate axes.**
 
-동일인물이면 canonical head/body 및 모든 segment ratio가 동일해야 한다.
+# **Choose canonical proportions freely before approval; inherit them exactly after approval.**
 
-예:
+Same character means the same underlying canonical ratios.
+
+Example:
 
 ```text
 canonical body = 7.2 heads
-→ front / side / back / seated / walk / handoff 모두 same underlying 7.2 skeleton
+→ front / side / back / seated / walk / handoff = same underlying 7.2 body
 ```
 
-금지:
+Forbidden:
 
 ```text
 7.2 canonical body
-→ derivative에서 underlying body를 6.8 또는 7.5로 redesign
+→ derivative underlying body redesigned as 6.8 or 7.5
 ```
 
-허용:
+Allowed apparent variation:
 
 - perspective
 - foreshortening
 - pose
-- camera distance / FOV
+- camera distance/FOV
 - crop
 
-때문에 화면상 apparent ratio가 달라 보이는 것.
+These may change screen-space appearance, never the underlying body design.
 
 ---
 
-# 5. Master / camera / state derivation rule
+# 7. Master / camera / state derivation
 
 ```text
 same moment + same camera direction
@@ -225,33 +270,43 @@ camera direction materially changes
 → Angle Master from same world/topology/landmark/light references
 
 actual action/world/body state changes
-→ state derivative
+→ State Master derivative
 
 contact-heavy interlocked state
-→ unified-contact derivative when separate layers break topology
+→ Unified Contact derivative if separate layers break topology
 ```
 
-L / TP / PP는 다른 인물/다른 세계가 아니다.
+L / TP / PP are the same event/people/world unless the scene contract explicitly says otherwise.
 
 ---
 
-# 6. Serial anchor production queue
+# 8. Serial anchor production queue
 
-한 번에 하나의 global production slot만 active다.
+One global production slot at a time.
 
-현재 STYLE-GIR-V1 순서:
+Current STYLE order:
 
 ```text
-human-mid              APPROVED
-→ first-person-hand    ACTIVE / NEXT
+human-mid r04          ACTIVE / NEXT
+→ first-person-hand r02 BLOCKED UPSTREAM
 → world                BLOCKED
 → material             BLOCKED
 → responsive-pair      BLOCKED
 ```
 
-STYLE-GIR-V1 5/5가 모두 승인되기 전 `DAY1-HANDAXE-V1`로 넘어가지 않는다.
+Later STYLE slots inherit the accepted GIR-30 style boundary:
 
-STYLE 5/5 이후 장기 순서:
+```text
+human-mid          independent exploration
+first-person-hand  anchor-conditioned
+world              anchor-conditioned
+material           anchor-conditioned
+responsive-pair    locked-keyframe variation / crop-first
+```
+
+Do not start `DAY1-HANDAXE-V1` before STYLE-GIR-V1 reaches current-policy 5/5.
+
+Long-term order:
 
 ```text
 0. STYLE-GIR-V1
@@ -264,14 +319,12 @@ STYLE 5/5 이후 장기 순서:
 7. SC02 unified-contact state master + crop-first L/TP/PP proof
 8. DAMU-IDENTITY-V1 + DAMU-PROP-V1
 9. NUA-IDENTITY-V1 + NUA-PROP-V1
-10. world/contact families expansion
+10. world / landmark / supporting-contact anchors
 ```
-
-이 전체 목록을 동시에 제작하지 않는다.
 
 ---
 
-# 7. Object / Player / character master rules
+# 9. Object / Player / character lineage
 
 ## DAY1-HANDAXE-V1
 
@@ -282,8 +335,6 @@ face-a canonical morphology seed
 → metric/normalized scale
 ```
 
-독립 view 여러 장을 생성해서 비슷한 것을 묶지 않는다.
-
 ## PLAYER-HUNT-BODY-V1
 
 ```text
@@ -292,23 +343,25 @@ structural-scaffold
 → hands / forearms / feet / ankles / action derivatives
 ```
 
-모든 visible Player 손·팔·발·발목은 같은 canonical body fingerprint를 상속한다.
+Every visible Player hand/arm/foot/ankle inherits one exact body fingerprint.
 
 ## ARU-IDENTITY-V1
 
 ```text
 structural-scaffold
 → one canonical full-body identity master
-→ serial turnaround derivatives
-→ serial action/contact derivatives
+→ turnaround derivatives
+→ action/contact derivatives
 → measured exact proportion contract
 ```
 
-동일인물의 view별 독립 text-to-image는 금지한다.
+Independent multi-view generations are not a valid identity packet.
+
+All of these later assets also inherit GIR-SURFACE-30.
 
 ---
 
-# 8. Contact geometry
+# 10. Contact geometry
 
 SC02 topology:
 
@@ -318,9 +371,9 @@ Aru hand
 → Player right hand
 ```
 
-Offer → Shared Contact → Release는 하나의 continuous transfer family다.
+Offer → Shared Contact → Release is one continuous transfer family.
 
-주요 contact/anatomy reject families:
+Major reject families:
 
 ```text
 ANAT-HAND-SCALE
@@ -347,18 +400,18 @@ GEO-CROP
 GEO-TEMPORAL
 ```
 
-Hero/contact asset의 unresolved `ANAT-*` 또는 `GEO-*`는 reject한다.
+GIR-30 simplification never excuses unresolved `ANAT-*` or `GEO-*` on hero/contact assets.
 
 ---
 
-# 9. Runtime gate
+# 11. Runtime gate
 
-Scene raster는 자기 자신이 approved라고 해서 runtime에 표시되지 않는다.
+A scene raster is not runtime-ready merely because its own image looks acceptable.
 
-필수:
+Required:
 
 ```text
-STYLE-GIR-V1 anchor-approved (5/5)
+STYLE-GIR-V1 anchor-approved under GIR-SURFACE-30 (5/5)
 +
 required character/body/world/object anchors approved
 +
@@ -366,7 +419,7 @@ required anatomy/proportion contracts approved
 +
 required contact geometry approved where applicable
 +
-actual approved reference/master paths registered
+actual approved master/reference paths registered
 +
 scene raster approved
 +
@@ -375,13 +428,13 @@ responsive sources registered
 runtime render
 ```
 
-현재 STYLE-GIR-V1은 **1/5**이므로 아직 `reference-pending`이다.
+Current STYLE-GIR-V1 = **0/5**, so runtime remains blocked from final scene rasters.
 
 ---
 
-# 10. Primary production references
+# 12. Primary references
 
-새 세션은 우선:
+Start with:
 
 1. `AGENTS.md`
 2. `docs/00_CANONICAL_BASELINE.md`
@@ -389,46 +442,26 @@ runtime render
 4. `docs/00_DEVELOPMENT_WORKFLOW.md`
 5. `handoff/CURRENT_HANDOFF.md`
 6. `handoff/NEXT_SESSION_START_HERE.md`
+7. `handoff/STAGE07_5_VISUAL_CONTINUITY_INDEX.md`
+8. `handoff/STAGE07_5_STYLE_ANCHOR_BIBLE.md`
+9. `handoff/STAGE07_5_VISUAL_IDENTITY_LAYERING_AND_DERIVATION_CONTRACT.md`
+10. `handoff/STAGE07_5_FUNCTIONAL_ANATOMY_AND_STYLIZED_PROPORTION_POLICY.md`
+11. `handoff/STAGE07_5_SERIAL_ANCHOR_PRODUCTION_QUEUE.md`
+12. `handoff/STAGE07_5_CHARACTER_IDENTITY_ANCHOR_BIBLE.md`
+13. `handoff/STAGE07_5_ANATOMY_PROPORTION_AND_POSE_MASTER_SPEC.md`
+14. `handoff/STAGE07_5_CONTACT_GEOMETRY_MASTER.md`
+15. `handoff/STAGE07_5_OBJECT_CONTINUITY_BIBLE.md`
+16. `handoff/STAGE07_5_WORLD_CONTINUITY_BIBLE.md`
+17. `handoff/STAGE07_5_RESPONSIVE_VISUAL_PRODUCTION_CONTRACT.md`
+18. `handoff/STAGE07_5_VISUAL_GENERATION_AND_REVIEW_PROTOCOL.md`
+19. `handoff/STAGE07_5_FIRST_PERSON_SCENE_COMPOSITION_BIBLE_V2_1.md`
+20. `handoff/STAGE07_5_STYLE_GIR_V1_HUMAN_MID_JOB_CARD.md`
 
-Stage 07.5 핵심:
-
-- `handoff/STAGE07_5_VISUAL_CONTINUITY_INDEX.md`
-- `handoff/STAGE07_5_STYLE_ANCHOR_BIBLE.md`
-- `handoff/STAGE07_5_VISUAL_IDENTITY_LAYERING_AND_DERIVATION_CONTRACT.md`
-- `handoff/STAGE07_5_FUNCTIONAL_ANATOMY_AND_STYLIZED_PROPORTION_POLICY.md`
-- `handoff/STAGE07_5_SERIAL_ANCHOR_PRODUCTION_QUEUE.md`
-- `handoff/STAGE07_5_CHARACTER_IDENTITY_ANCHOR_BIBLE.md`
-- `handoff/STAGE07_5_ANATOMY_PROPORTION_AND_POSE_MASTER_SPEC.md`
-- `handoff/STAGE07_5_CONTACT_GEOMETRY_MASTER.md`
-- `handoff/STAGE07_5_OBJECT_CONTINUITY_BIBLE.md`
-- `handoff/STAGE07_5_WORLD_CONTINUITY_BIBLE.md`
-- `handoff/STAGE07_5_RESPONSIVE_VISUAL_PRODUCTION_CONTRACT.md`
-- `handoff/STAGE07_5_VISUAL_GENERATION_AND_REVIEW_PROTOCOL.md`
-- `handoff/STAGE07_5_FIRST_PERSON_SCENE_COMPOSITION_BIBLE_V2_1.md`
-
-Current active slot:
-
-- `handoff/STAGE07_5_STYLE_GIR_V1_FIRST_PERSON_HAND_JOB_CARD.md`
-
-Closed/approved style slot:
-
-- `handoff/STAGE07_5_STYLE_GIR_V1_HUMAN_MID_JOB_CARD.md`
-
-Machine-readable:
-
-- `src/experience/production/stage075AnchorReviewBundle.ts`
-- `src/experience/production/stage075HumanMidProductionJob.ts`
-- `src/experience/production/stage075HumanMidCandidateReviews.ts`
-- `src/experience/production/stage075FirstPersonHandProductionJob.ts`
-- `src/experience/production/stage075StyleAnchor.ts`
-- `src/experience/production/stage075VisualProductionPolicy.ts`
-- `src/experience/production/stage075VisualContinuityRegistry.ts`
-- `src/experience/production/stage075AnatomyRegistry.ts`
-- `src/experience/production/stage075RasterManifest.ts`
+Technical conflicts are resolved by `docs/06_TECH_BLUEPRINT.md`.
 
 ---
 
-# 11. Dev review surfaces
+# 13. Dev review truth
 
 ```text
 ?anchors=1   Visual Anchor Review Board
@@ -436,39 +469,41 @@ Machine-readable:
 ?raster=1    Raster Integration Slots
 ```
 
-`?anchors=1`이 표시해야 하는 현재 truth:
+`?anchors=1` must currently show:
 
 ```text
-STYLE-GIR-V1 progress = 1 / 5
-human-mid = approved reference
-first-person-hand = NEXT production target
+GIR-SURFACE-30 target = 30/100
+acceptance = 25–35
+STYLE-GIR-V1 progress = 0/5
+human-mid = NEXT production target
+first-person-hand = blocked by human-mid
 ```
 
 ---
 
-# 12. Current Gate
-
-# **Visual Anatomy Reference Lock**
+# 14. Current Gate
 
 ```text
-Scene Composition Design                 PASS
-Project-owner Scene Confirmation         PASS
-Responsive Raster Contract               READY
-Visual Identity/Layering Policy          SPEC LOCKED
-Functional Anatomy Policy                SPEC LOCKED
-Exact Canonical Ratio Inheritance        SPEC LOCKED
-Serial Anchor Production Queue           ENFORCED
-Visual Anchor Review Board               INTEGRATED
-STYLE-GIR-V1                              REFERENCE PENDING (1/5)
-STYLE-GIR-V1 / human-mid                 APPROVED / REGISTERED
-Current Single Production Target         STYLE-GIR-V1 / first-person-hand
-Character/Player Anchors                 REFERENCE PENDING
-Anatomy Contracts                        REFERENCE PENDING
-Contact Geometry Contracts               REFERENCE PENDING
-World/Object Anchors                     REFERENCE PENDING
-Approved Scene Raster Assets             0
-Human Gate                               FAIL
-Stage 08                                 BLOCKED
+Scene Composition Design                  PASS
+Project-owner Scene Confirmation          PASS
+Responsive Raster Contract                READY
+Visual Identity/Layering Policy           SPEC LOCKED
+Functional Anatomy Policy                 SPEC LOCKED
+Exact Canonical Ratio Inheritance         SPEC LOCKED
+GIR-SURFACE-30                            SPEC LOCKED
+Serial Anchor Production Queue            ENFORCED
+Visual Anchor Review Board                INTEGRATED
+STYLE-GIR-V1                              REFERENCE PENDING (0/5)
+STYLE-GIR-V1 / human-mid r03              SUPERSEDED
+Current Single Production Target          STYLE-GIR-V1 / human-mid r04
+STYLE-GIR-V1 / first-person-hand r02      BLOCKED UPSTREAM
+Character/Player Anchors                  REFERENCE PENDING
+Anatomy Contracts                         REFERENCE PENDING
+Contact Geometry Contracts                REFERENCE PENDING
+World/Object Anchors                      REFERENCE PENDING
+Approved Scene Raster Assets              0
+Human Gate                                FAIL
+Stage 08                                  BLOCKED
 ```
 
-다음 실제 visual-production 행동은 **`STYLE-GIR-V1 / first-person-hand` 후보 1개를 제작하고, 기준 미달이면 reject/revise하며, 통과한 경우에만 `first-person-hand.webp`를 등록하는 것**이다.
+The next visual-production action, when image production is explicitly requested, is **one GIR-SURFACE-30 human-mid r04 candidate**, not a hand image and not a downstream anchor.
