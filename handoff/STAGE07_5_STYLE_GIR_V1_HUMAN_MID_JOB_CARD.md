@@ -1,6 +1,6 @@
 # Stage 07.5 — STYLE-GIR-V1 / human-mid Production Job Card
 
-Status: **APPROVED / REGISTERED / CLOSED**
+Status: **ACTIVE / GIR-SURFACE-30 RECALIBRATION / r04 NEXT**
 
 ## 1. Job identity
 
@@ -8,113 +8,237 @@ Status: **APPROVED / REGISTERED / CLOSED**
 JOB ID: GIR-HUMAN-MID-001
 TARGET: STYLE-GIR-V1 / human-mid
 OUTPUT ROLE: style-proof / anonymous human
-APPROVED REVISION: r03
-REGISTERED PATH: public/assets/stage075/anchors/STYLE-GIR-V1/human-mid.webp
+STYLE POLICY: GIR-SURFACE-30
+TARGET SURFACE REALISM: 30 / 100
+ACCEPTANCE BAND: 25–35
+CURRENT REVISION: r04
+SUPERSEDED REVISION: r03
+PLANNED APPROVED PATH: public/assets/stage075/anchors/STYLE-GIR-V1/human-mid.webp
 ```
 
-This image is a **human rendering tier reference only**. It is not Aru, Damu, Nua, the Player, or a historically documented individual.
+`30/100`은 **표면/렌더링 사실성 지수**다. 해부학, 관절, 무게, 접촉, 원근을 30 수준으로 낮추라는 뜻이 아니다.
 
 ---
 
-## 2. Final review decision
+## 2. Why r03 was reopened
 
-r03 passed all machine-readable review checks:
+r03는 이전의 정성적 STYLE-GIR 기준에서는 승인됐었다. 그러나 Project-owner가 원하는 실제 표현 수준을 명시적으로 **약 30/100**으로 확정하면서 기준이 바뀌었다.
+
+새 기준으로 재평가하면 r03는:
 
 ```text
 technicalCleanliness = PASS
 structuralAnatomy = PASS
-styleBoundary = PASS
+styleBoundary = FAIL under GIR-SURFACE-30
 extractionViability = PASS
 historicalRestraint = PASS
-driftCodes = []
 ```
 
-Approval rationale:
+재평가 drift:
 
-- anatomy, weight and posture remain functionally believable,
-- face reads primarily through structure/planes rather than photographic pore detail,
-- hair reads as mass/silhouette rather than individual-strand simulation,
-- skin/material surfaces remain painterly and illustrative,
-- background depth is readable without photographic shallow-DOF dependence,
-- outer silhouette is clean enough to serve as a style reference for later extraction-oriented production,
-- clothing remains a low-specificity reconstruction rather than a canonical archaeological costume claim,
-- no downstream hero/Player/object/world identity is locked by this image.
+```text
+SID-PHOTO
+SID-DETAIL
+```
 
-Minor hair/fold/background variation is P3 and does not block this style-proof approval.
+핵심은 구조 실패가 아니다. **피부·머리·의복·재질의 surface information이 새 목표보다 semireal 쪽으로 높다.**
+
+따라서:
+
+- r03의 과거 승인 이력은 review ledger에 보존한다.
+- r03는 현재 canonical style parent가 아니다.
+- 기존 `human-mid.webp` 승인 바이너리는 canonical approved path에서 제거한다.
+- downstream hand/world/material은 r03를 conditioning reference로 사용할 수 없다.
 
 ---
 
-## 3. Candidate history
+## 3. GIR-SURFACE-30 exact target
 
-| Revision | Technical | Anatomy | Style | Extraction | Historical restraint | Drift codes | Decision |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| r01 | PASS | PASS | PASS | PASS | FAIL | none | REJECTED |
-| r02 | PASS | PASS | FAIL | FAIL | PASS | `SID-PHOTO`, `SID-LENS`, `SID-EDGE` | REJECTED |
-| r03 | PASS | PASS | PASS | PASS | PASS | none | **APPROVED** |
+Project scale:
 
-r01/r02 rejected binaries remain outside approved asset paths.
+```text
+0    very simple graphic/cartoon
+15   strongly simplified animation-like treatment
+30   grounded structural illustration  ← TARGET
+45   semireal illustration
+60   realistic illustration
+80   game/cinematic realism
+100  photograph
+```
+
+Acceptance:
+
+```text
+25–35 = PASSABLE SURFACE BAND
+<25   = review for excessive cartoon/graphic simplification
+>35   = review for semireal/photographic drift
+```
+
+The image must read **immediately as an illustration at normal viewing distance**.
 
 ---
 
-## 4. What r03 locks
+## 4. What must remain physically believable
 
-The accepted STYLE-GIR human tier is:
+Do not simplify these merely to hit 30:
 
-```text
-functional anatomy / believable weight / readable depth
-+
-illustratively simplified skin planes, hair masses and garment folds
-+
-clean reusable silhouette
--
-photographic pore field / beauty-photo skin
--
-individual-hair simulation
--
-photographic bokeh / shallow DOF / lens language
--
-AAA poster / fantasy barbarian / cartoon drift
-```
+- joint placement and limb articulation,
+- head/torso/limb relationship chosen for the character design,
+- weight and center of mass,
+- perspective,
+- contact with ground/objects where visible,
+- face structure and expression readability,
+- lighting direction and basic volume.
 
-It does **not** lock:
-
-- `ARU-IDENTITY-V1`
-- `DAMU-IDENTITY-V1`
-- `NUA-IDENTITY-V1`
-- `PLAYER-HUNT-BODY-V1`
-- `DAY1-HANDAXE-V1`
-- `WORLD-CAMP-DAWN-A`
+No forced textbook 6/7/8-head target is required. Once a later canonical identity/body master is approved, its exact ratio becomes fixed.
 
 ---
 
-## 5. Queue handoff
+## 5. What must be simplified for r04
 
-The serial queue now advances to:
+### Skin
 
-```text
-STYLE-GIR-V1 / first-person-hand
-```
+Use:
 
-The approved `human-mid.webp` must be supplied as the **style/detail reference** for that next slot, but not as an identity parent.
+- broad value/color planes,
+- a few representative creases,
+- limited dirt marks only where useful.
 
-Next Job Card:
+Do not use:
 
-```text
-handoff/STAGE07_5_STYLE_GIR_V1_FIRST_PERSON_HAND_JOB_CARD.md
-```
+- visible pore field,
+- skin grain everywhere,
+- beauty-photo specular response,
+- many tiny blemishes,
+- individual body hair as a texture field,
+- veins as decorative micro-detail.
+
+### Face
+
+Identity/readability comes from:
+
+- head shape,
+- eye/nose/mouth placement,
+- jaw/cheek structure,
+- large shadow/light planes.
+
+Not from:
+
+- eyelashes/pores/micro-wrinkles,
+- beauty-retouch realism,
+- photographic skin variation.
+
+### Hair
+
+Use:
+
+- one clear silhouette,
+- large masses,
+- a few grouped locks if needed.
+
+Do not render individual-hair density.
+
+### Garment
+
+Use:
+
+- silhouette,
+- weight/drape,
+- major fold groups,
+- broad material zones.
+
+Avoid fiber, stitch and fray micro-detail except one or two representative cues.
+
+### Background
+
+Use simple contextual shape/value masses only. It must not become a cinematic landscape showcase or a canonical Day 1 world plate.
 
 ---
 
-## 6. Gate truth
+## 6. Controlled r04 instruction
+
+Produce one anonymous fictional community member in a medium shot.
+
+Required:
+
+- unmistakably illustrated, not photographic,
+- GIR-SURFACE-30 target 30/100,
+- functional believable anatomy,
+- face readable from structure,
+- hair mass/silhouette first,
+- simplified skin planes,
+- low-specificity garment with large folds,
+- clean subject edge,
+- natural restrained light,
+- low-information contextual natural background.
+
+Must not define:
+
+- `ARU-IDENTITY-V1`,
+- `DAMU-IDENTITY-V1`,
+- `NUA-IDENTITY-V1`,
+- `PLAYER-HUNT-BODY-V1`,
+- `DAY1-HANDAXE-V1`,
+- `WORLD-CAMP-DAWN-A`,
+- exact ethnicity/species/costume certainty.
+
+---
+
+## 7. Review checks
+
+All must pass:
 
 ```text
-STYLE-GIR-V1 status = reference-pending
-human-mid = APPROVED / REGISTERED
-first-person-hand = ACTIVE / NEXT
-STYLE approved slots = 1 / 5
-STYLE remaining slots = 4 / 5
+technicalCleanliness
+structuralAnatomy
+styleBoundary
+extractionViability
+historicalRestraint
+```
+
+Additional GIR-30 question:
+
+> At normal viewing distance, does the image clearly read around 30/100 surface realism rather than semireal/photographic rendering?
+
+Reject directions:
+
+```text
+SID-PHOTO
+SID-LENS
+SID-DETAIL
+SID-EDGE
+SID-3D
+SID-POSTER
+SID-FANTASY
+SID-CARTOON
+```
+
+`SID-CARTOON` is still relevant: simplification must not destroy grounded form.
+
+---
+
+## 8. Candidate history
+
+| Revision | Result | Current interpretation |
+| --- | --- | --- |
+| r01 | REJECTED | historical restraint failure |
+| r02 | REJECTED | `SID-PHOTO`, `SID-LENS`, `SID-EDGE` |
+| r03 | **SUPERSEDED** | passed old qualitative boundary; too realistic for GIR-SURFACE-30 |
+| r04 | **ACTIVE / NEXT** | must target 30/100 directly |
+
+---
+
+## 9. Queue truth
+
+```text
+STYLE-GIR-V1 approved slots = 0 / 5
+human-mid r04 = ACTIVE / NEXT
+first-person-hand r02 = BLOCKED UPSTREAM
+world = BLOCKED
+material = BLOCKED
+responsive-pair = BLOCKED
 Human Gate = FAIL
 Stage 08 = BLOCKED
 ```
 
-STYLE-GIR-V1 itself remains unapproved until all five required slots are approved and registered.
+Only after a new GIR-SURFACE-30 human-mid candidate is reviewed, owner-approved and registered may the queue advance again to `first-person-hand`.
