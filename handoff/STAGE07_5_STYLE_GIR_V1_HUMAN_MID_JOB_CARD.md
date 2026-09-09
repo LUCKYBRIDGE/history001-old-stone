@@ -1,6 +1,6 @@
 # Stage 07.5 — STYLE-GIR-V1 / human-mid Production Job Card
 
-Status: **APPROVED / REGISTERED / GIR-SURFACE-30 / r05 CLOSED**
+Status: **ACTIVE / GIR-SURFACE-30 / r05 REGISTRATION INVALID / r06 NEXT**
 
 ## 1. Job identity
 
@@ -11,49 +11,41 @@ OUTPUT ROLE: style-proof / anonymous human
 STYLE POLICY: GIR-SURFACE-30
 TARGET SURFACE REALISM: 30 / 100
 ACCEPTANCE BAND: 25–35
-APPROVED REVISION: r05
-SUPERSEDED REVISION: r03
-REGISTERED PATH: public/assets/stage075/anchors/STYLE-GIR-V1/human-mid.webp
+CURRENT REVISION: r06
+SUPERSEDED REVISION: r05
+PLANNED APPROVED PATH: public/assets/stage075/anchors/STYLE-GIR-V1/human-mid.webp
+STATUS: pending-production
 ```
 
 `30/100`은 표면/렌더링 사실성 지수다. 해부학·관절·무게·접촉·원근의 정확도를 낮추는 값이 아니다.
 
 ---
 
-## 2. Final r05 decision
+## 2. Why r05 is no longer registered
 
-r05 passed:
+r05 originally passed visual review for:
 
 ```text
-technicalCleanliness = PASS
-structuralAnatomy = PASS
-styleBoundary = PASS
-extractionViability = PASS
-historicalRestraint = PASS
-driftCodes = []
+structuralAnatomy
+styleBoundary
+extractionViability
+historicalRestraint
 ```
 
-Approval rationale:
+However, before downstream hand production the actual canonical repository payload was revalidated and found not to be a valid WebP container. The prior r03 canonical payload showed the same defect.
 
-- normal viewing distance에서 사진/세미리얼이 아니라 명확한 일러스트로 읽힌다.
-- 피부는 모공/잔털 대신 broad plane과 제한된 대표 주름으로 읽힌다.
-- 머리는 개별 모발 field보다 큰 mass/silhouette가 먼저 읽힌다.
-- 의복은 섬유/봉제 micro-detail보다 큰 drape/fold/material zone으로 읽힌다.
-- 신체 구조와 무게는 기능적으로 납득 가능하다.
-- 배경은 낮은 정보량의 contextual treatment라 canonical Day 1 geography를 고정하지 않는다.
-- subject edge가 clean하여 이후 extraction-oriented production 기준을 검토할 수 있다.
+Current correction:
 
-생성된 r05 source는 승인 전 deterministic crop만 적용하여 medium/three-quarter style-proof framing으로 정리했다. crop은 pixel regeneration이나 anatomy 변형이 아니다.
+```text
+r05 visual-review history = PRESERVED
+r05 technicalCleanliness = FAIL at canonical binary-integrity layer
+r05 driftCode = ASSET-BINARY-INVALID
+r05 canonical registration = INVALIDATED
+r05 approved path = REMOVED
+r06 = ACTIVE / NEXT
+```
 
-이 이미지는 **rendering-tier reference**일 뿐이며 다음을 정의하지 않는다.
-
-- `ARU-IDENTITY-V1`
-- `DAMU-IDENTITY-V1`
-- `NUA-IDENTITY-V1`
-- `PLAYER-HUNT-BODY-V1`
-- `DAY1-HANDAXE-V1`
-- `WORLD-CAMP-DAWN-A`
-- 특정 역사 인물·민족·정확한 복식의 사실 복원
+This is not a claim that r05's intended visual direction was anatomically or stylistically wrong. It means the registered repository file cannot function as an actual image reference and therefore cannot unlock an anchor-conditioned downstream slot.
 
 ---
 
@@ -63,68 +55,95 @@ Approval rationale:
 | --- | --- | --- |
 | r01 | REJECTED | historical-restraint failure |
 | r02 | REJECTED | `SID-PHOTO`, `SID-LENS`, `SID-EDGE` |
-| r03 | SUPERSEDED | old-policy approval; too realistic for GIR-SURFACE-30 |
+| r03 | SUPERSEDED | old-policy approval; too realistic for GIR-SURFACE-30; old canonical payload also invalid WebP |
 | r04 | REJECTED | `SID-CARTOON`, `SID-FANTASY`; overly designed fantasy-prehistory cues |
-| r05 | **APPROVED / REGISTERED** | GIR-SURFACE-30 + anatomy + extraction + historical restraint PASS |
-
-r04 rejected binary remains outside the approved repository path.
-
----
-
-## 4. GIR-SURFACE-30 lock inherited downstream
-
-The accepted human surface tier is:
-
-```text
-functional believable anatomy / weight / perspective
-+
-large skin/value planes
-+
-grouped hair masses
-+
-broad garment folds/material zones
-+
-clean readable silhouette
--
-photographic pore / body-hair field
--
-individual-hair simulation
--
-photo-macro fabric/material detail
--
-photographic bokeh / shallow DOF / lens language
--
-AAA poster / fantasy-barbarian / chibi-cartoon drift
-```
-
-The approved r05 is the actual style parent for the next STYLE slot. Its clothing silhouette is not a costume canon and must not be copied as archaeological fact.
+| r05 | SUPERSEDED | prior visual review passed, but canonical raster registration failed binary-integrity validation |
+| r06 | **ACTIVE / NEXT** | produce a new valid GIR-SURFACE-30 style proof |
 
 ---
 
-## 5. Queue handoff
+## 4. Exact r06 target
 
-The serial queue now advances exactly one slot:
+Required visual target:
+
+- anonymous fictional community member;
+- medium / three-quarter style-proof framing;
+- functional anatomy, weight and perspective;
+- broad skin/value planes instead of pore/fine-grain rendering;
+- grouped hair mass/silhouette instead of individual-hair fields;
+- broad low-specificity garment folds/material zones;
+- clean extraction-friendly outer silhouette;
+- low-information contextual natural background;
+- clear illustration reading near 30/100 surface realism;
+- no photo lens language, cinematic bokeh, AAA key-art treatment, fantasy-barbarian design or chibi/cartoon drift.
+
+Must not define:
+
+- `ARU-IDENTITY-V1`
+- `DAMU-IDENTITY-V1`
+- `NUA-IDENTITY-V1`
+- `PLAYER-HUNT-BODY-V1`
+- `DAY1-HANDAXE-V1`
+- `WORLD-CAMP-DAWN-A`
+- specific historical individual, ethnicity/species certainty or exact archaeological costume
+
+---
+
+## 5. Required review gates
+
+All visual checks must pass:
 
 ```text
-STYLE-GIR-V1 / human-mid        APPROVED / REGISTERED
-STYLE-GIR-V1 / first-person-hand ACTIVE / NEXT (r02)
-STYLE-GIR-V1 / world            BLOCKED
-STYLE-GIR-V1 / material         BLOCKED
-STYLE-GIR-V1 / responsive-pair  BLOCKED
-
-STYLE approved slots            1 / 5
-Human Gate                      FAIL
-Stage 08                        BLOCKED
+technicalCleanliness
+structuralAnatomy
+styleBoundary
+extractionViability
+historicalRestraint
 ```
 
-Next Job Card:
+Unresolved drift codes must be empty.
 
-- `handoff/STAGE07_5_STYLE_GIR_V1_FIRST_PERSON_HAND_JOB_CARD.md`
+Then Project-owner approval is required.
 
-The next hand candidate must use the actual registered reference:
+After visual/owner approval, the final canonical raster must also pass:
 
 ```text
-public/assets/stage075/anchors/STYLE-GIR-V1/human-mid.webp
+node scripts/verify-stage075-raster-integrity.mjs
 ```
 
-as a **style/detail parent only**, never as Player or named-character identity.
+A `.webp` filename alone is insufficient. The committed file must contain a coherent WebP RIFF container.
+
+---
+
+## 6. Registration sequence
+
+```text
+produce r06 candidate outside approved anchor path
+→ visual review
+→ owner approval
+→ deterministic crop/convert/export if required
+→ verify actual canonical WebP bytes
+→ commit canonical human-mid.webp
+→ register exact approved path in machine-readable STYLE bundle
+→ unlock first-person-hand r02
+```
+
+Do not write a candidate directly into the canonical approved anchor directory before approval.
+
+---
+
+## 7. Current queue truth
+
+```text
+STYLE-GIR-V1 approved slots = 0 / 5
+human-mid r05 = SUPERSEDED / REGISTRATION INVALID
+human-mid r06 = ACTIVE / NEXT / pending-production
+first-person-hand r02 = BLOCKED-UPSTREAM
+world = BLOCKED
+material = BLOCKED
+responsive-pair = BLOCKED
+Human Gate = FAIL
+Stage 08 = BLOCKED
+```
+
+Next actual visual-production action is exactly one `human-mid r06` candidate.
