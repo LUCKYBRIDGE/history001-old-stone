@@ -29,13 +29,14 @@ describe('Stage 07.5 first-person-hand candidate review ledger', () => {
     expect(r01.notes.join(' ')).toContain('GIR-SURFACE-30');
   });
 
-  it('reserves r02 but blocks production until a new GIR-30 human-mid is approved', () => {
+  it('keeps r02 as the active hand revision after GIR-30 human-mid approval', () => {
     expect(getStage075FirstPersonHandLatestCandidateReview()?.revision).toBe(1);
     expect(getStage075FirstPersonHandNextCandidateRevision()).toBe(2);
     expect(STAGE075_FIRST_PERSON_HAND_PRODUCTION_JOB.candidateRevision).toBe(2);
-    expect(STAGE075_FIRST_PERSON_HAND_PRODUCTION_JOB.status).toBe('blocked-upstream');
-    expect(STAGE075_FIRST_PERSON_HAND_PRODUCTION_JOB.blockedBy).toEqual([
-      'STYLE-GIR-V1/human-mid',
+    expect(STAGE075_FIRST_PERSON_HAND_PRODUCTION_JOB.status).toBe('pending-production');
+    expect(STAGE075_FIRST_PERSON_HAND_PRODUCTION_JOB.blockedBy).toEqual([]);
+    expect(STAGE075_FIRST_PERSON_HAND_PRODUCTION_JOB.requiredStyleReferencePaths).toEqual([
+      'public/assets/stage075/anchors/STYLE-GIR-V1/human-mid.webp',
     ]);
     expect(STAGE075_FIRST_PERSON_HAND_PRODUCTION_JOB.registeredApprovedPath).toBeNull();
   });
