@@ -83,6 +83,52 @@ export const STAGE075_HUMAN_MID_CANDIDATE_REVIEWS: readonly Stage075HumanMidCand
       'Next candidate is r04 and must target GIR-SURFACE-30 directly.',
     ],
   },
+  {
+    revision: 4,
+    candidateLabel: 'GIR-HUMAN-MID-001-r04.png',
+    decision: 'rejected',
+    reviewChecks: {
+      technicalCleanliness: 'pass',
+      structuralAnatomy: 'pass',
+      styleBoundary: 'fail',
+      extractionViability: 'pass',
+      historicalRestraint: 'fail',
+    },
+    driftCodes: ['SID-CARTOON', 'SID-FANTASY'],
+    binaryCommittedToRepo: false,
+    reviewedOn: '2026-09-09',
+    policyRevision: 'GIR-SURFACE-30',
+    notes: [
+      'Surface simplification moved into the intended GIR-30 neighborhood, but the face treatment leaned too strongly toward stylized animation/concept-art character design.',
+      'The scenic background and survival-costume cues, including specific footwear/wrap/pouch treatment, made the anonymous style proof read more like a designed fantasy-prehistory character than a low-specificity historical reconstruction.',
+      'Functional anatomy and clean silhouette were acceptable, so the next revision keeps the large-plane rendering approach while removing those style and historical-specificity cues.',
+      'No r04 binary is committed to the approved repository path.',
+    ],
+  },
+  {
+    revision: 5,
+    candidateLabel: 'GIR-HUMAN-MID-001-r05.webp',
+    decision: 'approved',
+    reviewChecks: {
+      technicalCleanliness: 'pass',
+      structuralAnatomy: 'pass',
+      styleBoundary: 'pass',
+      extractionViability: 'pass',
+      historicalRestraint: 'pass',
+    },
+    driftCodes: [],
+    binaryCommittedToRepo: true,
+    reviewedOn: '2026-09-09',
+    policyRevision: 'GIR-SURFACE-30',
+    notes: [
+      'Approved as the STYLE-GIR-V1 GIR-SURFACE-30 human rendering-tier reference only; it is not Aru, Damu, Nua, the Player, or a factual reconstruction of a named individual.',
+      'At normal viewing distance the image clearly reads as illustration around the target 30/100 surface realism rather than semireal or photographic rendering.',
+      'Skin is organized into broad planes, hair into grouped masses, and garment into large folds/material zones with no pore-field, individual-hair field, lens language, or photo-macro material detail.',
+      'The generated source was deterministically cropped to the approved medium/three-quarter style-proof framing before WebP export; the crop does not regenerate pixels or alter anatomy.',
+      'The remaining garment treatment is intentionally low-specificity reconstruction and must not be inherited as a canonical archaeological costume.',
+      'Canonical approved asset: public/assets/stage075/anchors/STYLE-GIR-V1/human-mid.webp.',
+    ],
+  },
 ] as const;
 
 export function getStage075HumanMidLatestCandidateReview() {
