@@ -1,6 +1,6 @@
 # Stage 07.5 — STYLE-GIR-V1 Controlled Reference Packet
 
-Status: **GIR-SURFACE-30 RECALIBRATION / 0 OF 5 APPROVED**
+Status: **GIR-SURFACE-30 SERIAL CALIBRATION / 1 OF 5 APPROVED**
 
 Anchor ID: `STYLE-GIR-V1`
 
@@ -12,24 +12,14 @@ STYLE-GIR-V1 remains `reference-pending` until all five required slots are appro
 
 ---
 
-## 1. Purpose
-
-Lock one coherent **Grounded Illustrative Realism** treatment across:
-
-- human anatomy / surface treatment,
-- first-person hand / contact,
-- environment / depth,
-- rock / earth / garment material,
-- landscape / portrait equivalence.
-
-Exact target:
+## 1. Locked surface target
 
 ```text
 SURFACE / RENDERING REALISM = 30 / 100
 ACCEPTANCE BAND = 25–35
 ```
 
-This is not anatomy realism. The required combination is:
+This score is not anatomy realism. Required combination:
 
 ```text
 functional believable anatomy / weight / perspective / contact
@@ -43,35 +33,52 @@ photographic lens language
 
 ---
 
-## 2. Why the packet was reset
+## 2. Human-mid calibration result
 
-The prior `human-mid r03` was approved under an older qualitative STYLE-GIR boundary.
-
-After Project-owner review, the desired visible realism level was fixed at **about 30/100**, which is substantially more illustrative than the old accepted r03.
-
-Therefore:
+Canonical approved reference:
 
 ```text
-r03 historical approval = preserved in review history
-r03 current status = SUPERSEDED
-former human-mid canonical binary = removed from approved path
-STYLE approved slots = reset 1/5 → 0/5
-first-person-hand r02 = BLOCKED until new human-mid approval
+public/assets/stage075/anchors/STYLE-GIR-V1/human-mid.webp
 ```
 
-This is a policy recalibration, not an anatomy failure.
+Approved revision:
+
+```text
+GIR-HUMAN-MID-001 r05
+```
+
+r05 proves:
+
+- clearly illustrative surface tier near 30/100,
+- broad skin/value planes,
+- grouped hair masses,
+- broad garment folds/material zones,
+- functional anatomy and weight,
+- clean silhouette,
+- low-information contextual background,
+- no photographic pore-field / individual-hair field / lens-language dominance.
+
+It is a rendering-tier reference only. It does not establish Aru/Damu/Nua/Player identity, canonical handaxe morphology, canonical Day 1 geography, or an exact archaeological costume.
+
+Candidate history:
+
+```text
+r01 → rejected / historical restraint
+r02 → rejected / SID-PHOTO + SID-LENS + SID-EDGE
+r03 → superseded after GIR-SURFACE-30 reset
+r04 → rejected / SID-CARTOON + SID-FANTASY
+r05 → APPROVED / REGISTERED
+```
 
 ---
 
-## 3. Serial production rule
+## 3. Serial production state
 
-# **Only one STYLE-GIR slot is production-active at a time.**
-
-Current order/status:
+Only one STYLE-GIR slot is production-active at a time.
 
 ```text
-1. human-mid          ACTIVE / NEXT / r04
-2. first-person-hand  BLOCKED UPSTREAM / r02 reserved
+1. human-mid          APPROVED / REGISTERED / r05
+2. first-person-hand  ACTIVE / NEXT / r02
 3. world              BLOCKED
 4. material           BLOCKED
 5. responsive-pair    BLOCKED
@@ -80,85 +87,25 @@ Current order/status:
 Approved count:
 
 ```text
-0 / 5
+1 / 5
 ```
 
 Do not batch-generate later slots.
 
-Workflow:
-
-```text
-active candidate
-→ GIR-30 + structure review
-→ reject/revise OR owner accept
-→ canonical registration
-→ exactly one next slot
-```
-
 ---
 
-## 4. Active Slot A — `human-mid` r04
-
-Planned approved path:
-
-```text
-public/assets/stage075/anchors/STYLE-GIR-V1/human-mid.webp
-```
-
-There is currently no file at this canonical approved path.
-
-Goal:
-
-- anonymous fictional community member,
-- medium shot,
-- unmistakably illustrated at normal viewing distance,
-- surface realism near 30/100,
-- functional anatomy,
-- face structure before skin microtexture,
-- hair mass/silhouette before strands,
-- broad low-specificity garment folds,
-- clean edge,
-- simple contextual natural background.
-
-Strongly simplify:
-
-- pores,
-- fine skin grain,
-- veins/body hair,
-- nail/cuticle reflections,
-- individual hair,
-- fiber/stitch microdetail,
-- background leaf/rock grain density.
-
-Must not define:
-
-- Aru / Damu / Nua identity,
-- Player body identity,
-- handaxe morphology,
-- canonical Day 1 geography,
-- specific historical ethnicity/species/costume certainty.
-
-Candidate history:
-
-```text
-r01 → rejected / historical restraint
-r02 → rejected / SID-PHOTO + SID-LENS + SID-EDGE
-r03 → superseded after GIR-SURFACE-30 reset
-r04 → ACTIVE / NEXT
-```
-
-Active Job Card:
-
-- `handoff/STAGE07_5_STYLE_GIR_V1_HUMAN_MID_JOB_CARD.md`
-
----
-
-## 5. Slot B — `first-person-hand` / blocked
+## 4. Active Slot B — `first-person-hand` r02
 
 Planned approved path:
 
 ```text
 public/assets/stage075/anchors/STYLE-GIR-V1/first-person-hand.webp
+```
+
+Required style parent:
+
+```text
+public/assets/stage075/anchors/STYLE-GIR-V1/human-mid.webp
 ```
 
 r01 was rejected for:
@@ -169,20 +116,17 @@ SID-LENS
 SID-DETAIL
 ```
 
-r02 is reserved but **must not be produced** until a new GIR-30 `human-mid` is approved and registered.
+r02 must inherit the approved r05 surface language while proving:
 
-After unlock, r02 must use the new approved human reference as the actual style parent and preserve:
-
-- five-finger anatomy,
+- five-finger functional anatomy,
 - wrist/forearm continuity,
-- contact pressure,
+- plausible contact pressure/occlusion,
+- broad skin planes rather than pore/vein/body-hair density,
+- simple nail structure rather than macro cuticle/reflection detail,
+- rough stone through major planes/roughness groups rather than exhaustive crack/grain texture,
+- low-information background with no cinematic lens separation.
 
-while simplifying:
-
-- pores/veins/body hair,
-- nail microdetail,
-- rock microtexture,
-- cinematic depth/lens language.
+The rough stone remains non-diagnostic and must not define `DAY1-HANDAXE-V1`.
 
 Job Card:
 
@@ -190,27 +134,23 @@ Job Card:
 
 ---
 
-## 6. Later STYLE slots — do not produce yet
+## 5. Later slots
 
 ### `world`
 
 Mode: `anchor-conditioned`
 
-Purpose:
-
 - same GIR-30 rendering tier,
 - grouped terrain/vegetation masses,
 - depth via overlap/value/perspective,
-- no photo-density foliage or cinematic bokeh,
+- no photo-density foliage/cinematic bokeh,
 - no canonical Day 1 geography lock.
 
 ### `material`
 
 Mode: `anchor-conditioned`
 
-Purpose:
-
-- stone / earth / garment language,
+- stone / earth / garment material language,
 - broad planes/roughness/folds,
 - no macro product-photo treatment,
 - no exhaustive crack/grain/fiber detail.
@@ -218,8 +158,6 @@ Purpose:
 ### `responsive-pair`
 
 Mode: `locked-keyframe-variation`
-
-Purpose:
 
 - one anonymous source moment,
 - Landscape + Portrait from the same source,
@@ -230,14 +168,14 @@ Purpose:
 
 ---
 
-## 7. Shared GIR-30 constraints
+## 6. Shared constraints
 
 Required:
 
 - surface realism 25–35 centered near 30,
 - image clearly reads as illustration,
 - functional anatomy/contact/depth,
-- no forced 6/7/8-head photographic convention,
+- no forced 6/7/8-head convention,
 - structure before microtexture,
 - comparable detail density across human/hand/material/world,
 - clean readable silhouettes,
@@ -266,14 +204,14 @@ Historical specifics that are uncertain remain `[R]` reconstruction or `[D]` def
 
 ---
 
-## 8. Gate truth
+## 7. Gate truth
 
 ```text
 STYLE-GIR-V1 = reference-pending
 surface policy = GIR-SURFACE-30
-approved slots = 0 / 5
-human-mid r04 = active / next
-first-person-hand r02 = blocked-upstream
+approved slots = 1 / 5
+human-mid r05 = approved / registered
+first-person-hand r02 = active / next
 world = blocked
 material = blocked
 responsive-pair = blocked

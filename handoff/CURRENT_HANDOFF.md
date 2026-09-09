@@ -25,15 +25,14 @@ STYLE-GIR-V1                          reference-pending
 Surface policy                        GIR-SURFACE-30
 Surface target                        30 / 100
 Acceptance band                       25–35
-STYLE approved slots                  0 / 5
-human-mid r03                         SUPERSEDED old-policy approval
-human-mid r04                         ACTIVE / NEXT
+STYLE approved slots                  1 / 5
+human-mid r05                         APPROVED / REGISTERED
 first-person-hand r01                 REJECTED
-first-person-hand r02                 BLOCKED UPSTREAM
+first-person-hand r02                 ACTIVE / NEXT
 world                                 BLOCKED
 material                              BLOCKED
 responsive-pair                       BLOCKED
-Approved STYLE reference paths        0
+Approved STYLE reference paths        1
 Approved scene raster assets          0
 Human Gate                            FAIL
 Stage 08                              BLOCKED
@@ -41,153 +40,119 @@ Stage 08                              BLOCKED
 
 Current single global production target:
 
-# **`STYLE-GIR-V1 / human-mid` — revision r04**
+# **`STYLE-GIR-V1 / first-person-hand` — revision r02**
 
-There is currently no approved `human-mid.webp` canonical reference. The former r03 file was removed from the approved path after policy recalibration.
+Approved style parent:
+
+```text
+public/assets/stage075/anchors/STYLE-GIR-V1/human-mid.webp
+```
 
 ---
 
-# 2. New visual law — GIR-SURFACE-30
+# 2. GIR-SURFACE-30 visual law
 
-The Project-owner selected approximately **30/100 surface/rendering realism**.
+The selected visible surface/rendering realism is approximately **30/100**, acceptable at **25–35**.
 
-```text
-0    very simple graphic/cartoon
-15   strongly simplified animation-like
-30   grounded structural illustration  ← target
-45   semireal
-60   realistic illustration
-80   game/cinematic realism
-100  photograph
-```
-
-Acceptance band:
-
-```text
-25–35
-```
-
-Critical distinction:
-
-# **30 applies to surface/rendering, not anatomy/contact correctness.**
+This applies to surface/detail, not anatomy/contact correctness.
 
 Keep strong:
 
-- joints/digit count
-- body mechanics
-- weight/balance
-- contact pressure/depth
-- perspective
-- exact canonical identity/proportions after lock
-- object/world continuity
+- joints/digit count,
+- body mechanics,
+- weight/balance,
+- contact pressure/depth,
+- perspective,
+- exact canonical identity/proportions after lock,
+- object/world continuity.
 
 Simplify strongly:
 
-- pores/fine skin grain
-- veins/body hair
-- nail/cuticle reflections
-- individual hair strands
-- fiber/stitch fields
-- rock/soil micro-cracks and grain
-- leaf/pebble photo-density
-- bokeh/shallow photographic DOF/lens effects
+- pores/fine skin grain,
+- veins/body hair,
+- nail/cuticle reflections,
+- individual hair strands,
+- fiber/stitch fields,
+- rock/soil micro-cracks and grain,
+- leaf/pebble photo-density,
+- bokeh/shallow photographic DOF/lens effects.
 
-At normal viewing distance the image must immediately read as **an illustration**.
+At normal viewing distance the image must immediately read as an illustration.
 
 ---
 
-# 3. r03 supersession truth
-
-Do not erase history:
+# 3. human-mid final truth
 
 ```text
 r01 = rejected / historical restraint
 r02 = rejected / SID-PHOTO + SID-LENS + SID-EDGE
-r03 = approved under old qualitative policy
+r03 = superseded / old-policy approval, too realistic for GIR-30
+r04 = rejected / SID-CARTOON + SID-FANTASY
+r05 = APPROVED / REGISTERED
 ```
 
-Under GIR-SURFACE-30, r03 was re-reviewed:
+r05 review:
 
 ```text
 technicalCleanliness = PASS
 structuralAnatomy = PASS
-styleBoundary = FAIL
+styleBoundary = PASS
 extractionViability = PASS
 historicalRestraint = PASS
-current drift = SID-PHOTO + SID-DETAIL
-current decision = SUPERSEDED
+driftCodes = []
 ```
 
-Actions already taken:
-
-```text
-old approval history retained
-old human-mid canonical path registration removed
-old human-mid.webp removed from approved asset path
-STYLE progress reset 1/5 → 0/5
-human-mid r04 reopened
-first-person-hand r02 blocked upstream
-```
-
-Do not supply r03 as a current style parent.
+The approved r05 is a rendering-tier reference only. It is not Aru/Damu/Nua/Player identity and does not canonize the visible garment as archaeological fact.
 
 ---
 
-# 4. Current active job — human-mid r04
+# 4. Current active job — first-person-hand r02
 
 Read:
 
-- `handoff/STAGE07_5_STYLE_GIR_V1_HUMAN_MID_JOB_CARD.md`
-- `src/experience/production/stage075HumanMidProductionJob.ts`
-- `src/experience/production/stage075HumanMidCandidateReviews.ts`
+- `handoff/STAGE07_5_STYLE_GIR_V1_FIRST_PERSON_HAND_JOB_CARD.md`
+- `src/experience/production/stage075FirstPersonHandProductionJob.ts`
+- `src/experience/production/stage075FirstPersonHandCandidateReviews.ts`
+
+Required style parent:
+
+```text
+public/assets/stage075/anchors/STYLE-GIR-V1/human-mid.webp
+```
 
 Objective:
 
 ```text
-anonymous fictional community member
-+ medium shot
-+ functional believable anatomy
-+ surface realism around 30/100
-+ broad skin planes
-+ hair mass/silhouette
-+ broad low-specificity garment folds
-+ clean subject edge
-+ low-information contextual natural background
+anonymous first-person hand
++ wrist
++ enough forearm to judge continuity
++ rough non-diagnostic natural stone contact
++ GIR-SURFACE-30 surface/detail tier
 ```
 
-Must not define:
-
-- Aru/Damu/Nua identity
-- Player identity
-- handaxe morphology
-- canonical Day 1 geography
-- exact historical ethnicity/species/costume certainty
-
----
-
-# 5. first-person-hand is not active
-
-r01 was rejected because anatomy/contact were generally sound but visual treatment repeatedly became photographic:
+r01 failed style only:
 
 ```text
+handAnatomy = PASS
+contactReadability = PASS
+styleBoundary = FAIL
 SID-PHOTO
 SID-LENS
 SID-DETAIL
 ```
 
-r02 is reserved but:
+r02 must preserve functional anatomy/contact while strongly simplifying pores, veins, body hair, nail macro-detail, rock microtexture and cinematic lens depth.
 
-# **BLOCKED BY `STYLE-GIR-V1 / human-mid`**
+Must not define:
 
-Do not generate r02 until a current-policy GIR-30 human-mid reference is approved and registered.
-
-When later unlocked, the hand must preserve functional anatomy/contact while using the same GIR-30 surface tier.
+- Player identity,
+- `DAY1-HANDAXE-V1`,
+- named character identity,
+- canonical Day 1 geography.
 
 ---
 
-# 6. Identity / anatomy law
-
-Continuity priority:
+# 5. Identity / anatomy law
 
 ```text
 P0 hero + Player identity           = HARD LOCK
@@ -196,24 +161,15 @@ P2 world structure + world light   = STRONG LOCK
 P3 flyaway/fold/pebble/grass/smoke = harmless variation allowed
 ```
 
-Canonical proportion law:
+Before approval, proportion design is flexible. After approval, exact canonical ratios are inherited.
 
-# **Before approval, proportion design is flexible. After approval, exact canonical ratios are inherited.**
+Perspective, foreshortening, pose, FOV and crop may alter apparent screen-space ratio; they do not authorize a new body design.
 
-Example:
-
-```text
-canonical body = 7.2 heads
-→ all views/poses retain the same underlying 7.2 body
-```
-
-Perspective, foreshortening, pose, FOV and crop may change apparent screen-space proportion. They do not authorize a 6.8/7.5 redesign.
-
-Surface simplification under GIR-30 never authorizes broken anatomy.
+GIR-30 simplification never authorizes broken anatomy.
 
 ---
 
-# 7. Derivation law
+# 6. Derivation law
 
 # **Do not regenerate what can be derived from an approved master.**
 
@@ -236,21 +192,21 @@ contact-heavy interlocked state
 
 ---
 
-# 8. STYLE queue
+# 7. STYLE queue
 
 ```text
-human-mid r04           ACTIVE / NEXT / independent exploration
-→ first-person-hand r02 BLOCKED / anchor-conditioned after unlock
+human-mid r05           APPROVED / REGISTERED
+→ first-person-hand r02 ACTIVE / NEXT / anchor-conditioned
 → world                 BLOCKED / anchor-conditioned
 → material              BLOCKED / anchor-conditioned
 → responsive-pair       BLOCKED / locked-keyframe + crop-first
 ```
 
-STYLE-GIR-V1 must reach 5/5 under GIR-SURFACE-30 before downstream anchor production begins.
+STYLE-GIR-V1 must reach 5/5 under GIR-SURFACE-30 before downstream handaxe/Player/Aru production begins.
 
 ---
 
-# 9. Later anchor lineage — do not start yet
+# 8. Later anchor lineage — do not start yet
 
 ```text
 DAY1-HANDAXE-V1
@@ -276,13 +232,11 @@ structural-scaffold
 → measured exact proportion contract
 ```
 
-Do not independently generate multiple views and select the most similar outputs.
-
-All later visuals inherit GIR-SURFACE-30.
+Do not independently generate multiple views and select the most similar outputs. All later visuals inherit GIR-SURFACE-30.
 
 ---
 
-# 10. Mandatory reading order
+# 9. Mandatory reading order
 
 1. `AGENTS.md`
 2. `docs/00_CANONICAL_BASELINE.md`
@@ -303,13 +257,13 @@ All later visuals inherit GIR-SURFACE-30.
 17. `handoff/STAGE07_5_RESPONSIVE_VISUAL_PRODUCTION_CONTRACT.md`
 18. `handoff/STAGE07_5_VISUAL_GENERATION_AND_REVIEW_PROTOCOL.md`
 19. `handoff/STAGE07_5_FIRST_PERSON_SCENE_COMPOSITION_BIBLE_V2_1.md`
-20. `handoff/STAGE07_5_STYLE_GIR_V1_HUMAN_MID_JOB_CARD.md`
+20. `handoff/STAGE07_5_STYLE_GIR_V1_FIRST_PERSON_HAND_JOB_CARD.md`
 
 Technical conflicts are resolved by `docs/06_TECH_BLUEPRINT.md`.
 
 ---
 
-# 11. Dev review surfaces
+# 10. Dev review surfaces
 
 ```text
 ?anchors=1
@@ -321,17 +275,16 @@ Technical conflicts are resolved by `docs/06_TECH_BLUEPRINT.md`.
 
 ```text
 GIR-SURFACE-30 = target 30/100 / acceptance 25–35
-STYLE-GIR-V1 = 0/5
-human-mid = NEXT production target
-first-person-hand = blocked by human-mid
+STYLE-GIR-V1 = 1/5
+human-mid = approved reference
+first-person-hand = NEXT production target
+world = blocked by first-person-hand
 ```
 
 ---
 
-# 12. Immediate next action
+# 11. Immediate next action
 
-No downstream hand/world/handaxe/character work is valid yet.
+When visual production is requested:
 
-When visual production is explicitly requested, the next action is:
-
-# **Produce exactly one `STYLE-GIR-V1 / human-mid r04` candidate under GIR-SURFACE-30 → review → reject/revise or approve/register.**
+# **Produce exactly one `STYLE-GIR-V1 / first-person-hand r02` candidate using the approved r05 human style reference → review → reject/revise or approve/register.**

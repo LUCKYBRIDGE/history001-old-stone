@@ -9,39 +9,35 @@ import {
 } from '../../src/experience/production/stage075FirstPersonHandProductionJob';
 
 describe('Stage 07.5 first-person-hand production job', () => {
-  it('blocks r02 until a new GIR-SURFACE-30 human-mid reference is approved', () => {
+  it('unblocks r02 after the approved GIR-SURFACE-30 human-mid reference is registered', () => {
     expect(STAGE075_FIRST_PERSON_HAND_PRODUCTION_JOB.jobId).toBe('GIR-FIRST-PERSON-HAND-001');
     expect(STAGE075_FIRST_PERSON_HAND_PRODUCTION_JOB.stylePolicyRevision).toBe('GIR-SURFACE-30');
     expect(STAGE075_FIRST_PERSON_HAND_PRODUCTION_JOB.targetSurfaceRealism).toBe(30);
-    expect(STAGE075_FIRST_PERSON_HAND_PRODUCTION_JOB.status).toBe('blocked-upstream');
+    expect(STAGE075_FIRST_PERSON_HAND_PRODUCTION_JOB.status).toBe('pending-production');
     expect(STAGE075_FIRST_PERSON_HAND_PRODUCTION_JOB.candidateRevision).toBe(2);
     expect(STAGE075_FIRST_PERSON_HAND_PRODUCTION_JOB.generationStrategy).toBe(
       'anchor-conditioned-style-match',
     );
-    expect(STAGE075_FIRST_PERSON_HAND_PRODUCTION_JOB.requiredStyleReferencePaths).toEqual([]);
-    expect(STAGE075_FIRST_PERSON_HAND_PRODUCTION_JOB.blockedBy).toEqual([
-      'STYLE-GIR-V1/human-mid',
+    expect(STAGE075_FIRST_PERSON_HAND_PRODUCTION_JOB.requiredStyleReferencePaths).toEqual([
+      'public/assets/stage075/anchors/STYLE-GIR-V1/human-mid.webp',
     ]);
-    expect(isStage075FirstPersonHandUpstreamReady()).toBe(false);
-    expect(isStage075FirstPersonHandCurrentProductionTarget()).toBe(false);
+    expect(STAGE075_FIRST_PERSON_HAND_PRODUCTION_JOB.blockedBy).toEqual([]);
+    expect(isStage075FirstPersonHandUpstreamReady()).toBe(true);
+    expect(isStage075FirstPersonHandCurrentProductionTarget()).toBe(true);
   });
 
-  it('starts r02 with all review checks pending and no candidate path while blocked', () => {
+  it('starts r02 with all review checks pending and no candidate path', () => {
     expect(STAGE075_FIRST_PERSON_HAND_PRODUCTION_JOB.candidateStagingPath).toBeNull();
     expect(STAGE075_FIRST_PERSON_HAND_PRODUCTION_JOB.registeredApprovedPath).toBeNull();
     expect(areStage075FirstPersonHandReviewChecksPassed(STAGE075_FIRST_PERSON_HAND_PRODUCTION_JOB.reviewChecks)).toBe(false);
     expect(canStage075FirstPersonHandBeRegistered(STAGE075_FIRST_PERSON_HAND_PRODUCTION_JOB)).toBe(false);
   });
 
-  it('requires a real approved upstream style reference before a reviewed hand can register', () => {
+  it('requires the approved upstream style reference before a reviewed hand can register', () => {
     const reviewed: Stage075FirstPersonHandProductionJob = {
       ...STAGE075_FIRST_PERSON_HAND_PRODUCTION_JOB,
       status: 'review-passed',
       candidateStagingPath: 'external-review/GIR-FIRST-PERSON-HAND-001-r02.png',
-      requiredStyleReferencePaths: [
-        'public/assets/stage075/anchors/STYLE-GIR-V1/human-mid.webp',
-      ],
-      blockedBy: [],
       reviewChecks: {
         technicalCleanliness: 'pass',
         handAnatomy: 'pass',
