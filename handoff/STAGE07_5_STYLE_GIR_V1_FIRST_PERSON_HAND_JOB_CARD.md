@@ -1,6 +1,6 @@
 # Stage 07.5 — STYLE-GIR-V1 / first-person-hand Production Job Card
 
-Status: **ACTIVE / NEXT / r01 REJECTED / r02 PENDING**
+Status: **BLOCKED-UPSTREAM / r01 REJECTED / r02 RESERVED**
 
 ## 1. Job identity
 
@@ -12,13 +12,7 @@ STYLE POLICY: GIR-SURFACE-30
 TARGET SURFACE REALISM: 30 / 100
 CURRENT REVISION: r02
 GENERATION STRATEGY: anchor-conditioned-style-match
-STATUS: pending-production
-```
-
-Required upstream style reference:
-
-```text
-public/assets/stage075/anchors/STYLE-GIR-V1/human-mid.webp
+STATUS: blocked-upstream
 ```
 
 Planned approved path:
@@ -27,22 +21,28 @@ Planned approved path:
 public/assets/stage075/anchors/STYLE-GIR-V1/first-person-hand.webp
 ```
 
-The approved human reference supplies **rendering/detail language only**. It is not an identity parent.
-
 ---
 
-## 2. Upstream unlock
+## 2. Upstream block
 
-`GIR-HUMAN-MID-001 r05` is now approved under GIR-SURFACE-30 and registered at the canonical path.
+This slot requires one actual approved human style reference at:
+
+```text
+public/assets/stage075/anchors/STYLE-GIR-V1/human-mid.webp
+```
+
+There is currently no valid approved file at that path.
+
+`human-mid r05` was visually reviewed previously, but its canonical repository payload was later found not to be a valid WebP container. Its registration was invalidated and the payload removed. `human-mid r06` is now the active upstream production target.
 
 Therefore:
 
 ```text
-human-mid r05 APPROVED / REGISTERED
-→ first-person-hand r02 ACTIVE / NEXT
+human-mid r06 ACTIVE / NEXT
+→ first-person-hand r02 BLOCKED-UPSTREAM
 ```
 
-Do not use superseded r03 or rejected r04 as conditioning references.
+Do not generate r02 until the human slot is again approved, raster-valid and exactly registered.
 
 ---
 
@@ -71,29 +71,29 @@ The r01 family repeatedly used photographic skin/vein/nail/rock microdetail and 
 
 ---
 
-## 4. Exact r02 target
+## 4. Exact r02 target after unlock
 
-Use the actual approved r05 human reference as the style parent.
+Once a new valid human style parent is registered, use that **actual canonical raster** as the style/detail parent.
 
 Required physical logic:
 
-- first-person camera,
-- one anonymous hand + wrist + enough forearm,
-- five readable fingers,
-- plausible joints/knuckles,
-- natural wrist-to-forearm taper,
+- first-person camera;
+- one anonymous hand + wrist + enough forearm;
+- five readable fingers;
+- plausible joints/knuckles;
+- natural wrist-to-forearm taper;
 - believable pressure/occlusion against one rough non-diagnostic stone.
 
 Required GIR-30 surface treatment:
 
-- broad skin planes,
-- only a few representative creases,
-- minimal/no body-hair texture field,
-- veins only when necessary to explain large form,
-- simple nail shape/value with no macro cuticle/reflection treatment,
-- stone described by major planes/roughness groups rather than exhaustive cracks/grain,
-- low-information contextual background,
-- no photographic bokeh, shallow DOF, lens flare, cinematic vista, or HDR key-art treatment.
+- broad skin planes;
+- only a few representative creases;
+- minimal/no body-hair texture field;
+- veins only when necessary to explain large form;
+- simple nail shape/value with no macro cuticle/reflection treatment;
+- stone described by major planes/roughness groups rather than exhaustive cracks/grain;
+- low-information contextual background;
+- no photographic bokeh, shallow DOF, lens flare, cinematic vista or HDR key-art treatment.
 
 The result must read immediately as an illustration near **30/100 surface realism**, within the 25–35 acceptance band.
 
@@ -108,11 +108,11 @@ The result must read immediately as an illustration near **30/100 surface realis
 - `NUA-IDENTITY-V1`
 - canonical Day 1 geography
 
-The rough stone is not the handaxe. Do not establish its canonical contour, face-A/B, grip-base, working-end, or scar fingerprint.
+The rough stone is not the handaxe. Do not establish its canonical contour, face-A/B, grip-base, working-end or scar fingerprint.
 
 ---
 
-## 6. Review / reject
+## 6. Review / reject after unlock
 
 All must pass:
 
@@ -137,17 +137,21 @@ SID-LENS
 SID-EDGE
 SID-DETAIL
 SID-COMPOSITE
+ASSET-BINARY-INVALID
 ```
+
+The final canonical WebP must also pass repository raster-integrity verification before registration.
 
 ---
 
 ## 7. Current gate truth
 
 ```text
-STYLE-GIR-V1 approved slots = 1 / 5
-human-mid r05 = APPROVED / REGISTERED
+STYLE-GIR-V1 approved slots = 0 / 5
+human-mid r05 = SUPERSEDED / REGISTRATION INVALID
+human-mid r06 = ACTIVE / NEXT
 first-person-hand r01 = REJECTED
-first-person-hand r02 = ACTIVE / NEXT / pending-production
+first-person-hand r02 = BLOCKED-UPSTREAM
 world = BLOCKED
 material = BLOCKED
 responsive-pair = BLOCKED
@@ -155,4 +159,4 @@ Human Gate = FAIL
 Stage 08 = BLOCKED
 ```
 
-Next actual visual-production action is one r02 hand candidate conditioned by the approved r05 human style reference.
+Next actual visual-production action is **not** a hand candidate. It is one `human-mid r06` candidate.
