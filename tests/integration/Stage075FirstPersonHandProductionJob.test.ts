@@ -9,31 +9,31 @@ import {
 } from '../../src/experience/production/stage075FirstPersonHandProductionJob';
 
 describe('Stage 07.5 first-person-hand production job', () => {
-  it('unblocks r02 after the approved GIR-SURFACE-30 human-mid reference is registered', () => {
+  it('blocks r02 again while the invalid human-mid raster registration is being replaced', () => {
     expect(STAGE075_FIRST_PERSON_HAND_PRODUCTION_JOB.jobId).toBe('GIR-FIRST-PERSON-HAND-001');
     expect(STAGE075_FIRST_PERSON_HAND_PRODUCTION_JOB.stylePolicyRevision).toBe('GIR-SURFACE-30');
     expect(STAGE075_FIRST_PERSON_HAND_PRODUCTION_JOB.targetSurfaceRealism).toBe(30);
-    expect(STAGE075_FIRST_PERSON_HAND_PRODUCTION_JOB.status).toBe('pending-production');
+    expect(STAGE075_FIRST_PERSON_HAND_PRODUCTION_JOB.status).toBe('blocked-upstream');
     expect(STAGE075_FIRST_PERSON_HAND_PRODUCTION_JOB.candidateRevision).toBe(2);
     expect(STAGE075_FIRST_PERSON_HAND_PRODUCTION_JOB.generationStrategy).toBe(
       'anchor-conditioned-style-match',
     );
-    expect(STAGE075_FIRST_PERSON_HAND_PRODUCTION_JOB.requiredStyleReferencePaths).toEqual([
-      'public/assets/stage075/anchors/STYLE-GIR-V1/human-mid.webp',
+    expect(STAGE075_FIRST_PERSON_HAND_PRODUCTION_JOB.requiredStyleReferencePaths).toEqual([]);
+    expect(STAGE075_FIRST_PERSON_HAND_PRODUCTION_JOB.blockedBy).toEqual([
+      'STYLE-GIR-V1/human-mid',
     ]);
-    expect(STAGE075_FIRST_PERSON_HAND_PRODUCTION_JOB.blockedBy).toEqual([]);
-    expect(isStage075FirstPersonHandUpstreamReady()).toBe(true);
-    expect(isStage075FirstPersonHandCurrentProductionTarget()).toBe(true);
+    expect(isStage075FirstPersonHandUpstreamReady()).toBe(false);
+    expect(isStage075FirstPersonHandCurrentProductionTarget()).toBe(false);
   });
 
-  it('starts r02 with all review checks pending and no candidate path', () => {
+  it('keeps r02 review checks pending with no candidate path', () => {
     expect(STAGE075_FIRST_PERSON_HAND_PRODUCTION_JOB.candidateStagingPath).toBeNull();
     expect(STAGE075_FIRST_PERSON_HAND_PRODUCTION_JOB.registeredApprovedPath).toBeNull();
     expect(areStage075FirstPersonHandReviewChecksPassed(STAGE075_FIRST_PERSON_HAND_PRODUCTION_JOB.reviewChecks)).toBe(false);
     expect(canStage075FirstPersonHandBeRegistered(STAGE075_FIRST_PERSON_HAND_PRODUCTION_JOB)).toBe(false);
   });
 
-  it('requires the approved upstream style reference before a reviewed hand can register', () => {
+  it('cannot register a reviewed hand without an actual approved upstream style reference', () => {
     const reviewed: Stage075FirstPersonHandProductionJob = {
       ...STAGE075_FIRST_PERSON_HAND_PRODUCTION_JOB,
       status: 'review-passed',
@@ -49,9 +49,8 @@ describe('Stage 07.5 first-person-hand production job', () => {
     };
 
     expect(areStage075FirstPersonHandReviewChecksPassed(reviewed.reviewChecks)).toBe(true);
-    expect(isStage075FirstPersonHandUpstreamReady(reviewed)).toBe(true);
-    expect(canStage075FirstPersonHandBeRegistered(reviewed)).toBe(true);
-    expect(canStage075FirstPersonHandBeRegistered({ ...reviewed, driftCodes: ['SID-PHOTO'] })).toBe(false);
+    expect(isStage075FirstPersonHandUpstreamReady(reviewed)).toBe(false);
+    expect(canStage075FirstPersonHandBeRegistered(reviewed)).toBe(false);
   });
 
   it('does not prematurely define Player identity, the handaxe, or named characters', () => {
