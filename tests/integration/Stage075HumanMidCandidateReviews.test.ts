@@ -7,12 +7,16 @@ import {
 } from '../../src/experience/production/stage075HumanMidCandidateReviews';
 
 describe('Stage 07.5 human-mid candidate review ledger', () => {
-  it('preserves r01/r02 rejects and supersedes the former r03 approval under GIR-SURFACE-30', () => {
-    expect(STAGE075_HUMAN_MID_CANDIDATE_REVIEWS.map((record) => record.revision)).toEqual([1, 2, 3]);
-    expect(STAGE075_HUMAN_MID_CANDIDATE_REVIEWS[0].decision).toBe('rejected');
-    expect(STAGE075_HUMAN_MID_CANDIDATE_REVIEWS[1].decision).toBe('rejected');
-    expect(STAGE075_HUMAN_MID_CANDIDATE_REVIEWS[2].decision).toBe('superseded');
-    expect(STAGE075_HUMAN_MID_CANDIDATE_REVIEWS[2].policyRevision).toBe('GIR-SURFACE-30');
+  it('preserves r01/r02 rejects, r03 supersession, r04 rejection and r05 approval', () => {
+    expect(STAGE075_HUMAN_MID_CANDIDATE_REVIEWS.map((record) => record.revision)).toEqual([1, 2, 3, 4, 5]);
+    expect(STAGE075_HUMAN_MID_CANDIDATE_REVIEWS.map((record) => record.decision)).toEqual([
+      'rejected',
+      'rejected',
+      'superseded',
+      'rejected',
+      'approved',
+    ]);
+    expect(STAGE075_HUMAN_MID_CANDIDATE_REVIEWS[4].policyRevision).toBe('GIR-SURFACE-30');
   });
 
   it('records the r02 photographic/lens/extraction failure explicitly', () => {
@@ -38,12 +42,42 @@ describe('Stage 07.5 human-mid candidate review ledger', () => {
     expect(r03?.notes.join(' ')).toContain('removed from the approved anchor path');
   });
 
-  it('advances to r04 with no registered approved human-mid path', () => {
-    expect(getStage075HumanMidLatestCandidateReview()?.revision).toBe(3);
-    expect(getStage075HumanMidLatestCandidateReview()?.decision).toBe('superseded');
-    expect(getStage075HumanMidNextCandidateRevision()).toBe(4);
-    expect(STAGE075_HUMAN_MID_PRODUCTION_JOB.candidateRevision).toBe(4);
-    expect(STAGE075_HUMAN_MID_PRODUCTION_JOB.status).toBe('pending-production');
-    expect(STAGE075_HUMAN_MID_PRODUCTION_JOB.registeredApprovedPath).toBeNull();
+  it('rejects r04 for cartoon/fantasy drift despite acceptable large-plane simplification', () => {
+    const r04 = STAGE075_HUMAN_MID_CANDIDATE_REVIEWS.find((record) => record.revision === 4);
+
+    expect(r04?.decision).toBe('rejected');
+    expect(r04?.reviewChecks.structuralAnatomy).toBe('pass');
+    expect(r04?.reviewChecks.styleBoundary).toBe('fail');
+    expect(r04?.reviewChecks.historicalRestraint).toBe('fail');
+    expect(r04?.driftCodes).toEqual(['SID-CARTOON', 'SID-FANTASY']);
+    expect(r04?.binaryCommittedToRepo).toBe(false);
+  });
+
+  it('records r05 as the first approved GIR-SURFACE-30 human style parent', () => {
+    const r05 = STAGE075_HUMAN_MID_CANDIDATE_REVIEWS.find((record) => record.revision === 5);
+
+    expect(r05?.decision).toBe('approved');
+    expect(r05?.reviewChecks).toEqual({
+      technicalCleanliness: 'pass',
+      structuralAnatomy: 'pass',
+      styleBoundary: 'pass',
+      extractionViability: 'pass',
+      historicalRestraint: 'pass',
+    });
+    expect(r05?.driftCodes).toEqual([]);
+    expect(r05?.binaryCommittedToRepo).toBe(true);
+    expect(r05?.notes.join(' ')).toContain('30/100');
+    expect(r05?.notes.join(' ')).toContain('public/assets/stage075/anchors/STYLE-GIR-V1/human-mid.webp');
+  });
+
+  it('keeps the registered job aligned to r05 and advances the next revision number', () => {
+    expect(getStage075HumanMidLatestCandidateReview()?.revision).toBe(5);
+    expect(getStage075HumanMidLatestCandidateReview()?.decision).toBe('approved');
+    expect(getStage075HumanMidNextCandidateRevision()).toBe(6);
+    expect(STAGE075_HUMAN_MID_PRODUCTION_JOB.candidateRevision).toBe(5);
+    expect(STAGE075_HUMAN_MID_PRODUCTION_JOB.status).toBe('registered');
+    expect(STAGE075_HUMAN_MID_PRODUCTION_JOB.registeredApprovedPath).toBe(
+      'public/assets/stage075/anchors/STYLE-GIR-V1/human-mid.webp',
+    );
   });
 });
