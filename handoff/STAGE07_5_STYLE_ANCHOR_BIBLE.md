@@ -1,6 +1,6 @@
 # Stage 07.5 — Style Anchor Bible
 
-Status: **STYLE-GIR-V1 SPEC LOCKED / GIR-SURFACE-30 RECALIBRATION ACTIVE / REFERENCE SHEET PENDING**
+Status: **STYLE-GIR-V1 SPEC LOCKED / GIR-SURFACE-30 ACTIVE / REFERENCE SHEET PENDING / RASTER-INTEGRITY ENFORCED**
 
 Anchor ID:
 
@@ -462,17 +462,21 @@ The packet contains five serial slots:
 5. responsive-pair
 ```
 
-Current calibration was reset after GIR-SURFACE-30 was locked.
-
-Current truth:
+Current truth after raster-integrity correction:
 
 ```text
-human-mid r03 = superseded old-policy reference
-human-mid r04 = ACTIVE / NEXT
+human-mid r03 = superseded old-policy reference; old canonical payload also invalid WebP
+human-mid r04 = rejected / SID-CARTOON + SID-FANTASY
+human-mid r05 = superseded / prior visual review passed, canonical raster registration invalid
+human-mid r06 = ACTIVE / NEXT
+first-person-hand r02 = BLOCKED-UPSTREAM
 approved slots = 0 / 5
+approved STYLE reference paths = 0
 ```
 
-The packet becomes `anchor-approved` only when all five current-policy references are approved and their canonical paths are registered.
+The previous `human-mid.webp` payload was not a valid WebP container and has been removed from the current approved path. It must not condition downstream generation.
+
+The packet becomes `anchor-approved` only when all five current-policy references are visually approved, raster-valid and their exact canonical paths are registered.
 
 ---
 
@@ -492,6 +496,12 @@ SID-COLOR     palette/grading drift
 SID-COMPOSITE pasted-layer mismatch in finish/detail
 SID-EDGE      reusable asset has unstable/contaminated extraction edge
 SID-LENS      photographic lens-language drift
+```
+
+Binary/integrity failure is tracked separately:
+
+```text
+ASSET-BINARY-INVALID  committed raster payload is not a valid usable image container
 ```
 
 For GIR-30 calibration, `SID-PHOTO` and `SID-DETAIL` can apply even when anatomy is excellent.
@@ -516,6 +526,6 @@ For GIR-30 calibration, `SID-PHOTO` and `SID-DETAIL` can apply even when anatomy
 - [ ] no caveman stereotype coding
 - [ ] no hyper-detailed uncertain historical garment claims
 - [ ] L/TP/PP retain same treatment
-- [ ] reference packet paths are registered only for current-policy approvals
-
-# **No production scene raster becomes runtime-ready before STYLE-GIR-V1 is anchor-approved under GIR-SURFACE-30.**
+- [ ] candidate remains outside canonical approved path until owner approval
+- [ ] canonical raster passes `scripts/verify-stage075-raster-integrity.mjs`
+- [ ] reference packet paths are registered only for current-policy, raster-valid approvals
