@@ -25,14 +25,15 @@ STYLE-GIR-V1                          reference-pending
 Surface policy                        GIR-SURFACE-30
 Surface target                        30 / 100
 Acceptance band                       25–35
-STYLE approved slots                  1 / 5
-human-mid r05                         APPROVED / REGISTERED
+STYLE approved slots                  0 / 5
+human-mid r05                         SUPERSEDED / REGISTRATION INVALID
+human-mid r06                         ACTIVE / NEXT
 first-person-hand r01                 REJECTED
-first-person-hand r02                 ACTIVE / NEXT
+first-person-hand r02                 BLOCKED-UPSTREAM
 world                                 BLOCKED
 material                              BLOCKED
 responsive-pair                       BLOCKED
-Approved STYLE reference paths        1
+Approved STYLE reference paths        0
 Approved scene raster assets          0
 Human Gate                            FAIL
 Stage 08                              BLOCKED
@@ -40,136 +41,102 @@ Stage 08                              BLOCKED
 
 Current single global production target:
 
-# **`STYLE-GIR-V1 / first-person-hand` — revision r02**
+# **`STYLE-GIR-V1 / human-mid` — revision r06**
 
-Approved style parent:
+There is currently no valid approved human style parent.
+
+---
+
+# 2. Why the queue moved back to human-mid
+
+Before starting `first-person-hand r02`, the repository binary registered as:
 
 ```text
 public/assets/stage075/anchors/STYLE-GIR-V1/human-mid.webp
 ```
 
+was revalidated against the actual Git blob.
+
+The blob was the exact repository payload, but it was not a WebP container and could not serve as an actual image reference. The earlier r03 canonical payload showed the same registration defect.
+
+Therefore:
+
+- r05 visual-review history is retained;
+- r05 canonical registration is invalidated;
+- the invalid canonical payload is removed;
+- r06 becomes the next human candidate;
+- `first-person-hand r02` is upstream-blocked until a real approved WebP parent exists.
+
+CI now executes `scripts/verify-stage075-raster-integrity.mjs` before Typecheck/Test/Production build.
+
 ---
 
-# 2. GIR-SURFACE-30 visual law
+# 3. GIR-SURFACE-30 visual law
 
-The selected visible surface/rendering realism is approximately **30/100**, acceptable at **25–35**.
+Surface/rendering target is **30/100**, accepted at **25–35**.
 
-This applies to surface/detail, not anatomy/contact correctness.
+This does not relax anatomy/contact correctness.
 
 Keep strong:
 
-- joints/digit count,
-- body mechanics,
-- weight/balance,
-- contact pressure/depth,
-- perspective,
-- exact canonical identity/proportions after lock,
+- digit/joint structure;
+- wrist/limb articulation;
+- weight/balance;
+- contact pressure/depth/occlusion;
+- perspective;
+- exact canonical identity/proportions after lock;
 - object/world continuity.
 
 Simplify strongly:
 
-- pores/fine skin grain,
-- veins/body hair,
-- nail/cuticle reflections,
-- individual hair strands,
-- fiber/stitch fields,
-- rock/soil micro-cracks and grain,
-- leaf/pebble photo-density,
-- bokeh/shallow photographic DOF/lens effects.
+- pores/fine skin grain;
+- veins/body hair;
+- nail/cuticle reflections;
+- individual hair strands;
+- fiber/stitch fields;
+- rock/soil micro-cracks and grain;
+- leaf/pebble photo-density;
+- photographic shallow DOF, bokeh and lens effects.
 
 At normal viewing distance the image must immediately read as an illustration.
 
 ---
 
-# 3. human-mid final truth
+# 4. Human-mid production truth
 
 ```text
 r01 = rejected / historical restraint
 r02 = rejected / SID-PHOTO + SID-LENS + SID-EDGE
-r03 = superseded / old-policy approval, too realistic for GIR-30
+r03 = superseded / too realistic for GIR-30; old canonical payload also invalid WebP
 r04 = rejected / SID-CARTOON + SID-FANTASY
-r05 = APPROVED / REGISTERED
+r05 = superseded / prior visual review passed, raster registration invalid
+r06 = ACTIVE / NEXT
 ```
 
-r05 review:
+r06 remains an anonymous style-only human reference and must not define Aru/Damu/Nua/Player identity, DAY1-HANDAXE-V1, canonical Day 1 geography, or unsupported archaeological certainty.
 
-```text
-technicalCleanliness = PASS
-structuralAnatomy = PASS
-styleBoundary = PASS
-extractionViability = PASS
-historicalRestraint = PASS
-driftCodes = []
-```
-
-The approved r05 is a rendering-tier reference only. It is not Aru/Damu/Nua/Player identity and does not canonize the visible garment as archaeological fact.
+Do not register r06 until the final canonical file is a real valid WebP and all visual/owner review gates pass.
 
 ---
 
-# 4. Current active job — first-person-hand r02
+# 5. First-person-hand r02
 
-Read:
-
-- `handoff/STAGE07_5_STYLE_GIR_V1_FIRST_PERSON_HAND_JOB_CARD.md`
-- `src/experience/production/stage075FirstPersonHandProductionJob.ts`
-- `src/experience/production/stage075FirstPersonHandCandidateReviews.ts`
-
-Required style parent:
+The hand revision remains queued but may not be produced now.
 
 ```text
-public/assets/stage075/anchors/STYLE-GIR-V1/human-mid.webp
+status                 blocked-upstream
+required parent        approved STYLE-GIR-V1 / human-mid raster
+current parent         none
+candidate revision     r02
 ```
 
-Objective:
+Once human-mid is validly approved again, r02 must use that actual raster as the style parent and preserve five-finger anatomy, wrist continuity, forearm taper and natural-stone contact while simplifying skin/nail/stone microdetail.
 
-```text
-anonymous first-person hand
-+ wrist
-+ enough forearm to judge continuity
-+ rough non-diagnostic natural stone contact
-+ GIR-SURFACE-30 surface/detail tier
-```
-
-r01 failed style only:
-
-```text
-handAnatomy = PASS
-contactReadability = PASS
-styleBoundary = FAIL
-SID-PHOTO
-SID-LENS
-SID-DETAIL
-```
-
-r02 must preserve functional anatomy/contact while strongly simplifying pores, veins, body hair, nail macro-detail, rock microtexture and cinematic lens depth.
-
-Must not define:
-
-- Player identity,
-- `DAY1-HANDAXE-V1`,
-- named character identity,
-- canonical Day 1 geography.
+It must not define Player identity, DAY1-HANDAXE-V1 morphology, named-character identity or canonical Day 1 geography.
 
 ---
 
-# 5. Identity / anatomy law
-
-```text
-P0 hero + Player identity           = HARD LOCK
-P1 contact + recurring hero object = HARD LOCK
-P2 world structure + world light   = STRONG LOCK
-P3 flyaway/fold/pebble/grass/smoke = harmless variation allowed
-```
-
-Before approval, proportion design is flexible. After approval, exact canonical ratios are inherited.
-
-Perspective, foreshortening, pose, FOV and crop may alter apparent screen-space ratio; they do not authorize a new body design.
-
-GIR-30 simplification never authorizes broken anatomy.
-
----
-
-# 6. Derivation law
+# 6. Derivation and continuity law
 
 # **Do not regenerate what can be derived from an approved master.**
 
@@ -190,101 +157,43 @@ contact-heavy interlocked state
 → Unified Contact derivative if needed
 ```
 
+After approval, exact canonical proportions and identity/object/world fingerprints are inherited. Perspective, pose, foreshortening, FOV and crop may change apparent screen-space proportions but not the underlying design.
+
 ---
 
-# 7. STYLE queue
+# 7. Serial queue
 
 ```text
-human-mid r05           APPROVED / REGISTERED
-→ first-person-hand r02 ACTIVE / NEXT / anchor-conditioned
-→ world                 BLOCKED / anchor-conditioned
-→ material              BLOCKED / anchor-conditioned
-→ responsive-pair       BLOCKED / locked-keyframe + crop-first
+human-mid r06           ACTIVE / NEXT
+→ first-person-hand r02 BLOCKED-UPSTREAM
+→ world                 BLOCKED
+→ material              BLOCKED
+→ responsive-pair       BLOCKED
 ```
 
-STYLE-GIR-V1 must reach 5/5 under GIR-SURFACE-30 before downstream handaxe/Player/Aru production begins.
+STYLE-GIR-V1 must reach 5/5 before downstream production begins.
 
----
-
-# 8. Later anchor lineage — do not start yet
+Later order remains:
 
 ```text
 DAY1-HANDAXE-V1
-face-a canonical seed
-→ face-b
-→ side/thickness
-→ metric/normalized scale
-```
-
-```text
-PLAYER-HUNT-BODY-V1
-structural-scaffold
-→ canonical-body
-→ hands/arms/feet/ankles/actions
-→ measured exact proportion contract
-```
-
-```text
-ARU-IDENTITY-V1
-structural-scaffold
-→ canonical-identity
-→ turnaround/action derivatives
-→ measured exact proportion contract
-```
-
-Do not independently generate multiple views and select the most similar outputs. All later visuals inherit GIR-SURFACE-30.
-
----
-
-# 9. Mandatory reading order
-
-1. `AGENTS.md`
-2. `docs/00_CANONICAL_BASELINE.md`
-3. `PROJECT_STATUS.md`
-4. `docs/00_DEVELOPMENT_WORKFLOW.md`
-5. `handoff/CURRENT_HANDOFF.md`
-6. `handoff/NEXT_SESSION_START_HERE.md`
-7. `handoff/STAGE07_5_VISUAL_CONTINUITY_INDEX.md`
-8. `handoff/STAGE07_5_STYLE_ANCHOR_BIBLE.md`
-9. `handoff/STAGE07_5_VISUAL_IDENTITY_LAYERING_AND_DERIVATION_CONTRACT.md`
-10. `handoff/STAGE07_5_FUNCTIONAL_ANATOMY_AND_STYLIZED_PROPORTION_POLICY.md`
-11. `handoff/STAGE07_5_SERIAL_ANCHOR_PRODUCTION_QUEUE.md`
-12. `handoff/STAGE07_5_CHARACTER_IDENTITY_ANCHOR_BIBLE.md`
-13. `handoff/STAGE07_5_ANATOMY_PROPORTION_AND_POSE_MASTER_SPEC.md`
-14. `handoff/STAGE07_5_CONTACT_GEOMETRY_MASTER.md`
-15. `handoff/STAGE07_5_OBJECT_CONTINUITY_BIBLE.md`
-16. `handoff/STAGE07_5_WORLD_CONTINUITY_BIBLE.md`
-17. `handoff/STAGE07_5_RESPONSIVE_VISUAL_PRODUCTION_CONTRACT.md`
-18. `handoff/STAGE07_5_VISUAL_GENERATION_AND_REVIEW_PROTOCOL.md`
-19. `handoff/STAGE07_5_FIRST_PERSON_SCENE_COMPOSITION_BIBLE_V2_1.md`
-20. `handoff/STAGE07_5_STYLE_GIR_V1_FIRST_PERSON_HAND_JOB_CARD.md`
-
-Technical conflicts are resolved by `docs/06_TECH_BLUEPRINT.md`.
-
----
-
-# 10. Dev review surfaces
-
-```text
-?anchors=1
-?previsual=1
-?raster=1
-```
-
-`?anchors=1` must show:
-
-```text
-GIR-SURFACE-30 = target 30/100 / acceptance 25–35
-STYLE-GIR-V1 = 1/5
-human-mid = approved reference
-first-person-hand = NEXT production target
-world = blocked by first-person-hand
+→ PLAYER-HUNT-BODY-V1
+→ PLAYER-HUNT-BODY-PROP-V1
+→ ARU-IDENTITY-V1
+→ ARU-PROP-V1
+→ SC02-HANDOFF-GEO-V1
+→ SC02 unified-contact master
+→ Damu/Nua
+→ World anchors
 ```
 
 ---
 
-# 11. Immediate next action
+# 8. Gate status
 
-When visual production is requested:
+```text
+Human Gate = FAIL
+Stage 08   = BLOCKED
+```
 
-# **Produce exactly one `STYLE-GIR-V1 / first-person-hand r02` candidate using the approved r05 human style reference → review → reject/revise or approve/register.**
+CI PASS does not promote either gate.
