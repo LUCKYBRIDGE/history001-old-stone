@@ -1,6 +1,6 @@
 # Stage 07.5 — Visual Continuity Index
 
-Status: **PRIMARY ART-PRODUCTION ENTRY POINT / GIR-SURFACE-30 ACTIVE**
+Status: **PRIMARY ART-PRODUCTION ENTRY POINT / GIR-SURFACE-30 ACTIVE / RASTER-INTEGRITY ENFORCED**
 
 Purpose: keep the visual production system detailed without becoming fragmented.
 
@@ -69,6 +69,11 @@ Serial queue / lineage:
 - `src/experience/production/stage075FirstPersonHandProductionJob.ts`
 - `src/experience/production/stage075FirstPersonHandCandidateReviews.ts`
 
+Raster integrity:
+
+- `scripts/verify-stage075-raster-integrity.mjs`
+- `.github/workflows/ci.yml`
+
 Other anchors/contracts:
 
 - `src/experience/production/stage075VisualContinuityRegistry.ts`
@@ -83,14 +88,15 @@ Other anchors/contracts:
 ```text
 GIR-SURFACE-30                     SPEC LOCKED
 STYLE-GIR-V1                       reference-pending
-STYLE approved slots               1 / 5
-human-mid r05                      APPROVED / REGISTERED
+STYLE approved slots               0 / 5
+human-mid r05                      SUPERSEDED / REGISTRATION INVALID
+human-mid r06                      ACTIVE / NEXT
 first-person-hand r01              REJECTED
-first-person-hand r02              ACTIVE / NEXT
+first-person-hand r02              BLOCKED-UPSTREAM
 world                              BLOCKED
 material                           BLOCKED
 responsive-pair                    BLOCKED
-Approved STYLE reference paths     1
+Approved STYLE reference paths     0
 Approved scene raster assets       0
 Human Gate                         FAIL
 Stage 08                           BLOCKED
@@ -98,13 +104,9 @@ Stage 08                           BLOCKED
 
 Current single production target:
 
-# **`STYLE-GIR-V1 / first-person-hand r02`**
+# **`STYLE-GIR-V1 / human-mid r06`**
 
-Approved human style parent:
-
-```text
-public/assets/stage075/anchors/STYLE-GIR-V1/human-mid.webp
-```
+There is currently no valid approved human style parent.
 
 ---
 
@@ -113,16 +115,47 @@ public/assets/stage075/anchors/STYLE-GIR-V1/human-mid.webp
 ```text
 r01 = rejected / historical restraint
 r02 = rejected / SID-PHOTO + SID-LENS + SID-EDGE
-r03 = superseded / old-policy approval, too realistic under GIR-30
+r03 = superseded / old-policy approval too realistic under GIR-30; old canonical payload also invalid WebP
 r04 = rejected / SID-CARTOON + SID-FANTASY
-r05 = APPROVED / REGISTERED under GIR-SURFACE-30
+r05 = superseded / prior visual review passed, canonical raster registration invalid
+r06 = ACTIVE / NEXT
 ```
 
-The r05 style reference locks surface/detail treatment only. It is not an identity master and does not canonize a costume or exact historical person.
+The previous r05 visual-review notes remain useful historical evidence for the intended GIR-30 treatment. They do not make its non-WebP repository payload a valid image-conditioning parent.
+
+The invalid canonical payload was removed from:
+
+```text
+public/assets/stage075/anchors/STYLE-GIR-V1/human-mid.webp
+```
+
+That path may be reused only after a new approved and raster-valid human reference is produced.
 
 ---
 
-# 6. Approval dependency graph
+# 6. Raster integrity as a separate approval axis
+
+Visual approval and binary validity are independent mandatory checks.
+
+```text
+visual / anatomy / history review PASS
++ owner approval
++ canonical raster integrity PASS
++ exact approved path registration
+= serial slot approval can unlock the next slot
+```
+
+CI verifies committed Stage 07.5 WebP containers with:
+
+```text
+node scripts/verify-stage075-raster-integrity.mjs
+```
+
+A `.webp` extension or lifecycle record alone does not prove a usable image exists.
+
+---
+
+# 7. Approval dependency graph
 
 ```text
 STYLE-GIR-V1 approved under GIR-SURFACE-30
@@ -157,27 +190,29 @@ Anchor production itself:
 ```text
 one active slot
 → review
+→ owner approve
+→ verify canonical raster
 → approve/register current-policy reference
 → exactly one next slot
 ```
 
 ---
 
-# 7. STYLE-GIR-V1 serial calibration
+# 8. STYLE-GIR-V1 serial calibration
 
 ```text
-human-mid r05            APPROVED / REGISTERED
-→ first-person-hand r02  ACTIVE / NEXT / anchor-conditioned
+human-mid r06            ACTIVE / NEXT / independent-exploration
+→ first-person-hand r02  BLOCKED-UPSTREAM / anchor-conditioned
 → world                  BLOCKED / anchor-conditioned
 → material               BLOCKED / anchor-conditioned
 → responsive-pair        BLOCKED / locked-keyframe + crop-first
 ```
 
-Later STYLE slots must use actual approved prior GIR-30 references. The packet is not five unrelated explorations.
+Later STYLE slots must use actual approved prior GIR-30 raster references. The packet is not five unrelated explorations.
 
 ---
 
-# 8. Anchor / anatomy lock order
+# 9. Anchor / anatomy lock order
 
 ```text
 0. STYLE-GIR-V1 serial GIR-30 calibration
@@ -197,7 +232,7 @@ Every later family inherits GIR-SURFACE-30.
 
 ---
 
-# 9. What counts as consistency
+# 10. What counts as consistency
 
 ```text
 STYLE / GIR-30 TIER
@@ -233,7 +268,7 @@ GIR-30 intentionally reduces P3 surface microdetail. It does not weaken P0/P1/P2
 
 ---
 
-# 10. Canonical body rule
+# 11. Canonical body rule
 
 ```text
 structural scaffold
@@ -255,7 +290,7 @@ Perspective, foreshortening and crop may alter projected appearance only.
 
 ---
 
-# 11. Derivation / camera / state law
+# 12. Derivation / camera / state law
 
 # **Do not regenerate what can be derived from an approved master.**
 
@@ -278,7 +313,7 @@ contact-heavy interlocked state
 
 ---
 
-# 12. Drift families
+# 13. Drift families
 
 ```text
 CID-*  character identity
@@ -298,6 +333,12 @@ SID-COMPOSITE
 SID-POSTER
 SID-CARTOON
 SID-FANTASY
+```
+
+Binary/integrity failure:
+
+```text
+ASSET-BINARY-INVALID
 ```
 
 Anatomy/contact failures remain independent hard gates:
@@ -331,16 +372,16 @@ A candidate can fail `SID-PHOTO` even when anatomy is excellent. GIR-30 illustra
 
 ---
 
-# 13. Immediate next production gate
+# 14. Immediate next production gate
 
-The next gate is not a final scene raster.
+The next gate is not a final scene raster and not a hand candidate.
 
-# **`STYLE-GIR-V1 / first-person-hand r02`**
+# **`STYLE-GIR-V1 / human-mid r06`**
 
-Required style parent:
+Produce exactly one candidate at a time. Review anatomy/GIR-30/extraction/history, require owner approval, verify the actual canonical WebP bytes, and only then register or revise.
+
+`first-person-hand r02` remains blocked until the resulting approved human reference exists as a real raster at:
 
 ```text
 public/assets/stage075/anchors/STYLE-GIR-V1/human-mid.webp
 ```
-
-Produce one candidate at a time, review anatomy/contact/GIR-30/history, and only then register or revise.

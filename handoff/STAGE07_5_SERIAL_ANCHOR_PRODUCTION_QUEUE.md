@@ -1,6 +1,6 @@
 # Stage 07.5 — Serial Anchor Production Queue
 
-Status: **MANDATORY PRE-IMAGE PRODUCTION CONTROL / GIR-SURFACE-30 ACTIVE**
+Status: **MANDATORY PRE-IMAGE PRODUCTION CONTROL / GIR-SURFACE-30 ACTIVE / RASTER-INTEGRITY ENFORCED**
 
 Purpose: ensure upstream visual anchors are produced as controlled lineage rather than batches of loosely similar images.
 
@@ -22,9 +22,12 @@ Dev review surface:
 produce one slot candidate
 → review structure + GIR-30 + history
 → reject/revise OR accept
-→ store/register approved path
+→ verify raster container integrity
+→ store/register exact approved path
 → exactly one next slot becomes active
 ```
+
+A file path, extension or lifecycle flag alone does not constitute an approved raster.
 
 Rejected/superseded iterations stay outside current approved repository paths.
 
@@ -48,7 +51,7 @@ For established families:
 
 ```text
 one accepted parent/reference
-→ actual parent supplied
+→ actual valid parent supplied
 → one derivative
 → review
 → next derivative
@@ -65,31 +68,30 @@ acceptance = 25–35
 
 This is a surface/rendering rule. Functional anatomy/contact/perspective remains strong.
 
-Exact order/current state:
+Current exact order/state:
 
 ```text
-1. human-mid          APPROVED / REGISTERED / r05
-2. first-person-hand  ACTIVE / NEXT / r02
+1. human-mid          ACTIVE / NEXT / r06
+2. first-person-hand  BLOCKED-UPSTREAM / r02
 3. world              BLOCKED
 4. material           BLOCKED
 5. responsive-pair    BLOCKED
 
-approved slots = 1/5
+approved slots = 0/5
 ```
 
-Approved human style parent:
+There is currently no valid approved STYLE raster parent.
+
+Candidate history relevant to current state:
 
 ```text
-public/assets/stage075/anchors/STYLE-GIR-V1/human-mid.webp
-```
-
-Candidate history relevant to the reset:
-
-```text
-human-mid r03 = SUPERSEDED old-policy reference
+human-mid r03 = SUPERSEDED / old-policy visual reference; old canonical payload also invalid WebP
 human-mid r04 = REJECTED / SID-CARTOON + SID-FANTASY
-human-mid r05 = APPROVED / REGISTERED under GIR-SURFACE-30
+human-mid r05 = SUPERSEDED / prior visual review passed, canonical raster registration invalid
+human-mid r06 = ACTIVE / NEXT
 ```
+
+The r05 rollback is a binary-integrity correction, not a reversal of its historical visual-review notes.
 
 ### Slot modes
 
@@ -101,40 +103,75 @@ material           = anchor-conditioned after prior STYLE approvals
 responsive-pair    = locked-keyframe-variation / same-source crop-first
 ```
 
-`anchor-conditioned` means the actual accepted GIR-30 reference(s) are supplied so later slots cannot silently escalate toward semireal/photo rendering.
+`anchor-conditioned` means the actual accepted and valid GIR-30 raster reference(s) are supplied. A non-decodable or unregistered payload is not a valid parent.
 
-Multiple revisions of the **current slot** are allowed. Parallel later-slot generation is not.
+Multiple revisions of the current slot are allowed. Parallel later-slot generation is not.
 
 ---
 
-# 4. Policy recalibration rule
+# 4. Raster-integrity rule
 
-A later Project-owner style decision may invalidate an earlier slot without falsifying project history.
+Every canonical `.webp` under:
+
+```text
+public/assets/stage075/anchors/
+```
+
+must pass the repository raster-integrity check before CI can pass.
+
+Current CI command:
+
+```text
+node scripts/verify-stage075-raster-integrity.mjs
+```
+
+The checker validates the WebP RIFF/container structure. Visual review and raster integrity are separate mandatory gates.
+
+Required approval sequence:
+
+```text
+candidate produced
+→ visual/structural review PASS
+→ owner approval
+→ canonical raster conversion/export
+→ raster-integrity PASS
+→ exact path registration
+→ next serial slot unlock
+```
+
+---
+
+# 5. Policy/integrity recalibration rule
+
+A later owner style decision or integrity failure may invalidate an earlier slot without falsifying project history.
 
 Required handling:
 
 ```text
-preserve historical approval/review record
+preserve historical review record
 → mark prior reference SUPERSEDED
 → remove it from current approved registry/path
-→ invalidate downstream work that used it as current parent
+→ invalidate downstream work that requires it as current parent
 → reopen earliest affected serial slot
 ```
 
-The completed recalibration sequence was:
+Current sequence:
 
 ```text
 human-mid r03 old-policy approval
 → GIR-SURFACE-30 locked
 → r03 superseded
 → human-mid r04 rejected
-→ human-mid r05 approved/registered
-→ first-person-hand r02 reactivated
+→ human-mid r05 visually approved/registered
+→ repository payload revalidated
+→ r05 registration invalidated because canonical payload is not WebP
+→ human-mid r06 reopened
+→ first-person-hand r02 blocked upstream
 ```
 
 ---
 
-# 5. DAY1-HANDAXE-V1 — one morphology seed, then derivatives
+# 6. DAY1-HANDAXE-V1 — one morphology seed, then derivatives
 
 After STYLE-GIR-V1 reaches 5/5:
 
@@ -149,7 +186,7 @@ face-a = canonical morphology seed
 
 ---
 
-# 6. PLAYER-HUNT-BODY-V1
+# 7. PLAYER-HUNT-BODY-V1
 
 ```text
 structural-scaffold
@@ -165,7 +202,7 @@ The canonical body fixes one exact Player body identity and canonical proportion
 
 ---
 
-# 7. ARU-IDENTITY-V1
+# 8. ARU-IDENTITY-V1
 
 ```text
 structural-scaffold
@@ -178,34 +215,35 @@ Do not generate views independently and choose outputs that merely look similar.
 
 ---
 
-# 8. Production readiness rule
+# 9. Production readiness rule
 
 Within a bundle, a slot is `ready` only when:
 
-1. bundle lineage is valid,
-2. slot is not approved,
-3. every required earlier slot is approved,
-4. its declared parent, if any, is approved.
+1. bundle lineage is valid;
+2. slot is not approved;
+3. every required earlier slot is approved;
+4. its declared parent, if any, is approved and valid.
 
 Global readiness also requires every earlier bundle in `reviewOrder` to be complete.
 
 ---
 
-# 9. Slot approval vs anchor approval
+# 10. Slot approval vs anchor approval
 
 Current example:
 
 ```text
-human-mid r05 approved path registered
-STYLE-GIR-V1 overall = reference-pending (1/5)
-next slot = first-person-hand r02
+human-mid = no current approved path
+STYLE-GIR-V1 overall = reference-pending (0/5)
+next slot = human-mid r06
+first-person-hand r02 = blocked by human-mid
 ```
 
 The overall anchor advances only after all five current-policy references pass.
 
 ---
 
-# 10. No automatic Gate advancement
+# 11. No automatic Gate advancement
 
 Serial queue progress does not imply:
 
@@ -216,13 +254,14 @@ Serial queue progress does not imply:
 
 ---
 
-# 11. Current exact queue truth
+# 12. Current exact queue truth
 
 ```text
 GIR-SURFACE-30 = SPEC LOCKED
-STYLE-GIR-V1 approved slots = 1/5
-human-mid r05 = APPROVED / REGISTERED
-Current target = STYLE-GIR-V1 / first-person-hand r02
+STYLE-GIR-V1 approved slots = 0/5
+human-mid r05 = SUPERSEDED / REGISTRATION INVALID
+human-mid r06 = ACTIVE / NEXT
+first-person-hand r02 = BLOCKED-UPSTREAM
 world = BLOCKED
 material = BLOCKED
 responsive-pair = BLOCKED
@@ -234,4 +273,4 @@ Human Gate = FAIL
 Stage 08 = BLOCKED
 ```
 
-# **Current single production target = `STYLE-GIR-V1 / first-person-hand r02`.**
+# **Current single production target = `STYLE-GIR-V1 / human-mid r06`.**

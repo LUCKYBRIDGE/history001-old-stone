@@ -1,8 +1,8 @@
 # NEXT SESSION — START HERE
 
-Status: **ACTIVE SESSION BOOTSTRAP / R2 Stage 07.5 Visual Anatomy Reference Lock / GIR-SURFACE-30**
+Status: **ACTIVE SESSION BOOTSTRAP / R2 Stage 07.5 Visual Anatomy Reference Lock / GIR-SURFACE-30 / RASTER-INTEGRITY REPAIR**
 
-GitHub `main` is the source of truth. At the start of every work session, verify exact latest `main` SHA and Project CI before writing.
+GitHub `main` is the source of truth. At the start of every work session, verify the exact latest `main` SHA and Project CI before writing or producing an image.
 
 ---
 
@@ -19,10 +19,11 @@ GIR-SURFACE-30 = SPEC LOCKED
 Serial Anchor Production Queue = ENFORCED
 Visual Anchor Review Board = INTEGRATED
 STYLE-GIR-V1 = REFERENCE PENDING
-STYLE-GIR-V1 Approved Slots = 1/5
-human-mid r05 = APPROVED / REGISTERED
-Current Single Production Target = STYLE-GIR-V1 / first-person-hand r02
-Approved STYLE Reference Paths = 1
+STYLE-GIR-V1 Approved Slots = 0/5
+human-mid r05 = SUPERSEDED / REGISTRATION INVALID
+human-mid r06 = ACTIVE / NEXT
+first-person-hand r02 = BLOCKED-UPSTREAM
+Approved STYLE Reference Paths = 0
 Approved Scene Raster Assets = 0
 Human Gate = FAIL
 Stage 08 = BLOCKED
@@ -31,10 +32,44 @@ Stage 08 = BLOCKED
 Do not move Stage 08 forward.
 Do not declare Human PASS from CI.
 Do not batch-generate later anchor slots.
+Do not use the superseded r05 repository payload as an image/style-conditioning parent.
 
 ---
 
-# 2. Critical style law
+# 2. Critical raster-integrity correction
+
+Before `first-person-hand r02` production, the previously registered file:
+
+```text
+public/assets/stage075/anchors/STYLE-GIR-V1/human-mid.webp
+```
+
+was revalidated from the actual Git blob and found not to be a valid WebP container. The earlier r03 canonical payload showed the same registration defect.
+
+Therefore:
+
+```text
+r05 visual-review history = preserved
+r05 canonical approval registration = invalidated
+invalid canonical payload = removed
+STYLE progress = 0/5
+human-mid r06 = current production target
+first-person-hand r02 = blocked until a real approved human parent exists
+```
+
+CI now runs:
+
+```text
+node scripts/verify-stage075-raster-integrity.mjs
+```
+
+before Typecheck/Test/Production build.
+
+A path or lifecycle flag is not sufficient evidence of raster approval. A canonical `.webp` must also be an actual valid WebP container.
+
+---
+
+# 3. Critical style law
 
 Official style = **Grounded Illustrative Realism**, narrowed by:
 
@@ -72,96 +107,86 @@ Production art must immediately read as illustration at normal viewing distance.
 
 ---
 
-# 3. human-mid approved reference
-
-Canonical asset:
-
-```text
-public/assets/stage075/anchors/STYLE-GIR-V1/human-mid.webp
-```
-
-Approved revision:
-
-```text
-GIR-HUMAN-MID-001 r05
-```
-
-History:
-
-```text
-r01 = rejected / historical restraint
-r02 = rejected / SID-PHOTO + SID-LENS + SID-EDGE
-r03 = superseded / old-policy approval, too realistic for GIR-30
-r04 = rejected / SID-CARTOON + SID-FANTASY
-r05 = APPROVED / REGISTERED
-```
-
-r05 is a rendering-tier reference only. It is not Aru/Damu/Nua/Player and its visible garment is not a canonical archaeological costume.
-
----
-
 # 4. Current single production target
 
-# **STYLE-GIR-V1 / first-person-hand r02**
+# **STYLE-GIR-V1 / human-mid r06**
 
 Required files:
 
-- `handoff/STAGE07_5_STYLE_GIR_V1_FIRST_PERSON_HAND_JOB_CARD.md`
-- `src/experience/production/stage075FirstPersonHandProductionJob.ts`
-- `src/experience/production/stage075FirstPersonHandCandidateReviews.ts`
-
-Required upstream style parent:
-
-```text
-public/assets/stage075/anchors/STYLE-GIR-V1/human-mid.webp
-```
+- `handoff/STAGE07_5_STYLE_GIR_V1_HUMAN_MID_JOB_CARD.md`
+- `src/experience/production/stage075HumanMidProductionJob.ts`
+- `src/experience/production/stage075HumanMidCandidateReviews.ts`
+- `scripts/verify-stage075-raster-integrity.mjs`
 
 Target:
 
 ```text
-anonymous first-person hand
-+ wrist
-+ enough forearm to judge continuity
-+ rough non-diagnostic stone contact
-+ functional five-finger anatomy
+anonymous fictional community member
++ medium / three-quarter style-proof framing
++ functional anatomy and weight
 + GIR-SURFACE-30 surface treatment
++ broad skin/value planes
++ grouped hair masses
++ broad low-specificity garment folds
++ clean extraction-friendly subject edge
++ low-information natural context
 ```
-
-The hand inherits **style/detail level**, not identity, from human-mid r05.
 
 Do not define:
 
+- `ARU-IDENTITY-V1`
+- `DAMU-IDENTITY-V1`
+- `NUA-IDENTITY-V1`
 - `PLAYER-HUNT-BODY-V1`
 - `DAY1-HANDAXE-V1`
-- Aru/Damu/Nua identity
-- canonical Day 1 geography
+- `WORLD-CAMP-DAWN-A`
+- exact unsupported ethnicity/species/costume certainty
 
-The rough stone must not become a handaxe design.
+r06 is independent style exploration. It is not a character or Player master.
 
 ---
 
-# 5. r01 hand history
-
-`first-person-hand r01` remains rejected for:
+# 5. Human-mid candidate history
 
 ```text
-SID-PHOTO
-SID-LENS
-SID-DETAIL
+r01 = rejected / historical restraint
+r02 = rejected / SID-PHOTO + SID-LENS + SID-EDGE
+r03 = superseded / old-policy approval too realistic for GIR-30; old canonical payload also invalid WebP
+r04 = rejected / SID-CARTOON + SID-FANTASY
+r05 = superseded / prior visual review passed but canonical raster registration invalid
+r06 = ACTIVE / NEXT
 ```
 
-Its anatomy/contact were generally acceptable. The failure was photographic surface/macro detail and lens-like depth.
+Do not register r06 until:
 
-r02 must therefore keep the geometry and strongly reduce:
-
-- pores/veins/body hair,
-- nail microdetail,
-- rock microtexture,
-- cinematic landscape/depth cues.
+1. the produced image is visually reviewed;
+2. anatomy/style/extraction/history checks pass;
+3. owner decision is approved;
+4. unresolved drift codes are empty;
+5. the final canonical file is a real valid WebP;
+6. the exact approved path is registered in the machine-readable bundle.
 
 ---
 
-# 6. Mandatory reading order
+# 6. first-person-hand r02 status
+
+`first-person-hand r02` remains the next hand revision but is currently:
+
+# **BLOCKED-UPSTREAM**
+
+Required parent after re-unlock:
+
+```text
+public/assets/stage075/anchors/STYLE-GIR-V1/human-mid.webp
+```
+
+That path must refer to the newly valid approved human raster, not the superseded r05 payload.
+
+When unlocked, r02 must inherit style/detail level only. It must not define Player identity, DAY1-HANDAXE-V1 morphology, Aru/Damu/Nua identity or canonical Day 1 geography.
+
+---
+
+# 7. Mandatory reading order
 
 1. `AGENTS.md`
 2. `docs/00_CANONICAL_BASELINE.md`
@@ -182,13 +207,13 @@ r02 must therefore keep the geometry and strongly reduce:
 17. `handoff/STAGE07_5_RESPONSIVE_VISUAL_PRODUCTION_CONTRACT.md`
 18. `handoff/STAGE07_5_VISUAL_GENERATION_AND_REVIEW_PROTOCOL.md`
 19. `handoff/STAGE07_5_FIRST_PERSON_SCENE_COMPOSITION_BIBLE_V2_1.md`
-20. `handoff/STAGE07_5_STYLE_GIR_V1_FIRST_PERSON_HAND_JOB_CARD.md`
+20. `handoff/STAGE07_5_STYLE_GIR_V1_HUMAN_MID_JOB_CARD.md`
 
 Technical conflicts are resolved by `docs/06_TECH_BLUEPRINT.md`.
 
 ---
 
-# 7. Governing identity / body laws
+# 8. Governing identity / derivation laws
 
 ```text
 P0 hero + Player identity           = HARD LOCK
@@ -197,8 +222,6 @@ P2 world structure + world light   = STRONG LOCK
 P3 incidental microvariation       = flexible
 ```
 
-Rules:
-
 # **Do not regenerate what can be derived from an approved master.**
 
 # **Functional anatomy is mandatory. Photographic surface realism is not.**
@@ -206,29 +229,6 @@ Rules:
 # **Choose proportions freely before approval; inherit them exactly after approval.**
 
 # **One active production slot at a time.**
-
-If a canonical character is 7.2 heads, all derivatives retain the same underlying 7.2 body. Perspective/foreshortening/pose/FOV/crop may alter apparent screen-space ratio only.
-
----
-
-# 8. Derivation rules
-
-```text
-same moment + same camera direction
-→ crop / zoom / pan
-
-coverage/resolution insufficient
-→ controlled outpaint / upscale
-
-materially different camera direction
-→ Angle Master from same world/topology/landmark/light
-
-actual action/world/body state change
-→ State Master derivative
-
-contact-heavy interlocked state
-→ Unified Contact derivative if separate layers break topology
-```
 
 ---
 
@@ -258,42 +258,3 @@ Do not start these until STYLE-GIR-V1 reaches current-policy 5/5.
 - `주먹도끼` is a representative example, not a synonym.
 - Official visual framing = **Korean Paleolithic Educational Composite / Element-level Provenance**.
 - `[H] Historical`, `[C] Comparative`, `[R] Reconstruction`, `[D] Deferred/non-diagnostic`.
-- Do not overclaim exact face/species/clothing/vegetation.
-
-Lower surface realism does not mean freer historical invention.
-
----
-
-# 11. Dev review truth
-
-```text
-?anchors=1
-?previsual=1
-?raster=1
-```
-
-`?anchors=1` must show:
-
-```text
-GIR-SURFACE-30 target = 30/100
-acceptance = 25–35
-STYLE-GIR-V1 = 1/5
-human-mid = approved reference
-first-person-hand = NEXT production target
-world = blocked by first-person-hand
-```
-
----
-
-# 12. Immediate execution rule
-
-When image production is requested:
-
-```text
-create exactly one first-person-hand r02 candidate
-→ condition on approved human-mid r05 style parent
-→ evaluate anatomy + contact + GIR-30 + extraction + history
-→ if fail: record reject and revise hand candidate
-→ if pass: approve/register first-person-hand.webp
-→ advance exactly one slot to world
-```

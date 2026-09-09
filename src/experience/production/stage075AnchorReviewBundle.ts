@@ -122,7 +122,6 @@ export const STAGE075_ANCHOR_REVIEW_BUNDLES: readonly Stage075AnchorReviewBundle
         ],
         ['SID-PHOTO', 'SID-LENS', 'SID-EDGE', 'SID-3D', 'SID-POSTER', 'SID-FANTASY', 'SID-CARTOON', 'SID-DETAIL'],
         'independent-exploration',
-        true,
       ),
       styleSlot(
         'first-person-hand',
