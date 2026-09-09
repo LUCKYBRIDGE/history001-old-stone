@@ -38,7 +38,7 @@ function pendingJob(
   return {
     ...STAGE075_HUMAN_MID_PRODUCTION_JOB,
     status: 'pending-production',
-    candidateRevision: 4,
+    candidateRevision: 6,
     candidateStagingPath: null,
     registeredApprovedPath: null,
     ownerDecision: 'pending',
@@ -76,7 +76,7 @@ function registeredStyleBundle(
 }
 
 describe('Stage 07.5 human-mid production job', () => {
-  it('reopens human-mid as r04 after the GIR-SURFACE-30 recalibration', () => {
+  it('registers GIR-SURFACE-30 r05 and advances the serial queue to first-person-hand', () => {
     expect(STAGE075_HUMAN_MID_PRODUCTION_JOB.jobId).toBe('GIR-HUMAN-MID-001');
     expect(STAGE075_HUMAN_MID_PRODUCTION_JOB.anchorId).toBe('STYLE-GIR-V1');
     expect(STAGE075_HUMAN_MID_PRODUCTION_JOB.slotId).toBe('human-mid');
@@ -84,17 +84,19 @@ describe('Stage 07.5 human-mid production job', () => {
     expect(STAGE075_HUMAN_MID_PRODUCTION_JOB.targetSurfaceRealism).toBe(30);
     expect(STAGE075_HUMAN_MID_PRODUCTION_JOB.acceptanceSurfaceRealismBand).toEqual([25, 35]);
     expect(STAGE075_HUMAN_MID_PRODUCTION_JOB.supersededRevision).toBe(3);
-    expect(STAGE075_HUMAN_MID_PRODUCTION_JOB.candidateRevision).toBe(4);
-    expect(STAGE075_HUMAN_MID_PRODUCTION_JOB.status).toBe('pending-production');
-    expect(STAGE075_HUMAN_MID_PRODUCTION_JOB.ownerDecision).toBe('pending');
-    expect(STAGE075_HUMAN_MID_PRODUCTION_JOB.registeredApprovedPath).toBeNull();
-    expect(areStage075HumanMidReviewChecksPassed(STAGE075_HUMAN_MID_PRODUCTION_JOB.reviewChecks)).toBe(false);
+    expect(STAGE075_HUMAN_MID_PRODUCTION_JOB.candidateRevision).toBe(5);
+    expect(STAGE075_HUMAN_MID_PRODUCTION_JOB.status).toBe('registered');
+    expect(STAGE075_HUMAN_MID_PRODUCTION_JOB.ownerDecision).toBe('approved');
+    expect(STAGE075_HUMAN_MID_PRODUCTION_JOB.registeredApprovedPath).toBe(
+      'public/assets/stage075/anchors/STYLE-GIR-V1/human-mid.webp',
+    );
+    expect(areStage075HumanMidReviewChecksPassed(STAGE075_HUMAN_MID_PRODUCTION_JOB.reviewChecks)).toBe(true);
     expect(getStage075HumanMidLifecycleIssues(STAGE075_HUMAN_MID_PRODUCTION_JOB)).toEqual([]);
-    expect(canStage075HumanMidUnlockNextSlot(STAGE075_HUMAN_MID_PRODUCTION_JOB)).toBe(false);
-    expect(isStage075HumanMidCurrentProductionTarget()).toBe(true);
+    expect(canStage075HumanMidUnlockNextSlot(STAGE075_HUMAN_MID_PRODUCTION_JOB)).toBe(true);
+    expect(isStage075HumanMidCurrentProductionTarget()).toBe(false);
     expect(getStage075NextGlobalProductionTarget()).toMatchObject({
       anchorId: 'STYLE-GIR-V1',
-      slotId: 'human-mid',
+      slotId: 'first-person-hand',
     });
   });
 
